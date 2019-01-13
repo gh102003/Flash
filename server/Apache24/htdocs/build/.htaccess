@@ -1,0 +1,12 @@
+RewriteEngine on
+RewriteBase /
+
+# Serve any files that exist
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule . - [END]
+
+# Regex - find last occurence of xxx.xxx
+RewriteRule (\w+\.\w+)(?!.*\.) /$1 [END]
+
+RewriteRule . /index.html [END]

@@ -1,0 +1,144 @@
+.flashcard:hover {
+    box-shadow: 0 0.2vw 10px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.flashcard:active {
+    position: relative;
+    box-shadow: none;
+    top: 0.2vw;
+}
+
+/* =============== Flashcard buttons =============== */
+
+.flashcard-button .material-icons {
+    font-size: 1.3vw;
+    color: black;
+}
+
+.flashcard-button {
+    position: absolute;
+    left: 0.5vw;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 0.4vw;
+    border-radius: 8vw;
+    opacity: 0;
+}
+
+.flashcard-button:nth-child(1) {
+    top: 0.5vw;
+}
+
+.flashcard-button:nth-child(2) {
+    top: 3vw;
+}
+
+@media only screen and (max-width: 1250px) {
+    .flashcard-button .material-icons {
+        font-size: 1.9vw;
+    }
+
+    .flashcard-button {
+        left: 0.6vw;
+        padding: 0.5vw;
+    }
+
+    .flashcard-button:nth-child(1) {
+        top: 0.6vw;
+    }
+    
+    .flashcard-button:nth-child(2) {
+        top: 3.9vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .flashcard-button .material-icons {
+        font-size: 2.3vw;
+    }
+
+    .flashcard-button {
+        left: 0.8vw;
+        padding: 0.7vw;
+    }
+
+    .flashcard-button:nth-child(1) {
+        top: 0.8vw;
+    }
+    
+    .flashcard-button:nth-child(2) {
+        top: 5vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .flashcard-button .material-icons {
+        font-size: 3.2vw;
+    }
+
+    .flashcard-button {
+        left: 1vw;
+        padding: 1vw;
+    }
+
+    .flashcard-button:nth-child(1) {
+        top: 1vw;
+    }
+    
+    .flashcard-button:nth-child(2) {
+        top: 7vw;
+    }
+}
+
+.card:hover .flashcard-button {
+    opacity: 0.3;
+    transition: opacity 80ms;
+}
+
+.card:hover .flashcard-button:hover {
+    opacity: 0.8;
+}
+
+/* =============== Special views, triggered by buttons =============== */
+.flashcard-modal {
+    width: 105vmin;
+    height: 60vmin;
+    padding: 5vmin;
+    font-size: 12vmin;
+    box-shadow: 0 0.2vmin 15px 0 rgba(0, 0, 0, 0.3);
+}
+
+.flashcard-modal:hover {
+    box-shadow: 0 0.4vmin 30px 0 rgba(0, 0, 0, 0.4);
+}
+
+.flashcard-modal:active {
+    box-shadow: none;
+    top: 0.4vmin;
+}
+
+.flashcard-modal .flashcard-button {
+    opacity: 0.3;
+    left: 2vmin;
+    top: 2vmin;
+    padding: 1vmin;
+}
+
+.flashcard-modal .material-icons {
+    font-size: 3.3vmin;
+}
+
+.modal-background {
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    /* Centering of modal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

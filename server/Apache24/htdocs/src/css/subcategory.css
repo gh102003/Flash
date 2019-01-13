@@ -1,0 +1,87 @@
+/* using pseudo-elements as a 'stack' */
+
+.subcategory {
+    font-family: "Patua One", Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: black;
+    position: relative;
+    top: -6px;
+    left: -6px;
+    overflow: visible;
+    transition: top 100ms, left 100ms;
+}
+
+.subcategory::before,
+.subcategory::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    border-radius: inherit;
+    box-shadow: inherit;
+    transition: inherit;
+}
+
+.subcategory::before {
+    left: 6px;
+    top: 6px;
+    z-index: -1;
+}
+
+.subcategory::after {
+    left: 12px;
+    top: 12px;
+    z-index: -2;
+}
+
+@media only screen and (max-width: 900px) {
+    .subcategory {
+        top: -4px;
+        left: -4px;
+    }
+
+    .subcategory::before {
+        left: 4px;
+        top: 4px;
+    }
+
+    .subcategory::after {
+        left: 8px;
+        top: 8px;
+    }
+}
+
+/* :hover effects */
+.subcategory:hover {
+    top: -9px;
+    left: -9px;
+    cursor: pointer;
+}
+
+.subcategory:hover::before {
+    top: 9px;
+    left: 9px;
+}
+
+.subcategory:hover::after {
+    top: 18px;
+    left: 18px;
+}
+
+@media only screen and (max-width: 900px) {
+    .subcategory:hover {
+        top: -6px;
+        left: -6px;
+    }
+
+    .subcategory:hover::before {
+        top: 6px;
+        left: 6px;
+    }
+
+    .subcategory:hover::after {
+        top: 12px;
+        left: 12px;
+    }
+}

@@ -1,0 +1,185 @@
+.add-card-button {
+    user-select: none;
+    background-color: crimson;
+    width: 5vw;
+    height: 5vw;
+    margin: 1vw auto;
+    text-align: center;
+    line-height: 5vw;
+    font-size: 3em;
+    color: white;
+    font-weight: bold;
+    border-radius: 2.5vw;
+    cursor: pointer;
+    box-shadow: 0 0.15vw 7px 0 rgba(0, 0, 0, 0.3);
+    position: relative; /* for absolute positioning of child */
+}
+
+.add-card-button:hover {
+    box-shadow: 0 0.3vw 14px 0 rgba(0, 0, 0, 0.6);
+}
+
+.add-card-button:active {
+    position: relative;
+    box-shadow: none;
+    top: 0.4vw;
+}
+
+.add-card-button .add-subcategory-button {
+    background-color: inherit;
+    line-height: initial;
+    font-size: 1rem;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    left: 4vw;
+    top: 20%;
+    height: 60%;
+    padding-right: 1vw;
+    border-radius: 0 1vw 1vw 0;
+    white-space: nowrap;
+
+    visibility: hidden;
+    width: 0;
+    color: transparent;
+}
+
+.add-card-button:hover .add-subcategory-button, .add-subcategory-button:hover {
+    visibility: visible;
+    width: 10vw;
+    color: white;
+    transition: width 300ms ease-out, color 100ms ease-out 200ms;
+}
+
+@media only screen and (max-width: 1250px) {
+    .add-card-button {
+        width: 6vw;
+        height: 6vw;
+        margin: 1.2vw auto;
+        line-height: 6vw;
+        border-radius: 3vw;
+        font-size: 2.5em;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .add-card-button {
+        width: 8vw;
+        height: 8vw;
+        margin: 1.6vw auto;
+        line-height: 8vw;
+        border-radius: 4vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .add-card-button {
+        width: 10vw;
+        height: 10vw;
+        margin: 2vw auto;
+        line-height: 10vw;
+        border-radius: 5vw;
+        font-size: 2em;
+    }
+}
+
+/* =============== Add card form =============== */
+
+.add-card-form {
+    position: sticky;
+    background-color: rgba(210, 210, 210, 0.8);
+    padding: 1.5vw 2vw;
+    border-radius: 1vw;
+    margin: 0 auto;
+    width: 35%;
+}
+
+@media only screen and (max-width: 1250px) {
+    .add-card-form {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .add-card-form {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .add-card-form {
+        width: 95%;
+    }
+}
+
+.add-card-form input {
+    border-radius: 0.7em;
+    background-color: #eee;
+    padding: 0.7em;
+}
+
+.add-card-form label {
+    display: block;
+    font-size: 1em;
+    margin: 0 0 1em 0;
+}
+
+.add-card-form>div {
+    margin: 0 auto;
+}
+
+.add-card-form input[type="checkbox"] {
+    font-size: 0.8em;
+    margin-right: 0.5em;
+    width: 0.9em;
+    height: 0.9em;
+    outline: none;
+    box-shadow: none;
+}
+
+.add-card-form input[type="text"] {
+    font-size: 0.8em;
+    margin-left: 1em;
+    border: none;
+    box-shadow: 0 0.05vw 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.add-card-form input[type="text"]:hover {
+    box-shadow: 0 0.1vw 4px 0 rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.add-card-form input[type="text"]:focus {
+    box-shadow: 0 0.15vw 6px 0 rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+.add-card-form input[type="submit"] {
+    background-color: crimson;
+    color: white;
+}
+
+.add-card-form input[type="submit"],
+.add-card-form input[type="button"] {
+    box-shadow: 0 0.1vw 4px 0 rgba(0, 0, 0, 0.2);
+    margin: 0 0.7vw 0 0;
+    border: none;
+    font-size: 1em;
+}
+
+.add-card-form input[type="submit"]:hover,
+.add-card-form input[type="submit"]:focus,
+.add-card-form input[type="button"]:hover,
+.add-card-form input[type="button"]:focus {
+    outline: none;
+    box-shadow: 0 0.2vw 8px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.add-card-form input[type="submit"]:active,
+.add-card-form input[type="button"]:active {
+    box-shadow: none;
+    position: relative;
+    top: 0.2vw;
+}

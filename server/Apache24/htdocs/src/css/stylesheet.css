@@ -1,0 +1,108 @@
+:root {
+    font-size: 1.3em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
+}
+
+body {
+    overflow: hidden;
+    margin: 0;
+}
+
+.card-display {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 0.5vw;
+}
+
+.card {
+    font-family: "Maven Pro", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    user-select: none;
+    margin: 1vw;
+    padding: 1vw;
+    height: 5vw;
+    /* line-height: 5vw; */
+    text-align: center;
+    border-radius: 1vw;
+    font-size: 1.5em;
+    overflow: hidden;
+    box-shadow: 0 0.1vw 5px 0 rgba(0, 0, 0, 0.25);
+    position: relative;
+    word-break: break-word;
+
+    /* Centering of text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1250px) {
+    .card-display {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .card {
+        height: 6.5vw;
+        font-size: 1.35em;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .card-display {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+        height: 9vw;
+        font-size: 1.2em;
+        border-radius: 2vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .card-display {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        height: 12vw;
+        font-size: 1.15em;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .card-display {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        height: 14vw;
+        font-size: 0.9em;
+        border-radius: 3vw;
+    }
+}
+
+/* =============== Transitions =============== */
+.category-enter {
+    transform: translateY(-40vw) scale(0.5);
+    opacity: 0;
+}
+
+/* Substitute for .category-enter-active, added in js to wait for data load */
+.category-loaded {
+    opacity: 1;
+    transform: none;
+    transition: all 500ms;
+}
+
+.category-exit {
+    transform: none;
+    opacity: 1;
+}
+
+.category-exit-active {
+    transform: translateY(60vw) scale(0.5);
+    opacity: 0;
+    transition: all 1000ms;
+}
