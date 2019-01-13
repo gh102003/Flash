@@ -3,9 +3,13 @@
 node_modules/
 
 # Built files
-htdocs/build/
-# !htdocs/build/.htaccess
+server/Apache24/htdocs/build/
+!htdocs/build/.htaccess
 
 # Python
 __pycache__/
 *.py[cod]
+
+server/Apache24/htdocs/build/index.html
+server/Apache24/htdocs/build/index_bundle.js
+server/Apache24/htdocs/build/favicon.png
