@@ -10,6 +10,7 @@ import "../css/stylesheet.css";
 import "../css/flashcard.css";
 import "../css/subcategory.css";
 import "../css/add-card.css";
+import { AddCardForm, AddCategoryForm } from "./addForms.jsx";
 
 class Page extends React.Component {
     constructor(props) {
@@ -22,19 +23,22 @@ class Page extends React.Component {
 
     render() {
         return (
-            <BrowserRouter>
-                <Route render={({ location }) => ( // Get location for transition
-                    <TransitionGroup>
-                        <CSSTransition key={location.key} classNames="category" timeout={1000}>
-                            <Switch location={location}>
-                                <Route path="*/category/:id" component={Category} />
-                                <Redirect from="/" to="/category/1" exact/>
-                            </Switch>
-                        </CSSTransition>
-                    </TransitionGroup>
-                )}>
-                </Route>
-            </BrowserRouter>
+            <div>
+                <h1 className="app-title">Flash</h1>
+                <BrowserRouter>
+                    <Route render={({ location }) => ( // Get location for transition
+                        <TransitionGroup>
+                            <CSSTransition key={location.key} classNames="category" timeout={1000}>
+                                <Switch location={location}>
+                                    <Route path="*/category/:id" component={Category} />
+                                    <Redirect from="/" to="/category/1" exact />
+                                </Switch>
+                            </CSSTransition>
+                        </TransitionGroup>
+                    )}>
+                    </Route>
+                </BrowserRouter>
+            </div>
         );
     }
 }
@@ -73,12 +77,12 @@ class Category extends React.Component {
         });
     }
 
-    afterAddCardFormSubmit() {
+    afterAddFormSubmit() {
         this.setState({ currentForm: null });
         this.getFromServer(this.props.match.params.id);
     }
 
-    _renderCards() {
+    _renderFlashcards() {
         let flashcardElements = [];
 
         if (this.state.flashcards != null) {
@@ -123,17 +127,27 @@ class Category extends React.Component {
     render() {
         let addElement;
         if (this.state.currentForm === "addCard") {
-            addElement = <AddCardForm
-                afterSubmit={() => this.afterAddCardFormSubmit()}
-                handleCancel={() => this.setState({ currentForm: null })}
-                categoryId={this.props.match.params.id}>
-            </AddCardForm>;
+            addElement = (
+                <AddCardForm
+                    afterSubmit={() => this.afterAddFormSubmit()}
+                    handleCancel={() => this.setState({ currentForm: null })}
+                    categoryId={this.props.match.params.id}>
+                </AddCardForm>
+            );
+        } else if (this.state.currentForm === "addCategory") {
+            addElement = (
+                <AddCategoryForm
+                    afterSubmit={() => this.afterAddFormSubmit()}
+                    handleCancel={() => this.setState({ currentForm: null })}
+                    parentId={this.props.match.params.id}>
+                </AddCategoryForm>
+            );
         } else {
-            addElement = <AddButton handleClick={() => this.setState({ currentForm: "addCard" })} />;
+            addElement = <AddButton handleClick={(nextForm) => this.setState({ currentForm: nextForm })} />;
         }
         return (
             <div className={this.state.loadedData ? "category-loaded" : ""} >
-                <div className="card-display">{this._renderSubcategories()}{this._renderCards()}</div>
+                <div className="card-display">{this._renderSubcategories()}{this._renderFlashcards()}</div>
                 {addElement}
             </div>
         );
@@ -236,68 +250,16 @@ class AddButton extends React.Component {
 
     render() {
         return (
-            <div className="add-card-button" onClick={this.props.handleClick}>
-                +
-                <div className="add-subcategory-button">
-                    Add Category
+            <div className="add-wrapper">
+                <div className="add-card-button" onClick={() => this.props.handleClick("addCard")}>
+                    +
+                </div>
+                <div className="add-subcategory-button-wrapper">
+                    <div className="add-subcategory-button" onClick={() => this.props.handleClick("addCategory")}>
+                        Add Category
+                    </div>
                 </div>
             </div>
-        );
-    }
-}
-
-class AddCardForm extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { front: "", back: "", isReversible: false };
-    }
-
-    _handleChange(event) {
-        let key = event.target.name;
-        let value;
-        if (event.target.type === "checkbox") {
-            value = event.target.checked;
-        } else {
-            value = event.target.value;
-        }
-        this.setState({ [key]: value });
-    }
-
-    _handleSubmit(event) {
-        let formData = new FormData(document.getElementById("add-card-form"));
-        formData.set("categoryId", this.props.categoryId);
-        fetch("/cgi-bin/add_flashcard.py", {
-            method: "POST",
-            cache: "no-cache",
-            body: formData
-        }).then(() => {
-            this.props.afterSubmit();
-        });
-
-        event.preventDefault();
-    }
-
-    render() {
-        return (
-            <form className="add-card-form" id="add-card-form" onSubmit={(e) => this._handleSubmit(e)}>
-                <label>
-                    Front:
-                    <input name="front" type="text" value={this.state.front} onChange={(e) => this._handleChange(e)} />
-                </label>
-                <label>
-                    Back:
-                    <input name="back" type="text" value={this.state.back} onChange={(e) => this._handleChange(e)} />
-                </label>
-                <label>
-                    <input type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this._handleChange(e)} />
-                    Reversible
-                </label>
-                <div>
-                    <input type="submit" value="Add flashcard" />
-                    <input type="button" value="Cancel" onClick={this.props.handleCancel} ></input>
-                </div>
-            </form>
         );
     }
 }

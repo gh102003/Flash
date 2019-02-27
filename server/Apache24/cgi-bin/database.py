@@ -14,7 +14,6 @@ class Flashcard():
 
 class Category():
     def __init__(self, name: str, colour: int, parent_id: int):
-        # self.id = id
         self.name = name
         self.colour = colour
         self.parent_id = parent_id
@@ -27,10 +26,17 @@ def add_flashcard(flashcard):
         connection.commit()
 
 
+def add_category(category):
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute("INSERT INTO categories VALUES (?, ?, ?)", (category.name, category.colour, category.parent_id))
+        connection.commit()
+
+
 def get_flashcard(flashcard_id):
     with sqlite3.connect(database_path) as connection:
         cursor = connection.cursor()
-        cursor.execute("SELECT rowid, * FROM flashcards WHERE rowid=?", str(flashcard_id))
+        cursor.execute("SELECT rowid, * FROM flashcards WHERE rowid=?", [str(flashcard_id), ])
         flashcard = cursor.fetchone()
     if flashcard is not None:
         f = Flashcard(*flashcard[1:])
@@ -41,7 +47,7 @@ def get_flashcard(flashcard_id):
 def get_flashcards_in_category(category_id):
     with sqlite3.connect(database_path) as connection:
         cursor = connection.cursor()
-        cursor.execute("SELECT rowid, * FROM flashcards WHERE categoryId=?", str(category_id))
+        cursor.execute("SELECT rowid, * FROM flashcards WHERE categoryId=?", [str(category_id), ])
         flashcard_tuples = cursor.fetchall()
     # Convert tuples to Flashcards
     flashcards = []
@@ -55,7 +61,7 @@ def get_flashcards_in_category(category_id):
 def get_subcategories(parent_category_id):
     with sqlite3.connect(database_path) as connection:
         cursor = connection.cursor()
-        cursor.execute("SELECT rowid, * FROM categories WHERE parentId=?", str(parent_category_id))
+        cursor.execute("SELECT rowid, * FROM categories WHERE parentId=?", [str(parent_category_id), ])
         category_tuples = cursor.fetchall()
     # Convert tuples to Categories
     categories = []
@@ -69,7 +75,7 @@ def get_subcategories(parent_category_id):
 def get_category(category_id):
     with sqlite3.connect(database_path) as connection:
         cursor = connection.cursor()
-        cursor.execute("SELECT rowid, * FROM categories WHERE rowid=?", str(category_id))
+        cursor.execute("SELECT rowid, * FROM categories WHERE rowid=?", [str(category_id), ])
         category = cursor.fetchone()
     if category is not None:
         c = Category(*category[1:])

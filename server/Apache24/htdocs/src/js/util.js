@@ -11,6 +11,10 @@ export function colourFromInteger(integer) {
     return "#" + integer.toString(16).padStart(6, "0");
 }
 
+export function colourToInteger(colour) {
+    return parseInt(colour.substring(1), 16);
+}
+
 // Black or white, depending on the darkness of the colour
 export function contrastingColourFromInteger(backgroundColor) {
     let red = backgroundColor >>> 16; // Shift bits right
@@ -19,7 +23,7 @@ export function contrastingColourFromInteger(backgroundColor) {
 
     let luma = (0.21 * red) + (0.71 * green) + (0.08 * blue); // Measure of percieved lightness, out of 255
 
-    if ((luma / 255) < 0.2) {
+    if ((luma / 255) < 0.4) {
         return "#FFFFFF";
     } else {
         return "#000000";

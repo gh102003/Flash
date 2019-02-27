@@ -1,18 +1,16 @@
 :root {
     font-size: 1.3em;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    
+    font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
-    overflow: hidden;
     margin: 0;
 }
 
 .card-display {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    margin: 0.5vw;
+    margin: calc(3em + 3.2vw) 0.5vw 0 0.5vw;
 }
 
 .card {
@@ -22,7 +20,6 @@ body {
     margin: 1vw;
     padding: 1vw;
     height: 5vw;
-    /* line-height: 5vw; */
     text-align: center;
     border-radius: 1vw;
     font-size: 1.5em;
@@ -81,6 +78,19 @@ body {
         font-size: 0.9em;
         border-radius: 3vw;
     }
+}
+
+.app-title {
+    font-size: 3em;
+    margin: 0;
+    padding: 0.8vw 1.5vw;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: crimson;
+    color: white;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* =============== Transitions =============== */

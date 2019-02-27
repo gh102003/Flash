@@ -1,9 +1,6 @@
 .add-card-button {
-    user-select: none;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: crimson;
-    width: 5vw;
-    height: 5vw;
-    margin: 1vw auto;
     text-align: center;
     line-height: 5vw;
     font-size: 3em;
@@ -11,12 +8,13 @@
     font-weight: bold;
     border-radius: 2.5vw;
     cursor: pointer;
-    box-shadow: 0 0.15vw 7px 0 rgba(0, 0, 0, 0.3);
-    position: relative; /* for absolute positioning of child */
+    box-shadow: 0 0.2vw 8px 0 rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    position: relative;
 }
 
 .add-card-button:hover {
-    box-shadow: 0 0.3vw 14px 0 rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0.35vw 15px 0 rgba(0, 0, 0, 0.7);
 }
 
 .add-card-button:active {
@@ -25,111 +23,223 @@
     top: 0.4vw;
 }
 
-.add-card-button .add-subcategory-button {
-    background-color: inherit;
-    line-height: initial;
-    font-size: 1rem;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    left: 4vw;
-    top: 20%;
-    height: 60%;
-    padding-right: 1vw;
-    border-radius: 0 1vw 1vw 0;
-    white-space: nowrap;
-
-    visibility: hidden;
-    width: 0;
-    color: transparent;
+.add-wrapper {
+    user-select: none;
+    width: 5vw;
+    height: 5vw;
+    position: fixed;
+    left: 2vw;
+    bottom: 2vw;
 }
 
-.add-card-button:hover .add-subcategory-button, .add-subcategory-button:hover {
-    visibility: visible;
-    width: 10vw;
+.add-subcategory-button-wrapper {
+    /* Used to center child */
+    display: flex;
+    align-items: center;
+    z-index: 0;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+}
+
+.add-subcategory-button {
+    background-color: rgb(160, 15, 44);
     color: white;
-    transition: width 300ms ease-out, color 100ms ease-out 200ms;
+    white-space: nowrap;
+    border-radius: 0.8vw;
+    cursor: pointer;
+    box-shadow: 0 0.2vw 6px 0 rgba(0, 0, 0, 0.45);
+
+    padding: 0.6vw 0vw;
+    width: 0;
+    overflow: hidden;
+    transition: width 500ms, padding 500ms;
+}
+
+.add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+.add-subcategory-button:hover {
+    width: 100%;
+    /* Extra left padding to appear further from .add-button */
+    padding: 0.6vw 0.6vw 0.6vw 3.2vw;
+}
+
+.add-subcategory-button:hover {
+    box-shadow: 0 0.35vw 11px 0 rgba(0, 0, 0, 0.55);
+}
+
+.add-subcategory-button:active {
+    position: relative;
+    top: 0.14vw;
+    box-shadow: none;
 }
 
 @media only screen and (max-width: 1250px) {
     .add-card-button {
-        width: 6vw;
-        height: 6vw;
-        margin: 1.2vw auto;
         line-height: 6vw;
         border-radius: 3vw;
         font-size: 2.5em;
+    }
+
+    .add-wrapper {
+        width: 6vw;
+        height: 6vw;
+        left: 2.4vw;
+        bottom: 2.4vw;
+    }
+
+    .add-subcategory-button {
+        border-radius: 1vw;
+        padding: 0.7vw 0vw;
+        font-size: 0.95em;
+    }
+
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+    .add-subcategory-button:hover {
+        padding: 0.7vw 0.7vw 0.7vw 3.8vw;
     }
 }
 
 @media only screen and (max-width: 900px) {
     .add-card-button {
-        width: 8vw;
-        height: 8vw;
-        margin: 1.6vw auto;
         line-height: 8vw;
         border-radius: 4vw;
+    }
+
+    .add-wrapper {
+        width: 8vw;
+        height: 8vw;
+        left: 3vw;
+        bottom: 3vw;
+    }
+
+    .add-subcategory-button {
+        border-radius: 1.2vw;
+        padding: 1vw 0vw;
+        font-size: 0.9em;
+    }
+
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+    .add-subcategory-button:hover {
+        padding: 1vw 1vw 1vw 5vw;
     }
 }
 
 @media only screen and (max-width: 600px) {
     .add-card-button {
-        width: 10vw;
-        height: 10vw;
-        margin: 2vw auto;
-        line-height: 10vw;
-        border-radius: 5vw;
-        font-size: 2em;
+        line-height: 12vw;
+        border-radius: 6vw;
+        font-size: 2.2em;
+    }
+
+    .add-wrapper {
+        width: 12vw;
+        height: 12vw;
+        left: 4.2vw;
+        bottom: 4.2vw;
+    }
+
+    .add-subcategory-button {
+        border-radius: 1.4vw;
+        padding: 1.2vw 0vw;
+    }
+
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+    .add-subcategory-button:hover {
+        padding: 1.2vw 1.2vw 1.2vw 8vw;
     }
 }
 
-/* =============== Add card form =============== */
+@media only screen and (max-width: 400px) {
+    .add-card-button {
+        line-height: 15vw;
+        border-radius: 7.5vw;
+        font-size: 2.5em;
+    }
 
-.add-card-form {
-    position: sticky;
-    background-color: rgba(210, 210, 210, 0.8);
+    .add-wrapper {
+        width: 15vw;
+        height: 15vw;
+        left: 5vw;
+        bottom: 5vw;
+    }
+
+    .add-subcategory-button {
+        border-radius: 1.7vw;
+        padding: 1.5vw 0vw;
+    }
+
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+    .add-subcategory-button:hover {
+        padding: 1.5vw 1.5vw 1.5vw 10vw;
+    }
+}
+
+/* =============== Add forms =============== */
+
+.add-form {
+    position: fixed;
+    background-color: #e0e0e0;
     padding: 1.5vw 2vw;
-    border-radius: 1vw;
+    border-radius: 0.9em;
     margin: 0 auto;
     width: 35%;
 }
 
 @media only screen and (max-width: 1250px) {
-    .add-card-form {
+    .add-form {
         width: 50%;
     }
 }
 
 @media only screen and (max-width: 900px) {
-    .add-card-form {
+    .add-form {
         width: 70%;
+        padding: 3vw 4vw;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .add-card-form {
-        width: 95%;
+    .add-form {
+        width: 85%;
     }
 }
 
-.add-card-form input {
+.add-form input {
     border-radius: 0.7em;
     background-color: #eee;
     padding: 0.7em;
 }
 
-.add-card-form label {
+.add-form label {
     display: block;
     font-size: 1em;
     margin: 0 0 1em 0;
 }
 
-.add-card-form>div {
+.add-form>div.controls {
     margin: 0 auto;
 }
 
-.add-card-form input[type="checkbox"] {
+.add-form .colour-picker {
+    margin: 0 0 1em 0;
+    display: inline-block;
+}
+
+.add-form .colour-picker > * {
+    box-shadow: 0 0.05vw 4px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.add-form .colour-picker .block-picker {
+    width: 202px !important;
+}
+
+.add-form .colour-picker > div:hover {
+    box-shadow: 0 0.1vw 7px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+.add-form input[type="checkbox"] {
     font-size: 0.8em;
     margin-right: 0.5em;
     width: 0.9em;
@@ -138,47 +248,48 @@
     box-shadow: none;
 }
 
-.add-card-form input[type="text"] {
+.add-form input[type="text"] {
     font-size: 0.8em;
     margin-left: 1em;
     border: none;
     box-shadow: 0 0.05vw 2px 0 rgba(0, 0, 0, 0.1);
 }
 
-.add-card-form input[type="text"]:hover {
+.add-form input[type="text"]:hover {
     box-shadow: 0 0.1vw 4px 0 rgba(0, 0, 0, 0.2);
     outline: none;
 }
 
-.add-card-form input[type="text"]:focus {
+.add-form input[type="text"]:focus {
     box-shadow: 0 0.15vw 6px 0 rgba(0, 0, 0, 0.3);
     outline: none;
 }
 
-.add-card-form input[type="submit"] {
+.add-form input[type="submit"] {
     background-color: crimson;
     color: white;
 }
 
-.add-card-form input[type="submit"],
-.add-card-form input[type="button"] {
+.add-form input[type="submit"],
+.add-form input[type="button"] {
     box-shadow: 0 0.1vw 4px 0 rgba(0, 0, 0, 0.2);
     margin: 0 0.7vw 0 0;
     border: none;
     font-size: 1em;
+    font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.add-card-form input[type="submit"]:hover,
-.add-card-form input[type="submit"]:focus,
-.add-card-form input[type="button"]:hover,
-.add-card-form input[type="button"]:focus {
+.add-form input[type="submit"]:hover,
+.add-form input[type="submit"]:focus,
+.add-form input[type="button"]:hover,
+.add-form input[type="button"]:focus {
     outline: none;
     box-shadow: 0 0.2vw 8px 0 rgba(0, 0, 0, 0.4);
     cursor: pointer;
 }
 
-.add-card-form input[type="submit"]:active,
-.add-card-form input[type="button"]:active {
+.add-form input[type="submit"]:active,
+.add-form input[type="button"]:active {
     box-shadow: none;
     position: relative;
     top: 0.2vw;
