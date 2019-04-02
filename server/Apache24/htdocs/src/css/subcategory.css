@@ -52,35 +52,35 @@
     }
 }
 
-/* :hover effects */
-.subcategory:hover {
+/* hover effects */
+.subcategory:hover, .subcategory.dnd-hover {
     top: -9px;
     left: -9px;
     cursor: pointer;
 }
 
-.subcategory:hover::before {
+.subcategory:hover::before, .subcategory.dnd-hover::before {
     top: 9px;
     left: 9px;
 }
 
-.subcategory:hover::after {
+.subcategory:hover::after, .subcategory.dnd-hover::after {
     top: 18px;
     left: 18px;
 }
 
 @media only screen and (max-width: 900px) {
-    .subcategory:hover {
+    .subcategory:hover, .subcategory.dnd-hover {
         top: -6px;
         left: -6px;
     }
 
-    .subcategory:hover::before {
+    .subcategory:hover::before, .subcategory.dnd-hover::before {
         top: 6px;
         left: 6px;
     }
 
-    .subcategory:hover::after {
+    .subcategory:hover::after, .subcategory.dnd-hover::after {
         top: 12px;
         left: 12px;
     }

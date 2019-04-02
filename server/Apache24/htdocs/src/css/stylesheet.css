@@ -3,15 +3,81 @@
     font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+i.material-icons {
+    user-select: none;
+}
+
 body {
     margin: 0;
     overflow-y: scroll;
 }
 
+@keyframes modal-background-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-in {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.modal-background {
+    animation: modal-background-in 300ms forwards;
+    background-color: rgba(0, 0, 0, 0.75);
+    
+    z-index: 200;
+    top: 0;
+    left: 0;
+    position: fixed;
+    min-width: 100vw;
+    min-height: 100vh;
+
+    /* Centering of modal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-background > * {
+    animation: modal-in 400ms 150ms both;
+    box-shadow: 0 0.2vmin 12px 0 rgba(0, 0, 0, 0.5);
+}
+
 .card-display {
+    margin: calc(3em + 3.2vw) 0.5vw 0 0.5vw;
+}
+
+.category-loaded .card-display {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     margin: calc(3em + 3.2vw) 0.5vw 0 0.5vw;
+}
+
+@keyframes loading-indicator-in {
+    0% {
+        opacity: 0;
+    }
+    60% {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.category-loading .loading-indicator {
+    animation: loading-indicator-in 2s forwards;
+    font-size: 2vw;
+    margin-left: 1vw;
 }
 
 .card {
@@ -36,7 +102,7 @@ body {
 }
 
 @media only screen and (max-width: 1250px) {
-    .card-display {
+    .category-loaded .card-display {
         grid-template-columns: repeat(4, 1fr);
     }
 
@@ -47,7 +113,7 @@ body {
 }
 
 @media only screen and (max-width: 900px) {
-    .card-display {
+    .category-loaded .card-display {
         grid-template-columns: repeat(3, 1fr);
     }
 
@@ -59,7 +125,7 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-    .card-display {
+    .category-loaded .card-display {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -70,7 +136,7 @@ body {
 }
 
 @media only screen and (max-width: 400px) {
-    .card-display {
+    .category-loaded .card-display {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -81,40 +147,42 @@ body {
     }
 }
 
-.app-title {
-    font-size: 3em;
+.header {
     margin: 0;
-    padding: 0.8vw 1.5vw;
-    position: fixed;
+    left: 0;
+    right: 0;
     top: 0;
-    width: 100%;
     z-index: 100;
-    background-color: crimson;
     color: white;
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.3);
+    background-color: crimson;
+    position: fixed;
     user-select: none;
+    padding: 0.8vw 1.5vw;
+    
+    display: grid;
+    grid-template-columns: auto min-content;
+    align-items: center;
 }
 
-/* =============== Transitions =============== */
-.category-enter {
-    transform: translateY(-40vw) scale(0.5);
-    opacity: 0;
+.header h1 {
+    margin: 0;
+    font-size: 3.1em;
 }
 
-/* Substitute for .category-enter-active, added in js to wait for data load */
-.category-loaded {
-    opacity: 1;
-    transform: none;
-    transition: all 500ms;
+.header i {
+    grid-column: -2 / -1;
+    font-size: 1.9em;
+    cursor: pointer;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.category-exit {
-    transform: none;
-    opacity: 1;
+.header i:hover {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
-.category-exit-active {
-    transform: translateY(60vw) scale(0.5);
-    opacity: 0;
-    transition: all 1000ms;
+.header i:active {
+    position: relative;
+    top: 2px;
+    text-shadow: none;
 }

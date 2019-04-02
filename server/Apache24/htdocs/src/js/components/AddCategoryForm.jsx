@@ -5,7 +5,29 @@ import * as util from "../util";
 export class AddCategoryForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { name: "", colour: "#FF0000" };
+        
+        this._colors = [
+            "#D8B086",
+            "#eccc68",
+            "#ffa502",
+            "#ff7f50",
+            "#ff6348",
+            "#ff4757",
+            "#ff6b81",
+            "#C359B5",
+            "#7C5CBC",
+            "#7bed9f",
+            "#2ed573",
+            "#619B8A",
+            "#5352ed",
+            "#1e90ff",
+            "#dfe4ea",
+            "#a4b0be",
+            "#57606f",
+            "#2f3542"
+        ];
+
+        this.state = { name: "", colour: this._colors[0] };
     }
     _handleChange(event) {
         let key = event.target.name;
@@ -33,26 +55,12 @@ export class AddCategoryForm extends React.Component {
                     <input name="name" type="text" value={this.state.name} onChange={(e) => this._handleChange(e)} />
                 </label>
                 <div className="colour-picker">
-                    <BlockPicker triangle="hide" color={this.state.colour} colors={[
-                        "#D8B086",
-                        "#eccc68",
-                        "#ffa502",
-                        "#ff7f50",
-                        "#ff6348",
-                        "#ff4757",
-                        "#ff6b81",
-                        "#C359B5",
-                        "#7C5CBC",
-                        "#7bed9f",
-                        "#2ed573",
-                        "#619B8A",
-                        "#5352ed",
-                        "#1e90ff",
-                        "#dfe4ea",
-                        "#a4b0be",
-                        "#57606f",
-                        "#2f3542"
-                    ]} onChangeComplete={(color) => this.setState({ colour: color.hex })} />
+                    <BlockPicker 
+                        triangle="hide" 
+                        color={this.state.colour} 
+                        colors={this._colors} 
+                        onChangeComplete={(color) => this.setState({ colour: color.hex })} 
+                    />
                 </div>
                 <div className="controls">
                     <input type="submit" value="Add category" />

@@ -81,3 +81,24 @@ def get_category(category_id):
         c = Category(*category[1:])
         c.id = category[0]
         return c
+
+
+def edit_flashcard_front(flashcard_id, front):
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute("UPDATE flashcards SET front=? WHERE rowid=?", (front, flashcard_id))
+        connection.commit()
+
+
+def edit_flashcard_back(flashcard_id, back):
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute("UPDATE flashcards SET back=? WHERE rowid=?", (back, flashcard_id))
+        connection.commit()
+
+
+def move_flashcard(flashcard_id, category_id):
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute("UPDATE flashcards SET categoryId=? WHERE rowid=?", (category_id, flashcard_id))
+        connection.commit()

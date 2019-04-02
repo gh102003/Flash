@@ -1,9 +1,13 @@
-.flashcard:hover {
+.flashcard {
+    transition: opacity 200ms;
+}
+
+.flashcard-normal:hover, .flashcard-modal:hover {
     box-shadow: 0 0.2vw 10px 0 rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
-.flashcard:active {
+.flashcard-normal:active {
     position: relative;
     box-shadow: none;
     top: 0.2vw;
@@ -23,6 +27,8 @@
     padding: 0.4vw;
     border-radius: 8vw;
     opacity: 0;
+    transition: opacity 100ms;
+    cursor: pointer;
 }
 
 .flashcard-button:nth-child(1) {
@@ -90,9 +96,8 @@
     }
 }
 
-.card:hover .flashcard-button {
+.card:hover .flashcard-button, .flashcard-edit .flashcard-button {
     opacity: 0.3;
-    transition: opacity 80ms;
 }
 
 .card:hover .flashcard-button:hover {
@@ -101,19 +106,14 @@
 
 /* =============== Special views, triggered by buttons =============== */
 .flashcard-modal {
-    width: 105vmin;
-    height: 60vmin;
+    width: 87vmin;
+    height: 55vmin;
     padding: 5vmin;
-    font-size: 12vmin;
-    box-shadow: 0 0.2vmin 15px 0 rgba(0, 0, 0, 0.3);
+    font-size: 11vmin;
 }
 
 .flashcard-modal:hover {
-    box-shadow: 0 0.4vmin 30px 0 rgba(0, 0, 0, 0.4);
-}
-
-.flashcard-modal:active {
-    top: 0;
+    box-shadow: 0 0.4vmin 20px 0 rgba(0, 0, 0, 0.6);
 }
 
 .flashcard-modal .flashcard-button {
@@ -127,17 +127,30 @@
     font-size: 3.3vmin;
 }
 
-.modal-background {
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 2;
-    top: 0;
-    left: 0;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+.flashcard-edit input {
+    font-family: inherit;
+    font-size: inherit;
+    background: none;
+    padding: 3px;
+    text-align: center;
+    width: 80%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
 
-    /* Centering of modal */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.flashcard-edit input:focus {
+    outline: none;
+}
+
+.card span {
+    max-width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+/* =============== Drag and drop =============== */
+.flashcard.flashcard-dragging {
+    opacity: 0.6;
+    transition: opacity 600ms;
 }

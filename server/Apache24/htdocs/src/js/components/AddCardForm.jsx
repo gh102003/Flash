@@ -18,7 +18,6 @@ export class AddCardForm extends React.Component {
     }
     _handleSubmit(event) {
         let formData = new FormData(document.getElementById("add-card-form"));
-        console.log(this.props.categoryId);
         formData.set("categoryId", this.props.categoryId);
         fetch("/cgi-bin/add_flashcard.py", {
             method: "POST",
