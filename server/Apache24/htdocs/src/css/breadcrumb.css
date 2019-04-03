@@ -1,0 +1,12 @@
+.breadcrumb {
+    color: black;
+    margin: calc(3em + 3.2vw) 0.5vw 0 0.5vw;
+}
+
+.breadcrumb-category {
+    display: inline-block;
+    border-radius: 0.5vw;
+    padding: 0.5em;
+    margin:  0.1em 0.4em;
+    background-color: rgba(0, 0, 0, 0.15)
+}

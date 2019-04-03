@@ -52,14 +52,9 @@ body {
     box-shadow: 0 0.2vmin 12px 0 rgba(0, 0, 0, 0.5);
 }
 
-.card-display {
-    margin: calc(3em + 3.2vw) 0.5vw 0 0.5vw;
-}
-
 .category-loaded .card-display {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    margin: calc(3em + 3.2vw) 0.5vw 0 0.5vw;
 }
 
 @keyframes loading-indicator-in {

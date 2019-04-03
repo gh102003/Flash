@@ -47,7 +47,7 @@ export class Flashcard extends React.Component {
         }
         else if (this.state.view === "modal") {
             return (
-                <React.Fragment>
+                <> {/* Shorthand for React.Fragment */}
                     <FlashcardModal
                         text={text}
                         styles={styles}
@@ -58,7 +58,7 @@ export class Flashcard extends React.Component {
                         text={text}
                         styles={styles}
                     />
-                </React.Fragment>
+                </>
             );
         }
         else {

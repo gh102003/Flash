@@ -2,10 +2,11 @@ import React from "react";
 
 import * as util from "../util";
 import { Flashcard } from "./flashcard/Flashcard.jsx";
-import { Subcategory, SubcategoryDropTarget } from "./Subcategory.jsx";
+import { SubcategoryDropTarget } from "./Subcategory.jsx";
 import { AddCardForm } from "./AddCardForm.jsx";
 import { AddCategoryForm } from "./AddCategoryForm.jsx";
 import { AddButton } from "./AddButton.jsx";
+import { Breadcrumb } from "./Breadcrumb.jsx";
 
 export class Category extends React.Component {
 
@@ -140,14 +141,23 @@ export class Category extends React.Component {
 
     render() {
         return (
-            <div className={"category " + (this.state.loadedData ? "category-loaded" : "category-loading")} >
-                <div className="card-display">
-                    {this.state.loadedData ? this._renderSubcategories() : <div className="loading-indicator">Loading...</div>}
-                    {this.state.loadedData && this._renderFlashcards()}
+            <> {/* Shorthand for React.Fragment */}
+                <Breadcrumb categoryId={this.props.match.params.id}/>
+                <div className={"category " + (this.state.loadedData ? "category-loaded" : "category-loading")} >
+                    <div className="card-display">
+                        {
+                            this.state.loadedData ? 
+                                <>
+                                    {this._renderSubcategories()}
+                                    {this._renderFlashcards()}
+                                </> 
+                                : <div className="loading-indicator">Loading...</div>
+                        }
+                    </div>
+                    {this._renderAddElement()}
+                    <AddButton handleClick={(nextForm) => this.setState({ currentForm: nextForm })} />
                 </div>
-                {this._renderAddElement()}
-                <AddButton handleClick={(nextForm) => this.setState({ currentForm: nextForm })} />
-            </div>
+            </>
         );
     }
 }
