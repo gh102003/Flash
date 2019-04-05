@@ -52,9 +52,24 @@ body {
     box-shadow: 0 0.2vmin 12px 0 rgba(0, 0, 0, 0.5);
 }
 
+@keyframes card-display-in {
+    from {
+        transform: translateY(15vw) scale(0.6);
+        opacity: 0;
+    }
+    30% {
+        opacity: 0.5;
+    }
+    to {
+        transform: none;
+        opacity: 1;
+    }
+}
+
 .category-loaded .card-display {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    animation: card-display-in 600ms both;
 }
 
 @keyframes loading-indicator-in {
@@ -70,9 +85,10 @@ body {
 }
 
 .category-loading .loading-indicator {
-    animation: loading-indicator-in 2s forwards;
+    animation: loading-indicator-in 1700ms forwards;
     font-size: 2vw;
     margin-left: 1vw;
+    margin: 1vw 1.5em;
 }
 
 .card {

@@ -6,7 +6,7 @@ import { SubcategoryDropTarget } from "./Subcategory.jsx";
 import { AddCardForm } from "./AddCardForm.jsx";
 import { AddCategoryForm } from "./AddCategoryForm.jsx";
 import { AddButton } from "./AddButton.jsx";
-import { Breadcrumb } from "./Breadcrumb.jsx";
+import { Breadcrumb } from "./breadcrumb/Breadcrumb.jsx";
 
 export class Category extends React.Component {
 
@@ -71,6 +71,11 @@ export class Category extends React.Component {
     }
 
     handleFlashcardMove(flashcardId, newCategoryId) {
+        // If same category, do nothing
+        if (this.state.flashcards.filter((flashcard) => flashcard.id == flashcardId)[0].category_id === newCategoryId) {
+            return;
+        }
+
         // Send move to server
         let formData = new FormData();
         formData.set("flashcardId", flashcardId);
@@ -142,7 +147,10 @@ export class Category extends React.Component {
     render() {
         return (
             <> {/* Shorthand for React.Fragment */}
-                <Breadcrumb categoryId={this.props.match.params.id}/>
+                <Breadcrumb
+                    categoryId={this.props.match.params.id} 
+                    handleFlashcardDrop={(flashcardId, newCategoryId) => this.handleFlashcardMove(flashcardId, newCategoryId)}
+                />
                 <div className={"category " + (this.state.loadedData ? "category-loaded" : "category-loading")} >
                     <div className="card-display">
                         {

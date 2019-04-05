@@ -1,12 +1,31 @@
 .breadcrumb {
     color: black;
-    margin: calc(3em + 3.2vw) 0.5vw 0 0.5vw;
+    margin-top: calc(3.4em + 3vw);
 }
 
 .breadcrumb-category {
     display: inline-block;
-    border-radius: 0.5vw;
-    padding: 0.5em;
-    margin:  0.1em 0.4em;
-    background-color: rgba(0, 0, 0, 0.15)
+    border-radius: 0 5vw 5vw 0;
+    padding: 0.5em 0.8em 0.5em 1.6em; /* Compensate for rounded corners */
+    margin-right: -1em; /* Overlap */
+    background-color: #DFDFDF;
+    box-shadow: 0.13em 0 4px -1px rgba(0, 0, 0, 0.3);
+    position: relative;
+    user-select: none;
+
+    /* Override <Link> anchor styling */
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.breadcrumb-category:hover, .breadcrumb-category.dnd-hover {
+    background-color: #CFCFCF;
+}
+
+.breadcrumb-category:active {
+    background-color: #BBB;
+}
+
+.breadcrumb-category:first-child {
+    padding-left: 1.5vw;
 }
