@@ -52,7 +52,7 @@ export class AddCategoryForm extends React.Component {
             <form className="add-category-form add-form" id="add-category-form" onSubmit={(e) => this._handleSubmit(e)}>
                 <label>
                     Name:
-                    <input name="name" type="text" value={this.state.name} onChange={(e) => this._handleChange(e)} />
+                    <input autoFocus name="name" type="text" value={this.state.name} onChange={(e) => this._handleChange(e)} />
                 </label>
                 <div className="colour-picker">
                     <BlockPicker 

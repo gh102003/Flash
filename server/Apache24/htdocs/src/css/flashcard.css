@@ -27,7 +27,7 @@
     padding: 0.4vw;
     border-radius: 8vw;
     opacity: 0;
-    transition: opacity 100ms;
+    transition: opacity 120ms;
     cursor: pointer;
 }
 
@@ -149,8 +149,7 @@
     word-wrap: break-word;
 }
 
-/* =============== Drag and drop =============== */
-.flashcard.flashcard-dragging {
+.flashcard.dnd-dragging {
     opacity: 0.6;
     transition: opacity 500ms;
 }

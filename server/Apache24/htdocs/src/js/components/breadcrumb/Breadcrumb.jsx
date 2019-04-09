@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BreadcrumbCategory, BreadcrumbCategoryDropTarget } from "./BreadcrumbCategory.jsx";
+import { BreadcrumbCategoryDropTarget } from "./BreadcrumbCategory.jsx";
 
 import "../../../css/breadcrumb.css";
 
@@ -37,7 +37,7 @@ export class Breadcrumb extends React.Component {
                 {this.state.currentCategory && 
                     <BreadcrumbCategoryDropTarget 
                         category={this.state.currentCategory} 
-                        handleFlashcardDrop={this.props.handleFlashcardDrop} 
+                        handleCardMove={this.props.handleCardMove} 
                         depth={0} 
                     />
                 }

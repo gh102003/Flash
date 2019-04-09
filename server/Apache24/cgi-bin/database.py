@@ -19,6 +19,9 @@ class Category():
         self.parent_id = parent_id
 
 
+# ================ Add ================
+
+
 def add_flashcard(flashcard):
     with sqlite3.connect(database_path) as connection:
         cursor = connection.cursor()
@@ -31,6 +34,9 @@ def add_category(category):
         cursor = connection.cursor()
         cursor.execute("INSERT INTO categories VALUES (?, ?, ?)", (category.name, category.colour, category.parent_id))
         connection.commit()
+
+
+# ================ Get ================
 
 
 def get_flashcard(flashcard_id):
@@ -83,6 +89,9 @@ def get_category(category_id):
         return c
 
 
+# ================ Edit ================
+
+
 def edit_flashcard_front(flashcard_id, front):
     with sqlite3.connect(database_path) as connection:
         cursor = connection.cursor()
@@ -97,8 +106,27 @@ def edit_flashcard_back(flashcard_id, back):
         connection.commit()
 
 
+# ================ Move ================
+
+
 def move_flashcard(flashcard_id, category_id):
     with sqlite3.connect(database_path) as connection:
         cursor = connection.cursor()
         cursor.execute("UPDATE flashcards SET categoryId=? WHERE rowid=?", (category_id, flashcard_id))
+        connection.commit()
+
+
+def move_category(category_id, parent_id):
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute("UPDATE categories SET parentId=? WHERE rowid=?", (parent_id, category_id))
+        connection.commit()
+
+# ================ Remove ================
+
+
+def remove_flashcard(flashcard_id):
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute("DELETE from flashcards WHERE rowid=?", [flashcard_id, ])
         connection.commit()

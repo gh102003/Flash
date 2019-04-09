@@ -53,35 +53,69 @@
 }
 
 /* hover effects */
-.subcategory:hover, .subcategory.dnd-hover {
+.subcategory:hover, .subcategory.dnd-drop-hover {
     top: -9px;
     left: -9px;
     cursor: pointer;
 }
 
-.subcategory:hover::before, .subcategory.dnd-hover::before {
+.subcategory:hover::before, .subcategory.dnd-drop-hover::before {
     top: 9px;
     left: 9px;
 }
 
-.subcategory:hover::after, .subcategory.dnd-hover::after {
+.subcategory:hover::after, .subcategory.dnd-drop-hover::after {
     top: 18px;
     left: 18px;
 }
 
 @media only screen and (max-width: 900px) {
-    .subcategory:hover, .subcategory.dnd-hover {
+    .subcategory:hover, .subcategory.dnd-drop-hover {
         top: -6px;
         left: -6px;
     }
 
-    .subcategory:hover::before, .subcategory.dnd-hover::before {
+    .subcategory:hover::before, .subcategory.dnd-drop-hover::before {
         top: 6px;
         left: 6px;
     }
 
-    .subcategory:hover::after, .subcategory.dnd-hover::after {
+    .subcategory:hover::after, .subcategory.dnd-drop-hover::after {
         top: 12px;
         left: 12px;
+    }
+}
+
+/* Dragging effects */
+
+.subcategory.dnd-dragging {
+    top: -4px;
+    left: -4px;
+}
+
+.subcategory.dnd-dragging::before {
+    left: 4px;
+    top: 4px;
+}
+
+.subcategory.dnd-dragging::after {
+    left: 8px;
+    top: 8px;
+}
+
+@media only screen and (max-width: 900px) {
+    .subcategory:hover, .subcategory.dnd-drop-hover {
+        top: -3px;
+        left: -3px;
+    }
+
+    .subcategory:hover::before, .subcategory.dnd-drop-hover::before {
+        top: 3px;
+        left: 3px;
+    }
+
+    .subcategory:hover::after, .subcategory.dnd-drop-hover::after {
+        top: 6px;
+        left: 6px;
     }
 }

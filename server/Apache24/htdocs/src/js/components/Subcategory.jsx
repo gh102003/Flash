@@ -1,44 +1,67 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { DropTarget } from "react-dnd";
+import { DropTarget, DragSource } from "react-dnd";
 
 import * as util from "../util";
-import * as constants from "../constants.js";
+import { draggableTypes } from "../constants.js";
 
 export class Subcategory extends React.Component {
     render() {
         let backgroundColor = util.colourFromInteger(this.props.colour);
         let color = util.contrastingColourFromInteger(this.props.colour);
-        return this.props.connectDropTarget(
+
+        let className = "card subcategory";
+        if (this.props.isDragging) {
+            className += " dnd-dragging";
+        } else if (this.props.isDropOver) {
+            className += " dnd-drop-hover";
+        }
+
+        return this.props.connectDragSource(this.props.connectDropTarget(
             <div>
                 <Link
-                    to={`/category/${this.props.id}`} 
-                    className={this.props.isOver ? "card subcategory dnd-hover" : "card subcategory"} 
-                    style={{ backgroundColor, color }} 
+                    to={`/category/${this.props.id}`}
+                    className={className}
+                    style={{ backgroundColor, color }}
                     draggable="false"
                 >
                     {this.props.name}
                 </Link>
             </div>
-        );
+        ));
     }
 }
 
-// DropTarget specification - actions for drag events
-const subcategoryDropTargetSpec = {
+// DropTarget specification - actions for drop events
+const dropTargetSpec = {
     drop: (props, monitor) => {
-        props.handleFlashcardDrop(monitor.getItem().id, props.id);
+        props.handleCardMove(monitor.getItemType(), monitor.getItem().id, props.id);
+    },
+    canDrop: (props, monitor) => {
+        if (monitor.getItemType() === draggableTypes.SUBCATEGORY) {
+            return monitor.getItem().id !== props.id;
+        }
     }
 };
 
 // Builds up extra props
-function collect(connect, monitor) {
-    return {
-        connectDropTarget: connect.dropTarget(),
-        isOver: monitor.isOver()
-    };
-}
+var dropCollector = (connect, monitor) => ({
+    connectDropTarget: connect.dropTarget(),
+    isDropOver: monitor.isOver()
+});
 
-export var SubcategoryDropTarget = DropTarget(constants.draggableTypes.FLASHCARD, subcategoryDropTargetSpec, collect)(Subcategory);
+
+// DragSource spec
+const dragSourceSpec = {
+    beginDrag: props => ({ id: props.id })
+};
+
+var dragCollector = (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+});
+
+var SubcategoryDropTarget = DropTarget([draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY], dropTargetSpec, dropCollector)(Subcategory);
+export var SubcategoryDnd = DragSource(draggableTypes.SUBCATEGORY, dragSourceSpec, dragCollector)(SubcategoryDropTarget);
 
 

@@ -1,8 +1,9 @@
 import React from "react";
 
 import * as util from "../util";
+import { draggableTypes } from "../constants";
 import { Flashcard } from "./flashcard/Flashcard.jsx";
-import { SubcategoryDropTarget } from "./Subcategory.jsx";
+import { SubcategoryDnd } from "./Subcategory.jsx";
 import { AddCardForm } from "./AddCardForm.jsx";
 import { AddCategoryForm } from "./AddCategoryForm.jsx";
 import { AddButton } from "./AddButton.jsx";
@@ -70,25 +71,63 @@ export class Category extends React.Component {
         });
     }
 
-    handleFlashcardMove(flashcardId, newCategoryId) {
+    handleCardMove(cardType, cardId, newCategoryId) {
         // If same category, do nothing
-        if (this.state.flashcards.filter((flashcard) => flashcard.id == flashcardId)[0].category_id === newCategoryId) {
+        if (this.props.match.params.id == newCategoryId) {
             return;
         }
 
+        if (cardType === draggableTypes.FLASHCARD) {
+            // Send move to server
+            let formData = new FormData();
+            formData.set("flashcardId", cardId);
+            formData.set("newCategoryId", newCategoryId);
+            fetch("/cgi-bin/move_flashcard.py", {
+                method: "POST",
+                cache: "no-cache",
+                body: formData
+            });
+
+            // Remove on client
+            this.setState((oldState) => ({
+                flashcards: oldState.flashcards.filter((flashcard) => flashcard.id !== cardId)
+            }));
+        } else if (cardType === draggableTypes.SUBCATEGORY) {
+            // Send move to server
+            let formData = new FormData();
+            formData.set("categoryId", cardId);
+            formData.set("newParentId", newCategoryId);
+            fetch("/cgi-bin/move_category.py", {
+                method: "POST",
+                cache: "no-cache",
+                body: formData
+            });
+
+            // Remove on client
+            this.setState((oldState) => ({
+                subcategories: oldState.subcategories.filter((subcategory) => subcategory.id !== cardId)
+            }));
+        }
+    }
+
+    handleFlashcardDelete(clientIndex) {
         // Send move to server
         let formData = new FormData();
-        formData.set("flashcardId", flashcardId);
-        formData.set("newCategoryId", newCategoryId);
-        fetch("/cgi-bin/move_flashcard.py", {
+        formData.set("flashcardId", this.state.flashcards[clientIndex].id);
+        fetch("/cgi-bin/delete_flashcard.py", {
             method: "POST",
             cache: "no-cache",
             body: formData
         });
 
         // Remove on client
-        this.setState({
-            flashcards: this.state.flashcards.filter((flashcard) => flashcard.id !== flashcardId)
+        this.setState((oldState) => {
+            let flashcardsBefore = oldState.flashcards.slice(0, clientIndex);
+            let flashcardsAfter = oldState.flashcards.slice(clientIndex + 1);
+
+            return {
+                flashcards: [...flashcardsBefore, ...flashcardsAfter]
+            };
         });
     }
 
@@ -105,6 +144,7 @@ export class Category extends React.Component {
                 colour={this.state.colour}
                 handleEdit={(side, newName) => this.handleFlashcardEdit(clientIndex, side, newName)}
                 handleSaveEdit={(side, newName) => this.handleFlashcardSaveEdit(clientIndex, side, newName)}
+                handleDelete={() => this.handleFlashcardDelete(clientIndex)}
             />
         ));
     }
@@ -113,12 +153,12 @@ export class Category extends React.Component {
         if (!this.state.subcategories) return null;
 
         return this.state.subcategories.map((subcategory) => (
-            <SubcategoryDropTarget
+            <SubcategoryDnd
                 key={subcategory.id}
                 id={subcategory.id}
                 name={subcategory.name}
                 colour={subcategory.colour}
-                handleFlashcardDrop={(flashcardId, newCategoryId) => this.handleFlashcardMove(flashcardId, newCategoryId)}
+                handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
             />
         ));
     }
@@ -148,17 +188,17 @@ export class Category extends React.Component {
         return (
             <> {/* Shorthand for React.Fragment */}
                 <Breadcrumb
-                    categoryId={this.props.match.params.id} 
-                    handleFlashcardDrop={(flashcardId, newCategoryId) => this.handleFlashcardMove(flashcardId, newCategoryId)}
+                    categoryId={this.props.match.params.id}
+                    handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
                 />
                 <div className={"category " + (this.state.loadedData ? "category-loaded" : "category-loading")} >
                     <div className="card-display">
                         {
-                            this.state.loadedData ? 
+                            this.state.loadedData ?
                                 <>
                                     {this._renderSubcategories()}
                                     {this._renderFlashcards()}
-                                </> 
+                                </>
                                 : <div className="loading-indicator">Loading...</div>
                         }
                     </div>

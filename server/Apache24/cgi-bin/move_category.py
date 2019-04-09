@@ -10,7 +10,7 @@ print("Content-type:text/plain\r\n")
 
 form_data = cgi.FieldStorage()
 
-flashcard_id = form_data.getvalue("flashcardId")
-new_category_id = form_data.getvalue("newCategoryId")
+category_id = form_data.getvalue("categoryId")
+new_parent_id = form_data.getvalue("newParentId")
 
-database.move_flashcard(flashcard_id, new_category_id)
+database.move_category(category_id, new_parent_id)

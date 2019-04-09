@@ -33,7 +33,7 @@ export class AddCardForm extends React.Component {
             <form className="add-card-form add-form" id="add-card-form" onSubmit={(e) => this._handleSubmit(e)}>
                 <label>
                     Front:
-                    <input name="front" type="text" value={this.state.front} onChange={(e) => this._handleChange(e)} />
+                    <input autoFocus name="front" type="text" value={this.state.front} onChange={(e) => this._handleChange(e)} />
                 </label>
                 <label>
                     Back:

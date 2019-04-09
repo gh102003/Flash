@@ -7,7 +7,7 @@ export class FlashcardNormal extends React.Component {
     render() {
         let className = "card flashcard flashcard-normal";
         if (this.props.isDragging) {
-            className += " flashcard-dragging";
+            className += " dnd-dragging";
         }
 
         let wrapperFunction = this.props.connectDragSource || (x => x);
@@ -37,15 +37,14 @@ export class FlashcardNormal extends React.Component {
 
 // DragSource specification - actions for drag events
 const flashcardDragSourceSpec = {
-    beginDrag: (props, monitor) => ({ id: props.id }) // Passed to dropTarget spec
+    beginDrag: props => ({ id: props.id }) // Passed to dropTarget spec
 };
 
 // Builds up extra props
 function collect(connect, monitor) {
     return {
         connectDragSource: connect.dragSource(),
-        connectDragPreview: connect.dragPreview(),
-        isDragging: monitor.isDragging(),
+        isDragging: monitor.isDragging()
     };
 }
 

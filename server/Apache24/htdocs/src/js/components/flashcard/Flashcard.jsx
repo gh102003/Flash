@@ -5,7 +5,6 @@ import { FlashcardEdit } from "./FlashcardEdit.jsx";
 import { FlashcardModal } from "./FlashcardModal.jsx";
 
 import * as util from "../../util.js";
-import * as constants from "../../constants.js";
 
 export class Flashcard extends React.Component {
     constructor(props) {
@@ -42,6 +41,7 @@ export class Flashcard extends React.Component {
                         this.props.handleSaveEdit(this.state.side, this.props[this.state.side]);
                         this.setState({ view: "normal" });
                     }}
+                    handleDelete={() => this.props.handleDelete()}
                 />
             );
         }

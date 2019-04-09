@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { DropTarget } from "react-dnd";
 
 import * as util from "../../util";
-import * as constants from "../../constants";
+import {draggableTypes} from "../../constants";
 
 // Unpack linkedlist style object recursively
-export function BreadcrumbCategory(props) {
+export var BreadcrumbCategory = props => {
 
     // If lowest-depth (rightmost), display category colour
     let backgroundColor = null;
@@ -24,7 +24,7 @@ export function BreadcrumbCategory(props) {
 
     return (
         <>
-            {props.category.parent && <BreadcrumbCategoryDropTarget handleFlashcardDrop={props.handleFlashcardDrop} category={props.category.parent} depth={props.depth + 1} />}
+            {props.category.parent && <BreadcrumbCategoryDropTarget handleCardMove={props.handleCardMove} category={props.category.parent} depth={props.depth + 1} />}
             <Link to={`/category/${props.category.id}`} className={className} style={style}>
                 {props.connectDropTarget(<span>
                     {props.category.name}
@@ -36,7 +36,7 @@ export function BreadcrumbCategory(props) {
 
 const breadcrumbCategoryDropTargetSpec = {
     drop: (props, monitor) => {
-        props.handleFlashcardDrop(monitor.getItem().id, props.category.id);
+        props.handleCardMove(monitor.getItemType(), monitor.getItem().id, props.category.id);
     }
 };
 
@@ -48,4 +48,4 @@ function collect(connect, monitor) {
     };
 }
 
-export var BreadcrumbCategoryDropTarget = DropTarget(constants.draggableTypes.FLASHCARD, breadcrumbCategoryDropTargetSpec, collect)(BreadcrumbCategory);
+export var BreadcrumbCategoryDropTarget = DropTarget([draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY], breadcrumbCategoryDropTargetSpec, collect)(BreadcrumbCategory);

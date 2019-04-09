@@ -10,6 +10,12 @@ export class FlashcardEdit extends React.Component {
                 }}>
                     <i className="material-icons" >done</i>
                 </div>
+                <div className="flashcard-button" onClick={(event) => {
+                    event.stopPropagation();
+                    this.props.handleDelete();
+                }}>
+                    <i className="material-icons" >delete</i>
+                </div>
                 <input
                     type="text"
                     autoFocus
