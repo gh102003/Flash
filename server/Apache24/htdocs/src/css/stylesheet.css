@@ -132,6 +132,7 @@ body {
         height: 9vw;
         font-size: 1.2em;
         border-radius: 2vw;
+        margin: 1.2vw;
     }
 }
 
@@ -143,6 +144,7 @@ body {
     .card {
         height: 12vw;
         font-size: 1.15em;
+        margin: 1.8vw;
     }
 }
 
@@ -196,4 +198,18 @@ body {
     position: relative;
     top: 2px;
     text-shadow: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        padding: 0.8vw 3vw;
+    }
+
+    .header h1 {
+        font-size: 2.6em;
+    }
+
+    .header i {
+        font-size: 1.6em;
+    }
 }

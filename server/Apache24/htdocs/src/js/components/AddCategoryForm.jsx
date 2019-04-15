@@ -48,25 +48,27 @@ export class AddCategoryForm extends React.Component {
         event.preventDefault();
     }
     render() {
-        return (<div className="modal-background">
-            <form className="add-category-form add-form" id="add-category-form" onSubmit={(e) => this._handleSubmit(e)}>
-                <label>
-                    Name:
-                    <input autoFocus name="name" type="text" value={this.state.name} onChange={(e) => this._handleChange(e)} />
-                </label>
-                <div className="colour-picker">
-                    <BlockPicker 
-                        triangle="hide" 
-                        color={this.state.colour} 
-                        colors={this._colors} 
-                        onChangeComplete={(color) => this.setState({ colour: color.hex })} 
-                    />
-                </div>
-                <div className="controls">
-                    <input type="submit" value="Add category" />
-                    <input type="button" value="Cancel" onClick={this.props.handleCancel}></input>
-                </div>
-            </form>
-        </div>);
+        return (
+            <div className="modal-background" onClick={this.props.handleCancel}>
+                <form className="add-category-form add-form" id="add-category-form" onSubmit={(e) => this._handleSubmit(e)} onClick={event => event.stopPropagation()}>
+                    <label>
+                        Name:
+                        <input autoFocus name="name" type="text" value={this.state.name} onChange={(e) => this._handleChange(e)} />
+                    </label>
+                    <div className="colour-picker">
+                        <BlockPicker 
+                            triangle="hide" 
+                            color={this.state.colour} 
+                            colors={this._colors} 
+                            onChangeComplete={(color) => this.setState({ colour: color.hex })} 
+                        />
+                    </div>
+                    <div className="controls">
+                        <input type="submit" value="Add category" />
+                        <input type="button" value="Cancel" onClick={this.props.handleCancel}></input>
+                    </div>
+                </form>
+            </div>
+        );
     }
 }

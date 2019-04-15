@@ -1,9 +1,10 @@
 .info-box {
-    width: 80vmin;
-    height: 50vmin;
+    width: 50vw;
+    height: 50vh;
     border-radius: 2vmin;
     background-color: white;
     position: relative;
+    font-size: 1.1vw;
 }
 
 .info-box .info-box-header {
@@ -17,6 +18,7 @@
 }
 
 .info-box h2 {
+    font-size: 1.65em;
     margin: 0;
 }
 
@@ -45,5 +47,40 @@
 }
 
 .info-box-body ul {
-    margin-top: 0.3em;
+    margin-top: 0;
+    padding-left: 1.7em;
+}
+
+.info-box-body ul li {
+    line-height: 1.35em;
+}
+
+@media only screen and (max-width: 1250px) {
+    .info-box {
+        width: 70vw;
+        font-size: 1.9vw;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .info-box {
+        width: 85vw;
+        font-size: 2.6vw;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .info-box {
+        width: 93vw;
+        font-size: 3.7vw;
+    }
+}
+
+@media only screen and (max-height: 760px) {
+    .info-box {
+        height: 65vh;
+    }
+}
+@media only screen and (max-height: 550px) {
+    .info-box {
+        height: 85vh;
+    }
 }

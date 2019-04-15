@@ -53,69 +53,69 @@
 }
 
 /* hover effects */
-.subcategory:hover, .subcategory.dnd-drop-hover {
+.subcategory.card-normal:hover, .subcategory.dnd-drop-hover {
     top: -9px;
     left: -9px;
     cursor: pointer;
 }
 
-.subcategory:hover::before, .subcategory.dnd-drop-hover::before {
+.subcategory.card-normal:hover::before, .subcategory.dnd-drop-hover::before {
     top: 9px;
     left: 9px;
 }
 
-.subcategory:hover::after, .subcategory.dnd-drop-hover::after {
+.subcategory.card-normal:hover::after, .subcategory.dnd-drop-hover::after {
     top: 18px;
     left: 18px;
 }
 
 @media only screen and (max-width: 900px) {
-    .subcategory:hover, .subcategory.dnd-drop-hover {
+    .subcategory.card-normal:hover, .subcategory.dnd-drop-hover {
         top: -6px;
         left: -6px;
     }
 
-    .subcategory:hover::before, .subcategory.dnd-drop-hover::before {
+    .subcategory.card-normal:hover::before, .subcategory.dnd-drop-hover::before {
         top: 6px;
         left: 6px;
     }
 
-    .subcategory:hover::after, .subcategory.dnd-drop-hover::after {
+    .subcategory.card-normal:hover::after, .subcategory.dnd-drop-hover::after {
         top: 12px;
         left: 12px;
     }
 }
 
-/* Dragging effects */
-
-.subcategory.dnd-dragging {
-    top: -4px;
-    left: -4px;
-}
-
-.subcategory.dnd-dragging::before {
-    left: 4px;
-    top: 4px;
-}
-
-.subcategory.dnd-dragging::after {
-    left: 8px;
-    top: 8px;
-}
-
-@media only screen and (max-width: 900px) {
-    .subcategory:hover, .subcategory.dnd-drop-hover {
+@media only screen and (max-width: 600px) {
+    .subcategory.card-normal:hover, .subcategory.dnd-drop-hover {
         top: -3px;
         left: -3px;
     }
 
-    .subcategory:hover::before, .subcategory.dnd-drop-hover::before {
+    .subcategory.card-normal:hover::before, .subcategory.dnd-drop-hover::before {
         top: 3px;
         left: 3px;
     }
 
-    .subcategory:hover::after, .subcategory.dnd-drop-hover::after {
+    .subcategory.card-normal:hover::after, .subcategory.dnd-drop-hover::after {
         top: 6px;
         left: 6px;
     }
+}
+
+/* Dragging effects */
+
+.subcategory.card-normal.dnd-dragging {
+    top: -4px;
+    left: -4px;
+}
+
+.subcategory.card-normal.dnd-dragging::before {
+    left: 4px;
+    top: 4px;
+}
+
+.subcategory.card-normal.dnd-dragging::after {
+    left: 8px;
+    top: 8px;
 }

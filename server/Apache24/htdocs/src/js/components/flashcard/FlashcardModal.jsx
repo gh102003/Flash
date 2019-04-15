@@ -3,7 +3,7 @@ import React from "react";
 export class FlashcardModal extends React.Component {
     render() {
         return (
-            <div className="modal-background" onClick={() => this.setState({ view: "normal" })}>
+            <div className="modal-background" onClick={() => this.props.handleExit()}>
                 <div className={"card flashcard flashcard-modal"} style={this.props.styles} onClick={(event) => {
                     event.stopPropagation(); // Prevent parent from recieving click
                     this.props.handleFlip();

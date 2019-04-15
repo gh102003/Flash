@@ -5,7 +5,7 @@ import * as constants from "../../constants.js";
 
 export class FlashcardNormal extends React.Component {
     render() {
-        let className = "card flashcard flashcard-normal";
+        let className = "card flashcard card-normal";
         if (this.props.isDragging) {
             className += " dnd-dragging";
         }

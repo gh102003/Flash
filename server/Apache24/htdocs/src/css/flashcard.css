@@ -2,12 +2,12 @@
     transition: opacity 200ms;
 }
 
-.flashcard-normal:hover, .flashcard-modal:hover {
+.flashcard.card-normal:hover, .flashcard-modal:hover {
     box-shadow: 0 0.2vw 10px 0 rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
-.flashcard-normal:active {
+.flashcard.card-normal:active {
     position: relative;
     box-shadow: none;
     top: 0.2vw;
@@ -96,12 +96,12 @@
     }
 }
 
-.card:hover .flashcard-button, .flashcard-edit .flashcard-button {
-    opacity: 0.3;
+.card:hover .flashcard-button, .card-edit .flashcard-button {
+    opacity: 0.25;
 }
 
 .card:hover .flashcard-button:hover {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 /* =============== Special views, triggered by buttons =============== */
@@ -127,7 +127,7 @@
     font-size: 3.3vmin;
 }
 
-.flashcard-edit input {
+.card-edit input {
     font-family: inherit;
     font-size: inherit;
     background: none;
@@ -139,7 +139,7 @@
     border-bottom: 2px solid rgba(255, 255, 255, 0.6);
 }
 
-.flashcard-edit input:focus {
+.card-edit input:focus {
     outline: none;
 }
 
@@ -152,4 +152,8 @@
 .flashcard.dnd-dragging {
     opacity: 0.6;
     transition: opacity 500ms;
+}
+
+.flashcard.dnd-dragging .flashcard-button {
+    opacity: 0;
 }

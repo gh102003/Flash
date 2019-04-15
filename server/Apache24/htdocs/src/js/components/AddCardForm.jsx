@@ -29,25 +29,27 @@ export class AddCardForm extends React.Component {
         event.preventDefault();
     }
     render() {
-        return (<div className="modal-background">
-            <form className="add-card-form add-form" id="add-card-form" onSubmit={(e) => this._handleSubmit(e)}>
-                <label>
-                    Front:
-                    <input autoFocus name="front" type="text" value={this.state.front} onChange={(e) => this._handleChange(e)} />
-                </label>
-                <label>
-                    Back:
-                    <input name="back" type="text" value={this.state.back} onChange={(e) => this._handleChange(e)} />
-                </label>
-                <label>
-                    <input type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this._handleChange(e)} />
-                    Reversible
-                </label>
-                <div>
-                    <input type="submit" value="Add flashcard" />
-                    <input type="button" value="Cancel" onClick={this.props.handleCancel}></input>
-                </div>
-            </form>
-        </div>);
+        return (
+            <div className="modal-background" onClick={this.props.handleCancel}>
+                <form className="add-card-form add-form" id="add-card-form" onSubmit={(e) => this._handleSubmit(e)} onClick={event => event.stopPropagation()}>
+                    <label>
+                        Front:
+                        <input autoFocus name="front" type="text" value={this.state.front} onChange={(e) => this._handleChange(e)} />
+                    </label>
+                    <label>
+                        Back:
+                        <input name="back" type="text" value={this.state.back} onChange={(e) => this._handleChange(e)} />
+                    </label>
+                    <label>
+                        <input type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this._handleChange(e)} />
+                        Reversible
+                    </label>
+                    <div>
+                        <input type="submit" value="Add flashcard" />
+                        <input type="button" value="Cancel" onClick={this.props.handleCancel}></input>
+                    </div>
+                </form>
+            </div>
+        );
     }
 }

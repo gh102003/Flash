@@ -37,7 +37,7 @@ export class Flashcard extends React.Component {
                     text={text}
                     styles={styles}
                     handleEdit={(newValue) => this.props.handleEdit(this.state.side, newValue)}
-                    saveEdit={() => {
+                    handleSaveEdit={() => {
                         this.props.handleSaveEdit(this.state.side, this.props[this.state.side]);
                         this.setState({ view: "normal" });
                     }}

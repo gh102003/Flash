@@ -106,6 +106,13 @@ def edit_flashcard_back(flashcard_id, back):
         connection.commit()
 
 
+def rename_category(category_id, name):
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute("UPDATE categories SET name=? WHERE rowid=?", (name, category_id))
+        connection.commit()
+
+
 # ================ Move ================
 
 
@@ -129,4 +136,11 @@ def remove_flashcard(flashcard_id):
     with sqlite3.connect(database_path) as connection:
         cursor = connection.cursor()
         cursor.execute("DELETE from flashcards WHERE rowid=?", [flashcard_id, ])
+        connection.commit()
+
+
+def remove_category(category_id):
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute("DELETE from categories WHERE rowid=?", [category_id, ])
         connection.commit()

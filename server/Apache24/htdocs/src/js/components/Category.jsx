@@ -3,7 +3,7 @@ import React from "react";
 import * as util from "../util";
 import { draggableTypes } from "../constants";
 import { Flashcard } from "./flashcard/Flashcard.jsx";
-import { SubcategoryDnd } from "./Subcategory.jsx";
+import { Subcategory } from "./subcategory/Subcategory.jsx";
 import { AddCardForm } from "./AddCardForm.jsx";
 import { AddCategoryForm } from "./AddCategoryForm.jsx";
 import { AddButton } from "./AddButton.jsx";
@@ -51,24 +51,43 @@ export class Category extends React.Component {
         this.getFromServer(this.props.match.params.id);
     }
 
-    handleFlashcardEdit(clientIndex, field, newValue) {
-        let newState = this.state;
-        newState.flashcards[clientIndex][field] = newValue;
-        this.setState(newState);
+    handleCardEdit(cardType, clientIndex, field, newValue) {
+        this.setState(oldState => {
+            let list;
+            if (cardType === "subcategory") {
+                list = oldState.subcategories;
+            } else if (cardType === "flashcard") {
+                list = oldState.flashcards;
+            }
+            list[clientIndex][field] = newValue;
+            return oldState;
+        });
     }
 
-    handleFlashcardSaveEdit(clientIndex, field, newValue) {
-        // Send edit to server
-        let flashcardId = this.state.flashcards[clientIndex].id;
-        let formData = new FormData();
-        formData.set("flashcardId", flashcardId);
-        formData.set("field", field);
-        formData.set("newValue", newValue);
-        fetch("/cgi-bin/edit_flashcard.py", {
-            method: "POST",
-            cache: "no-cache",
-            body: formData
-        });
+    handleCardSaveEdit(cardType, clientIndex, field, newValue) {
+        if (cardType === "subcategory") {
+            let subcategoryId = this.state.subcategories[clientIndex].id;
+            let formData = new FormData();
+            formData.set("categoryId", subcategoryId);
+            formData.set("field", field);
+            formData.set("newValue", newValue);
+            fetch("/cgi-bin/edit_category.py", {
+                method: "POST",
+                cache: "no-cache",
+                body: formData
+            });
+        } else if (cardType === "flashcard") {
+            let flashcardId = this.state.flashcards[clientIndex].id;
+            let formData = new FormData();
+            formData.set("flashcardId", flashcardId);
+            formData.set("field", field);
+            formData.set("newValue", newValue);
+            fetch("/cgi-bin/edit_flashcard.py", {
+                method: "POST",
+                cache: "no-cache",
+                body: formData
+            });
+        }
     }
 
     handleCardMove(cardType, cardId, newCategoryId) {
@@ -110,23 +129,38 @@ export class Category extends React.Component {
         }
     }
 
-    handleFlashcardDelete(clientIndex) {
+    handleCardDelete(cardType, clientIndex) {
+        let listName;
         // Send move to server
-        let formData = new FormData();
-        formData.set("flashcardId", this.state.flashcards[clientIndex].id);
-        fetch("/cgi-bin/delete_flashcard.py", {
-            method: "POST",
-            cache: "no-cache",
-            body: formData
-        });
+        if (cardType === "flashcard") {
+            let formData = new FormData();
+            formData.set("flashcardId", this.state.flashcards[clientIndex].id);
+            fetch("/cgi-bin/delete_flashcard.py", {
+                method: "POST",
+                cache: "no-cache",
+                body: formData
+            });
+
+            listName = "flashcards";
+        } else if (cardType === "subcategory") {
+            let formData = new FormData();
+            formData.set("categoryId", this.state.subcategories[clientIndex].id);
+            fetch("/cgi-bin/delete_category.py", {
+                method: "POST",
+                cache: "no-cache",
+                body: formData
+            });
+
+            listName = "subcategories";
+        }
 
         // Remove on client
         this.setState((oldState) => {
-            let flashcardsBefore = oldState.flashcards.slice(0, clientIndex);
-            let flashcardsAfter = oldState.flashcards.slice(clientIndex + 1);
+            let cardsBefore = oldState[listName].slice(0, clientIndex);
+            let cardsAfter = oldState[listName].slice(clientIndex + 1);
 
             return {
-                flashcards: [...flashcardsBefore, ...flashcardsAfter]
+                [listName]: [...cardsBefore, ...cardsAfter]
             };
         });
     }
@@ -142,9 +176,9 @@ export class Category extends React.Component {
                 back={flashcard.back}
                 isReversible={flashcard.is_reversible}
                 colour={this.state.colour}
-                handleEdit={(side, newName) => this.handleFlashcardEdit(clientIndex, side, newName)}
-                handleSaveEdit={(side, newName) => this.handleFlashcardSaveEdit(clientIndex, side, newName)}
-                handleDelete={() => this.handleFlashcardDelete(clientIndex)}
+                handleEdit={(side, newName) => this.handleCardEdit("flashcard", clientIndex, side, newName)}
+                handleSaveEdit={(side, newName) => this.handleCardSaveEdit("flashcard", clientIndex, side, newName)}
+                handleDelete={() => this.handleCardDelete("flashcard", clientIndex)}
             />
         ));
     }
@@ -152,13 +186,16 @@ export class Category extends React.Component {
     _renderSubcategories() {
         if (!this.state.subcategories) return null;
 
-        return this.state.subcategories.map((subcategory) => (
-            <SubcategoryDnd
+        return this.state.subcategories.map((subcategory, clientIndex) => (
+            <Subcategory
                 key={subcategory.id}
                 id={subcategory.id}
                 name={subcategory.name}
                 colour={subcategory.colour}
                 handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
+                handleEdit={newName => this.handleCardEdit("subcategory", clientIndex, "name", newName)}
+                handleSaveEdit={newName => this.handleCardSaveEdit("subcategory", clientIndex, "name", newName)}
+                handleDelete={() => this.handleCardDelete("subcategory", clientIndex)}
             />
         ));
     }

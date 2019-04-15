@@ -228,7 +228,7 @@
     display: inline-block;
 }
 
-.add-form .colour-picker > * {
+.add-form .colour-picker>* {
     box-shadow: 0 0.05vw 4px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
@@ -236,7 +236,7 @@
     width: 202px !important;
 }
 
-.add-form .colour-picker > div:hover {
+.add-form .colour-picker>div:hover {
     box-shadow: 0 0.1vw 7px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
