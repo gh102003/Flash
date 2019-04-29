@@ -65,7 +65,7 @@ export class AddCategoryForm extends React.Component {
                     </div>
                     <div className="controls">
                         <input type="submit" value="Add category" />
-                        <input type="button" value="Cancel" onClick={this.props.handleCancel}></input>
+                        <button onClick={this.props.handleCancel}>Cancel</button>
                     </div>
                 </form>
             </div>

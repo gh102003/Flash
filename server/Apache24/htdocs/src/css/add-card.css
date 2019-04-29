@@ -206,10 +206,10 @@
     }
 }
 
-.add-form input {
+.add-form input, .add-form button {
     border-radius: 0.7em;
     background-color: #eee;
-    padding: 0.7em;
+    padding: 0.6em 0.8em;
 }
 
 .add-form label {
@@ -249,7 +249,6 @@
 }
 
 .add-form input[type="text"] {
-    font-family: inherit;
     font-size: 0.9em;
     margin-left: 1em;
     border: none;
@@ -266,35 +265,13 @@
     outline: none;
 }
 
-.add-form input[type="submit"] {
-    background-color: crimson;
-    color: white;
-}
-
-.add-form input[type="submit"],
-.add-form input[type="button"] {
-    box-shadow: 0 0.08vw 4px 0 rgba(0, 0, 0, 0.2);
-    margin: 0 0.7vw 0 0;
-    border: none;
-    font-size: 1em;
-    font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.add-form input[type="submit"]:hover,
-.add-form input[type="button"]:hover {
-    box-shadow: 0 0.11vw 6px 0 rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-}
-
-.add-form input[type="button"]:focus,
+.add-form button:focus,
 .add-form input[type="submit"]:focus {
     outline: none;
     box-shadow: 0 0.15vw 9px 0 rgba(0, 0, 0, 0.4);
 }
 
-.add-form input[type="submit"]:active,
-.add-form input[type="button"]:active {
-    box-shadow: none;
-    position: relative;
-    top: 0.11vw;
+.add-form input[type="submit"] {
+    background-color: crimson;
+    color: white;
 }

@@ -1,21 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { DropTarget } from "react-dnd";
 
 import * as util from "../../util";
-import {draggableTypes} from "../../constants";
+import { draggableTypes } from "../../constants";
 
 // Unpack linkedlist style object recursively
 export var BreadcrumbCategory = props => {
 
     // If lowest-depth (rightmost), display category colour
-    let backgroundColor = null;
-    let color = null;
-    if (props.depth < 1) {
-        backgroundColor = util.colourFromInteger(props.category.colour);
-        color = util.contrastingColourFromInteger(props.category.colour);
-    }
-    let style = { zIndex: props.depth, backgroundColor, color };
+    let activeStyle = {
+        backgroundColor: util.colourFromInteger(props.category.colour),
+        color: util.contrastingColourFromInteger(props.category.colour)
+    };
+    let style = { zIndex: props.depth };
 
     let className = "breadcrumb-category";
     if (props.isDraggingOver) {
@@ -25,11 +23,11 @@ export var BreadcrumbCategory = props => {
     return (
         <>
             {props.category.parent && <BreadcrumbCategoryDropTarget handleCardMove={props.handleCardMove} category={props.category.parent} depth={props.depth + 1} />}
-            <Link to={`/category/${props.category.id}`} className={className} style={style}>
+            <NavLink to={`/category/${props.category.id}`} className={className} style={style} activeStyle={activeStyle}>
                 {props.connectDropTarget(<span>
                     {props.category.name}
                 </span>)}
-            </Link>
+            </NavLink>
         </>
     );
 }

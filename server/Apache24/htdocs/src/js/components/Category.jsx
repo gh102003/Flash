@@ -7,6 +7,7 @@ import { Subcategory } from "./subcategory/Subcategory.jsx";
 import { AddCardForm } from "./AddCardForm.jsx";
 import { AddCategoryForm } from "./AddCategoryForm.jsx";
 import { AddButton } from "./AddButton.jsx";
+import { LoadingIndicator } from "./LoadingIndicator.jsx";
 import { Breadcrumb } from "./breadcrumb/Breadcrumb.jsx";
 
 export class Category extends React.Component {
@@ -16,15 +17,15 @@ export class Category extends React.Component {
         this.state = { currentForm: null };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getFromServer(this.props.match.params.id).then(() => this.setState({ loadedData: true }));
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
         // Check for a change in location, indicating that the page has been navigated
-        if (this.props.location !== nextProps.location) {
+        if (this.props.location !== prevProps.location) {
             this.setState({ loadedData: false });
-            this.getFromServer(nextProps.match.params.id).then(() => this.setState({ loadedData: true }));
+            this.getFromServer(this.props.match.params.id).then(() => this.setState({ loadedData: true }));
         }
     }
 
@@ -236,7 +237,7 @@ export class Category extends React.Component {
                                     {this._renderSubcategories()}
                                     {this._renderFlashcards()}
                                 </>
-                                : <div className="loading-indicator">Loading...</div>
+                                : <LoadingIndicator/>
                         }
                     </div>
                     {this._renderAddElement()}

@@ -1,12 +1,11 @@
 .breadcrumb {
     color: black;
-    margin-top: calc(3.9em + 2.2vw);
+    /* margin-top: calc(3.9em + 2.2vw); */
     margin-bottom: 0.4vw;
 }
 
 @media only screen and (max-width: 600px) {
     .breadcrumb {
-        margin-top: 3.8em;
         margin-bottom: 0.2em;
     }
 }

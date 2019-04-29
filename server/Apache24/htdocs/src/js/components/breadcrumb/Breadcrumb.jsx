@@ -10,15 +10,15 @@ export class Breadcrumb extends React.Component {
         this.state = {};
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this._getParentsFromServer(this.props.categoryId);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(lastProps) {
         // Check for a change in location, indicating that the page has been navigated
-        if (this.props.categoryId !== nextProps.categoryId) {
+        if (this.props.categoryId !== lastProps.categoryId) {
             this.setState({ loadedData: false });
-            this._getParentsFromServer(nextProps.categoryId);
+            this._getParentsFromServer(this.props.categoryId);
         }
     }
     _getParentsFromServer(categoryId) {

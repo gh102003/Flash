@@ -46,7 +46,7 @@ export class AddCardForm extends React.Component {
                     </label>
                     <div>
                         <input type="submit" value="Add flashcard" />
-                        <input type="button" value="Cancel" onClick={this.props.handleCancel}></input>
+                        <button onClick={this.props.handleCancel}>Cancel</button>
                     </div>
                 </form>
             </div>

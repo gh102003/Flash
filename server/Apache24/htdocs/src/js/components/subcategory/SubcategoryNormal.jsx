@@ -27,9 +27,9 @@ export var SubcategoryNormal = props => {
                 }}>
                     <i className="material-icons">edit</i>
                 </div>
-                <div className="flashcard-button">
+                <Link className="flashcard-button" to={`/category/${props.id}/quiz`}>
                     <i className="material-icons">assessment</i>
-                </div>
+                </Link>
                 {props.name}
             </Link>
         </div>

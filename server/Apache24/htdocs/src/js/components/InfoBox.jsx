@@ -19,6 +19,7 @@ export function InfoBox(props) {
                         <li>Bookmark a category for quick access</li>
                         <li>Drag a flashcard or category to move it</li>
                         <li>The breadcrumb can also be clicked or dropped into</li>
+                        <li>Click the graph icon on a category to take a quiz</li>
                     </ul>
                 </div>
             </div>
