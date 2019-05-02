@@ -1,17 +1,19 @@
 .quiz-master {
     display: grid;
     grid-template-columns: minmax(500px, 2fr) 1fr;
+    grid-template-rows: 28em 5em;
+    font-size: calc(0.5vw + 0.5em);
 }
 
-.quiz-flashcard {
+.quiz-flashcard, .quiz-start-btn {
     /* display: inline; */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 3em 1em;
+    padding: 1em;
     font-size: 3em;
-    margin: 0 1em 1em 1em;
+    margin: 0 1em;
     border-radius: 0.5em;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -24,6 +26,20 @@
     grid-row: 1;
 }
 
+.quiz-start-btn {
+    background-color: crimson;
+    color: white;
+}
+
+.quiz-start-btn:hover {
+    box-shadow: 0 0.2vw 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.quiz-start-btn:active {
+    top: 0.2vw;
+    box-shadow: none;
+}
+
 .quiz-answer-entry {
     grid-column: 1;
     grid-row: 2;
@@ -31,6 +47,7 @@
     text-align: center;
     margin: 0 3em;
     position: relative;
+    align-self: center;
 }
 
 .quiz-answer-entry input {
@@ -67,6 +84,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    user-select: none;
+    -moz-user-select: none;
 }
 
 .quiz-stats div {
@@ -87,4 +106,23 @@
     overflow: none;
     justify-content: center;
     justify-items: center;
+}
+
+@media only screen and (max-width: 900px) {
+    .quiz-master {
+        grid-template-columns: 1fr;
+        grid-template-rows: 20em 5em;
+    }
+
+    .quiz-stats {
+        grid-column: 1;
+        grid-row: 3;
+        border-radius: 1.5em 1.5em 0 0;
+        min-height: 12em;
+        flex-direction: row;
+    }
+
+    .quiz-flashcard, .quiz-start-btn {
+        margin: 0 0.5em;
+    }
 }

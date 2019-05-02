@@ -24,13 +24,31 @@ export class QuizMaster extends React.Component {
             currentIndex,
             questionSide,
             answerSide,
-            enteredAnswer: ""
+            enteredAnswer: "",
+            timerState: "ready" // Either 'ready', 'running' or 'finished'
         };
     }
 
     render() {
-        if (this.props.flashcards.length > 0) {
-            var currentFlashcard = this.props.flashcards[this.state.currentIndex];
+        let flashcardComponent;
+        if (this.state.timerState === "ready") {
+            flashcardComponent = (
+                <button
+                    className="quiz-start-btn"
+                    onClick={() => this.setState({ timerState: "running" })}
+                >
+                    Click to start
+                </button>
+            );
+        } else {
+            if (this.props.flashcards.length > 0) {
+                var currentFlashcard = this.props.flashcards[this.state.currentIndex];
+                flashcardComponent = (
+                    <QuizFlashcard
+                        text={currentFlashcard[this.state.questionSide]}
+                        colour={currentFlashcard.colour} />
+                );
+            }
         }
 
         return (
@@ -44,35 +62,42 @@ export class QuizMaster extends React.Component {
                     </div>
                     <div className="quiz-stat">
                         Time left
-                        <QuizTimer length={60000} onFinish={() => this.setState({timerFinished: true})}/>
+                        <QuizTimer
+                            length={60000}
+                            onFinish={() => this.setState({ timerState: "finished" })}
+                            running={this.state.timerState === "running"}
+                        />
                     </div>
                 </div>
+                {flashcardComponent}
                 {
-                    currentFlashcard &&
-                    <QuizFlashcard text={currentFlashcard[this.state.questionSide]} colour={currentFlashcard.colour}/>
-                }
-                <div className="quiz-answer-entry">
-                    <AutosizeInput
-                        type="text"
-                        value={this.state.enteredAnswer}
-                        onChange={e => {
-                            this.setState({enteredAnswer: e.target.value});
+                    this.state.timerState === "running" &&
+                    <div className="quiz-answer-entry">
+                        <AutosizeInput
+                            type="text"
+                            value={this.state.enteredAnswer}
+                            onChange={e => {
+                                this.setState({ enteredAnswer: e.target.value });
 
-                            if (e.target.value === currentFlashcard[this.state.answerSide]) {
-                                this.nextFlashcard(1);
-                            }
-                        }}
-                        disabled={this.state.timerFinished ? "disabled": ""}
-                        placeholder="Enter your answer"
-                        placeholderIsMinWidth
-                        autoComplete="off"
-                    />
-                    {!this.state.timerFinished &&
-                        <button onClick={() => this.nextFlashcard(0)}>
-                            Skip
-                        </button>
-                    }
-                </div>
+                                if (e.target.value === currentFlashcard[this.state.answerSide]) {
+                                    this.nextFlashcard(1);
+                                }
+                            }}
+                            placeholder="Enter your answer"
+                            placeholderIsMinWidth
+                            autoComplete="off"
+                            spellCheck="false"
+                            autoCorrect="off"
+                            autoCapitalize="off"
+                            autoFocus
+                        />
+                        {this.state.timerState === "running" &&
+                            <button onClick={() => this.nextFlashcard(0)}>
+                                Skip
+                            </button>
+                        }
+                    </div>
+                }
             </div>
         );
     }

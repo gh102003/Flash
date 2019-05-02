@@ -5,7 +5,6 @@ export class QuizTimer extends React.Component {
         super(props);
 
         this.state = {
-            startTime: new Date(),
             timeElapsed: 0,
             isFinished: false
         };
@@ -13,7 +12,7 @@ export class QuizTimer extends React.Component {
 
     componentDidMount() {
         this.timerId = setInterval(
-            () => this.tick(),
+            () => {if (this.props.running) { this.tick(); }},
             100
         );
     }
@@ -21,6 +20,12 @@ export class QuizTimer extends React.Component {
     componentWillUnmount() {
         if (!this.state.isFinished) {
             clearInterval(this.timerId);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.running === false && this.props.running === true) {
+            this.setState({ startTime: new Date() });
         }
     }
 

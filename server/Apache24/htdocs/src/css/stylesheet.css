@@ -12,8 +12,9 @@ button {
     background-color: #eee;
 }
 
-a:focus {
+a:focus, input::-moz-focus-inner, button::-moz-focus-inner {
     outline: none;
+    border: none;
 }
 
 button,
@@ -28,7 +29,7 @@ input[type="submit"] {
 }
 
 button:hover,
-input[type="submit"]:focus {
+input[type="submit"]:hover {
     box-shadow: 0 0.11vw 6px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -40,7 +41,7 @@ input[type="submit"]:active {
 }
 
 i.material-icons {
-    user-select: none;
+    
 }
 
 body {
@@ -136,7 +137,8 @@ body {
 .card {
     font-family: "Maven Pro", Arial, Helvetica, sans-serif;
     font-weight: 400;
-    user-select: none;
+    user-select: none;     
+    -moz-user-select: none;
     margin: 1vw;
     padding: 1vw;
     height: 5vw;
@@ -213,6 +215,7 @@ header {
     background-color: crimson;
     position: fixed;
     user-select: none;
+    -moz-user-select: none;
     padding: 0.8vw 1.5vw;
 
     display: flex;
