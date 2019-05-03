@@ -12,7 +12,7 @@ button {
     background-color: #eee;
 }
 
-a:focus, input::-moz-focus-inner, button::-moz-focus-inner {
+a:focus, input:focus, button:focus, input::-moz-focus-inner, button::-moz-focus-inner {
     outline: none;
     border: none;
 }
@@ -26,6 +26,7 @@ input[type="submit"] {
     border: none;
     font-size: 1em;
     cursor: pointer;
+    -webkit-appearance: none;
 }
 
 button:hover,
@@ -40,12 +41,9 @@ input[type="submit"]:active {
     top: 0.11vw;
 }
 
-i.material-icons {
-    
-}
-
 body {
     margin: 0;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 
@@ -93,7 +91,7 @@ body {
 
 @keyframes card-display-in {
     from {
-        transform: translateY(15vw) scale(0.6);
+        transform: translateY(10vw) scale(0.8);
         opacity: 0;
     }
 
@@ -110,7 +108,7 @@ body {
 .category-loaded .card-display {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    animation: card-display-in 600ms both;
+    animation: card-display-in 550ms both;
 }
 
 @keyframes loading-indicator-in {

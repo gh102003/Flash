@@ -28,17 +28,21 @@ export class Quiz extends React.Component {
     render() {
 
         return (
-            <div>
-                <input
-                    id="isRecursive"
-                    type="checkbox"
-                    value={this.state.isRecursive}
-                    onChange={event => this.setState({ isRecursive: event.target.checked })}
-                />
-                <label htmlFor="isRecursive">Include cards in subcategories</label>
+            <div className="quiz">
+                <div className="quiz-setup">
+                    <h2 className="quiz-title">Quiz: {this.state.category == null ? "" : this.state.category.name}</h2>
+                    <div className="setting">
+                        <input
+                            id="isRecursive"
+                            type="checkbox"
+                            value={this.state.isRecursive}
+                            onChange={event => this.setState({ isRecursive: event.target.checked })}
+                        />
+                        <label htmlFor="isRecursive">Include cards from subcategories</label>
+                    </div>
+                </div>
                 {this.state.isLoaded ?
                     <>
-                        <p>Quiz: {this.state.category.name}</p>
                         <QuizMaster flashcards={this.state.flashcards}/>
                     </>
                     : <LoadingIndicator />
