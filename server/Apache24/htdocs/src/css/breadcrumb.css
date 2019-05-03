@@ -1,6 +1,5 @@
 .breadcrumb {
     color: black;
-    /* margin-top: calc(3.9em + 2.2vw); */
     margin-bottom: 0.4vw;
 }
 
@@ -12,7 +11,7 @@
 
 .breadcrumb-category {
     display: inline-block;
-    border-radius: 0 5vw 5vw 0;
+    border-radius: 0 3vw 3vw 0;
     padding: 0.5em 0.8em 0.5em 1.6em; /* Compensate for rounded corners */
     margin-right: -1em; /* Overlap */
     background-color: #DFDFDF;

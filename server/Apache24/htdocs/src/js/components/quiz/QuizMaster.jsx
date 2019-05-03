@@ -104,7 +104,13 @@ export class QuizMaster extends React.Component {
 
     nextFlashcard(pointsFromLast) {
         this.setState(oldState => {
-            let currentIndex = Math.floor(Math.random() * this.props.flashcards.length);
+            let currentIndex;
+            do {
+                currentIndex = Math.floor(Math.random() * this.props.flashcards.length);
+            } while (
+                this.props.flashcards.length > 1 
+                && currentIndex === oldState.currentIndex
+            );
 
             var questionSide, answerSide;
             if (this.props.flashcards.length > 0) {

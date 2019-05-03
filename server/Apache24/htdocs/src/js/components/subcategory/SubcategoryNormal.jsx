@@ -1,10 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import { DropTarget, DragSource } from "react-dnd";
 
 import { draggableTypes } from "../../constants.js";
 
 export var SubcategoryNormal = props => {
+
+    // State hook for redirect used instead of a React Router <Link>
+    const [redirect, setRedirect] = useState("");
+
+    if (redirect && redirect !== window.location.pathname) {
+        return <Redirect push to={redirect}/>;
+    }
 
     let className = "card subcategory card-normal";
     if (props.isDragging) {
@@ -15,11 +22,12 @@ export var SubcategoryNormal = props => {
 
     return props.connectDropTarget(props.connectDragSource(
         <div>
-            <Link
+            <div
                 to={`/category/${props.id}`}
                 className={className}
                 style={props.styles}
                 draggable="false"
+                onClick={() => setRedirect(`/category/${props.id}`)}
             >
                 <div className="flashcard-button" onClick={event => {
                     event.preventDefault();
@@ -31,7 +39,7 @@ export var SubcategoryNormal = props => {
                     <i className="material-icons">assessment</i>
                 </Link>
                 {props.name}
-            </Link>
+            </div>
         </div>
     ));
 };
