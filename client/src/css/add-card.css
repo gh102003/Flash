@@ -1,0 +1,276 @@
+.add-card-button {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: crimson;
+    text-align: center;
+    line-height: 5vw;
+    font-size: 3em;
+    color: white;
+    font-weight: bold;
+    border-radius: 2.5vw;
+    cursor: pointer;
+    box-shadow: 0 0.15vw 8px 0 rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    position: relative;
+}
+
+.add-card-button:hover {
+    box-shadow: 0 0.25vw 12px 0 rgba(0, 0, 0, 0.75);
+}
+
+.add-card-button:active {
+    position: relative;
+    box-shadow: none;
+    top: 0.2vw;
+}
+
+.add-wrapper {
+    user-select: none;
+    width: 5vw;
+    height: 5vw;
+    position: fixed;
+    left: 2vw;
+    bottom: 2vw;
+}
+
+.add-subcategory-button-wrapper {
+    /* Used to center child */
+    display: flex;
+    align-items: center;
+    z-index: 0;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+}
+
+.add-subcategory-button {
+    background-color: rgb(160, 15, 44);
+    color: white;
+    white-space: nowrap;
+    border-radius: 0.8vw;
+    cursor: pointer;
+    box-shadow: 0 0.1vw 5px 0 rgba(0, 0, 0, 0.45);
+
+    padding: 0.6vw 0vw;
+    width: 0;
+    overflow: hidden;
+    transition: width 500ms, padding 500ms;
+}
+
+.add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+.add-subcategory-button:hover {
+    width: 100%;
+    /* Extra left padding to appear further from .add-button */
+    padding: 0.6vw 0.6vw 0.6vw 3.2vw;
+}
+
+.add-subcategory-button:hover {
+    box-shadow: 0 0.2vw 8px 0 rgba(0, 0, 0, 0.7);
+}
+
+.add-subcategory-button:active {
+    position: relative;
+    top: 0.14vw;
+    box-shadow: none;
+}
+
+@media only screen and (max-width: 1250px) {
+    .add-card-button {
+        line-height: 6vw;
+        border-radius: 3vw;
+        font-size: 2.5em;
+    }
+
+    .add-wrapper {
+        width: 6vw;
+        height: 6vw;
+        left: 2.4vw;
+        bottom: 2.4vw;
+    }
+
+    .add-subcategory-button {
+        border-radius: 1vw;
+        padding: 0.7vw 0vw;
+        font-size: 0.95em;
+    }
+
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+    .add-subcategory-button:hover {
+        padding: 0.7vw 0.7vw 0.7vw 3.8vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .add-card-button {
+        line-height: 8vw;
+        border-radius: 4vw;
+    }
+
+    .add-wrapper {
+        width: 8vw;
+        height: 8vw;
+        left: 3vw;
+        bottom: 3vw;
+    }
+
+    .add-subcategory-button {
+        border-radius: 1.2vw;
+        padding: 1vw 0vw;
+        font-size: 0.9em;
+    }
+
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+    .add-subcategory-button:hover {
+        padding: 1vw 1vw 1vw 5vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .add-card-button {
+        line-height: 12vw;
+        border-radius: 6vw;
+        font-size: 2.2em;
+    }
+
+    .add-wrapper {
+        width: 12vw;
+        height: 12vw;
+        left: 4.2vw;
+        bottom: 4.2vw;
+    }
+
+    .add-subcategory-button {
+        border-radius: 1.4vw;
+        padding: 1.2vw 0vw;
+    }
+
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+    .add-subcategory-button:hover {
+        padding: 1.2vw 1.2vw 1.2vw 8vw;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .add-card-button {
+        line-height: 15vw;
+        border-radius: 7.5vw;
+        font-size: 2.5em;
+    }
+
+    .add-wrapper {
+        width: 15vw;
+        height: 15vw;
+        left: 5vw;
+        bottom: 5vw;
+    }
+
+    .add-subcategory-button {
+        border-radius: 1.7vw;
+        padding: 1.5vw 0vw;
+    }
+
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
+    .add-subcategory-button:hover {
+        padding: 1.5vw 1.5vw 1.5vw 10vw;
+    }
+}
+
+/* =============== Add forms =============== */
+
+.add-form {
+    position: fixed;
+    background-color: #e0e0e0;
+    padding: 1.5vw 2vw;
+    border-radius: 0.9em;
+    margin: 0 auto;
+    width: 35%;
+}
+
+@media only screen and (max-width: 1250px) {
+    .add-form {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .add-form {
+        width: 70%;
+        padding: 3vw 4vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .add-form {
+        width: 85%;
+    }
+}
+
+.add-form input, .add-form button {
+    border-radius: 0.7em;
+    background-color: #eee;
+    padding: 0.6em 0.8em;
+}
+
+.add-form label {
+    display: block;
+    font-size: 1em;
+    margin: 0 0 1em 0;
+}
+
+.add-form>div.controls {
+    margin: 0 auto;
+}
+
+.add-form .colour-picker {
+    margin: 0 0 1em 0;
+    display: inline-block;
+}
+
+.add-form .colour-picker>* {
+    box-shadow: 0 0.05vw 4px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.add-form .colour-picker .block-picker {
+    width: 202px !important;
+}
+
+.add-form .colour-picker>div:hover {
+    box-shadow: 0 0.1vw 7px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+.add-form input[type="checkbox"] {
+    margin-right: 0.7em;
+    width: 0.9em;
+    height: 0.9em;
+    outline: none;
+    box-shadow: none;
+}
+
+.add-form input[type="text"] {
+    font-size: 0.9em;
+    margin-left: 1em;
+    border: none;
+    box-shadow: 0 0.05vw 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.add-form input[type="text"]:hover {
+    box-shadow: 0 0.1vw 4px 0 rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.add-form input[type="text"]:focus {
+    box-shadow: 0 0.15vw 6px 0 rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+.add-form button:focus,
+.add-form input[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0.15vw 9px 0 rgba(0, 0, 0, 0.4);
+}
+
+.add-form input[type="submit"] {
+    background-color: crimson;
+    color: white;
+}

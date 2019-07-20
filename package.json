@@ -1,0 +1,59 @@
+{
+  "name": "flash",
+  "version": "1.0.0",
+  "description": "Node.js version of a flashcards app",
+  "license": "MIT",
+  "main": "/nodeServer/server.js",
+  "scripts": {
+    "watch": "webpack --watch --config client/webpack.config.js",
+    "build": "webpack --config client/webpack.config.js",
+    "start": "node --inspect nodeServer/server.js",
+    "debug": "nodemon --inspect nodeServer/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gh102003/Flash.git"
+  },
+  "author": "George Howarth",
+  "bugs": {
+    "url": "https://github.com/gh102003/Flash/issues"
+  },
+  "homepage": "https://gh102003.github.io/programming/flash.html",
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0",
+    "react": "^16.8.6",
+    "react-color": "^2.17.3",
+    "react-dnd": "^7.4.5",
+    "react-dnd-html5-backend": "^7.4.4",
+    "react-dnd-multi-backend": "^3.2.1",
+    "react-dnd-touch-backend": "^0.8.1",
+    "react-dom": "^16.8.0",
+    "react-input-autosize": "^2.2.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-transition-group": "^2.9.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "babel-preset-react-app": "^7.0.0",
+    "core-js": "^3.1.3",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "eslint-config-defaults": "^9.0.0",
+    "eslint-plugin-react": "^7.13.0",
+    "html-webpack-plugin": "^3.2.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.2"
+  }
+}

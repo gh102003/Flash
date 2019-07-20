@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DropTarget, DragSource } from "react-dnd";
 
 import { draggableTypes } from "../../constants.js";
 
 export var SubcategoryNormal = props => {
-
-    // State hook for redirect used instead of a React Router <Link>
-    // const [redirect, setRedirect] = useState("");
-
-    // if (redirect && redirect !== window.location.pathname) {
-    //     return <Redirect push to={redirect}/>;
-    // }
 
     let className = "card subcategory card-normal";
     if (props.isDragging) {
@@ -27,15 +20,15 @@ export var SubcategoryNormal = props => {
                 className={className}
                 style={props.styles}
                 draggable="false"
-                onClick={() => props.handleNavigate(`/category/${props.id}`)}
+                onClick={() => props.handleNavigate(props.id)}
             >
                 <div className="flashcard-button" onClick={event => {
-                    event.preventDefault();
+                    event.stopPropagation();
                     props.handleChangeView("edit");
                 }}>
                     <i className="material-icons">edit</i>
                 </div>
-                <Link className="flashcard-button" to={`/category/${props.id}/quiz`}>
+                <Link className="flashcard-button" to={`/category/${props.id}/quiz`} onClick={event => event.stopPropagation()}>
                     <i className="material-icons">assessment</i>
                 </Link>
                 {props.name}

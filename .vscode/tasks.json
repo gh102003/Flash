@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "start_server",
+            "label": "python_start_server",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}/server/Apache24/bin"
@@ -13,12 +13,30 @@
             "problemMatcher": []
         },
         {
-            "label": "start_webpack_watcher",
+            "label": "python_start_webpack_watcher",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}/server/Apache24/htdocs"
             },
             "command": "npx webpack --watch",
+            "problemMatcher": []
+        },
+        {
+            "label": "start_webpack_watcher",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/client"
+            },
+            "command": "webpack --watch",
+            "problemMatcher": []
+        },
+        {
+            "label": "start_webpack_dev_server",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/client"
+            },
+            "command": "webpack-dev-server --open",
             "problemMatcher": []
         }
     ]

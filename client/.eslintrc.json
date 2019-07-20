@@ -11,7 +11,7 @@
         "react": {
             "createClass": "createReactClass",
             "pragma": "React",
-            "version": "15.0",
+            "version": "16.8",
             "flowVersion": "0.53"
         },
         "propWrapperFunctions": [
@@ -38,7 +38,7 @@
         "no-console": "off",
         "no-unused-vars": "off",
         "indent": [
-            "error",
+            "warn",
             4,
             {
                 "SwitchCase": 1
@@ -50,7 +50,8 @@
         ],
         "quotes": [
             "warn",
-            "double"
+            "double",
+            { "allowTemplateLiterals": true }
         ],
         "semi": [
             "warn",

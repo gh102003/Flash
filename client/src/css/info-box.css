@@ -1,0 +1,86 @@
+.info-box {
+    width: 50vw;
+    height: 50vh;
+    border-radius: 2vmin;
+    background-color: white;
+    position: relative;
+    font-size: 1.1vw;
+}
+
+.info-box .info-box-header {
+    background-color: crimson;
+    color: white;
+    border-radius: 2vmin 2vmin 0 0;
+}
+
+.info-box .info-box-header, .info-box .info-box-body {
+    padding: 3vmin;
+}
+
+.info-box h2 {
+    font-size: 1.65em;
+    margin: 0;
+}
+
+.info-box .button-close {
+    position: absolute;
+    top: 3vmin;
+    right: 3vmin;
+    cursor: pointer;
+}
+
+.info-box .button-close:hover {
+    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.7);
+}
+
+.info-box .button-close:active {
+    text-shadow: none;
+    top: calc(3vmin + 2px);
+}
+
+.info-box-body p {
+    margin: 1em 0 0 0;
+}
+
+.info-box-body *:first-child {
+    margin: 0;
+}
+
+.info-box-body ul {
+    margin-top: 0;
+    padding-left: 1.7em;
+}
+
+.info-box-body ul li {
+    line-height: 1.35em;
+}
+
+@media only screen and (max-width: 1250px) {
+    .info-box {
+        width: 70vw;
+        font-size: 1.9vw;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .info-box {
+        width: 85vw;
+        font-size: 2.6vw;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .info-box {
+        width: 93vw;
+        font-size: 3.7vw;
+    }
+}
+
+@media only screen and (max-height: 760px) {
+    .info-box {
+        height: 65vh;
+    }
+}
+@media only screen and (max-height: 550px) {
+    .info-box {
+        height: 85vh;
+    }
+}
