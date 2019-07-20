@@ -1,6 +1,5 @@
 import React from "react";
-
-
+import * as constants from "../../constants";
 import * as util from "../../util";
 
 import { SubcategoryNormalDnd } from "./SubcategoryNormal.jsx";
@@ -19,12 +18,13 @@ export class Subcategory extends React.Component {
 
         if (this.state.view === "edit") {
             return (
+
                 <SubcategoryEdit
                     name={this.props.name}
                     styles={styles}
-                    handleEdit={(newValue) => this.props.handleEdit(newValue)}
-                    handleSaveEdit={() => {
-                        this.props.handleSaveEdit(this.props.name);
+                    handleEdit={(key, newValue) => this.props.handleEdit(key, newValue)}
+                    handleSaveEdit={(prop, newValue) => {
+                        this.props.handleSaveEdit(prop, newValue);
                         this.setState({ view: "normal" });
                     }}
                     handleDelete={() => this.props.handleDelete()}
@@ -38,7 +38,6 @@ export class Subcategory extends React.Component {
                     name={this.props.name}
                     handleChangeView={newView => this.setState({ view: newView })}
                     handleCardMove={this.props.handleCardMove}
-
                     handleNavigate={this.props.handleNavigate}
                 />
             );

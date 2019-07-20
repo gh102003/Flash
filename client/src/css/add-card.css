@@ -227,11 +227,11 @@
     display: inline-block;
 }
 
-.add-form .colour-picker>* {
-    box-shadow: 0 0.05vw 4px 0 rgba(0, 0, 0, 0.2) !important;
+.block-picker {
+    box-shadow: 0 0.05vw 5px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
-.add-form .colour-picker .block-picker {
+.block-picker {
     width: 202px !important;
 }
 

@@ -24,7 +24,7 @@
     position: absolute;
     left: 0.5vw;
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 0.4vw;
+    padding: 0.35vw;
     border-radius: 8vw;
     opacity: 0;
     transition: opacity 120ms;
@@ -36,7 +36,12 @@
 }
 
 .flashcard-button:nth-child(2) {
-    top: 3vw;
+    top: 2.9vw;
+}
+
+.flashcard-button:nth-child(3) {
+    top: 0.5vw;
+    left: 2.9vw;
 }
 
 @media only screen and (max-width: 1250px) {
@@ -55,6 +60,11 @@
     
     .flashcard-button:nth-child(2) {
         top: 3.9vw;
+    }
+
+    .flashcard-button:nth-child(3) {
+        top: 0.6vw;
+        left: 3.9vw;
     }
 }
 
@@ -75,6 +85,11 @@
     .flashcard-button:nth-child(2) {
         top: 5vw;
     }
+
+    .flashcard-button:nth-child(3) {
+        top: 0.8vw;
+        left: 5vw;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -93,6 +108,11 @@
     
     .flashcard-button:nth-child(2) {
         top: 7vw;
+    }
+
+    .flashcard-button:nth-child(3) {
+        top: 1vw;
+        left: 7vw;
     }
 }
 
@@ -136,7 +156,7 @@
     width: 80%;
     border: none;
     border-radius: 0;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+    /* border-bottom: 2px solid rgba(255, 255, 255, 0.6); */
     color: inherit;
 }
 

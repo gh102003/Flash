@@ -1,4 +1,5 @@
 import React from "react";
+import AutosizeInput from "react-input-autosize";
 
 export class FlashcardEdit extends React.Component {
     render() {
@@ -16,10 +17,11 @@ export class FlashcardEdit extends React.Component {
                 }}>
                     <i className="material-icons" >delete</i>
                 </div>
-                <input
+                <AutosizeInput
                     type="text"
                     autoFocus
                     value={this.props.text}
+                    style={{borderBottom: `2px solid ${this.props.styles.color.replace("1)", "0.6)")}`}} // Transparent version of text colour
                     onChange={(e) => this.props.handleEdit(e.target.value)}
                     onClick={(e) => e.stopPropagation()}
                     onKeyDown={(e) => {

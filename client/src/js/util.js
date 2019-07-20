@@ -24,8 +24,8 @@ export function contrastingColourFromInteger(backgroundColor) {
     let luma = (0.21 * red) + (0.71 * green) + (0.08 * blue); // Measure of percieved lightness, out of 255
 
     if ((luma / 255) < 0.42) {
-        return "#FFFFFF";
+        return "rgba(255, 255, 255, 1)";
     } else {
-        return "#000000";
+        return "rgba(0, 0, 0, 1)";
     }
 }

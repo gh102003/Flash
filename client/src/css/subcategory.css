@@ -119,3 +119,14 @@
     left: 8px;
     top: 8px;
 }
+
+/* Edit dialogs */
+.edit-dialog {
+    position: absolute;
+    top: 100%;
+}
+
+.edit-dialog .block-picker {
+    font-family: "Maven Pro", Arial, Helvetica, sans-serif;
+    box-shadow: 0 0.1vw 8px 0 rgba(0, 0, 0, 0.3) !important;
+}

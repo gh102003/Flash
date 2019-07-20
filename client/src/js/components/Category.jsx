@@ -126,7 +126,7 @@ export class Category extends React.Component {
             });
     }
 
-    handleCardEdit(cardType, clientIndex, propName, value) {
+    handleCardEdit(cardType, clientIndex, key, value) {
         this.setState(oldState => {
             let list;
             if (cardType === "subcategory") {
@@ -134,7 +134,7 @@ export class Category extends React.Component {
             } else if (cardType === "flashcard") {
                 list = oldState.category.flashcards;
             }
-            list[clientIndex][propName] = value;
+            list[clientIndex][key] = value;
             return oldState;
         });
     }
@@ -253,8 +253,8 @@ export class Category extends React.Component {
                 back={flashcard.back}
                 isReversible={flashcard.is_reversible}
                 colour={this.state.category.colour}
-                handleEdit={(side, newName) => this.handleCardEdit("flashcard", clientIndex, side, newName)}
-                handleSaveEdit={(side, newName) => this.handleCardSaveEdit("flashcard", clientIndex, side, newName)}
+                handleEdit={(key, newValue) => this.handleCardEdit("flashcard", clientIndex, key, newValue)}
+                handleSaveEdit={(key, newValue) => this.handleCardSaveEdit("flashcard", clientIndex, key, newValue)}
                 handleDelete={() => this.handleCardDelete("flashcard", clientIndex)}
             />
         ));
@@ -270,8 +270,8 @@ export class Category extends React.Component {
                 name={subcategory.name}
                 colour={subcategory.colour}
                 handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
-                handleEdit={newName => this.handleCardEdit("subcategory", clientIndex, "name", newName)}
-                handleSaveEdit={newName => this.handleCardSaveEdit("subcategory", clientIndex, "name", newName)}
+                handleEdit={(key, newValue) => this.handleCardEdit("subcategory", clientIndex, key, newValue)}
+                handleSaveEdit={(field, newValue) => this.handleCardSaveEdit("subcategory", clientIndex, field, newValue)}
                 handleDelete={() => this.handleCardDelete("subcategory", clientIndex)}
 
                 handleNavigate={url => this.navigate(url)}
