@@ -26,6 +26,11 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(jpg|jpeg|gif|png|ico)$/i,
+                exclude: /node_modules/,
+                loader: "file-loader?name=[name].[ext]"
+            },
+            {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: {
@@ -40,7 +45,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/index.html"
+            template: "./src/index.html",
+            favicon: "src/favicon.png"
         })
     ],
     resolve: {

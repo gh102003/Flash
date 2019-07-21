@@ -1,16 +1,16 @@
 import React from "react";
-import {version} from "../constants.js";
+import {version} from "../../constants";
 
 export function InfoBox(props) {
     return (
-        <div className="modal-background" onClick={() => props.handleClose()}>
-            <div className="info-box" onClick={(event) => event.stopPropagation()}>
-                <div className="info-box-header">
+        <div className="modal-background" onClick={props.handleClose}>
+            <div className="modal info-box" onClick={(event) => event.stopPropagation()}>
+                <div className="modal-header">
                     <h2>Flash v{version}{version < 1 && "-alpha"}</h2>
                     by George Howarth
-                    <i className="material-icons button-close" onClick={() => props.handleClose()}>close</i>
+                    <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>
-                <div className="info-box-body">
+                <div className="modal-body">
                     <p>Create, manage and practise with your own flashcards!</p>
                     <p>Tips:</p>
                     <ul>

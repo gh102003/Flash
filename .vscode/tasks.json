@@ -27,7 +27,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/client"
             },
-            "command": "webpack --watch",
+            "command": "npx webpack --watch",
             "problemMatcher": []
         },
         {
@@ -37,6 +37,11 @@
                 "cwd": "${workspaceFolder}/client"
             },
             "command": "webpack-dev-server --open",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "watch",
             "problemMatcher": []
         }
     ]

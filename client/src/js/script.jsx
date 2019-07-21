@@ -14,16 +14,18 @@ import "../css/stylesheet.css";
 import "../css/flashcard.css";
 import "../css/subcategory.css";
 import "../css/add-card.css";
-import "../css/info-box.css";
+import "../css/modal-box.css";
+import "../favicon.png";
 
 import { Category } from "./components/Category.jsx";
-import { InfoBox } from "./components/InfoBox.jsx";
+import { InfoBox } from "./components/modalBox/InfoBox.jsx";
+import { TagManager } from "./components/modalBox/TagManager.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
 
 class Page extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { infoBoxOpen: false };
+        this.state = { modalOpen: null };
     }
 
     componentDidMount() {
@@ -51,7 +53,10 @@ class Page extends React.Component {
                             <Link to="/">
                                 <h1>Flash</h1>
                             </Link>
-                            <i className="material-icons info-button" onClick={() => this.setState({ infoBoxOpen: true })}>info</i>
+                            <div className="header-buttons">
+                                <i className="material-icons tag-manager-button" onClick={() => this.setState({ modalOpen: "tagManager" })}>local_offer</i>
+                                <i className="material-icons info-button" onClick={() => this.setState({ modalOpen: "infoBox" })}>info</i>
+                            </div>
                         </header>
                         <Switch>
                             <Route path="/category/:categoryId/quiz" exact component={Quiz} />
@@ -62,7 +67,8 @@ class Page extends React.Component {
                         </Switch>
                     </>
                 </BrowserRouter>
-                {this.state.infoBoxOpen && <InfoBox handleClose={() => this.setState({ infoBoxOpen: false })}></InfoBox>}
+                {this.state.modalOpen === "tagManager" && <TagManager handleClose={() => this.setState({ modalOpen: null })}></TagManager>}
+                {this.state.modalOpen === "infoBox" && <InfoBox handleClose={() => this.setState({ modalOpen: null })}></InfoBox>}
             </>
         );
     }
