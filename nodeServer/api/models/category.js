@@ -32,26 +32,6 @@ categorySchema.set("toObject", {
     virtuals: true
 });
 
-// categorySchema.virtual("allowedRequests").get(function () {
-//     return ([
-//         {
-//             url: "/categories/" + this._id,
-//             method: "GET",
-//             description: "Provides category information including its child categories and flashcards"
-//         },
-//         {
-//             url: "/categories/" + this._id,
-//             method: "PATCH",
-//             body: [{ propName: "String", value: "String" }],
-//             description: "Edits a category using a list of changes"
-//         },
-//         {
-//             url: "/categories/" + this._id,
-//             method: "DELETE"
-//         }
-//     ]);
-// });
-
 // Virtual population - create lists of documents with this category referenced
 
 categorySchema.virtual("children", {

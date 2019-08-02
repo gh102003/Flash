@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FlashcardNormal, FlashcardNormalDragSource } from "./FlashcardNormal.jsx";
+import { FlashcardNormal } from "./FlashcardNormal.jsx";
 import { FlashcardEdit } from "./FlashcardEdit.jsx";
 import { FlashcardModal } from "./FlashcardModal.jsx";
 
@@ -29,6 +29,18 @@ export class Flashcard extends React.Component {
         }
     }
 
+    handleTagAdd(tagId) {
+        fetch(`${constants.serverOrigin}/flashcards/${this.props.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify([
+                { propName: "tags", type: "push", value: tagId }
+            ])
+        });
+    }
+
     render() {
         let backgroundColor = util.colourFromInteger(this.props.colour);
         let color = util.contrastingColourFromInteger(this.props.colour);
@@ -40,9 +52,9 @@ export class Flashcard extends React.Component {
                 <FlashcardEdit
                     text={text}
                     styles={styles}
-                    handleEdit={(newValue) => this.props.handleEdit(this.state.side, newValue)}
+                    handleEdit={newValue => this.props.handleEdit(this.state.side, newValue)}
                     handleSaveEdit={() => {
-                        this.props.handleSaveEdit(this.state.side, this.props[this.state.side]);
+                        this.props.handleSaveEdit({ propName: this.state.side, value: this.props[this.state.side] });
                         this.setState({ view: "normal" });
                     }}
                     handleDelete={() => this.props.handleDelete()}
@@ -51,7 +63,7 @@ export class Flashcard extends React.Component {
         }
         else if (this.state.view === "modal") {
             return (
-                <> {/* Shorthand for React.Fragment */}
+                <>
                     <FlashcardModal
                         text={text}
                         styles={styles}
@@ -59,6 +71,7 @@ export class Flashcard extends React.Component {
                         handleExit={() => this.setState({ view: "normal" })}
                     />
                     <FlashcardNormal
+                        editable={false}
                         text={text}
                         styles={styles}
                     />
@@ -67,12 +80,22 @@ export class Flashcard extends React.Component {
         }
         else {
             return (
-                <FlashcardNormalDragSource
+                <FlashcardNormal
+                    editable={true}
                     id={this.props.id}
                     text={text}
+                    tags={this.props.tags}
                     styles={styles}
                     handleFlip={() => this.flip()}
-                    handleChangeView={(newView) => this.setState({ view: newView })}
+                    handleChangeView={view => this.setState({ view })}
+                    handleTagAdd={tag => {
+                        this.props.handleEdit("tags", tag, "push");
+                        this.props.handleSaveEdit({ propName: "tags", type: "push", value: tag.id });
+                    }}
+                    handleTagDelete={tag => {
+                        this.props.handleEdit("tags", tag, "pull");
+                        this.props.handleSaveEdit({ propName: "tags", type: "pull", value: tag.id });
+                    }}
                 />
             );
         }

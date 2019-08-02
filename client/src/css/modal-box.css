@@ -24,8 +24,8 @@
 
 .modal .button-close {
     position: absolute;
-    top: 3vmin;
-    right: 3vmin;
+    top: 2.5vmin;
+    right: 2.5vmin;
     cursor: pointer;
 }
 
@@ -35,14 +35,14 @@
 
 .modal .button-close:active {
     text-shadow: none;
-    top: calc(3vmin + 2px);
+    top: calc(2.5vmin + 2px);
 }
 
 .modal-body p {
     margin: 1em 0 0 0;
 }
 
-.modal-body *:first-child {
+.modal-body>*:first-child {
     margin: 0;
 }
 

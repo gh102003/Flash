@@ -4,7 +4,8 @@ export const serverOrigin = "http://localhost:3000";
 
 export const draggableTypes = {
     FLASHCARD: "flashcard",
-    SUBCATEGORY: "subcategory"
+    SUBCATEGORY: "subcategory",
+    TAG: "tag"
 };
 
 export const categoryColours = [

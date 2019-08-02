@@ -14,21 +14,21 @@ export var SubcategoryEdit = props => {
             style={props.styles}
             onClick={(event) => event.stopPropagation()}
         >
-            <div className="flashcard-button" onClick={(event) => {
+            <div className="flashcard-button" onClick={event => {
                 event.stopPropagation();
                 props.handleSaveEdit("name", props.name);
             }}>
                 <i className="material-icons" >done</i>
             </div>
 
-            <div className="flashcard-button" onClick={(event) => {
+            <div className="flashcard-button" onClick={event => {
                 event.stopPropagation();
                 setEditDialog("colour");
             }}>
                 <i className="material-icons" >palette</i>
             </div>
 
-            <div className="flashcard-button" onClick={(event) => {
+            <div className="flashcard-button" onClick={event => {
                 event.stopPropagation();
                 props.handleDelete();
             }}>
@@ -39,11 +39,12 @@ export var SubcategoryEdit = props => {
             <AutosizeInput
                 type="text"
                 autoFocus
+                minWidth="80"
                 value={props.name}
                 style={{ borderBottom: `2px solid ${props.styles.color.replace("1)", "0.6)")}` }} // Transparent version of text colour
-                onChange={(e) => props.handleEdit(e.target.value)}
-                onClick={(e) => e.stopPropagation()}
-                onKeyDown={(e) => {
+                onChange={e => props.handleEdit("name", e.target.value)}
+                onClick={e => e.stopPropagation()}
+                onKeyDown={e => {
                     if (e.keyCode === 13) { // Enter
                         props.handleSaveEdit("name", props.name);
                     }

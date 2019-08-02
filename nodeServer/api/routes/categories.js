@@ -162,7 +162,6 @@ router.delete("/:categoryId", (req, res, next) => {
             } else throw error;
         })
         .then(() => {
-            categoryDeleted.allowedRequests = [];
             return res.status(200).json({ categoryDeleted });
         })
         .catch(error => {

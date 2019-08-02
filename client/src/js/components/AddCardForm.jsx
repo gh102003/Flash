@@ -36,6 +36,10 @@ export class AddCardForm extends React.Component {
         event.preventDefault();
     }
     render() {
+        let enableSubmit = true;
+        if (!this.state.front) enableSubmit = false;
+        if (!this.state.back) enableSubmit = false;
+
         return (
             <div className="modal-background" onClick={this.props.handleCancel}>
                 <form className="add-card-form add-form" id="add-card-form" onSubmit={(e) => this._handleSubmit(e)} onClick={event => event.stopPropagation()}>
@@ -51,9 +55,9 @@ export class AddCardForm extends React.Component {
                         <input type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this._handleChange(e)} />
                         Reversible
                     </label>
-                    <div>
-                        <input type="submit" value="Add flashcard" />
-                        <button onClick={this.props.handleCancel}>Cancel</button>
+                    <div className="controls">
+                        <input type="submit" value="Add flashcard" disabled={!enableSubmit}/>
+                        <button type="button" onClick={this.props.handleCancel}>Cancel</button>
                     </div>
                 </form>
             </div>

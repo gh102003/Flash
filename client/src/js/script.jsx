@@ -15,11 +15,12 @@ import "../css/flashcard.css";
 import "../css/subcategory.css";
 import "../css/add-card.css";
 import "../css/modal-box.css";
+import "../css/tag.css";
 import "../favicon.png";
 
 import { Category } from "./components/Category.jsx";
 import { InfoBox } from "./components/modalBox/InfoBox.jsx";
-import { TagManager } from "./components/modalBox/TagManager.jsx";
+import { TagManager } from "./components/modalBox/TagManager/TagManager.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
 
 class Page extends React.Component {

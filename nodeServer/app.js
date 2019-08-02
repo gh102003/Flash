@@ -5,6 +5,7 @@ const mongoose = require("mongoose"); // MongoDB
 
 const categoryRoutes = require("./api/routes/categories");
 const flashcardRoutes = require("./api/routes/flashcards");
+const tagRoutes = require("./api/routes/tags");
 const mongoAtlasConfig = require("./mongoAtlas");
 
 const app = express();
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 // Setup routers (middleware)
 app.use("/categories", categoryRoutes);
 app.use("/flashcards", flashcardRoutes);
+app.use("/tags", tagRoutes);
 
 // Error handling - anything else
 app.use((req, res, next) => {

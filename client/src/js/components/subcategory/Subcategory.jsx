@@ -24,7 +24,7 @@ export class Subcategory extends React.Component {
                     styles={styles}
                     handleEdit={(key, newValue) => this.props.handleEdit(key, newValue)}
                     handleSaveEdit={(prop, newValue) => {
-                        this.props.handleSaveEdit(prop, newValue);
+                        this.props.handleSaveEdit({ propName: prop, value: newValue });
                         this.setState({ view: "normal" });
                     }}
                     handleDelete={() => this.props.handleDelete()}

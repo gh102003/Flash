@@ -9,7 +9,7 @@ button {
 }
 
 button {
-    background-color: #eee;
+    background-color: #e8e8e8;
 }
 
 a:focus, input:focus, button:focus, input::-moz-focus-inner, button::-moz-focus-inner {
@@ -17,27 +17,57 @@ a:focus, input:focus, button:focus, input::-moz-focus-inner, button::-moz-focus-
     border: none;
 }
 
+input[type="text"] {
+    font-size: 0.9em;
+    border: none;
+    box-shadow: 0 0.07vw 3px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 0.7em;
+    background-color: #eee;
+    padding: 0.6em 0.8em;
+}
+
+input[type="text"]:hover {
+    box-shadow: 0 0.1vw 5px 0 rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0.15vw 7px 0 rgba(0, 0, 0, 0.4);
+    outline: none;
+}
+
+input[type="submit"] {
+    background-color: crimson;
+    color: white;
+    transition: background-color 150ms;
+}
+
+input[type="submit"]:disabled {
+    background-color: hsl(348, 30%, 60%);
+    cursor: not-allowed;
+}
+
 button,
 input[type="submit"] {
     border-radius: 0.7em;
     padding: 0.6em 0.8em;
-    box-shadow: 0 0.08vw 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.08vw 4px 0 rgba(0, 0, 0, 0.3);
     margin: 0 0.7vw 0 0;
     border: none;
     font-size: 1em;
     cursor: pointer;
     -webkit-appearance: none;
+    position: relative;
 }
 
 button:hover,
 input[type="submit"]:hover {
-    box-shadow: 0 0.11vw 6px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.11vw 6px 0 rgba(0, 0, 0, 0.4);
 }
 
 button:active,
 input[type="submit"]:active {
     box-shadow: none;
-    position: relative;
     top: 0.11vw;
 }
 
@@ -70,6 +100,7 @@ body {
 .modal-background {
     animation: modal-background-in 300ms forwards;
     background-color: rgba(0, 0, 0, 0.75);
+    transition: background-color 300ms;
 
     z-index: 200;
     top: 0;

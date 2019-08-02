@@ -33,6 +33,10 @@ export class AddCategoryForm extends React.Component {
         event.preventDefault();
     }
     render() {
+        let enableSubmit = true;
+        if (!this.state.name) enableSubmit = false;
+        if (!this.state.colour) enableSubmit = false;
+
         return (
             <div className="modal-background" onClick={this.props.handleCancel}>
                 <form className="add-category-form add-form" id="add-category-form" onSubmit={(e) => this.handleSubmit(e)} onClick={event => event.stopPropagation()}>
@@ -41,16 +45,16 @@ export class AddCategoryForm extends React.Component {
                         <input autoFocus name="name" type="text" value={this.state.name} onChange={(e) => this.handleChange(e)} />
                     </label>
                     <div className="colour-picker">
-                        <BlockPicker 
-                            triangle="hide" 
-                            color={this.state.colour} 
-                            colors={constants.categoryColours} 
-                            onChangeComplete={color => this.setState({ colour: color.hex })} 
+                        <BlockPicker
+                            triangle="hide"
+                            color={this.state.colour}
+                            colors={constants.categoryColours}
+                            onChangeComplete={color => this.setState({ colour: color.hex })}
                         />
                     </div>
                     <div className="controls">
-                        <input type="submit" value="Add category" />
-                        <button onClick={this.props.handleCancel}>Cancel</button>
+                        <input type="submit" value="Add category" disabled={!enableSubmit}/>
+                        <button type="button" onClick={this.props.handleCancel}>Cancel</button>
                     </div>
                 </form>
             </div>

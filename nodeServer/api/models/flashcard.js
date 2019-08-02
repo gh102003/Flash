@@ -5,30 +5,12 @@ const flashcardSchema = mongoose.Schema({
     front: { type: String, required: true },
     back: { type: String, required: true },
     isReversible: { type: Boolean, default: false },
-    category: {type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true}
+    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
+    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }]
 });
 
 // Virtuals - generated values that don't really existed
 // Don't use arrow functions - they prevent binding 'this'
-
-// flashcardSchema.virtual("allowedRequests").get(function () {
-//     return ([
-//         {
-//             url: "/flashcards/" + this._id,
-//             method: "GET"
-//         },
-//         {
-//             url: "/flashcards/" + this._id,
-//             method: "PATCH",
-//             body: [{ propName: "String", value: "String" }],
-//             description: "Edits a flashcard using a list of changes"
-//         },
-//         {
-//             url: "/flashcards/" + this._id,
-//             method: "DELETE"
-//         }
-//     ]);
-// });
 
 // Apply a transform to the 'toJSON' function, to change the name of the id key
 flashcardSchema.set("toJSON", {
@@ -40,5 +22,13 @@ flashcardSchema.set("toJSON", {
         return ret;
     }
 });
+
+const autoPopulateTags = function(next) {
+    this.populate("tags");
+    next();
+};
+
+flashcardSchema.pre("find", autoPopulateTags);
+flashcardSchema.pre("findOne", autoPopulateTags);
 
 module.exports = mongoose.model("Flashcard", flashcardSchema);

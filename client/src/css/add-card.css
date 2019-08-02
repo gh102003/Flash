@@ -208,7 +208,6 @@
 
 .add-form input, .add-form button {
     border-radius: 0.7em;
-    background-color: #eee;
     padding: 0.6em 0.8em;
 }
 
@@ -268,9 +267,4 @@
 .add-form input[type="submit"]:focus {
     outline: none;
     box-shadow: 0 0.15vw 9px 0 rgba(0, 0, 0, 0.4);
-}
-
-.add-form input[type="submit"] {
-    background-color: crimson;
-    color: white;
 }

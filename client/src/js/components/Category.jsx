@@ -126,7 +126,7 @@ export class Category extends React.Component {
             });
     }
 
-    handleCardEdit(cardType, clientIndex, key, value) {
+    handleCardEdit(cardType, clientIndex, key, value, operationType = null) {
         this.setState(oldState => {
             let list;
             if (cardType === "subcategory") {
@@ -134,18 +134,31 @@ export class Category extends React.Component {
             } else if (cardType === "flashcard") {
                 list = oldState.category.flashcards;
             }
-            list[clientIndex][key] = value;
+
+            if (key === "tags" && operationType !== null) {
+                switch (operationType) {
+                    case "push":
+                        list[clientIndex][key].push(value);
+                        break;
+                    case "pull":
+                        list[clientIndex][key] = list[clientIndex][key].filter(x => x.id !== value.id);
+                        break;
+                }
+            } else {
+                list[clientIndex][key] = value;
+            }
             return oldState;
         });
     }
 
-    handleCardSaveEdit(cardType, clientIndex, propName, value) {
+    handleCardSaveEdit(cardType, clientIndex, editData) {
         let listNameServer, listNameClient;
         if (cardType === "subcategory") {
             listNameServer = "categories";
             listNameClient = "subcategories";
         } else if (cardType === "flashcard") {
-            listNameServer, listNameClient = "flashcards";
+            listNameServer = "flashcards";
+            listNameClient = "flashcards";
         }
 
         let cardId = this.state.category[listNameClient][clientIndex].id;
@@ -156,7 +169,7 @@ export class Category extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify([
-                { propName, value }
+                editData
             ])
         });
     }
@@ -242,7 +255,7 @@ export class Category extends React.Component {
         });
     }
 
-    _renderFlashcards() {
+    renderFlashcards() {
         if (!this.state.category.flashcards) return null;
 
         return this.state.category.flashcards.map((flashcard, clientIndex) => (
@@ -252,15 +265,16 @@ export class Category extends React.Component {
                 front={flashcard.front}
                 back={flashcard.back}
                 isReversible={flashcard.is_reversible}
+                tags={flashcard.tags}
                 colour={this.state.category.colour}
-                handleEdit={(key, newValue) => this.handleCardEdit("flashcard", clientIndex, key, newValue)}
-                handleSaveEdit={(key, newValue) => this.handleCardSaveEdit("flashcard", clientIndex, key, newValue)}
+                handleEdit={(key, newValue, operationType = null) => this.handleCardEdit("flashcard", clientIndex, key, newValue, operationType)}
+                handleSaveEdit={editData => this.handleCardSaveEdit("flashcard", clientIndex, editData)}
                 handleDelete={() => this.handleCardDelete("flashcard", clientIndex)}
             />
         ));
     }
 
-    _renderSubcategories() {
+    renderSubcategories() {
         if (!this.state.category.subcategories) return null;
 
         return this.state.category.subcategories.map((subcategory, clientIndex) => (
@@ -270,16 +284,15 @@ export class Category extends React.Component {
                 name={subcategory.name}
                 colour={subcategory.colour}
                 handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
-                handleEdit={(key, newValue) => this.handleCardEdit("subcategory", clientIndex, key, newValue)}
-                handleSaveEdit={(field, newValue) => this.handleCardSaveEdit("subcategory", clientIndex, field, newValue)}
+                handleEdit={(key, newValue, operationType = null) => this.handleCardEdit("subcategory", clientIndex, key, newValue, operationType)}
+                handleSaveEdit={editData => this.handleCardSaveEdit("subcategory", clientIndex, editData)}
                 handleDelete={() => this.handleCardDelete("subcategory", clientIndex)}
-
                 handleNavigate={url => this.navigate(url)}
             />
         ));
     }
 
-    _renderAddElement() {
+    renderAddElement() {
         if (this.state.currentForm === "addCard") {
             return (
                 <AddCardForm
@@ -316,13 +329,13 @@ export class Category extends React.Component {
                         {
                             this.state.loadedData ?
                                 <>
-                                    {this._renderSubcategories()}
-                                    {this._renderFlashcards()}
+                                    {this.renderSubcategories()}
+                                    {this.renderFlashcards()}
                                 </>
                                 : <LoadingIndicator />
                         }
                     </div>
-                    {this._renderAddElement()}
+                    {this.renderAddElement()}
                     <AddButton handleClick={(nextForm) => this.setState({ currentForm: nextForm })} />
                 </div>
             </>

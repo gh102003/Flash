@@ -9,6 +9,7 @@ const router = express.Router();
 router.get("/:flashcardId", (req, res, next) => {
     // Find in database
     Flashcard.findById(req.params.flashcardId)
+        .populate("tags")
         .then(flashcard => {
             if (flashcard) {
                 res.status(200).json(flashcard);
@@ -48,13 +49,40 @@ router.post("/", (req, res, next) => {
         });
 });
 
+/**
+ * PATCH requests
+ * 
+ *  [
+ *      {propName: "front", value: "bla bla bla"},
+ *      {propName: "back", value: "yeet yeet yeet"},
+ *      {propName: "tags", type: "push", value: "2483849238"},
+ *      {propName: "tags", type: "pull", value: "7294893862"}
+ *  ]
+ */
 router.patch("/:flashcardId", (req, res, next) => {
-    const updateOps = {};
+    let updateOps = { $set: {} };
     for (const op of req.body) {
-        updateOps[op.propName] = op.value;
+        if (op.propName === "tags") {
+            // If tags are to be edited, operation type must be specified
+
+            if (!op.type) {
+                return res.status(400).json({ error: "operation type must be specified for arrays" });
+            }
+
+            updateOps = {
+                ...updateOps,
+                ["$" + op.type]: {
+                    ...updateOps[op.type],
+                    tags: op.value
+                }
+            };
+        } else {
+            // Otherwise use $set operation type
+            updateOps["$set"][op.propName] = op.value;
+        }
     }
 
-    Flashcard.findByIdAndUpdate(req.params.flashcardId, { $set: updateOps })
+    Flashcard.findByIdAndUpdate(req.params.flashcardId, updateOps)
         .then(() => {
             return Flashcard.findById(req.params.flashcardId).exec(); // Get new details
         })
@@ -87,7 +115,6 @@ router.delete("/:flashcardId", (req, res, next) => {
             return Flashcard.deleteOne({ _id: flashcardId }).exec();
         })
         .then(() => {
-            deletedFlashcard.allowedRequests = [];
             return res.status(200).json({ deletedFlashcard });
         })
         .catch(error => {
