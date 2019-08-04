@@ -20,6 +20,7 @@ export function InfoBox(props) {
                         <li>Drag a flashcard or category to move it</li>
                         <li>The breadcrumb can also be clicked or dropped into</li>
                         <li>Click the graph icon on a category to take a quiz</li>
+                        <li>Drag a tag out of the tag manager to add it to a flashcard</li>
                     </ul>
                 </div>
             </div>

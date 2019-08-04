@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 import * as constants from "../../constants.js";
@@ -34,6 +34,22 @@ export const FlashcardNormal = props => {
         className += " dnd-dragging";
     }
 
+    const [tagsScrollIntervalId, setTagsScrollIntervalId] = useState();
+    const lastMouseX = useRef(); // Use a ref instead of state to make the value update the setTimeout callback
+
+    // Ref for custom tag scrolling behaviour
+    var tagsRef = useRef();
+    const customScrollTags = function (tagsRefCurrent) {
+        const divRect = tagsRefCurrent.getBoundingClientRect();
+        const mouseX = lastMouseX.current - divRect.left; // x position within the element
+
+        if (mouseX < 20) {
+            tagsRefCurrent.scrollLeft -= 1;
+        } else if (mouseX > divRect.width - 20) {
+            tagsRefCurrent.scrollLeft += 1;
+        }
+    };
+
     return drop(drag(
         <div className={className} style={props.styles} onClick={event => {
             event.stopPropagation();
@@ -55,7 +71,13 @@ export const FlashcardNormal = props => {
 
             <span>{props.text}</span>
 
-            <div className="tags">
+            <div
+                className="tags"
+                ref={tagsRef}
+                onMouseEnter={() => setTagsScrollIntervalId(setInterval(() => customScrollTags(tagsRef.current), 12))}
+                onMouseLeave={() => clearInterval(tagsScrollIntervalId)}
+                onMouseMove={event => lastMouseX.current = event.clientX}
+            >
                 {props.tags.map(tag => (
                     <Tag name={tag.name}
                         colour={tag.colour}
@@ -65,6 +87,6 @@ export const FlashcardNormal = props => {
                     />
                 ))}
             </div>
-        </div>
+        </div >
     ));
 };

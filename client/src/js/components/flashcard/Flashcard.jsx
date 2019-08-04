@@ -73,6 +73,7 @@ export class Flashcard extends React.Component {
                     <FlashcardNormal
                         editable={false}
                         text={text}
+                        tags={this.props.tags}
                         styles={styles}
                     />
                 </>

@@ -4,7 +4,7 @@
 
 .flashcard.card-normal:hover, .flashcard-modal:hover {
     box-shadow: 0 0.2vw 10px 0 rgba(0, 0, 0, 0.5);
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .flashcard.card-normal:active {

@@ -33,6 +33,6 @@ export const Tag = props => { // Props that are unwrapped
                 event.stopPropagation();
                 props.handleDelete();
             }}>close</i>
-        </div>)
+        </div>, { dropEffect: "copy" })
     );
 };
