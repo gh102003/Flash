@@ -21,8 +21,10 @@
   "homepage": "https://gh102003.github.io/programming/flash.html",
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.4.4",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.0",
     "react": "^16.8.6",
     "react-color": "^2.17.3",

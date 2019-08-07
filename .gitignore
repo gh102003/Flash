@@ -8,7 +8,7 @@ node_modules/
 #!htdocs/build/.htaccess
 
 # Mongo Atlas
-nodeServer/mongoAtlas.js
+nodeServer/credentials.js
 
 # Old python code
 server/

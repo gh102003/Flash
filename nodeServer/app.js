@@ -6,12 +6,14 @@ const mongoose = require("mongoose"); // MongoDB
 const categoryRoutes = require("./api/routes/categories");
 const flashcardRoutes = require("./api/routes/flashcards");
 const tagRoutes = require("./api/routes/tags");
-const mongoAtlasConfig = require("./mongoAtlas");
+const userRoutes = require("./api/routes/users");
+
+const credentials = require("./credentials");
 
 const app = express();
 
 // Connect to Mongo Atlas database
-const mongoUrl = `mongodb+srv://${mongoAtlasConfig.credentials.username}:${mongoAtlasConfig.credentials.password}@flashcluster-nquld.mongodb.net/flash-database?retryWrites=true&w=majority`;
+const mongoUrl = `mongodb+srv://${credentials.mongoAtlas.username}:${credentials.mongoAtlas.password}@flashcluster-nquld.mongodb.net/flash-database?retryWrites=true&w=majority`;
 mongoose.connect(mongoUrl, { useNewUrlParser: true });
 
 // Logging middleware
@@ -39,6 +41,7 @@ app.use((req, res, next) => {
 app.use("/categories", categoryRoutes);
 app.use("/flashcards", flashcardRoutes);
 app.use("/tags", tagRoutes);
+app.use("/users", userRoutes);
 
 // Error handling - anything else
 app.use((req, res, next) => {

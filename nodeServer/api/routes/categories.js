@@ -139,11 +139,11 @@ router.patch("/:categoryId", (req, res, next) => {
 });
 
 router.delete("/:categoryId", (req, res, next) => {
-    let categoryDeleted;
+    let deletedCategory;
 
     Category.findById(req.params.categoryId) // Find category to remove 
         .then(category => {
-            if (category) categoryDeleted = category;
+            if (category) deletedCategory = category;
             else throw new Error("not found");
         })
         .then(() => { // Delete flashcards
@@ -162,7 +162,7 @@ router.delete("/:categoryId", (req, res, next) => {
             } else throw error;
         })
         .then(() => {
-            return res.status(200).json({ categoryDeleted });
+            return res.status(200).json({ deletedCategory });
         })
         .catch(error => {
             console.error(error);
