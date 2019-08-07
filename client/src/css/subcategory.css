@@ -121,9 +121,28 @@
 }
 
 /* Edit dialogs */
+@keyframes edit-dialog-in {
+    from {
+        transform: scale(0.9) translateY(-1.2em);
+        opacity: 0;
+    }
+
+    30% {
+        transform: scale(0.95) translateY(-0.6em);
+        opacity: 0.5;
+    }
+    
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
 .edit-dialog {
     position: absolute;
     top: 100%;
+    transform-origin: top center;
+    animation: edit-dialog-in 150ms ease-out forwards;
 }
 
 .edit-dialog .block-picker {

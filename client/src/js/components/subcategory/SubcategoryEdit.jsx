@@ -7,7 +7,7 @@ import * as constants from "../../constants";
 
 export var SubcategoryEdit = props => {
 
-    const [editDialog, setEditDialog] = useState(0);
+    const [editDialog, setEditDialog] = useState(null);
 
     return (
         <div className="card subcategory card-edit"
@@ -23,7 +23,11 @@ export var SubcategoryEdit = props => {
 
             <div className="flashcard-button" onClick={event => {
                 event.stopPropagation();
-                setEditDialog("colour");
+                if (editDialog === "colour") {
+                    setEditDialog(null);
+                } else {
+                    setEditDialog("colour");
+                }
             }}>
                 <i className="material-icons" >palette</i>
             </div>
