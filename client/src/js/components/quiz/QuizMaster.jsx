@@ -3,6 +3,7 @@ import AutosizeInput from "react-input-autosize";
 
 import { QuizTimer } from "./QuizTimer.jsx";
 import { QuizFlashcard } from "./QuizFlashcard.jsx";
+import * as util from "../../util";
 
 export class QuizMaster extends React.Component {
     constructor(props) {
@@ -31,7 +32,12 @@ export class QuizMaster extends React.Component {
 
     render() {
         let flashcardComponent;
-        if (this.state.timerState === "ready") {
+
+        if (this.props.flashcards.length <= 0) {
+            flashcardComponent = (
+                <QuizFlashcard text="(No flashcards available)" colour={14423100} /> // Crimson colour
+            );
+        } else if (this.state.timerState === "ready") {
             flashcardComponent = (
                 <button
                     className="quiz-start-btn"
@@ -41,15 +47,14 @@ export class QuizMaster extends React.Component {
                 </button>
             );
         } else {
-            if (this.props.flashcards.length > 0) {
-                var currentFlashcard = this.props.flashcards[this.state.currentIndex];
-                flashcardComponent = (
-                    <QuizFlashcard
-                        text={currentFlashcard[this.state.questionSide]}
-                        colour={currentFlashcard.colour} />
-                );
-            }
+            var currentFlashcard = this.props.flashcards[this.state.currentIndex];
+            flashcardComponent = (
+                <QuizFlashcard
+                    text={currentFlashcard[this.state.questionSide]}
+                    colour={currentFlashcard.colour} />
+            );
         }
+
 
         return (
             <div className="quiz-master">
@@ -71,7 +76,7 @@ export class QuizMaster extends React.Component {
                 </div>
                 {flashcardComponent}
                 {
-                    this.state.timerState === "running" &&
+                    (this.state.timerState === "running" && this.state.answerSide) &&
                     <div className="quiz-answer-entry">
                         <AutosizeInput
                             type="text"
@@ -108,7 +113,7 @@ export class QuizMaster extends React.Component {
             do {
                 currentIndex = Math.floor(Math.random() * this.props.flashcards.length);
             } while (
-                this.props.flashcards.length > 1 
+                this.props.flashcards.length > 1
                 && currentIndex === oldState.currentIndex
             );
 

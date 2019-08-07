@@ -122,11 +122,11 @@ body {
 
 @keyframes card-display-in {
     from {
-        transform: translateY(10vw) scale(0.8);
+        transform: translateY(8vw) scale(0.8);
         opacity: 0;
     }
 
-    30% {
+    40% {
         opacity: 0.5;
     }
 
@@ -139,7 +139,7 @@ body {
 .category-loaded .card-display {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    animation: card-display-in 550ms both;
+    animation: card-display-in 400ms both;
 }
 
 @keyframes loading-indicator-in {

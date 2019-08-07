@@ -55,8 +55,9 @@ export class Quiz extends React.Component {
     /**
      * Unloads a flashcard tree into an array
      * 
-     * @param {*} flashcards flashcards passed into this recursive function
      * @param {*} flashcardTree the tree to unload
+     * @param {*[]} flashcards flashcards passed into this recursive function
+     * @returns {*[]} flashcards to pass along
      */
     processFlashcardTree(flashcardTree, flashcards = []) {
         if (flashcardTree.flashcards == null) {
@@ -85,7 +86,6 @@ export class Quiz extends React.Component {
                     let flashcards = this.processFlashcardTree(response.category);
                     console.log("flashcards:", flashcards);
                     
-
                     this.setState({ category: { colour, id, name }, flashcards, isLoaded: true });
                 });
         } else {
