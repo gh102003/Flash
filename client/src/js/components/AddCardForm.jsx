@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as constants from "../constants";
+import { authenticatedFetch } from "../util";
 
 export class AddCardForm extends React.Component {
     constructor(props) {
@@ -19,7 +19,7 @@ export class AddCardForm extends React.Component {
         this.setState({ [key]: value });
     }
     _handleSubmit(event) {
-        fetch(`${constants.serverOrigin}/flashcards/`, {
+        authenticatedFetch("flashcards", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -56,7 +56,7 @@ export class AddCardForm extends React.Component {
                         Reversible
                     </label>
                     <div className="controls">
-                        <input type="submit" value="Add flashcard" disabled={!enableSubmit}/>
+                        <input type="submit" value="Add flashcard" disabled={!enableSubmit} />
                         <button type="button" onClick={this.props.handleCancel}>Cancel</button>
                     </div>
                 </form>

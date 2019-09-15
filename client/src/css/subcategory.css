@@ -106,18 +106,18 @@
 /* Dragging effects */
 
 .subcategory.card-normal.dnd-dragging {
-    top: -4px;
-    left: -4px;
+    top: -3px;
+    left: -3px;
 }
 
 .subcategory.card-normal.dnd-dragging::before {
-    left: 4px;
-    top: 4px;
+    left: 3px;
+    top: 3px;
 }
 
 .subcategory.card-normal.dnd-dragging::after {
-    left: 8px;
-    top: 8px;
+    left: 6px;
+    top: 6px;
 }
 
 /* Edit dialogs */

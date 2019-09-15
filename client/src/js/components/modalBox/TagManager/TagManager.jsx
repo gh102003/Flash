@@ -1,7 +1,6 @@
 import React from "react";
 
 import * as constants from "../../../constants";
-import * as util from "../../../util";
 import { LoadingIndicator } from "../../LoadingIndicator.jsx";
 import { AddTagForm } from "./AddTagForm.jsx";
 import { Tag } from "./Tag.jsx";

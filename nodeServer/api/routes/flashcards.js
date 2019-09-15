@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const Flashcard = require("../models/flashcard");
 const Category = require("../models/category");
 
+const verifyAuthToken = require("../middleware/verifyAuthToken");
+
 const router = express.Router();
 
 router.get("/:flashcardId", (req, res, next) => {

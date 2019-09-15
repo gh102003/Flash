@@ -16,7 +16,6 @@ export var SubcategoryNormal = props => {
     return props.connectDropTarget(props.connectDragSource(
         <div>
             <div
-                to={`/category/${props.id}`}
                 className={className}
                 style={props.styles}
                 draggable="false"

@@ -8,6 +8,8 @@ import { draggableTypes } from "../../constants";
 // Unpack linkedlist style object recursively
 export const BreadcrumbCategory = props => {
 
+    if (!props || !props.category.colour) throw new Error("BreadcrumbCategory must be supplied with a valid category");
+
     let style = { zIndex: props.depth };
     let activeStyle = {
         backgroundColor: util.colourFromInteger(props.category.colour),

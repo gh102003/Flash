@@ -13,6 +13,10 @@ const categorySchema = mongoose.Schema({
     parent: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category"
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 });
 

@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Redirect, withRouter } from "react-router-dom";
-
 import * as util from "../util";
 import * as constants from "../constants";
 import { draggableTypes } from "../constants";
@@ -102,17 +100,31 @@ export class Category extends React.Component {
     }
 
     /**
-     * Called when mounting or changing category and when cards are changed
+     * Called when mounting or changing category and when cards are changed.
+     * If the action is not authorised, props.handleInvalidAuthToken is called
      * 
      * @returns a promise
      */
     getFromServer(categoryId) {
         return new Promise((resolve) => {
-            fetch(`${constants.serverOrigin}/categories/${categoryId}`, {
+            util.authenticatedFetch(`categories/${categoryId}`, {
                 method: "GET"
-            }).then(response => {
-                resolve(response.json());
-            });
+            })
+                .then(response => {
+                    if (response.status === 401) {
+                        // Delete auth token and log out if it is invalid
+                        this.props.handleInvalidAuthToken();
+                        throw new Error("auth failed");
+                    } else {
+                        return response;
+                    }
+                })
+                .then(response => {
+                    resolve(response.json());
+                })
+                .catch(error => {
+                    console.error("Auth failed. This could be due to token expiration or to lack of permissions.");
+                });
         });
     }
 
@@ -242,13 +254,16 @@ export class Category extends React.Component {
             listName = "subcategories";
         }
 
+        console.log("deleting on client");
+
         // Remove on client
-        this.setState((oldState) => {
-            let cardsBefore = oldState.category[listName].slice(0, clientIndex);
-            let cardsAfter = oldState.category[listName].slice(clientIndex + 1);
+        this.setState(oldState => {
+            const cardsBefore = oldState.category[listName].slice(0, clientIndex);
+            const cardsAfter = oldState.category[listName].slice(clientIndex + 1);
 
             return {
-                categories: {
+                category: {
+                    ...oldState.category,
                     [listName]: [...cardsBefore, ...cardsAfter]
                 }
             };

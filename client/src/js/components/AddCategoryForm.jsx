@@ -15,7 +15,7 @@ export class AddCategoryForm extends React.Component {
         this.setState({ [key]: value });
     }
     handleSubmit(event) {
-        fetch(`${constants.serverOrigin}/categories/`, {
+        util.authenticatedFetch("categories", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

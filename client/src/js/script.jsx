@@ -8,7 +8,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 // import MultiBackend from 'react-dnd-multi-backend';
 // import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch'; // or any other pipeline
 
-import * as constants from "./constants";
+import * as util from "./util";
 
 import "../css/stylesheet.css";
 import "../css/flashcard.css";
@@ -20,7 +20,8 @@ import "../favicon.png";
 
 import { Category } from "./components/Category.jsx";
 import { InfoBox } from "./components/modalBox/InfoBox.jsx";
-import { TagManager } from "./components/modalBox/TagManager/TagManager.jsx";
+import { Account } from "./components/modalBox/account/Account.jsx";
+import { TagManager } from "./components/modalBox/tagManager/TagManager.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
 
 class Page extends React.Component {
@@ -34,43 +35,60 @@ class Page extends React.Component {
     }
 
     getRootCategoryIdFromServer() {
-        fetch(`${constants.serverOrigin}/categories`, { method: "GET" })
+        this.setState({ rootCategoryId: undefined });
+        return util.authenticatedFetch("categories", { method: "GET" })
             .then(response => {
                 return response.json();
             })
             .then(response => {
                 const rootCategory = response.categories[0];
-
                 this.setState({ rootCategoryId: rootCategory.id });
             });
     }
 
     render() {
         return (
-            <>
-                <BrowserRouter>
-                    <>
-                        <header>
-                            <Link to="/">
-                                <h1>Flash</h1>
-                            </Link>
-                            <div className="header-buttons">
-                                <i className="material-icons tag-manager-button" onClick={() => this.setState({ modalOpen: "tagManager" })}>local_offer</i>
-                                <i className="material-icons info-button" onClick={() => this.setState({ modalOpen: "infoBox" })}>info</i>
-                            </div>
-                        </header>
-                        <Switch>
-                            <Route path="/category/:categoryId/quiz" exact component={Quiz} />
-                            <Route path="/category/:id" exact component={Category} />
-                            {this.state.rootCategoryId !== undefined &&
-                                (<Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />)
-                            }
-                        </Switch>
-                    </>
-                </BrowserRouter>
-                {this.state.modalOpen === "tagManager" && <TagManager handleClose={() => this.setState({ modalOpen: null })}></TagManager>}
-                {this.state.modalOpen === "infoBox" && <InfoBox handleClose={() => this.setState({ modalOpen: null })}></InfoBox>}
-            </>
+            <BrowserRouter>
+                <>
+                    <header>
+                        <Link to="/">
+                            <h1>Flash</h1>
+                        </Link>
+                        <div className="header-buttons">
+                            <i className="material-icons tag-manager-button" onClick={() => this.setState({ modalOpen: "tagManager" })}>local_offer</i>
+                            <i className="material-icons account-button" onClick={() => this.setState({ modalOpen: "account" })}>person</i>
+                            <i className="material-icons info-button" onClick={() => this.setState({ modalOpen: "infoBox" })}>info</i>
+                        </div>
+                    </header>
+                    <Switch>
+                        <Route path="/category/:categoryId/quiz" exact component={Quiz} />
+                        <Route path="/category/:id" exact render={(routeProps) => (
+                            <Category {...routeProps} handleInvalidAuthToken={() => {
+                                // localStorage.removeItem("AuthToken");
+                                // Get a new root category based on the authenticated user, then go to it
+                                this.getRootCategoryIdFromServer()
+                                    .then(() => routeProps.history.push("/"));
+                            }}/>
+                        )}/>
+                        {this.state.rootCategoryId !== undefined &&
+                            // If there's a root category loaded then go to it, otherwise do nothing until the next render
+                            (<Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />)
+                        }
+                    </Switch>
+                    {this.state.modalOpen === "tagManager" && <TagManager handleClose={() => this.setState({ modalOpen: null })} />}
+                    {this.state.modalOpen === "account" &&
+                        // Use a blank route for account to get access to history
+                        <Route render={({ history }) => (
+                            <Account handleClose={() => this.setState({ modalOpen: null })} afterAccountChange={() => {
+                                // Get a new root category based on the authenticated user, then go to it
+                                this.getRootCategoryIdFromServer()
+                                    .then(() => history.push("/"));
+                            }} />
+                        )} />
+                    }
+                    {this.state.modalOpen === "infoBox" && <InfoBox handleClose={() => this.setState({ modalOpen: null })} />}
+                </>
+            </BrowserRouter>
         );
     }
 }

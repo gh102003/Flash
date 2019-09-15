@@ -21,13 +21,13 @@ router.post("/signup", (req, res, next) => {
                         });
                         return user.save(); // Save to database
                     })
-                    .then(user => {
+                    .then(user => { // Send response
                         res.status(201).json({
                             createdUser: {
                                 id: user._id,
                                 username: user.username
                             }
-                        }); // Send response
+                        }); 
                     })
                     .catch(error => {
                         console.error(error);
@@ -60,7 +60,7 @@ router.post("/login", (req, res, next) => {
                 const token = jwt.sign(
                     // Send payload (claims made by the client)
                     {
-                        email: user.username,
+                        username: user.username,
                         id: user.id
                     },
                     credentials.jwt.privateKey,

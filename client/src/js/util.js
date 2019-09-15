@@ -1,3 +1,5 @@
+import * as constants from "./constants";
+
 export function shuffle(array) {
     // Shuffle flashcards
     for (let i = array.length - 1; i > 0; i--) {
@@ -15,7 +17,12 @@ export function colourToInteger(colour) {
     return parseInt(colour.substring(1), 16);
 }
 
-// Black or white, depending on the darkness of the colour
+/**
+ * Find a suitable text colour given a background colour
+ * 
+ * @param {number} backgroundColor the colour to contrast with
+ * @returns either black or white
+ */
 export function contrastingColourFromInteger(backgroundColor) {
     let red = backgroundColor >>> 16; // Shift bits right
     let green = (backgroundColor >>> 8) & 0b11111111; // Shift bits right, then use AND to filter out red
@@ -29,3 +36,21 @@ export function contrastingColourFromInteger(backgroundColor) {
         return "rgba(0, 0, 0, 1)";
     }
 }
+
+/**
+ * Sends an authenticated request to the server by reading AuthToken from localStorage
+ * 
+ * @param {string} path the path to send the request to, excluding the initial /
+ * @param {*} options options to be passed to fetch
+ */
+export const authenticatedFetch = (path, options) =>
+    fetch(
+        constants.serverOrigin + "/" + path,
+        {
+            ...options,
+            headers: {
+                ...options.headers,
+                "Authorization": localStorage.getItem("AuthToken") ? "Bearer " + localStorage.getItem("AuthToken") : ""
+            }
+        }
+    );
