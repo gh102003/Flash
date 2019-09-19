@@ -3,55 +3,41 @@
     font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-input,
-button {
+/* Buttons, inputs and anchors */
+
+input, button {
     font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 button {
-    background-color: #e8e8e8;
-}
-
-a:focus, input:focus, button:focus, input::-moz-focus-inner, button::-moz-focus-inner {
-    outline: none;
-    border: none;
+    background-color: #eee;
 }
 
 input[type="text"], input[type="password"] {
     font-size: 0.9em;
     border: none;
-    box-shadow: 0 0.07vw 3px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.08vw 5px -1px rgba(120, 120, 120, 0.6);
+    transition: box-shadow 80ms;
     border-radius: 0.7em;
     background-color: #eee;
     padding: 0.6em 0.8em;
 }
 
 input[type="text"]:hover, input[type="password"]:hover {
-    box-shadow: 0 0.1vw 5px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.12vw 6px -1px rgba(120, 120, 120, 0.7);
     outline: none;
 }
 
 input[type="text"]:focus, input[type="password"]:focus {
-    box-shadow: 0 0.15vw 7px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0.15vw 8px -1px rgba(120, 120, 120, 0.8);
     outline: none;
 }
 
-input[type="submit"] {
-    background-color: crimson;
-    color: white;
-    transition: background-color 150ms;
-}
-
-input[type="submit"]:disabled {
-    background-color: hsl(348, 30%, 60%);
-    cursor: not-allowed;
-}
-
-button,
-input[type="submit"] {
+button, input[type="submit"] {
     border-radius: 0.7em;
     padding: 0.6em 0.8em;
-    box-shadow: 0 0.08vw 4px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.1vw 5px -1px rgba(120, 120, 120, 0.5);
+    transition: box-shadow 80ms;
     margin: 0 0.7vw 0 0;
     border: none;
     font-size: 1em;
@@ -60,16 +46,34 @@ input[type="submit"] {
     position: relative;
 }
 
-button:hover,
-input[type="submit"]:hover {
-    box-shadow: 0 0.11vw 6px 0 rgba(0, 0, 0, 0.4);
+input[type="submit"] {
+    background-color: crimson;
+    color: white;
+    transition: background-color 200ms, box-shadow 80ms;
+    box-shadow: 0 0.1vw 4px 0 rgba(220, 20, 60, 0.5);
 }
 
-button:active,
-input[type="submit"]:active {
+button:hover {
+    box-shadow: 0 0.12vw 6px -1px rgba(120, 120, 120, 0.7);
+}
+
+input[type="submit"]:hover {
+    box-shadow: 0 0.12vw 6px 0 rgba(220, 20, 60, 0.7);
+}
+
+button:active, input[type="submit"]:active {
     box-shadow: none;
     top: 0.11vw;
+    outline: none !important;
 }
+
+input[type="submit"]:disabled {
+    background-color: hsl(348, 33%, 60%);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* End of buttons and anchors */
 
 body {
     margin: 0;
@@ -81,7 +85,6 @@ body {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -91,7 +94,6 @@ body {
     from {
         transform: scale(0);
     }
-
     to {
         transform: scale(1);
     }
@@ -101,14 +103,12 @@ body {
     animation: modal-background-in 300ms forwards;
     background-color: rgba(0, 0, 0, 0.75);
     transition: background-color 300ms;
-
     z-index: 200;
     top: 0;
     left: 0;
     position: fixed;
     min-width: 100vw;
     min-height: 100vh;
-
     /* Centering of modal */
     display: flex;
     justify-content: center;
@@ -125,11 +125,9 @@ body {
         transform: translateY(8vw) scale(0.8);
         opacity: 0;
     }
-
     40% {
         opacity: 0.5;
     }
-
     to {
         transform: none;
         opacity: 1;
@@ -146,11 +144,9 @@ body {
     0% {
         opacity: 0;
     }
-
     60% {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -166,7 +162,7 @@ body {
 .card {
     font-family: "Maven Pro", Arial, Helvetica, sans-serif;
     font-weight: 400;
-    user-select: none;     
+    user-select: none;
     -moz-user-select: none;
     margin: 1vw;
     padding: 1vw;
@@ -178,7 +174,6 @@ body {
     box-shadow: 0 0.1vw 5px 0 rgba(0, 0, 0, 0.25);
     position: relative;
     word-break: break-word;
-
     /* Centering of text */
     display: flex;
     justify-content: center;
@@ -189,7 +184,6 @@ body {
     .category-loaded .card-display {
         grid-template-columns: repeat(4, 1fr);
     }
-
     .card {
         height: 6.5vw;
         font-size: 1.35em;
@@ -200,7 +194,6 @@ body {
     .category-loaded .card-display {
         grid-template-columns: repeat(3, 1fr);
     }
-
     .card {
         height: 9vw;
         font-size: 1.2em;
@@ -213,7 +206,6 @@ body {
     .category-loaded .card-display {
         grid-template-columns: repeat(2, 1fr);
     }
-
     .card {
         height: 12vw;
         font-size: 1.15em;
@@ -225,7 +217,6 @@ body {
     .category-loaded .card-display {
         grid-template-columns: repeat(2, 1fr);
     }
-
     .card {
         height: 14vw;
         font-size: 0.9em;
@@ -246,7 +237,6 @@ header {
     user-select: none;
     -moz-user-select: none;
     padding: 0.8vw 1.5vw;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -288,15 +278,12 @@ header+* {
     header {
         padding: 0.8vw 3vw;
     }
-
     header h1 {
         font-size: 2.6em;
     }
-
     .header-buttons i {
         font-size: 1.6em;
     }
-
     header+* {
         margin-top: 3.8em;
     }
