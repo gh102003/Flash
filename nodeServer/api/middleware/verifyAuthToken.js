@@ -12,8 +12,7 @@ module.exports = (req, res, next) => {
         try {
             req.user = jwt.verify(authHeader.split("Bearer ")[1], credentials.jwt.privateKey);
         } catch (error) {
-            console.error(error);
-            return res.status(401).json({ error: "Auth failed" }); // If failed, delete auth token
+            return res.status(401).json({ message: "Auth failed - Invalid or expired token" }); // If failed, delete auth token
         }
     }
     next();

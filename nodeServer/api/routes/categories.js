@@ -8,9 +8,7 @@ const verifyAuthToken = require("../middleware/verifyAuthToken");
 const router = express.Router();
 
 router.get("/", verifyAuthToken, (req, res, next) => {
-    const userId = req.user ? req.user.id : undefined;
-
-    Category.find({ user: userId })
+    Category.find({ user: req.user.id })
         .then(categories => {
             const response = {
                 count: categories.length,
@@ -31,11 +29,8 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
         .select("user")
         .exec();
 
-    console.log(req.body.category.parent);
-
-
     if (parentCategory.user != req.user.id) {
-        return res.status(401).json({ error: "unauthorised" });
+        return res.status(401).json({ message: "unauthorised" });
     }
 
     // Build category
@@ -56,7 +51,7 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
         })
         .catch(error => {
             if (error.name === "ValidationError" || error.message.includes("Cast to ObjectId failed")) {
-                res.status(400).json({ error });
+                res.status(400).json({ message: error });
             } else {
                 throw error;
             }
@@ -93,7 +88,6 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
                         .select("name colour flashcards children user")
                         // Don't populate if no permissions
                         .populate(child.user == req.user.id ? "flashcards children" : "");
-                    // .exec();
 
                     await deepPopulateChildren(populatedChild);
                     return populatedChild;
@@ -128,7 +122,7 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
                     message: `No valid category found with id '${req.params.categoryId}'`
                 });
             } else if (error.message === "unauthorised") {
-                res.status(401).json({ error: "unauthorised" });
+                res.status(401).json({ message: "unauthorised" });
             } else throw error;
         })
         .catch(error => {
@@ -139,14 +133,25 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
 
 router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
     const updateOps = {};
-    for (const op of req.body) {
+    req.body.forEach(async op => {
         updateOps[op.propName] = op.value;
-    }
+
+        // Check if move destination is valid and authenticated
+        if (op.propName === "parent") {
+            const destCategory = await Category.findById(op.value);
+            if (!destCategory) {
+                return res.status(400).json({ message: "move destination is invalid" });
+            }
+            else if (destCategory.user != req.user.id) {
+                return res.status(401).json({ message: "move destination is unauthorised" });
+            }
+        }
+    });
 
     // Get category
     let category;
     try {
-        await Category.findById(req.params.categoryId);
+        category = await Category.findById(req.params.categoryId);
     } catch (error) {
         return res.status(500).json({ error });
     }
@@ -183,9 +188,11 @@ router.delete("/:categoryId", verifyAuthToken, async (req, res, next) => {
     } catch (error) {
         return res.status(500).json({ error });
     }
-    
+
     if (!category) {
         return res.status(404).json({ message: `No valid category found with id '${req.params.categoryId}'` });
+    } else if (category.user != req.user.id) {
+        return res.status(404).json({ message: "unauthorised" });
     }
 
     // Delete promises

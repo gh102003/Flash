@@ -105,27 +105,20 @@ export class Category extends React.Component {
      * 
      * @returns a promise
      */
-    getFromServer(categoryId) {
-        return new Promise((resolve) => {
-            util.authenticatedFetch(`categories/${categoryId}`, {
-                method: "GET"
-            })
-                .then(response => {
-                    if (response.status === 401) {
-                        // Delete auth token and log out if it is invalid
-                        this.props.handleInvalidAuthToken();
-                        throw new Error("auth failed");
-                    } else {
-                        return response;
-                    }
-                })
-                .then(response => {
-                    resolve(response.json());
-                })
-                .catch(error => {
-                    console.error("Auth failed. This could be due to token expiration or to lack of permissions.");
-                });
+    async getFromServer(categoryId) {
+        const response = await util.authenticatedFetch(`categories/${categoryId}`, {
+            method: "GET"
         });
+        const responseData = await response.json();
+
+        if (response.status === 401) {
+            // Delete auth token and log out if it is invalid
+            const invalidToken = responseData.message != null && responseData.message.includes("token");
+            this.props.handleInvalidAuthToken(invalidToken);
+            console.error("Auth failed. This could be due to token expiration or to lack of permissions.");
+        } else {
+            return responseData;
+        }
     }
 
     afterAddFormSubmit() {
@@ -174,7 +167,7 @@ export class Category extends React.Component {
         }
 
         let cardId = this.state.category[listNameClient][clientIndex].id;
-        fetch(`${constants.serverOrigin}/${listNameServer}/${cardId}`, {
+        util.authenticatedFetch(`${listNameServer}/${cardId}`, {
             method: "PATCH",
             cache: "no-cache",
             headers: {
@@ -194,7 +187,7 @@ export class Category extends React.Component {
 
         if (cardType === draggableTypes.FLASHCARD) {
             // Send move to server
-            fetch(`${constants.serverOrigin}/flashcards/${cardId}`, {
+            util.authenticatedFetch(`flashcards/${cardId}`, {
                 method: "PATCH",
                 cache: "no-cache",
                 headers: {
@@ -214,7 +207,7 @@ export class Category extends React.Component {
             }));
         } else if (cardType === draggableTypes.SUBCATEGORY) {
             // Send move to server
-            fetch(`${constants.serverOrigin}/categories/${cardId}`, {
+            util.authenticatedFetch(`categories/${cardId}`, {
                 method: "PATCH",
                 cache: "no-cache",
                 headers: {
@@ -240,21 +233,19 @@ export class Category extends React.Component {
         // Send move to server
         if (cardType === "flashcard") {
             const flashcardId = this.state.category.flashcards[clientIndex].id;
-            fetch(`${constants.serverOrigin}/flashcards/${flashcardId}`, {
+            util.authenticatedFetch(`flashcards/${flashcardId}`, {
                 method: "DELETE",
             });
 
             listName = "flashcards";
         } else if (cardType === "subcategory") {
             const categoryId = this.state.category.subcategories[clientIndex].id;
-            fetch(`${constants.serverOrigin}/categories/${categoryId}`, {
+            util.authenticatedFetch(`categories/${categoryId}`, {
                 method: "DELETE",
             });
 
             listName = "subcategories";
         }
-
-        console.log("deleting on client");
 
         // Remove on client
         this.setState(oldState => {

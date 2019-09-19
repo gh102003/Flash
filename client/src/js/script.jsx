@@ -63,13 +63,15 @@ class Page extends React.Component {
                     <Switch>
                         <Route path="/category/:categoryId/quiz" exact component={Quiz} />
                         <Route path="/category/:id" exact render={(routeProps) => (
-                            <Category {...routeProps} handleInvalidAuthToken={() => {
-                                // localStorage.removeItem("AuthToken");
+                            <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
+                                if (invalidToken) {
+                                    localStorage.removeItem("AuthToken");
+                                }
                                 // Get a new root category based on the authenticated user, then go to it
                                 this.getRootCategoryIdFromServer()
                                     .then(() => routeProps.history.push("/"));
-                            }}/>
-                        )}/>
+                            }} />
+                        )} />
                         {this.state.rootCategoryId !== undefined &&
                             // If there's a root category loaded then go to it, otherwise do nothing until the next render
                             (<Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />)

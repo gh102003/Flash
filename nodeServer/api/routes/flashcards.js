@@ -26,32 +26,50 @@ router.get("/:flashcardId", (req, res, next) => {
         });
 });
 
-router.post("/", (req, res, next) => {
-    const flashcard = new Flashcard({
-        _id: new mongoose.Types.ObjectId(),
-        ...req.body.flashcard
-    });
-    flashcard
-        .save()
-        .then(() => {
-            res.status(201).json({
-                createdFlashcard: flashcard,
-            });
-        })
-        .catch(error => {
-            if (error.name === "ValidationError" || error.message.includes("Cast to ObjectId failed")) {
-                res.status(400).json({ error });
-            } else {
-                throw error;
-            }
-        })
-        .catch(error => {
+router.post("/", verifyAuthToken, async (req, res, next) => {
+
+    // Check if containing category is authorised
+    if (req.body.category) {
+        let category;
+        try {
+            category = await Category.findById(req.body.category);
+        } catch (error) {
+            return res.status(400).json({ message: "containing category invalid" });
+        }
+        if (!category) {
+            return res.status(400).json({ message: "containing category invalid" });
+        }
+        else if (category.user != req.user.id) {
+            return res.status(400).json({ message: "containing category unauthorised" });
+        }
+    }
+
+    // Create new flashcard
+    let flashcard;
+    try {
+        flashcard = new Flashcard({
+            _id: new mongoose.Types.ObjectId(),
+            ...req.body.flashcard
+        });
+    } catch (error) {
+        return res.status(400).json({ message: "malformed request data" });
+    }
+
+    // Save new flashcard
+    await flashcard.save();
+    try {
+        res.status(201).json({ createdFlashcard: flashcard });
+    } catch (error) {
+        if (error.name === "ValidationError" || error.message.includes("Cast to ObjectId failed")) {
+            res.status(400).json({ error });
+        } else {
             console.error(error);
             res.status(500).json({ error });
-        });
+        }
+    }
 });
 
-/**
+/*
  * PATCH requests
  * 
  *  [
@@ -61,14 +79,39 @@ router.post("/", (req, res, next) => {
  *      {propName: "tags", type: "pull", value: "7294893862"}
  *  ]
  */
-router.patch("/:flashcardId", (req, res, next) => {
+router.patch("/:flashcardId", verifyAuthToken, async (req, res, next) => {
+    let flashcard;
+    try {
+        flashcard = await Flashcard.findById(req.params.flashcardId);
+    } catch (error) {
+        return res.status(404).json({ message: `No valid flashcard found with id '${req.params.flashcardId}'` });
+    }
+    if (!flashcard) {
+        return res.status(404).json({ message: `No valid flashcard found with id '${req.params.flashcardId}'` });
+    }
+
+    // Check if containing category is authorised
+    let category;
+    try {
+        category = await Category.findById(flashcard.category);
+    } catch (error) {
+        return res.status(400).json({ message: "containing category invalid" });
+    }
+    if (!category) {
+        return res.status(400).json({ message: "containing category invalid" });
+    }
+    else if (category.user != req.user.id) {
+        return res.status(400).json({ message: "containing category unauthorised" });
+    }
+
     let updateOps = { $set: {} };
+    // Use for...of loop to support async/await properly
     for (const op of req.body) {
         if (op.propName === "tags") {
             // If tags are to be edited, operation type must be specified
 
             if (!op.type) {
-                return res.status(400).json({ error: "operation type must be specified for arrays" });
+                return res.status(400).json({ message: "operation type must be specified for arrays" });
             }
 
             updateOps = {
@@ -79,54 +122,62 @@ router.patch("/:flashcardId", (req, res, next) => {
                 }
             };
         } else {
+            // Check if move destination is valid and authenticated
+            if (op.propName === "category") {
+                let destCategory;
+                try {
+                    destCategory = await Category.findById(op.value);
+                } catch (error) {
+                    return res.status(400).json({ message: "move destination is invalid" });
+                }
+                if (!destCategory) {
+                    return res.status(400).json({ message: "move destination is invalid" });
+                }
+                else if (destCategory.user != req.user.id) {
+                    return res.status(401).json({ message: "move destination is unauthorised" });
+                }
+            }
             // Otherwise use $set operation type
             updateOps["$set"][op.propName] = op.value;
         }
     }
-
-    Flashcard.findByIdAndUpdate(req.params.flashcardId, updateOps)
-        .then(() => {
-            return Flashcard.findById(req.params.flashcardId).exec(); // Get new details
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error });
-        })
-        .then(newFlashcard => {
-            if (newFlashcard) return newFlashcard;
-            else throw new Error("not found");
-        })
-        .catch(() => {
-            res.status(404).json({ message: `No valid flashcard found with id '${req.params.flashcardId}'` });
-        })
-        .then(updatedFlashcard => {
-            res.status(200).json({ updatedFlashcard });
-        });
+    // Update database
+    await flashcard.update(updateOps);
+    // Get new details and send in response
+    const updatedFlashcard = await Flashcard.findById(req.params.flashcardId);
+    res.status(200).json({ updatedFlashcard });
 });
 
-router.delete("/:flashcardId", (req, res, next) => {
-    const flashcardId = req.params.flashcardId;
-    let deletedFlashcard;
+router.delete("/:flashcardId", verifyAuthToken, async (req, res, next) => {
 
-    Flashcard.findById(flashcardId) // Find flashcard to remove 
-        .then(flashcard => {
-            if (flashcard) deletedFlashcard = flashcard;
-            else throw new Error("not found");
-        })
-        .then(() => {
-            return Flashcard.deleteOne({ _id: flashcardId }).exec();
-        })
-        .then(() => {
-            return res.status(200).json({ deletedFlashcard });
-        })
-        .catch(error => {
-            if (error.message === "") {
-                return res.status(404).json({ message: `No valid flashcard found with id '${flashcardId}'` });
-            } else {
-                console.error(error);
-                return res.status(500).json({ error });
-            }
-        });
+    // Get flashcard
+    let flashcard;
+    try {
+        flashcard = await Flashcard.findById(req.params.flashcardId); // Find flashcard to remove 
+    } catch (error) {
+        return res.status(404).json({ message: `No valid flashcard found with id '${req.params.flashcardId}'` });
+    }
+    if (!flashcard) {
+        return res.status(404).json({ message: `No valid flashcard found with id '${req.params.flashcardId}'` });
+    }
+
+    // Check if containing category is authorised
+    let category;
+    try {
+        category = await Category.findById(flashcard.category);
+    } catch (error) {
+        return res.status(400).json({ message: "containing category invalid" });
+    }
+    if (!category) {
+        return res.status(400).json({ message: "containing category invalid" });
+    }
+    else if (category.user != req.user.id) {
+        return res.status(400).json({ message: "containing category unauthorised" });
+    }
+
+    await Flashcard.deleteOne({ _id: req.params.flashcardId });
+
+    return res.status(200).json({ deletedFlashcard: flashcard });
 });
 
 module.exports = router;
