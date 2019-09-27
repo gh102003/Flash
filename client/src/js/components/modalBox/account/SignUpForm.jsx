@@ -10,7 +10,8 @@ export class SignUpForm extends React.Component {
             formData: {
                 username: "",
                 password: "",
-                repeatPassword: ""
+                repeatPassword: "",
+                privacyNoticeAccepted: false
             }
         };
     }
