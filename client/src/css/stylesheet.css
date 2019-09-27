@@ -3,6 +3,10 @@
     font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+i.material-icons {
+    user-select: none;
+}
+
 /* Buttons, inputs and anchors */
 
 input, button {
@@ -73,7 +77,7 @@ input[type="submit"]:disabled {
     box-shadow: none;
 }
 
-/* End of buttons and anchors */
+/* End of buttons, inputs and anchors */
 
 body {
     margin: 0;
