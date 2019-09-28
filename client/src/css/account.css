@@ -62,7 +62,7 @@
     outline: none;
 }
 
-.login-form .login-btn.login-btn-fail {
+.login-form .login-btn.login-btn-fail, .login-form .sign-up-btn.sign-up-btn-fail {
     animation: login-btn-wiggle 250ms linear 0s 3;
 }
 

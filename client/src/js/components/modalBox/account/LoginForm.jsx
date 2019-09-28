@@ -11,8 +11,6 @@ export class LoginForm extends React.Component {
             },
             lastLoginSuccess: true
         };
-
-        this.submitButtonRef = React.createRef();
     }
 
     updateForm(key, value) {
@@ -71,7 +69,7 @@ export class LoginForm extends React.Component {
                         this.props.handleSignUpCta();
                     }}>Sign up</a> to get started.
                 </p>
-                <input className={this.state.lastLoginSuccess ? "login-btn" : "login-btn login-btn-fail"} ref={this.submitButtonRef} type="submit" value="Login" disabled={!enableSubmit} />
+                <input className={this.state.lastLoginSuccess ? "login-btn" : "login-btn login-btn-fail"} type="submit" value="Login" disabled={!enableSubmit} />
             </form>
         );
     }

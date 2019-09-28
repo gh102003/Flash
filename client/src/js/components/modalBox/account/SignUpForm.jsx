@@ -12,7 +12,8 @@ export class SignUpForm extends React.Component {
                 password: "",
                 repeatPassword: "",
                 privacyNoticeAccepted: false
-            }
+            },
+            lastSignUpSuccess: true
         };
     }
 
@@ -86,9 +87,14 @@ export class SignUpForm extends React.Component {
                     })
                     // Send to parent to log in
                     .then(() => this.props.afterSignUp(this.state.formData.username, this.state.formData.password))
-                    // Catch any sign up errors
                     .catch(error => {
                         console.log(error);
+                        // Trigger wiggle animation
+                        this.setState({ lastSignUpSuccess: false });
+                        setTimeout(
+                            () => this.setState({ lastSignUpSuccess: true }),
+                            750
+                        );
                     });
             }}>
             <label htmlFor="username">
@@ -146,7 +152,7 @@ export class SignUpForm extends React.Component {
                     this.props.handleLoginCta();
                 }}>Login</a> instead.
             </p>
-            <input type="submit" value="Login" disabled={!this.validateFormData() || !passwordValidation.valid} />
+            <input className={this.state.lastSignUpSuccess ? "sign-up-btn" : "sign-up-btn sign-up-btn-fail"} type="submit" value="Sign up" disabled={!this.validateFormData() || !passwordValidation.valid} />
         </form>);
     }
 }

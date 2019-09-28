@@ -1,4 +1,4 @@
-export const version = 0.4;
+export const version = "0.5";
 
 export const serverOrigin = "http://localhost:3000";
 
