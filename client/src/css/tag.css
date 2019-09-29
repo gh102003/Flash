@@ -20,7 +20,8 @@
 }
 
 .tag {
-    display: inline;
+    display: inline-flex;
+    align-items: center;
     border-radius: 50px;
     font-size: 0.9em;
     cursor: pointer;
@@ -94,7 +95,6 @@
 }
 
 .card .tag-button {
-    top: -0.08em;
     margin-left: 0.4em;
 }
 
@@ -133,8 +133,8 @@
     vertical-align: middle;
     margin-left: 0.6em;
     position: relative;
-    top: -0.05em;
     cursor: pointer;
+    color: inherit;
 }
 
 .tag-button:hover {

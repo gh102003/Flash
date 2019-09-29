@@ -16,4 +16,10 @@ tagSchema.set("toJSON", {
     }
 });
 
+tagSchema.virtual("flashcards", {
+    ref: "Flashcard",
+    localField: "_id", // Where this one's id
+    foreignField: "tags", // Is a tag on the flashcard
+});
+
 module.exports = mongoose.model("Tag", tagSchema);

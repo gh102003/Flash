@@ -40,6 +40,7 @@ export class TagManager extends React.Component {
                             id={tag.id}
                             name={tag.name}
                             colour={tag.colour}
+                            handleQuizButtonClicked={this.props.handleClose}
                             handleDelete={() => {
                                 fetch(`${constants.serverOrigin}/tags/${tag.id}`, {
                                     method: "DELETE"
@@ -69,6 +70,8 @@ export class TagManager extends React.Component {
                         <i className="material-icons button-close" onClick={this.props.handleClose}>close</i>
                     </div>
                     <div className="modal-body">
+                        Here are all of the tags you have created. To add one to a card, 
+                        drag it out of this box. Or, you can test yourself with a short quiz.
                         {this.state.tags ? this.renderTags() : <LoadingIndicator />}
                         <AddTagForm afterSubmit={() => this.getDataFromServer()} />
                     </div>

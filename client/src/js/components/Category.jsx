@@ -1,7 +1,7 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import * as util from "../util";
-import * as constants from "../constants";
 import { draggableTypes } from "../constants";
 import { Flashcard } from "./flashcard/Flashcard.jsx";
 import { Subcategory } from "./subcategory/Subcategory.jsx";
@@ -324,11 +324,17 @@ export class Category extends React.Component {
             <>
                 {
                     this.state.category &&
-                    <Breadcrumb
-                        currentCategory={this.state.category}
-                        handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
-                        handleNavigate={(url, categoryData) => this.navigate(url, categoryData)}
-                    />
+                    <>
+                        <Helmet>
+                            <title>{this.state.category.name} | Flash</title>
+                            <meta property="og:title" content={this.state.category.name}/>
+                        </Helmet>
+                        <Breadcrumb
+                            currentCategory={this.state.category}
+                            handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
+                            handleNavigate={(url, categoryData) => this.navigate(url, categoryData)}
+                        />
+                    </>
                 }
                 <div className={"category " + (this.state.loadedData ? "category-loaded" : "category-loading")} >
                     <div className="card-display">

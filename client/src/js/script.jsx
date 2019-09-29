@@ -1,6 +1,7 @@
 "use strict";
 
 import React from "react";
+import { Helmet } from "react-helmet";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom";
 import { DragDropContext } from "react-dnd";
@@ -51,6 +52,10 @@ class Page extends React.Component {
         return (
             <BrowserRouter>
                 <>
+                    <Helmet>
+                        <title>Flash</title>
+                        <meta property="og:site_name" content="Flash"/>
+                    </Helmet>
                     <header>
                         <Link to="/">
                             <h1>Flash</h1>
@@ -63,6 +68,7 @@ class Page extends React.Component {
                     </header>
                     <Switch>
                         <Route path="/quiz/category/:categoryId" exact component={Quiz} />
+                        <Route path="/quiz/tag/:tagId" exact component={Quiz} />
                         <Route path="/category/:id" exact render={(routeProps) => (
                             <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
                                 if (invalidToken) {

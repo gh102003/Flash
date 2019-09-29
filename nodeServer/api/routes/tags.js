@@ -8,6 +8,7 @@ const router = express.Router();
 router.get("/:tagId", (req, res, next) => {
     // Find in database
     Tag.findById(req.params.tagId)
+        .populate("flashcards")
         .then(tag => {
             if (tag) {
                 res.status(200).json(tag);

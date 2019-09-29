@@ -7,10 +7,10 @@
 .quiz-setup {
     margin: 0 1.5vw;
     font-size: calc(0.5vw + 0.5em);
+    margin-bottom: 0.9em;
 }
 
 .quiz-setup .setting {
-    margin-bottom: 0.9em;
     display: flex;
     align-items: center;
 }
@@ -31,7 +31,6 @@
 }
 
 .quiz-flashcard, .quiz-start-btn, .quiz-empty {
-    /* display: inline; */
     display: flex;
     align-items: center;
     justify-content: center;

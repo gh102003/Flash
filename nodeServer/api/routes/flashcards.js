@@ -104,7 +104,7 @@ router.patch("/:flashcardId", verifyAuthToken, async (req, res, next) => {
         return res.status(400).json({ message: "containing category unauthorised" });
     }
 
-    let updateOps = { $set: {} };
+    let updateOps = {};
     // Use for...of loop to support async/await properly
     for (const op of req.body) {
         if (op.propName === "tags") {
@@ -137,8 +137,11 @@ router.patch("/:flashcardId", verifyAuthToken, async (req, res, next) => {
                     return res.status(401).json({ message: "move destination is unauthorised" });
                 }
             }
-            // Otherwise use $set operation type
-            updateOps["$set"][op.propName] = op.value;
+            // Use $set operation type
+            updateOps["$set"] = {
+                ...updateOps.$set,
+                [op.propName]: op.value
+            };
         }
     }
     // Update database

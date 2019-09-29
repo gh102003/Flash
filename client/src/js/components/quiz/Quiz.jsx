@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import { LoadingIndicator } from "../LoadingIndicator.jsx";
 import { QuizMaster } from "./QuizMaster.jsx";
@@ -18,7 +19,7 @@ export class Quiz extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        let updatedLocation = prevProps.match.params.categoryId !== this.props.match.params.categoryId;
+        let updatedLocation = prevProps.match.params !== this.props.match.params;
         let updatedSettings = prevState.isRecursive !== this.state.isRecursive;
 
         if (updatedLocation || updatedSettings) {
@@ -28,11 +29,22 @@ export class Quiz extends React.Component {
 
     render() {
 
+        let title = "Quiz";
+        if (this.props.match.params.categoryId) {
+            title = "Category " + title;
+        } else if (this.props.match.params.tagId) {
+            title = "Tag " + title;
+        }
+
         return (
             <div className="quiz">
+                <Helmet>
+                    {/* Set OpenGraph meta tags in the head using React Helmet */}
+                    <title>{title} | Flash</title>
+                </Helmet>
                 <div className="quiz-setup">
-                    <h2 className="quiz-title">Quiz: {this.state.category == null ? "" : this.state.category.name}</h2>
-                    <div className="setting">
+                    <h2 className="quiz-title">{title}: {this.state.category == null ? "" : this.state.category.name}</h2>
+                    {this.props.match.params.categoryId && <div className="setting">
                         <input
                             id="isRecursive"
                             type="checkbox"
@@ -40,7 +52,7 @@ export class Quiz extends React.Component {
                             onChange={event => this.setState({ isRecursive: event.target.checked })}
                         />
                         <label htmlFor="isRecursive">Include cards from subcategories</label>
-                    </div>
+                    </div>}
                 </div>
                 {this.state.isLoaded ?
                     <>
@@ -72,33 +84,36 @@ export class Quiz extends React.Component {
         return flashcards;
     }
 
-    loadFlashcards(categoryId) {
+    async loadFlashcards() {
         this.setState({ isLoaded: false });
-        if (this.state.isRecursive) {
-            fetch(`${constants.serverOrigin}/categories/${categoryId}`, {
-                method: "GET"
-            })
-                .then(response => response.json())
-                .then(response => {
-                    let { colour, id, name } = response.category;
-                    console.log(response);
-                    
-                    let flashcards = this.processFlashcardTree(response.category);
-                    console.log("flashcards:", flashcards);
-                    
-                    this.setState({ category: { colour, id, name }, flashcards, isLoaded: true });
-                });
-        } else {
-            fetch(`${constants.serverOrigin}/categories/${categoryId}`, {
-                method: "GET"
-            }).then(response => {
-                return response.json();
-            }).then(response => {
-                let { colour, id, name, flashcards } = response.category;
+
+        let categoryId = this.props.match.params.categoryId;
+        let tagId = this.props.match.params.tagId;
+
+        if (categoryId) {
+            if (this.state.isRecursive) {
+                const response = await fetch(`${constants.serverOrigin}/categories/${categoryId}`, { method: "GET" });
+                const responseJson = await response.json();
+                let { colour, id, name } = responseJson.category;
+                let flashcards = this.processFlashcardTree(responseJson.category);
+
+                this.setState({ category: { colour, id, name }, flashcards, isLoaded: true });
+            } else {
+                const response = await fetch(`${constants.serverOrigin}/categories/${categoryId}`, { method: "GET" });
+                const responseJson = await response.json();
+                let { colour, id, name, flashcards } = responseJson.category;
 
                 flashcards = flashcards.map(flashcard => ({ ...flashcard, colour }));
                 this.setState({ category: { colour, id, name }, flashcards, isLoaded: true });
-            });
+            }
+        } else if (tagId) {
+            const response = await fetch(`${constants.serverOrigin}/tags/${tagId}`, { method: "GET" });
+            const responseJson = await response.json();
+            let { colour, id, name, flashcards } = responseJson;
+
+            flashcards = flashcards.map(flashcard => ({ ...flashcard, colour }));
+            this.setState({ category: { colour, id, name }, flashcards, isLoaded: true });
         }
+
     }
 }
