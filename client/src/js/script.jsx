@@ -17,6 +17,7 @@ import "../css/add-card.css";
 import "../css/modal-box.css";
 import "../css/tag.css";
 import "../favicon.png";
+import "../apple-touch-icon.png";
 
 import { Category } from "./components/Category.jsx";
 import { InfoBox } from "./components/modalBox/InfoBox.jsx";
@@ -61,7 +62,7 @@ class Page extends React.Component {
                         </div>
                     </header>
                     <Switch>
-                        <Route path="/category/:categoryId/quiz" exact component={Quiz} />
+                        <Route path="/quiz/category/:categoryId" exact component={Quiz} />
                         <Route path="/category/:id" exact render={(routeProps) => (
                             <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
                                 if (invalidToken) {

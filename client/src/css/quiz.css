@@ -25,12 +25,12 @@
 
 .quiz-master {
     display: grid;
-    grid-template-columns: minmax(500px, 2fr) 1fr;
-    grid-template-rows: 28em 5em;
+    grid-template-columns: minmax(500px, 2.3fr) 1fr;
+    grid-template-rows: 25em 5em;
     font-size: calc(0.5vw + 0.5em);
 }
 
-.quiz-flashcard, .quiz-start-btn {
+.quiz-flashcard, .quiz-start-btn, .quiz-empty {
     /* display: inline; */
     display: flex;
     align-items: center;
@@ -49,6 +49,13 @@
 
     grid-column: 1;
     grid-row: 1;
+}
+
+.quiz-empty {
+    border-radius: 0.2em;
+    border: 0.2em dashed #ccc;
+    animation: fade-in 300ms both;
+    color: #777;
 }
 
 @keyframes quiz-start-btn-in {
@@ -70,7 +77,7 @@
 }
 
 .quiz-start-btn:hover {
-    box-shadow: 0 0.1vw 10px 0 rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0.09vw 7px 0 rgba(0, 0, 0, 0.6);
 }
 
 .quiz-start-btn:active {
@@ -124,6 +131,7 @@
 .quiz-answer-entry button {
     position: absolute;
     right: 0;
+    margin: 0;
 }
 
 @keyframes quiz-stats-in {
@@ -188,8 +196,12 @@
         animation: fade-in 400ms both;
     }
 
-    .quiz-flashcard, .quiz-start-btn {
+    .quiz-flashcard, .quiz-start-btn, .quiz-empty {
         margin: 0 0.5em;
+    }
+
+    .quiz-answer-entry {
+        margin: 0 1.5em;
     }
 }
 

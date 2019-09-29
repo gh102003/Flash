@@ -9,12 +9,13 @@ module.exports = {
     entry: "./src/js/script.jsx",
     devtool: "inline-source-map",
     output: {
-        path: path.join(__dirname, "/build"),
-        filename: "index_bundle.js"
+        filename: "index_bundle.js",
+        path: path.resolve(__dirname, "dist")
     },
     devServer: {
+        host: "0.0.0.0",
+        stats: "normal",
         inline: true,
-        contentBase: path.join(__dirname, "/build"),
         port: 3001,
         historyApiFallback: {
             rewrites: [
@@ -46,7 +47,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/index.html",
-            favicon: "src/favicon.png"
+            filename: "index.html"
         })
     ],
     resolve: {

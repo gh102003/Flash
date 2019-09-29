@@ -34,8 +34,13 @@ export class QuizMaster extends React.Component {
         let flashcardComponent;
 
         if (this.props.flashcards.length <= 0) {
+            // flashcardComponent = (
+            //     <QuizFlashcard text="(No flashcards available)" colour={14423100} /> // Crimson colour
+            // );
             flashcardComponent = (
-                <QuizFlashcard text="(No flashcards available)" colour={14423100} /> // Crimson colour
+                <div className="quiz-empty">
+                    No flashcards available
+                </div>
             );
         } else if (this.state.timerState === "ready") {
             flashcardComponent = (

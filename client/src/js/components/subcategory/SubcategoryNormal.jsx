@@ -27,7 +27,7 @@ export var SubcategoryNormal = props => {
                 }}>
                     <i className="material-icons">edit</i>
                 </div>
-                <Link className="flashcard-button" to={`/category/${props.id}/quiz`} onClick={event => event.stopPropagation()}>
+                <Link className="flashcard-button" to={`/quiz/category/${props.id}`} onClick={event => event.stopPropagation()}>
                     <i className="material-icons">assessment</i>
                 </Link>
                 {props.name}

@@ -36,7 +36,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/client"
             },
-            "command": "webpack-dev-server --open",
+            "command": "webpack-dev-server --config webpack.config.js",
             "problemMatcher": []
         },
         {

@@ -144,6 +144,8 @@ body {
     animation: card-display-in 400ms both;
 }
 
+/* Loading indicator */
+
 @keyframes loading-indicator-in {
     0% {
         opacity: 0;
@@ -156,12 +158,39 @@ body {
     }
 }
 
-.category-loading .loading-indicator {
+.loading-indicator {
     animation: loading-indicator-in 1700ms forwards;
+}
+
+@keyframes loading-indicator-spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-indicator::after {
+    content: "";
+    position: absolute;
+    margin-left: 0.5em;
+    margin-top: 0.25em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    border: 0.15em solid #ccc;
+    border-top: 0.15em solid crimson;
+    animation: loading-indicator-spinner 1.2s infinite linear;
+}
+
+.category-loading .loading-indicator {
     font-size: 2vw;
     margin-left: 1vw;
     margin: 1vw 1.5vw;
 }
+
+/* End of loading indicator */
 
 .card {
     font-family: "Maven Pro", Arial, Helvetica, sans-serif;
@@ -235,7 +264,7 @@ header {
     top: 0;
     z-index: 100;
     color: white;
-    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     background-color: crimson;
     position: fixed;
     user-select: none;
