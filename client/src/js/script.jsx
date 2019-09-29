@@ -55,6 +55,7 @@ class Page extends React.Component {
                     <Helmet>
                         <title>Flash</title>
                         <meta property="og:site_name" content="Flash"/>
+                        <meta property="og:description" content="Create, manage and practise with your own flashcards!"/>
                     </Helmet>
                     <header>
                         <Link to="/">

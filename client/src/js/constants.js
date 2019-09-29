@@ -1,6 +1,6 @@
 export const version = "0.5";
 
-export const serverOrigin = "http://localhost:3000";
+export const serverOrigin = "http://192.168.1.66:3000";
 
 export const draggableTypes = {
     FLASHCARD: "flashcard",

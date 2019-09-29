@@ -15,13 +15,12 @@ export function InfoBox(props) {
                     <p>Tips:</p>
                     <ul>
                         <li>Hover over the + button to add a new category</li>
-                        <li>Click the pen icon to edit a card</li>
+                        <li>Click the pen icon to edit a card or category</li>
                         <li>Bookmark a category for quick access</li>
                         <li>Drag a flashcard or category to move it</li>
                         <li>The breadcrumb can also be clicked or dropped into</li>
                         <li>Click the graph icon on a category to take a quiz</li>
-                        <li>Drag a tag out of the tag manager to add it to a flashcard</li>
-                        <li>Create your own account for private flashcards</li>
+                        <li>Create your own account to make private flashcards</li>
                     </ul>
                 </div>
             </div>

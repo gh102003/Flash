@@ -34,6 +34,28 @@
     margin: 0 0.4em 0.3em 0;
 }
 
+@media only screen and (max-width: 900px) {
+    .tag-manager .edit-dialog {
+        position: fixed;
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: none; /* Animation messes with translation */
+    }
+    
+    .tag-manager .edit-dialog .block-picker {
+        /* Stronger shadow */
+        box-shadow: 0 0.1vw 12px 3px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    /* Hide triangle */
+    .tag-manager .edit-dialog .block-picker>div:first-child {
+        display: none;
+    }
+
+}
+
 /* Used to shift scrollbar up when card is pressed down */
 .card:active .tags .tag {
     margin: 0 0.4em calc(0.3em - 0.2vw) 0;
@@ -108,9 +130,8 @@
 
 .add-tag-form button::before {
     content: "";
-    display: inline-block;
+    display: inline;
     vertical-align: middle;
-    height: 100%;
   }
 
 .add-tag-form .colour-preview {
@@ -118,7 +139,7 @@
     width: 1em;
     height: 1em;
     vertical-align: middle;
-    margin-left: 0.5em;
+    margin-left: 0.7em;
     position: relative;
     top: -0.1em;
     border-radius: 0.2em;
@@ -129,7 +150,7 @@
 }
 
 .tag-button {
-    font-size: 1em;
+    font-size: 1.4em;
     vertical-align: middle;
     margin-left: 0.6em;
     position: relative;

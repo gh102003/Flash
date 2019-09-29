@@ -1,9 +1,9 @@
 *.db
 *.log
 node_modules/
-/client/build
 
 # Built files
+clinet/dist
 #server/Apache24/htdocs/build/
 #!htdocs/build/.htaccess
 

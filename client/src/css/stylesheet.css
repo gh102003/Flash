@@ -5,6 +5,7 @@
 
 i.material-icons {
     user-select: none;
+    font-size: 1em;
 }
 
 /* Buttons, inputs and anchors */
