@@ -23,6 +23,7 @@
 }
 
 .modal .button-close {
+    font-size: 1.5em;
     position: absolute;
     top: 2.5vmin;
     right: 2.5vmin;

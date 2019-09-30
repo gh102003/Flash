@@ -2,8 +2,8 @@ import React from "react";
 
 import * as constants from "../../../constants";
 import { LoadingIndicator } from "../../LoadingIndicator.jsx";
-import { AddTagForm } from "./AddTagForm.jsx";
-import { Tag } from "./Tag.jsx";
+import { AddTagForm } from "./AddTagForm.jsx.js.js.js";
+import { Tag } from "./Tag.jsx.js.js.js";
 
 export class TagManager extends React.Component {
 
