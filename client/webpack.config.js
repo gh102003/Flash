@@ -10,7 +10,8 @@ module.exports = {
     devtool: "inline-source-map",
     output: {
         filename: "index_bundle.js",
-        path: path.resolve(__dirname, "dist")
+        path: path.resolve(__dirname, "dist"),
+        publicPath: "/" // Sets root folder for assets including .js files, so an absolute import will be used in HTML
     },
     devServer: {
         host: "0.0.0.0",
