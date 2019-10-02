@@ -5,10 +5,11 @@
   "license": "MIT",
   "main": "/nodeServer/server.js",
   "scripts": {
-    "watch": "webpack --watch --config client/webpack.config.js",
-    "build": "webpack --config client/webpack.config.js",
-    "start": "node --inspect nodeServer/server.js",
-    "debug": "nodemon --inspect nodeServer/server.js"
+    "watch-client": "webpack --watch --config client/webpack.config.js",
+    "build-client": "webpack --config client/webpack.config.js",
+    "build-client-production": "webpack --config client/webpack.config.js -p --devtool none",
+    "start-backend": "node --inspect nodeServer/server.js",
+    "debug-backend": "nodemon --inspect nodeServer/server.js"
   },
   "repository": {
     "type": "git",
