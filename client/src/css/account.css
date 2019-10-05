@@ -28,7 +28,7 @@
     grid-column: 3 / 5;
 }
 
-.login-form label.privacy-notice {
+.login-form input[type="checkbox"] + label {
     grid-column: 2 / 5;
 }
 

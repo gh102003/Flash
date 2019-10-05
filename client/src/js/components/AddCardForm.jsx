@@ -42,24 +42,26 @@ export class AddCardForm extends React.Component {
 
         return (
             <div className="modal-background" onClick={this.props.handleCancel}>
-                <form className="add-card-form add-form" id="add-card-form" onSubmit={(e) => this._handleSubmit(e)} onClick={event => event.stopPropagation()}>
-                    <label>
-                        Front:
-                        <input autoFocus name="front" type="text" value={this.state.front} onChange={(e) => this._handleChange(e)} />
-                    </label>
-                    <label>
-                        Back:
-                        <input name="back" type="text" value={this.state.back} onChange={(e) => this._handleChange(e)} />
-                    </label>
-                    <label>
-                        <input type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this._handleChange(e)} />
-                        Reversible
-                    </label>
-                    <div className="controls">
-                        <input type="submit" value="Add flashcard" disabled={!enableSubmit} />
-                        <button type="button" onClick={this.props.handleCancel}>Cancel</button>
+                <div className="modal add add-card" onClick={event => event.stopPropagation()}>
+                    <div className="modal-header">
+                        <h2>Add Flashcard</h2>
+                        <i className="material-icons button-close" onClick={this.props.handleCancel}>close</i>
                     </div>
-                </form>
+                    <div className="modal-body">
+                        <form className="add-card-form add-form" id="add-card-form" onSubmit={(e) => this._handleSubmit(e)} onClick={event => event.stopPropagation()}>
+                            <label htmlFor="input-front">Front:</label>
+                            <input autoFocus id="input-front" name="front" type="text" size="30" value={this.state.front} onChange={(e) => this._handleChange(e)} />
+                            <label htmlFor="input-back">Back:</label>
+                            <input id="input-back" name="back" type="text" size="30" value={this.state.back} onChange={(e) => this._handleChange(e)} />
+                            <input id="input-isReversible" type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this._handleChange(e)} />
+                            <label htmlFor="input-isReversible">Reversible</label>
+                            <div className="controls">
+                                <input type="submit" value="Add flashcard" disabled={!enableSubmit} />
+                                <button type="button" onClick={this.props.handleCancel}>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }

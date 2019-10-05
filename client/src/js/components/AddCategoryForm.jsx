@@ -39,24 +39,30 @@ export class AddCategoryForm extends React.Component {
 
         return (
             <div className="modal-background" onClick={this.props.handleCancel}>
-                <form className="add-category-form add-form" id="add-category-form" onSubmit={(e) => this.handleSubmit(e)} onClick={event => event.stopPropagation()}>
-                    <label>
-                        Name:
-                        <input autoFocus name="name" type="text" value={this.state.name} onChange={(e) => this.handleChange(e)} />
-                    </label>
-                    <div className="colour-picker">
-                        <BlockPicker
-                            triangle="hide"
-                            color={this.state.colour}
-                            colors={constants.categoryColours}
-                            onChangeComplete={color => this.setState({ colour: color.hex })}
-                        />
+                <div className="modal add add-category" onClick={event => event.stopPropagation()}>
+                    <div className="modal-header">
+                        <h2>Add Category</h2>
+                        <i className="material-icons button-close" onClick={this.props.handleCancel}>close</i>
                     </div>
-                    <div className="controls">
-                        <input type="submit" value="Add category" disabled={!enableSubmit}/>
-                        <button type="button" onClick={this.props.handleCancel}>Cancel</button>
+                    <div className="modal-body">
+                        <form className="add-category-form add-form" id="add-category-form" onSubmit={e => this.handleSubmit(e)} onClick={event => event.stopPropagation()}>
+                            <label htmlFor="input-name">Name:</label>
+                            <input autoFocus id="input-name" name="name" type="text" size="30" value={this.state.name} onChange={e => this.handleChange(e)} />
+                            <div className="colour-picker">
+                                <BlockPicker
+                                    triangle="hide"
+                                    color={this.state.colour}
+                                    colors={constants.categoryColours}
+                                    onChangeComplete={color => this.setState({ colour: color.hex })}
+                                />
+                            </div>
+                            <div className="controls">
+                                <input type="submit" value="Add category" disabled={!enableSubmit}/>
+                                <button type="button" onClick={this.props.handleCancel}>Cancel</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         );
     }
