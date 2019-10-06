@@ -123,18 +123,13 @@
 /* Edit dialogs */
 @keyframes edit-dialog-in {
     from {
-        transform: scale(0.9) translateY(-1.2em);
         opacity: 0;
-    }
-
-    30% {
-        transform: scale(0.95) translateY(-0.6em);
-        opacity: 0.5;
+        transform: scale(0) translateY(0);
     }
     
     to {
-        transform: scale(1) translateY(0);
         opacity: 1;
+        transform: scale(1) translateY(0);
     }
 }
 

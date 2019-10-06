@@ -1,7 +1,7 @@
 .modal {
     width: 50vw;
     height: 50vh;
-    border-radius: 2vmin;
+    border-radius: 1.7vmin;
     background-color: white;
     position: relative;
     font-size: 1.1vw;
@@ -10,7 +10,7 @@
 .modal .modal-header {
     background-color: crimson;
     color: white;
-    border-radius: 2vmin 2vmin 0 0;
+    border-radius: 1.7vmin 1.7vmin 0 0;
 }
 
 .modal .modal-header, .modal .modal-body {

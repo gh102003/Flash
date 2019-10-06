@@ -151,7 +151,7 @@ body {
     0% {
         opacity: 0;
     }
-    60% {
+    50% {
         opacity: 0;
     }
     to {
@@ -160,7 +160,7 @@ body {
 }
 
 .loading-indicator {
-    animation: loading-indicator-in 1700ms forwards;
+    animation: loading-indicator-in 1500ms forwards;
 }
 
 @keyframes loading-indicator-spinner {
