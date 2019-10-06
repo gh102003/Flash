@@ -210,6 +210,17 @@
     place-self: end;
 }
 
+.add-form .controls button:last-child {
+    margin-right: 0;
+}
+
+.add-form .usernames-visible-to {
+    grid-column: 1 / -1;
+    font-size: 0.9em;
+    font-style: italic;
+    opacity: 0.8;
+}
+
 /* Add category form */
 
 .add-category-form {

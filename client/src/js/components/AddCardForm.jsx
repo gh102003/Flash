@@ -1,6 +1,6 @@
 import React from "react";
 
-import { authenticatedFetch } from "../util";
+import { authenticatedFetch, getUserFromAuthToken } from "../util";
 
 export class AddCardForm extends React.Component {
     constructor(props) {
@@ -36,6 +36,11 @@ export class AddCardForm extends React.Component {
         event.preventDefault();
     }
     render() {
+
+        const currentUser = getUserFromAuthToken(localStorage.getItem("AuthToken"));
+        const usernamesVisibleTo = currentUser ? "Only " + currentUser.username : "Everyone";
+
+        // Validation
         let enableSubmit = true;
         if (!this.state.front) enableSubmit = false;
         if (!this.state.back) enableSubmit = false;
@@ -55,6 +60,7 @@ export class AddCardForm extends React.Component {
                             <input id="input-back" name="back" type="text" size="30" value={this.state.back} onChange={(e) => this._handleChange(e)} />
                             <input id="input-isReversible" type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this._handleChange(e)} />
                             <label htmlFor="input-isReversible">Reversible</label>
+                            <div className="usernames-visible-to">{usernamesVisibleTo} will be able to see and edit this</div>
                             <div className="controls">
                                 <input type="submit" value="Add flashcard" disabled={!enableSubmit} />
                                 <button type="button" onClick={this.props.handleCancel}>Cancel</button>

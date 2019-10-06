@@ -1,4 +1,5 @@
 import * as constants from "./constants";
+import jsonwebtoken from "jsonwebtoken";
 
 export function shuffle(array) {
     // Shuffle flashcards
@@ -54,3 +55,18 @@ export const authenticatedFetch = (path, options) =>
             }
         }
     );
+
+export function getUserFromAuthToken(authToken) {
+    const decodedAuthToken = jsonwebtoken.decode(authToken);
+
+    if (!decodedAuthToken) {
+        return null;
+    }
+    else {
+        return {
+            id: decodedAuthToken.id,
+            username: decodedAuthToken.username,
+            loginTimestamp: decodedAuthToken.iat // In Unix time
+        };
+    }
+}

@@ -33,6 +33,10 @@ export class AddCategoryForm extends React.Component {
         event.preventDefault();
     }
     render() {
+        const currentUser = util.getUserFromAuthToken(localStorage.getItem("AuthToken"));
+        const usernamesVisibleTo = currentUser ? "Only " + currentUser.username : "Everyone";
+
+        // Validation
         let enableSubmit = true;
         if (!this.state.name) enableSubmit = false;
         if (!this.state.colour) enableSubmit = false;
@@ -56,8 +60,9 @@ export class AddCategoryForm extends React.Component {
                                     onChangeComplete={color => this.setState({ colour: color.hex })}
                                 />
                             </div>
+                            <div className="usernames-visible-to">{usernamesVisibleTo} will be able to see and edit this</div>
                             <div className="controls">
-                                <input type="submit" value="Add category" disabled={!enableSubmit}/>
+                                <input type="submit" value="Add category" disabled={!enableSubmit} />
                                 <button type="button" onClick={this.props.handleCancel}>Cancel</button>
                             </div>
                         </form>

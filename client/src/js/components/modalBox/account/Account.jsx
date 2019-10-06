@@ -1,8 +1,8 @@
 import React from "react";
-import jsonwebtoken from "jsonwebtoken";
 import moment from "moment";
 
 import { Login } from "./Login.jsx";
+import * as util from "../../../util";
 
 import "../../../../css/account.css";
 
@@ -12,23 +12,8 @@ export class Account extends React.Component {
         super(props);
 
         this.state = {
-            user: this.getUserFromAuthToken(localStorage.getItem("AuthToken"))
+            user: util.getUserFromAuthToken(localStorage.getItem("AuthToken"))
         };
-    }
-
-    getUserFromAuthToken(authToken) {
-        const decodedAuthToken = jsonwebtoken.decode(authToken);
-
-        if (!decodedAuthToken) {
-            return null;
-        }
-        else {
-            return {
-                id: decodedAuthToken.id,
-                username: decodedAuthToken.username,
-                loginTimestamp: decodedAuthToken.iat // In Unix time
-            };
-        }
     }
 
     render() {
@@ -39,7 +24,7 @@ export class Account extends React.Component {
                 <Login
                     afterLogin={response => {
                         localStorage.setItem("AuthToken", response.token);
-                        this.setState({ user: this.getUserFromAuthToken(response.token) });
+                        this.setState({ user: util.getUserFromAuthToken(response.token) });
                         this.props.afterAccountChange();
                     }}
                     handleClose={this.props.handleClose}
