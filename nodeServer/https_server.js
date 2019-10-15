@@ -3,7 +3,7 @@ const https = require("https");
 const fs = require("fs");
 const app = require("./app");
 
-const port = process.env.PORT || 444;
+const port = process.env.PORT || 3444;
 
 const server = https.createServer({
     key: fs.readFileSync("/etc/letsencrypt/live/flashapp.uk.to/privkey.pem"),
