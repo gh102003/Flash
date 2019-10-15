@@ -1,6 +1,7 @@
 *.db
 *.log
 node_modules/
+.env
 
 # Built files
 client/dist

@@ -4,26 +4,14 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     context: __dirname,
     entry: "./src/js/script.jsx",
-    devtool: "inline-source-map",
+    devtool: "none",
     output: {
         filename: "index_bundle.js",
         path: path.resolve(__dirname, "dist"),
         publicPath: "/" // Sets root folder for assets including .js files, so an absolute import will be used in HTML
-    },
-    devServer: {
-        host: "0.0.0.0",
-        stats: "normal",
-        inline: true,
-        port: 3000,
-        historyApiFallback: {
-            rewrites: [
-                { from: /index_bundle.js$/, to: "/index_bundle.js" },
-                { from: /^\/category\/\w*$/, to: "/index.html" }
-            ]
-        }
     },
     module: {
         rules: [

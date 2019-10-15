@@ -7,8 +7,8 @@
   "scripts": {
     "watch-client": "webpack --watch --config client/webpack.config.js",
     "build-client": "webpack --config client/webpack.config.js",
-    "build-client-production": "webpack --config client/webpack.config.js -p --devtool none",
-    "start-backend": "node --inspect nodeServer/server.js",
+    "build-client-production": "webpack --config client/webpack.production.js",
+    "start-backend": "node nodeServer/server.js",
     "debug-backend": "nodemon --inspect nodeServer/server.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",

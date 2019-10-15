@@ -15,10 +15,11 @@ const app = express();
 // Connect to Mongo Atlas database
 const mongoUrl = `mongodb+srv://${credentials.mongoAtlas.username}:${credentials.mongoAtlas.password}@flashcluster-nquld.mongodb.net/flash-database?retryWrites=true&w=majority`;
 mongoose.connect(mongoUrl, { useNewUrlParser: true });
+// Retry connection if it fails (like it does with PM2 on startup)
+mongoose.connection.on("error", () => mongoose.connect(mongoUrl, { useNewUrlParser: true }));
 
 // Logging middleware
 app.use(morgan("dev"));
-
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({
