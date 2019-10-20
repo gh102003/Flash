@@ -7,6 +7,12 @@ const userSchema = mongoose.Schema({
         unique: true, // Optimise for searching
         match: /^.{4,25}$/ // Check that it is in the right format
     },
+    emailAddress: {
+        type: String,
+        required: true,
+        unique: true,
+        match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+    },
     encryptedPassword: {
         type: String,
         required: true,

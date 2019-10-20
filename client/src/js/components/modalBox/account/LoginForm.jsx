@@ -6,7 +6,7 @@ export class LoginForm extends React.Component {
 
         this.state = {
             formData: {
-                username: "",
+                emailAddress: "",
                 password: ""
             },
             lastLoginSuccess: true
@@ -24,7 +24,7 @@ export class LoginForm extends React.Component {
 
     render() {
         let enableSubmit = true;
-        if (!this.state.formData.username) enableSubmit = false;
+        if (!this.state.formData.emailAddress) enableSubmit = false;
         if (!this.state.formData.password) enableSubmit = false;
 
         return (
@@ -32,7 +32,7 @@ export class LoginForm extends React.Component {
                 className="login-form"
                 onSubmit={event => {
                     event.preventDefault();
-                    const successful = this.props.handleSubmit(this.state.formData.username, this.state.formData.password);
+                    const successful = this.props.handleSubmit(this.state.formData.emailAddress, this.state.formData.password);
                     successful.catch(() => {
                         // Trigger wiggle animation
                         this.setState({ lastLoginSuccess: false });
@@ -43,15 +43,15 @@ export class LoginForm extends React.Component {
                     });
 
                 }}>
-                <label htmlFor="username">
-                    Username:
+                <label htmlFor="email-address">
+                    Email Address:
                 </label>
                 <input
-                    id="username"
-                    autoComplete="username"
+                    id="email-address"
+                    autoComplete="email"
                     type="text"
-                    value={this.state.formData.username}
-                    onChange={event => this.updateForm("username", event.target.value)}
+                    value={this.state.formData.emailAddress}
+                    onChange={event => this.updateForm("emailAddress", event.target.value)}
                 />
                 <label htmlFor="password">
                     Password:

@@ -65,6 +65,7 @@ export function getUserFromAuthToken(authToken) {
     else {
         return {
             id: decodedAuthToken.id,
+            emailAddress: decodedAuthToken.emailAddress,
             username: decodedAuthToken.username,
             loginTimestamp: decodedAuthToken.iat // In Unix time
         };

@@ -11,19 +11,19 @@ export const Login = props => {
     /**
      * Logs a user in
      * 
-     * @param {string} username 
+     * @param {string} emailAddress 
      * @param {string} password 
      * 
      * @returns a promise that resolves if successful and rejects if authentication fails
      */
-    const logIn = async (username, password) => {
+    const logIn = async (emailAddress, password) => {
         const response = await fetch(`${constants.serverOrigin}/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             cache: "no-cache",
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ emailAddress, password })
         });
 
         if (response.status !== 200)
@@ -42,7 +42,7 @@ export const Login = props => {
                 </div>
                 <div className="modal-body">
                     <LoginForm
-                        handleSubmit={(username, password) => logIn(username, password)}
+                        handleSubmit={(emailAddress, password) => logIn(emailAddress, password)}
                         handleSignUpCta={() => setPage("signUp")}
                     />
                 </div>
@@ -57,7 +57,7 @@ export const Login = props => {
                 </div>
                 <div className="modal-body">
                     <SignUpForm
-                        afterSignUp={(username, password) => logIn(username, password)}
+                        afterSignUp={(emailAddress, password) => logIn(emailAddress, password)}
                         handleLoginCta={() => setPage("login")}
                     />
                 </div>

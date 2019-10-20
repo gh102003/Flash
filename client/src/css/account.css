@@ -74,7 +74,7 @@
     width: 100%;
 }
 
-.password-validation-message {
+.validation-message {
     position: absolute;
     top: 2.3em;
     background-color: rgba(220, 20, 60, 0.9);

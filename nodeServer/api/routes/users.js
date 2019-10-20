@@ -14,21 +14,39 @@ router.post("/signup", async (req, res, next) => {
     let existingUser;
     try {
         existingUser = await User.findOne({ username: req.body.username }); // Check if username already exists
-    } catch (_) {
-        void(0);
+    } catch (_) { // If there's no user
+        void (0);
     }
     if (existingUser) {
-        return res.status(409).json({ error: "Username already exists" });
+        return res.status(409).json({ error: "Username already taken" });
     }
 
+    // Check for existing user with same email
+    let existingEmailAddress;
+    try {
+        existingEmailAddress = await User.findOne({ emailAddress: req.body.emailAddress }); // Check if username already exists
+    } catch (_) { // If there's no user
+        void (0);
+    }
+    if (existingEmailAddress) {
+        return res.status(409).json({ error: "Email address already taken" }); // 409 Conflict
+    }
+    
     const encryptedPassword = await bcrypt.hash(req.body.password, 10); // Encrypt
 
-    // Create a new user
-    const user = new User({
-        username: req.body.username,
-        encryptedPassword
-    });
-    await user.save();
+    let user;
+    try {
+        // Create a new user
+        user = new User({
+            username: req.body.username,
+            emailAddress: req.body.emailAddress,
+            encryptedPassword
+        });
+        await user.save();
+    }
+    catch (error) {
+        return res.status(400).json({ error: "Malformed user data" }); // 409 Conflict
+    }
 
     // Create a new 'home' category for the new user
     const homeCategory = new Category({
@@ -44,6 +62,7 @@ router.post("/signup", async (req, res, next) => {
         createdUser: {
             id: user._id,
             username: user.username,
+            emailAddress: user.emailAddress,
             homeCategory
         }
     });
@@ -58,7 +77,7 @@ router.post("/login", (req, res, next) => {
 
     let user;
 
-    User.findOne({ username: req.body.username }) // Find user
+    User.findOne({ emailAddress: req.body.emailAddress }) // Find user
         .then(foundUser => {
             user = foundUser;
             if (!foundUser) {
@@ -74,6 +93,7 @@ router.post("/login", (req, res, next) => {
                     // Send payload (claims made by the client)
                     {
                         username: user.username,
+                        emailAddress: user.emailAddress,
                         id: user.id
                     },
                     credentials.jwt.privateKey,
@@ -94,19 +114,19 @@ router.post("/login", (req, res, next) => {
         .catch(handleAuthFail);
 });
 
-router.delete("/:userId", (req, res, next) => {
-    User.findByIdAndDelete(req.params.userId)
-        .then(deletedUser => {
-            if (deletedUser) {
-                res.status(200).json({ deletedUser: { ...deletedUser.toJSON(), encryptedPassword: undefined } }); // Send without encrypted password
-            } else {
-                res.status(404).json({ error: "Not found" });
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).json({ error });
-        });
-});
+//router.delete("/:userId", (req, res, next) => {
+//     User.findByIdAndDelete(req.params.userId)
+//         .then(deletedUser => {
+//             if (deletedUser) {
+//                 res.status(200).json({ deletedUser: { ...deletedUser.toJSON(), encryptedPassword: undefined } }); // Send without encrypted password
+//             } else {
+//                 res.status(404).json({ error: "Not found" });
+//             }
+//         })
+//         .catch(error => {
+//             console.error(error);
+//             res.status(500).json({ error });
+//         });
+// });
 
 module.exports = router;

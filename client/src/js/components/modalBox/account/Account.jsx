@@ -43,6 +43,9 @@ export class Account extends React.Component {
                             {this.state.user.username}
                         </h3>
                         <p>
+                            {this.state.user.emailAddress}
+                        </p>
+                        <p>
                             Logged in {formattedLoginTime}
                         </p>
                         <button onClick={() => {

@@ -9,11 +9,15 @@ export class SignUpForm extends React.Component {
         this.state = {
             formData: {
                 username: "",
+                emailAddress: "",
                 password: "",
                 repeatPassword: "",
                 privacyNoticeAccepted: false
             },
-            lastSignUpSuccess: true
+            lastSignUp: {
+                success: true,
+                error: ""
+            }
         };
     }
 
@@ -50,6 +54,7 @@ export class SignUpForm extends React.Component {
      */
     validateFormData() {
         if (!this.state.formData.username) return false;
+        if (!this.state.formData.emailAddress.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)) return false;
         if (!this.state.formData.password) return false;
         if (!this.state.formData.repeatPassword) return false;
         if (this.state.formData.password !== this.state.formData.repeatPassword) return false;
@@ -72,41 +77,79 @@ export class SignUpForm extends React.Component {
                     cache: "no-cache",
                     body: JSON.stringify({
                         username: this.state.formData.username,
+                        emailAddress: this.state.formData.emailAddress,
                         password: this.state.formData.password
                     })
                 })
-                    .then(response => {
+                    .then(async response => {
+                        let responseData;
                         switch (response.status) {
                             case 201:
                                 return;
                             case 409:
-                                throw new Error("Username already exists");
+                                responseData = await response.json();
+                                this.setState({
+                                    lastSignUp: { success: false, error: responseData.error }
+                                });
+                                throw new Error(responseData.error);
                             default:
                                 throw new Error("User could not be created");
                         }
                     })
                     // Send to parent to log in
-                    .then(() => this.props.afterSignUp(this.state.formData.username, this.state.formData.password))
+                    .then(() => this.props.afterSignUp(this.state.formData.emailAddress, this.state.formData.password))
                     .catch(error => {
-                        console.log(error);
                         // Trigger wiggle animation
-                        this.setState({ lastSignUpSuccess: false });
+                        this.setState(oldState => ({
+                            lastSignUp: { ...oldState.lastSignUp, success: false }
+                        }));
+                        // Timeout resets animation and hides error popup, but animation finished before this in CSS
                         setTimeout(
-                            () => this.setState({ lastSignUpSuccess: true }),
-                            750
+                            () => this.setState({ lastSignUp: { success: true, error: "" } }),
+                            3000
                         );
                     });
             }}>
+
+
             <label htmlFor="username">
                 Username:
             </label>
-            <input
-                id="username"
-                autoComplete="username"
-                type="text"
-                value={this.state.formData.username}
-                onChange={event => this.updateForm("username", event.target.value)}
-            />
+            <div className="input-with-validation">
+                <input
+                    id="username"
+                    autoComplete="username"
+                    type="text"
+                    value={this.state.formData.username}
+                    onChange={event => this.updateForm("username", event.target.value)}
+                />
+                {
+                    // Check last sign up for conflicting username
+                    !this.state.lastSignUp.success && this.state.lastSignUp.error.split(" ")[0] === "Username" &&
+                    <div className="validation-message">{this.state.lastSignUp.error}</div>
+                }
+            </div>
+
+
+            <label htmlFor="email-address">
+                Email Address:
+            </label>
+            <div className="input-with-validation">
+                <input
+                    id="email-address"
+                    autoComplete="email"
+                    type="text"
+                    value={this.state.formData.emailAddress}
+                    onChange={event => this.updateForm("emailAddress", event.target.value)}
+                />
+                {
+                    // Check last sign up for conflicting email address
+                    !this.state.lastSignUp.success && this.state.lastSignUp.error.split(" ")[0] === "Email" &&
+                    <div className="validation-message">{this.state.lastSignUp.error}</div>
+                }
+            </div>
+
+
             <label htmlFor="password">
                 Password:
             </label>
@@ -120,9 +163,11 @@ export class SignUpForm extends React.Component {
                 />
                 {
                     this.state.formData.password != "" && !passwordValidation.valid &&
-                    <div className="password-validation-message">{passwordValidation.message}</div>
+                    <div className="validation-message">{passwordValidation.message}</div>
                 }
             </div>
+
+
             <label htmlFor="repeat-password">
                 Repeat Password:
             </label>
@@ -136,9 +181,11 @@ export class SignUpForm extends React.Component {
                 />
                 {
                     passwordValidation.valid && this.state.formData.password !== this.state.formData.repeatPassword &&
-                    <div className="password-validation-message">Passwords do not match</div>
+                    <div className="validation-message">Passwords do not match</div>
                 }
             </div>
+
+
             <input
                 type="checkbox"
                 name="accept-privacy-notice"
@@ -146,13 +193,15 @@ export class SignUpForm extends React.Component {
                 checked={this.state.formData.privacyNoticeAccepted}
                 onChange={event => this.updateForm("privacyNoticeAccepted", event.target.checked)} />
             <label className="privacy-notice" htmlFor="accept-privacy-notice">I agree for my data to be stored and processed for functional purposes</label>
+
+
             <p className="sign-up-cta">
                 Already got an account? <a href="" onClick={event => {
                     event.preventDefault();
                     this.props.handleLoginCta();
                 }}>Login</a> instead.
             </p>
-            <input className={this.state.lastSignUpSuccess ? "sign-up-btn" : "sign-up-btn sign-up-btn-fail"} type="submit" value="Sign up" disabled={!this.validateFormData() || !passwordValidation.valid} />
+            <input className={this.state.lastSignUp.success ? "sign-up-btn" : "sign-up-btn sign-up-btn-fail"} type="submit" value="Sign up" disabled={!this.validateFormData() || !passwordValidation.valid} />
         </form>);
     }
 }
