@@ -122,6 +122,9 @@
 
 .add-tag-form {
     margin: 0;
+
+    display: grid;
+    grid-template-columns: 1fr auto auto;
 }
 
 .add-tag-form button {

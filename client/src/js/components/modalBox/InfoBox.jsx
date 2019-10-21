@@ -1,5 +1,5 @@
 import React from "react";
-import { version } from "../../constants";
+import { version, dataProtectionEmail, sourceCodeLink } from "../../constants";
 
 export function InfoBox(props) {
     return (
@@ -12,7 +12,7 @@ export function InfoBox(props) {
                 </div>
                 <div className="modal-body">
                     <p>Create, manage and practise with your own flashcards!</p>
-                    <p>Tips:</p>
+                    <h3>Tips</h3>
                     <ul>
                         <li>Hover over the + button to add a new category</li>
                         <li>Click the pen icon to edit a card or category</li>
@@ -22,6 +22,19 @@ export function InfoBox(props) {
                         <li>Click the graph icon on a category to take a quiz</li>
                         <li>Create your own account to make private flashcards</li>
                     </ul>
+                    <p className="external-link">
+                        <i className="material-icons">open_in_new</i>
+                        <a href={sourceCodeLink}>
+                            View source
+                        </a> on GitHub
+                    </p>
+                    <p className="external-link">
+                        <i className="material-icons">email</i>
+                        Send a&nbsp;
+                        <a href={dataProtectionEmail}>
+                            data protection
+                        </a> email
+                    </p>
                 </div>
             </div>
         </div>

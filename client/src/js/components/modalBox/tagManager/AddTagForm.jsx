@@ -57,6 +57,7 @@ export class AddTagForm extends React.Component {
                     type="text"
                     placeholder="Create a new tag"
                     name=""
+                    size="5"
                     value={this.state.tag.name}
                     onChange={event => {
                         let newName = event.target.value;
@@ -68,6 +69,7 @@ export class AddTagForm extends React.Component {
                         }));
                     }}
                 />
+
                 <div style={{ display: "inline-block", position: "relative" }}>
                     <button type="button" onClick={event => {
                         event.preventDefault();
@@ -97,6 +99,7 @@ export class AddTagForm extends React.Component {
 
                     }
                 </div>
+
                 <input type="submit" value="Add" disabled={!enableSubmit} />
             </form>
         );

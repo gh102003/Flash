@@ -1,6 +1,8 @@
-export const version = "1.0.0";
+export const version = "1.1.0";
 
 export const serverOrigin = "http://localhost:3001";
+export const sourceCodeLink = "https://github.com/gh102003/Flash";
+export const dataProtectionEmail = "mailto:gh102003g@gmail.com?subject=Data Protection";
 
 export const draggableTypes = {
     FLASHCARD: "flashcard",

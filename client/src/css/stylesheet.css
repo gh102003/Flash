@@ -3,6 +3,10 @@
     font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+h3 {
+    margin-bottom: 0.3em;
+}
+
 i.material-icons {
     user-select: none;
     font-size: 1em;
