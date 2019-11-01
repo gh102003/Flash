@@ -17,6 +17,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         match: /^.{6,72}$/
+    },
+    subscriptionLevel: { // Free = 0, Pro = 1
+        type: Number,
+        required: true,
+        default: 0
     }
 });
 

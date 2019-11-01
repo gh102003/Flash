@@ -204,8 +204,8 @@ body {
     user-select: none;
     -moz-user-select: none;
     margin: 1vw;
-    padding: 1vw;
-    height: 5vw;
+    padding: 0.7vw 1vw;
+    height: 6vw;
     text-align: center;
     border-radius: 1vw;
     font-size: 1.5em;
@@ -224,8 +224,8 @@ body {
         grid-template-columns: repeat(4, 1fr);
     }
     .card {
-        height: 6.5vw;
-        font-size: 1.35em;
+        height: 8vw;
+        font-size: 1.3em;
     }
 }
 
@@ -234,10 +234,11 @@ body {
         grid-template-columns: repeat(3, 1fr);
     }
     .card {
-        height: 9vw;
+        height: 11vw;
         font-size: 1.2em;
         border-radius: 2vw;
         margin: 1.2vw;
+        padding: 1.5vw 2vw;
     }
 }
 
@@ -246,7 +247,7 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
     .card {
-        height: 12vw;
+        height: 15vw;
         font-size: 1.15em;
         margin: 1.8vw;
     }
@@ -257,8 +258,8 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
     .card {
-        height: 14vw;
-        font-size: 0.9em;
+        height: 18vw;
+        font-size: 0.85em;
         border-radius: 3vw;
     }
 }
@@ -321,9 +322,24 @@ header+* {
         font-size: 2.6em;
     }
     .header-buttons i {
-        font-size: 1.6em;
+        font-size: 1.5em;
     }
     header+* {
         margin-top: 3.8em;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    header {
+        padding: 0.8vw 3vw;
+    }
+    header h1 {
+        font-size: 2.3em;
+    }
+    .header-buttons i {
+        font-size: 1.2em;
+    }
+    header+* {
+        margin-top: 3.3em;
     }
 }

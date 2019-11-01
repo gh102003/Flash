@@ -63,6 +63,7 @@ router.post("/signup", async (req, res, next) => {
             id: user._id,
             username: user.username,
             emailAddress: user.emailAddress,
+            subscriptionLevel: user.subscriptionLevel,
             homeCategory
         }
     });
@@ -94,6 +95,7 @@ router.post("/login", (req, res, next) => {
                     {
                         username: user.username,
                         emailAddress: user.emailAddress,
+                        subscriptionLevel: user.subscriptionLevel,
                         id: user.id
                     },
                     credentials.jwt.privateKey,
