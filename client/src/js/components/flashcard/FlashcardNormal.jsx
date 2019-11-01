@@ -50,6 +50,9 @@ export const FlashcardNormal = props => {
         }
     };
 
+    // Font size can be manipulated by ems in CSS media queries as well as here
+    const textSize = Math.min(1, 1 - 0.004 * (props.text.length - 5));
+
     return drop(drag(
         <div className={className} style={props.styles} onClick={event => {
             event.stopPropagation();
@@ -69,7 +72,7 @@ export const FlashcardNormal = props => {
                 <i className="material-icons" >zoom_out_map</i>
             </div>
 
-            <span>{props.text}</span>
+            <span style={{fontSize: textSize + "em"}}>{props.text}</span>
 
             <div
                 className="tags"

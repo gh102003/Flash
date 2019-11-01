@@ -116,6 +116,30 @@
     }
 }
 
+@media only screen and (max-width: 400px) {
+    .flashcard-button .material-icons {
+        font-size: 4.5vw;
+    }
+
+    .flashcard-button {
+        left: 1.4vw;
+        padding: 1.4vw;
+    }
+
+    .flashcard-button:nth-child(1) {
+        top: 1.4vw;
+    }
+    
+    .flashcard-button:nth-child(2) {
+        top: 10vw;
+    }
+
+    .flashcard-button:nth-child(3) {
+        top: 1.4vw;
+        left: 10vw;
+    }
+}
+
 .card:hover .flashcard-button, .card-edit .flashcard-button {
     opacity: 0.25;
 }
@@ -124,7 +148,7 @@
     opacity: 0.7;
 }
 
-.card span {
+.card span, .card .auto-size-input-wrapper {
     max-width: 100%;
     max-height: 100%;
     overflow: hidden;
@@ -161,6 +185,12 @@
 
 .flashcard-modal .material-icons {
     font-size: 3.3vmin;
+}
+
+@media only screen and (max-width: 600px) {
+    .flashcard-modal .material-icons {
+        font-size: 6vmin;
+    }
 }
 
 .card-edit div>input[type=text] {

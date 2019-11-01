@@ -18,6 +18,7 @@ export class FlashcardEdit extends React.Component {
                     <i className="material-icons" >delete</i>
                 </div>
                 <AutosizeInput
+                    className="auto-size-input-wrapper"
                     type="text"
                     autoFocus
                     value={this.props.text}
