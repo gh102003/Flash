@@ -13,26 +13,29 @@ export var SubcategoryNormal = props => {
         className += " dnd-drop-hover";
     }
 
+    // Font size can be manipulated by ems in CSS media queries as well as here
+    const textSize = Math.min(1, 1 - 0.005 * (props.name.length - 5));
+
     return props.connectDropTarget(props.connectDragSource(
-        <div>
-            <div
-                className={className}
-                style={props.styles}
-                draggable="false"
-                onClick={() => props.handleNavigate(props.id)}
-            >
-                <div className="flashcard-button" onClick={event => {
-                    event.stopPropagation();
-                    props.handleChangeView("edit");
-                }}>
-                    <i className="material-icons">edit</i>
-                </div>
-                <Link className="flashcard-button" to={`/quiz/category/${props.id}`} onClick={event => event.stopPropagation()}>
-                    <i className="material-icons">assessment</i>
-                </Link>
-                {props.name}
+        <div
+            className={className}
+            style={props.styles}
+            draggable="false"
+            onClick={() => props.handleNavigate(props.id)}
+        >
+            <div className="flashcard-button" onClick={event => {
+                event.stopPropagation();
+                props.handleChangeView("edit");
+            }}>
+                <i className="material-icons">edit</i>
             </div>
-        </div>
+            <Link className="flashcard-button" to={`/quiz/category/${props.id}`} onClick={event => event.stopPropagation()}>
+                <i className="material-icons">assessment</i>
+            </Link>
+            <span style={{fontSize: textSize + "em"}}>
+                {props.name}
+            </span>
+        </div >
     ));
 };
 
