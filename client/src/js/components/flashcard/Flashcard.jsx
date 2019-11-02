@@ -17,7 +17,6 @@ export class Flashcard extends React.Component {
         else {
             this.state = { side: "front" };
         }
-        this.state.view = "normal";
     }
 
     flip() {
@@ -47,7 +46,7 @@ export class Flashcard extends React.Component {
         let styles = { backgroundColor, color };
         let text = this.props[this.state.side];
 
-        if (this.state.view === "edit") {
+        if (this.props.view === "edit") {
             return (
                 <FlashcardEdit
                     text={text}
@@ -55,20 +54,23 @@ export class Flashcard extends React.Component {
                     handleEdit={newValue => this.props.handleEdit(this.state.side, newValue)}
                     handleSaveEdit={() => {
                         this.props.handleSaveEdit({ propName: this.state.side, value: this.props[this.state.side] });
-                        this.setState({ view: "normal" });
+                        this.props.handleChangeView("normal");
                     }}
                     handleDelete={() => this.props.handleDelete()}
                 />
             );
         }
-        else if (this.state.view === "modal") {
+        else if (this.props.view === "modal") {
             return (
                 <>
                     <FlashcardModal
                         text={text}
                         styles={styles}
+                        handleSwitch={(deltaIndex) => {
+                            this.props.handleSwitch(deltaIndex);
+                        }}
                         handleFlip={() => this.flip()}
-                        handleExit={() => this.setState({ view: "normal" })}
+                        handleExit={() => this.props.handleChangeView("normal")}
                     />
                     <FlashcardNormal
                         editable={false}
@@ -88,7 +90,7 @@ export class Flashcard extends React.Component {
                     tags={this.props.tags}
                     styles={styles}
                     handleFlip={() => this.flip()}
-                    handleChangeView={view => this.setState({ view })}
+                    handleChangeView={view => this.props.handleChangeView(view)}
                     handleTagAdd={tag => {
                         this.props.handleEdit("tags", tag, "push");
                         this.props.handleSaveEdit({ propName: "tags", type: "push", value: tag.id });

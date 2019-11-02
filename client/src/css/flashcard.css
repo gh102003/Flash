@@ -180,9 +180,19 @@
 
 .flashcard-modal .flashcard-button {
     opacity: 0.3;
-    left: 2vmin;
     top: 2vmin;
+    left: initial;
     padding: 1vmin;
+}
+
+.flashcard-modal .flashcard-button:nth-child(1) {
+    left: 2vmin;
+}
+.flashcard-modal .flashcard-button:nth-child(2) {
+    right: 8vmin;
+}
+.flashcard-modal .flashcard-button:nth-child(3) {
+    right: 2vmin;
 }
 
 .flashcard-modal .material-icons {
@@ -197,9 +207,17 @@
 
 @media only screen and (max-width: 600px) {
     .flashcard-modal .flashcard-button {
-        left: 2.5vmin;
         top: 2.5vmin;
         padding: 1.3vmin;
+    }
+    .flashcard-modal .flashcard-button:nth-child(1) {
+        left: 2.5vmin;
+    }
+    .flashcard-modal .flashcard-button:nth-child(2) {
+        right: 11vmin;
+    }
+    .flashcard-modal .flashcard-button:nth-child(3) {
+        right: 2.5vmin;
     }
     .flashcard-modal .material-icons {
         font-size: 5vmin;
@@ -209,6 +227,12 @@
 @media only screen and (max-width: 400px) {
     .flashcard-modal {
         border-radius: 5.1vw;
+    }
+    .flashcard-modal .flashcard-button:nth-child(2) {
+        right: 12.5vmin;
+    }
+    .flashcard-modal .material-icons {
+        font-size: 6.5vmin;
     }
 }
 

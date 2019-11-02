@@ -1,25 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-export class FlashcardModal extends React.Component {
-    render() {
-        // Font size can be manipulated by ems in CSS media queries as well as here
-        const textSize = Math.min(1, 1 - 0.003 * (this.props.text.length - 5));
+export const FlashcardModal = props => {
 
-        return (
-            <div className="modal-background" onClick={() => this.props.handleExit()}>
-                <div className={"card flashcard flashcard-modal"} style={this.props.styles} onClick={(event) => {
+    const keyboardEventListener = event => {
+        event.stopPropagation();
+        switch (event.key) {
+            case "ArrowRight":
+                props.handleSwitch(1);
+                break;
+            case "ArrowLeft":
+                props.handleSwitch(-1);
+                break;
+            case " ":
+                props.handleFlip();
+                break;
+            case "Escape":
+                props.handleExit();
+                break;
+        }
+    };
+
+    // Keyboard events
+    useEffect(() => {
+        document.addEventListener("keydown", keyboardEventListener);
+
+        // Return cleanup function to remove event listener
+        return () => document.removeEventListener("keydown", keyboardEventListener);
+    });
+
+    // Font size can be manipulated by ems in CSS media queries as well as here
+    const textSize = Math.min(1, 1 - 0.003 * (props.text.length - 5));
+
+    return (
+        <div className="modal-background" onClick={() => props.handleExit()}>
+            <div
+                className={"card flashcard flashcard-modal"}
+                style={props.styles}
+                onClick={(event) => {
                     event.stopPropagation(); // Prevent parent from recieving click
-                    this.props.handleFlip();
+                    props.handleFlip();
+                }}
+            >
+                <div className="flashcard-button" onClick={(event) => {
+                    event.stopPropagation();
+                    props.handleExit();
                 }}>
-                    <div className="flashcard-button" onClick={(event) => {
-                        event.stopPropagation();
-                        this.props.handleExit();
-                    }}>
-                        <i className="material-icons">close</i>
-                    </div>
-                    <span style={{fontSize: textSize + "em"}}>{this.props.text}</span>
+                    <i className="material-icons">close</i>
                 </div>
+                <div className="flashcard-button" onClick={(event) => {
+                    event.stopPropagation();
+                    props.handleSwitch(-1);
+                }}>
+                    <i className="material-icons">chevron_left</i>
+                </div>
+                <div className="flashcard-button" onClick={(event) => {
+                    event.stopPropagation();
+                    props.handleSwitch(1);
+                }}>
+                    <i className="material-icons">chevron_right</i>
+                </div>
+                <span style={{ fontSize: textSize + "em" }}>{props.text}</span>
             </div>
-        );
-    }
+        </div>
+    );
+
 }

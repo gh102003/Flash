@@ -266,6 +266,24 @@ export class Category extends React.Component {
 
         return this.state.category.flashcards.map((flashcard, clientIndex) => (
             <Flashcard
+                // Next and prev for modal
+                view={flashcard.view}
+                handleChangeView={newView => this.handleCardEdit("flashcard", clientIndex, "view", newView)}
+                handleSwitch={deltaIndex => {
+                    let indexToUpdate = clientIndex + deltaIndex;
+
+                    // Loop around
+                    if (indexToUpdate < 0) {
+                        indexToUpdate = this.state.category.flashcards.length - 1;
+                    }
+                    if (indexToUpdate >= this.state.category.flashcards.length) {
+                        indexToUpdate = 0;
+                    }
+                    
+                    this.handleCardEdit("flashcard", clientIndex, "view", "normal");
+                    this.handleCardEdit("flashcard", indexToUpdate, "view", "modal");
+                }}
+
                 key={flashcard.id}
                 id={flashcard.id}
                 front={flashcard.front}
@@ -327,7 +345,7 @@ export class Category extends React.Component {
                     <>
                         <Helmet>
                             <title>{this.state.category.name} | Flash</title>
-                            <meta property="og:title" content={this.state.category.name}/>
+                            <meta property="og:title" content={this.state.category.name} />
                         </Helmet>
                         <Breadcrumb
                             currentCategory={this.state.category}
