@@ -188,11 +188,26 @@
 .flashcard-modal .flashcard-button:nth-child(1) {
     left: 2vmin;
 }
-.flashcard-modal .flashcard-button:nth-child(2) {
-    right: 8vmin;
-}
-.flashcard-modal .flashcard-button:nth-child(3) {
+
+.flashcard-modal .flashcard-button-wrapper {
+    position: absolute;
     right: 2vmin;
+    top: 2vmin;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8vw;
+}
+.flashcard-modal .flashcard-button-wrapper .flashcard-button {
+    background-color: rgba(255, 255, 255, 0.27);
+    margin: 0 0.5vmin;
+    position: static;
+    display: inline-block;
+}
+
+.flashcard-modal .flashcard-button-wrapper .flashcard-button:first-child {
+    margin-left: 0;
+}
+.flashcard-modal .flashcard-button-wrapper .flashcard-button:last-child {
+    margin-right: 0;
 }
 
 .flashcard-modal .material-icons {
@@ -213,12 +228,6 @@
     .flashcard-modal .flashcard-button:nth-child(1) {
         left: 2.5vmin;
     }
-    .flashcard-modal .flashcard-button:nth-child(2) {
-        right: 11vmin;
-    }
-    .flashcard-modal .flashcard-button:nth-child(3) {
-        right: 2.5vmin;
-    }
     .flashcard-modal .material-icons {
         font-size: 5vmin;
     }
@@ -227,9 +236,6 @@
 @media only screen and (max-width: 400px) {
     .flashcard-modal {
         border-radius: 5.1vw;
-    }
-    .flashcard-modal .flashcard-button:nth-child(2) {
-        right: 12.5vmin;
     }
     .flashcard-modal .material-icons {
         font-size: 6.5vmin;

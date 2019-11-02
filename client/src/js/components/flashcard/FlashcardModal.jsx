@@ -47,17 +47,19 @@ export const FlashcardModal = props => {
                 }}>
                     <i className="material-icons">close</i>
                 </div>
-                <div className="flashcard-button" onClick={(event) => {
-                    event.stopPropagation();
-                    props.handleSwitch(-1);
-                }}>
-                    <i className="material-icons">chevron_left</i>
-                </div>
-                <div className="flashcard-button" onClick={(event) => {
-                    event.stopPropagation();
-                    props.handleSwitch(1);
-                }}>
-                    <i className="material-icons">chevron_right</i>
+                <div className="flashcard-button-wrapper">
+                    <div className="flashcard-button" onClick={(event) => {
+                        event.stopPropagation();
+                        props.handleSwitch(-1);
+                    }}>
+                        <i className="material-icons">chevron_left</i>
+                    </div>
+                    <div className="flashcard-button" onClick={(event) => {
+                        event.stopPropagation();
+                        props.handleSwitch(1);
+                    }}>
+                        <i className="material-icons">chevron_right</i>
+                    </div>
                 </div>
                 <span style={{ fontSize: textSize + "em" }}>{props.text}</span>
             </div>
