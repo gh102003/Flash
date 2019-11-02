@@ -51,7 +51,7 @@ export const FlashcardNormal = props => {
     };
 
     // Font size can be manipulated by ems in CSS media queries as well as here
-    const textSize = Math.min(1, 1 - 0.004 * (props.text.length - 5));
+    const textSize = Math.min(1, 1 - 0.0036 * props.text.length);
 
     return drop(drag(
         <div className={className} style={props.styles} onClick={event => {

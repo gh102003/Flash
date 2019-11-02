@@ -170,6 +170,8 @@
     height: 55vmin;
     padding: 5vmin;
     font-size: 11vmin;
+    border-radius: 1.7vw;
+    margin: 0;
 }
 
 .flashcard-modal:hover {
@@ -187,9 +189,26 @@
     font-size: 3.3vmin;
 }
 
+@media only screen and (max-width: 900px) {
+    .flashcard-modal {
+        border-radius: 3.4vw;
+    }
+}
+
 @media only screen and (max-width: 600px) {
+    .flashcard-modal .flashcard-button {
+        left: 2.5vmin;
+        top: 2.5vmin;
+        padding: 1.3vmin;
+    }
     .flashcard-modal .material-icons {
-        font-size: 6vmin;
+        font-size: 5vmin;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .flashcard-modal {
+        border-radius: 5.1vw;
     }
 }
 
