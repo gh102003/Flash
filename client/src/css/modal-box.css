@@ -1,14 +1,9 @@
 .modal {
     width: 50vw;
-    height: 50vh;
     border-radius: 1.7vmin;
     background-color: white;
     position: relative;
     font-size: 1.1vw;
-}
-
-.modal.info-box {
-    height: initial;
 }
 
 .modal .modal-header {
@@ -63,7 +58,7 @@
 .external-link i {
     vertical-align: middle;
     padding-right: 0.5em;
-    font-size: 1.3em;
+    font-size: 1.35em;
 }
 
 @media only screen and (max-width: 1250px) {
@@ -72,26 +67,50 @@
         font-size: 1.9vw;
     }
 }
+
 @media only screen and (max-width: 900px) {
     .modal {
-        width: 85vw;
+        max-width: 85vw;
         font-size: 2.6vw;
+        border-radius: 2.8vmin;
     }
-}
-@media only screen and (max-width: 600px) {
-    .modal {
-        width: 93vw;
-        font-size: 3.7vw;
+    .modal .modal-header {
+        border-radius: 2.8vmin 2.8vmin 0 0;
+    }
+    .modal .modal-header, .modal .modal-body {
+        padding: 3.8vmin;
+    }
+    .modal .button-close {
+        top: 3.3vmin;
+        right: 3.3vmin;
+    }
+    .modal .button-close:active {
+        text-shadow: none;
+        top: calc(3.3vmin + 2px);
+    }
+    .external-link i {
+        padding-right: 0.6em;
     }
 }
 
-@media only screen and (max-height: 760px) {
+@media only screen and (max-width: 600px) {
     .modal {
-        height: 65vh;
+        width: 96vw;
+        font-size: 3.7vw;
+        border-radius: 3.7vmin;
     }
-}
-@media only screen and (max-height: 550px) {
-    .modal {
-        height: 85vh;
+    .modal .modal-header {
+        border-radius: 3.7vmin 3.7vmin 0 0;
+    }
+    .modal .modal-header, .modal .modal-body {
+        padding: 4.5vmin;
+    }
+    .modal .button-close {
+        top: 3.8vmin;
+        right: 3.8vmin;
+    }
+    .modal .button-close:active {
+        text-shadow: none;
+        top: calc(3.8vmin + 2px);
     }
 }

@@ -4,12 +4,11 @@
 }
 
 .modal.login, .modal.sign-up {
-    width: initial;
-    height: initial;
+    max-width: 30em;
 }
 
 .login-form {
-    width: 25em;
+    width: 100%;
     margin-top: 1em;
 
     display: grid;

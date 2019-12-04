@@ -4,6 +4,7 @@
 }
 
 .tag-manager {
+    min-height: 50vh;
     display: grid;
     grid-template-rows: auto 1fr;
 }
@@ -17,6 +18,11 @@
 .tags {
     display: flex;
     flex-flow: row wrap;
+}
+
+.tag-manager .tags {
+    margin: 1em 0;
+    animation: fade-in 200ms forwards ease;
 }
 
 .tag {

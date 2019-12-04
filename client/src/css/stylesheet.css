@@ -192,8 +192,24 @@ body {
 
 .category-loading .loading-indicator {
     font-size: 2vw;
-    margin-left: 1vw;
     margin: 1vw 1.5vw;
+}
+
+@media only screen and (max-width: 900px) {
+    .category-loading .loading-indicator {
+        font-size: 3vw;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .category-loading .loading-indicator {
+        font-size: 4vw;
+        margin: 2vw 3vw;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .category-loading .loading-indicator {
+        font-size: 5vw;
+    }
 }
 
 /* End of loading indicator */
@@ -276,7 +292,7 @@ header {
     position: fixed;
     user-select: none;
     -moz-user-select: none;
-    padding: 0.8vw 1.5vw;
+    padding: 0.7vw 1.5vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -284,7 +300,7 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: 3.1em;
+    font-size: 2.8em;
 }
 
 header a {
@@ -311,7 +327,7 @@ header a {
 }
 
 header+* {
-    margin-top: calc(3.9em + 2.2vw);
+    margin-top: calc(3.5em + 2.1vw);
 }
 
 @media only screen and (max-width: 600px) {
@@ -330,9 +346,6 @@ header+* {
 }
 
 @media only screen and (max-width: 400px) {
-    header {
-        padding: 0.8vw 3vw;
-    }
     header h1 {
         font-size: 2.3em;
     }
