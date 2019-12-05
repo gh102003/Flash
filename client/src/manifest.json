@@ -1,5 +1,6 @@
 {
     "name": "Flash",
+    "short_name": "Flash",
     "icons": [
       {
         "src": "/apple-touch-icon.png",
@@ -10,6 +11,16 @@
         "src": "/favicon.png",
         "type": "image/png",
         "sizes": "16x16"
+      },
+      {
+        "src": "/icons-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/icons-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
       }
     ],
     "start_url": "/",
