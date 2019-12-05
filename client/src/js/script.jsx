@@ -10,6 +10,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 // import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch'; // or any other pipeline
 
 import * as util from "./util";
+import * as serviceWorker from "./initServiceWorker";
 
 import "../css/stylesheet.css";
 import "../css/flashcard.css";
@@ -109,3 +110,5 @@ var PageDndContext = DragDropContext(HTML5Backend)(Page);
 window.onload = function () {
     ReactDOM.render(<PageDndContext></PageDndContext>, document.getElementById("root"));
 }; 
+
+serviceWorker.register();

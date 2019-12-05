@@ -309,7 +309,7 @@ header a {
 }
 
 .header-buttons i {
-    grid-column: -2 / -1;
+    line-height: 1.3;
     font-size: 1.9em;
     cursor: pointer;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);

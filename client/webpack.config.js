@@ -1,7 +1,10 @@
-/* global require, module, __dirname*/
+/* global require, module, __dirname */
 
 const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 
 module.exports = {
     mode: "development",
@@ -46,11 +49,25 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: "./src/index.html",
             filename: "index.html"
+        }),
+        new CopyWebpackPlugin([{
+            from: "./src/manifest.json",
+            to: "."
+        }]),
+        new WorkboxPlugin.GenerateSW({
+            // these options encourage the ServiceWorkers to get in there fast
+            // and not allow any straggling "old" SWs to hang around
+            clientsClaim: true,
+            skipWaiting: true
         })
     ],
+    optimization: {
+        usedExports: true,
+    },
     resolve: {
         alias: {
             "history/createMemoryHistory": path.resolve(__dirname, "../node_modules/history/es/createMemoryHistory"),

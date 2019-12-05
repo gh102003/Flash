@@ -21,6 +21,7 @@
 }
 
 .flashcard-button {
+    line-height: 0.5;
     position: absolute;
     left: 0.5vw;
     background-color: rgba(255, 255, 255, 0.6);
