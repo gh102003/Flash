@@ -65,7 +65,6 @@ module.exports = {
             skipWaiting: true,
             
             navigateFallback: "/index.html"
-            // globPatterns: ["**/*.{png,js,css,html}"]
         })
     ],
     optimization: {
