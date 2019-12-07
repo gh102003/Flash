@@ -2,6 +2,7 @@ const express = require("express"); // Framework
 const morgan = require("morgan"); // Logging
 const bodyParser = require("body-parser"); // Body parsing
 const mongoose = require("mongoose"); // MongoDB
+const compression = require("compression");
 
 const categoryRoutes = require("./api/routes/categories");
 const flashcardRoutes = require("./api/routes/flashcards");
@@ -17,6 +18,9 @@ const mongoUrl = `mongodb+srv://${credentials.mongoAtlas.username}:${credentials
 mongoose.connect(mongoUrl, { useNewUrlParser: true });
 // Retry connection if it fails (like it does with PM2 on startup)
 mongoose.connection.on("error", () => mongoose.connect(mongoUrl, { useNewUrlParser: true }));
+
+// GZIP compression middleware
+app.use(compression());
 
 // Logging middleware
 app.use(morgan("dev"));
