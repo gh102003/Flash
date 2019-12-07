@@ -44,7 +44,8 @@ module.exports = {
         }),
         new CopyWebpackPlugin([
             { from: "./src/manifest.json", to: "." },
-            { from: "./src/robots.txt", to: "." }
+            { from: "./src/robots.txt", to: "." },
+            { from: "./src/sitemap.xml", to: "." }
         ]),
         new WorkboxPlugin.GenerateSW({
             // these options encourage the ServiceWorkers to get in there fast
