@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-import { LoadingIndicator } from "../LoadingIndicator.jsx";
+import { NetworkIndicator } from "../NetworkIndicator.jsx";
 import { QuizMaster } from "./QuizMaster.jsx";
 
 import * as constants from "../../constants";
@@ -58,7 +58,7 @@ export class Quiz extends React.Component {
                     <>
                         <QuizMaster flashcards={this.state.flashcards} />
                     </>
-                    : <LoadingIndicator />
+                    : <NetworkIndicator />
                 }
             </div>
         );

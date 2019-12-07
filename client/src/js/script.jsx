@@ -26,6 +26,7 @@ import { InfoBox } from "./components/modalBox/InfoBox.jsx";
 import { Account } from "./components/modalBox/account/Account.jsx";
 import { TagManager } from "./components/modalBox/tagManager/TagManager.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
+import { NetworkIndicator } from "./components/NetworkIndicator.jsx";
 
 class Page extends React.Component {
     constructor(props) {
@@ -50,13 +51,19 @@ class Page extends React.Component {
     }
 
     render() {
+
+        if (this.state.rootCategoryId === undefined) {
+            console.log("undefined root cat");
+
+        }
+
         return (
             <BrowserRouter>
                 <>
                     <Helmet>
                         <title>Flash</title>
-                        <meta property="og:site_name" content="Flash"/>
-                        <meta property="og:description" content="Create, manage and practise with your own flashcards!"/>
+                        <meta property="og:site_name" content="Flash" />
+                        <meta property="og:description" content="Create, manage and practise with your own flashcards!" />
                     </Helmet>
                     <header>
                         <Link to="/">
@@ -81,10 +88,14 @@ class Page extends React.Component {
                                     .then(() => routeProps.history.push("/"));
                             }} />
                         )} />
-                        {this.state.rootCategoryId !== undefined &&
+                        <Route render={() => {
                             // If there's a root category loaded then go to it, otherwise do nothing until the next render
-                            (<Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />)
-                        }
+                            if (this.state.rootCategoryId) {
+                                return <Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />;
+                            } else {
+                                return <NetworkIndicator/>;
+                            }
+                        }} />
                     </Switch>
                     {this.state.modalOpen === "tagManager" && <TagManager handleClose={() => this.setState({ modalOpen: null })} />}
                     {this.state.modalOpen === "account" &&
@@ -109,6 +120,6 @@ var PageDndContext = DragDropContext(HTML5Backend)(Page);
 
 window.onload = function () {
     ReactDOM.render(<PageDndContext></PageDndContext>, document.getElementById("root"));
-}; 
+};
 
 serviceWorker.register();

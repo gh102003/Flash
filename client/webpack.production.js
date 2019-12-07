@@ -42,17 +42,34 @@ module.exports = {
             template: "./src/index.html",
             filename: "index.html"
         }),
-        new CopyWebpackPlugin([{
-            from: "./src/manifest.json",
-            to: "."
-        }]),
+        new CopyWebpackPlugin([
+            { from: "./src/manifest.json", to: "." },
+            { from: "./src/robots.txt", to: "." }
+        ]),
         new WorkboxPlugin.GenerateSW({
             // these options encourage the ServiceWorkers to get in there fast
             // and not allow any straggling "old" SWs to hang around
             clientsClaim: true,
             skipWaiting: true,
             
-            navigateFallback: "/index.html"
+            navigateFallback: "/index.html",
+            
+            // Runtime caching - remember last 10 backend GET requests for 5 minutes
+            runtimeCaching: [{
+                urlPattern: /^.*:(444|3001)/,
+                handler: "NetworkFirst",
+                options: {
+                    networkTimeoutSeconds: 10,
+                    cacheName: "backend-runtime-cache",
+                    expiration: {
+                        maxEntries: 10,
+                        maxAgeSeconds: 60 * 5,
+                    },
+                    cacheableResponse: {
+                        statuses: [200]
+                    }
+                }
+            }]
         })
     ],
     optimization: {

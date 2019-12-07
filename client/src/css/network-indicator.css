@@ -1,0 +1,80 @@
+@keyframes network-indicator-in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.network-indicator i.material-icons {
+    padding-right: 0.5em;
+    vertical-align: middle;
+}
+
+.network-indicator.offline {
+    animation: network-indicator-in 200ms forwards;
+}
+
+.network-indicator.loading {
+    animation: network-indicator-in 1500ms forwards;
+}
+
+@keyframes network-indicator-spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.network-indicator.loading::after {
+    content: "";
+    position: absolute;
+    margin-left: 0.5em;
+    margin-top: 0.25em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    border: 0.15em solid #ccc;
+    border-top: 0.15em solid crimson;
+    animation: network-indicator-spinner 1.2s infinite linear;
+}
+
+.category-loading .network-indicator {
+    font-size: 2vw;
+    margin: 1vw 1.5vw;
+}
+
+#root > .network-indicator {
+    font-size: 2vw;
+    margin-left: 1.5vw;
+}
+
+@media only screen and (max-width: 900px) {
+    .category-loading .network-indicator {
+        font-size: 3vw;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .category-loading .network-indicator {
+        font-size: 4vw;
+        margin: 2vw 3vw;
+    }
+    #root > .network-indicator {
+        font-size: 4vw;
+        margin-left: 3vw;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .category-loading .network-indicator {
+        font-size: 5vw;
+    }
+    #root > .network-indicator {
+        font-size: 5vw;
+    }
+}

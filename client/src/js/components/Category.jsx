@@ -8,7 +8,7 @@ import { Subcategory } from "./subcategory/Subcategory.jsx";
 import { AddCardForm } from "./AddCardForm.jsx";
 import { AddCategoryForm } from "./AddCategoryForm.jsx";
 import { AddButton } from "./AddButton.jsx";
-import { LoadingIndicator } from "./LoadingIndicator.jsx";
+import { NetworkIndicator } from "./NetworkIndicator.jsx";
 import { Breadcrumb } from "./breadcrumb/Breadcrumb.jsx";
 
 export class Category extends React.Component {
@@ -362,7 +362,7 @@ export class Category extends React.Component {
                                     {this.renderSubcategories()}
                                     {this.renderFlashcards()}
                                 </>
-                                : <LoadingIndicator />
+                                : <NetworkIndicator />
                         }
                     </div>
                     {this.renderAddElement()}

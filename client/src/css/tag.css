@@ -47,22 +47,21 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        animation: none; /* Animation messes with translation */
+        animation: none;
+        /* Animation messes with translation */
     }
-    
     .tag-manager .edit-dialog .block-picker {
         /* Stronger shadow */
         box-shadow: 0 0.1vw 12px 3px rgba(0, 0, 0, 0.6) !important;
     }
-
     /* Hide triangle */
     .tag-manager .edit-dialog .block-picker>div:first-child {
         display: none;
     }
-
 }
 
 /* Used to shift scrollbar up when card is pressed down */
+
 .card:active .tags .tag {
     margin: 0 0.4em calc(0.3em - 0.2vw) 0;
 }
@@ -70,6 +69,7 @@
 .card .tags .tag:first-child {
     margin-left: 0;
 }
+
 .card .tags .tag:last-child {
     margin-right: 1em;
 }
@@ -97,7 +97,6 @@
     /* Fade out on left and right ends */
     -webkit-mask-image: linear-gradient(to left, transparent, white 2vw);
     mask-image: linear-gradient(to left, transparent, white 2vw);
-
     /* Firefox scrollbar */
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.6) rgba(255, 255, 255, 0.2);
@@ -126,9 +125,17 @@
     margin-left: 0.4em;
 }
 
+.add-tag-form .usernames-visible-to {
+    font-style: italic;
+    font-size: 0.9em;
+    font-style: italic;
+    opacity: 0.8;
+    grid-row: 1;
+    margin-bottom: 0.7em;
+}
+
 .add-tag-form {
     margin: 0;
-
     display: grid;
     grid-template-columns: 1fr auto auto;
 }
@@ -141,7 +148,7 @@
     content: "";
     display: inline;
     vertical-align: middle;
-  }
+}
 
 .add-tag-form .colour-preview {
     display: inline-block;
@@ -154,13 +161,14 @@
     border-radius: 0.2em;
 }
 
-.add-tag-form > * {
+.add-tag-form>* {
     margin: 0 0.6em 0 0;
+    grid-row: 2;
 }
 
 .tag-button {
-    font-size: 1.4em;
-    vertical-align: middle;
+    font-size: 1.3em;
+    line-height: 0.7;
     margin-left: 0.6em;
     position: relative;
     cursor: pointer;

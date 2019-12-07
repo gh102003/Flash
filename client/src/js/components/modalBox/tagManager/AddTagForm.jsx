@@ -53,6 +53,7 @@ export class AddTagForm extends React.Component {
 
         return (
             <form className="add-tag-form" onSubmit={event => this.handleSubmit(event)}>
+                <p className="usernames-visible-to">Everyone will be able to see this tag</p>
                 <input
                     type="text"
                     placeholder="Create a new tag"

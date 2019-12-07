@@ -1,7 +1,7 @@
 import React from "react";
 
 import * as constants from "../../../constants";
-import { LoadingIndicator } from "../../LoadingIndicator.jsx";
+import { NetworkIndicator } from "../../NetworkIndicator.jsx";
 import { AddTagForm } from "./AddTagForm.jsx";
 import { Tag } from "./Tag.jsx";
 
@@ -72,7 +72,7 @@ export class TagManager extends React.Component {
                     <div className="modal-body">
                         Here are all of the tags you have created. To add one to a card, 
                         drag it out of this box. Or, you can test yourself with a short quiz.
-                        {this.state.tags ? this.renderTags() : <LoadingIndicator />}
+                        {this.state.tags ? this.renderTags() : <NetworkIndicator />}
                         <AddTagForm afterSubmit={() => this.getDataFromServer()} />
                     </div>
                 </div>
