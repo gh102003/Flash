@@ -1,4 +1,4 @@
-export const version = "1.2.0";
+export const version = "1.3.0";
 
 export const serverOrigin = "http://192.168.1.66:3001";
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
