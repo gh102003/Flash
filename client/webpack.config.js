@@ -65,7 +65,11 @@ module.exports = {
             clientsClaim: true,
             skipWaiting: true,
 
+            navigateFallbackBlacklist: [/\/api\//],
             navigateFallback: "/index.html",
+
+            // Exclude webpack related dev tools
+            exclude: [/hot-update.json$/],
 
             // Runtime caching - remember last 10 backend GET requests for 5 minutes
             runtimeCaching: [{

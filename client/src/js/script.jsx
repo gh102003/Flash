@@ -51,12 +51,6 @@ class Page extends React.Component {
     }
 
     render() {
-
-        if (this.state.rootCategoryId === undefined) {
-            console.log("undefined root cat");
-
-        }
-
         return (
             <BrowserRouter>
                 <>
@@ -93,7 +87,7 @@ class Page extends React.Component {
                             if (this.state.rootCategoryId) {
                                 return <Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />;
                             } else {
-                                return <NetworkIndicator/>;
+                                return <div className="categories-loading"><NetworkIndicator/></div>;
                             }
                         }} />
                     </Switch>

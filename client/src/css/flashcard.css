@@ -184,6 +184,7 @@
     top: 2vmin;
     left: initial;
     padding: 1vmin;
+    display: inline-flex;
 }
 
 .flashcard-modal .flashcard-button:nth-child(1) {
@@ -196,12 +197,12 @@
     top: 2vmin;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8vw;
+    display: inline-flex;
 }
 .flashcard-modal .flashcard-button-wrapper .flashcard-button {
     background-color: rgba(255, 255, 255, 0.27);
     margin: 0 0.5vmin;
     position: static;
-    display: inline-block;
 }
 
 .flashcard-modal .flashcard-button-wrapper .flashcard-button:first-child {

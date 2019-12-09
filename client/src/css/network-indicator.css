@@ -45,36 +45,37 @@
     animation: network-indicator-spinner 1.2s infinite linear;
 }
 
-.category-loading .network-indicator {
-    font-size: 2vw;
-    margin: 1vw 1.5vw;
+.category-loading .card-display, .categories-loading {
+    display: flex;
+    min-height: 65vh;
+    align-items: center;
+    justify-content: center;
 }
 
-#root > .network-indicator {
-    font-size: 2vw;
-    margin-left: 1.5vw;
+.category-loading .network-indicator, .categories-loading .network-indicator {
+    font-size: 3vw;
+}
+
+.network-indicator.offline {
+    color: red;
 }
 
 @media only screen and (max-width: 900px) {
-    .category-loading .network-indicator {
-        font-size: 3vw;
+    .category-loading .card-display, .categories-loading {
+        min-height: 70vh;
+    }
+    .category-loading .network-indicator, .categories-loading .network-indicator {
+        font-size: 4vw;
     }
 }
 @media only screen and (max-width: 600px) {
-    .category-loading .network-indicator {
-        font-size: 4vw;
+    .category-loading .network-indicator, .categories-loading .network-indicator {
+        font-size: 5vw;
         margin: 2vw 3vw;
-    }
-    #root > .network-indicator {
-        font-size: 4vw;
-        margin-left: 3vw;
     }
 }
 @media only screen and (max-width: 400px) {
-    .category-loading .network-indicator {
-        font-size: 5vw;
-    }
-    #root > .network-indicator {
-        font-size: 5vw;
+    .category-loading .network-indicator, .categories-loading .network-indicator {
+        font-size: 6vw;
     }
 }

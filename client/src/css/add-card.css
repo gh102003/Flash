@@ -8,14 +8,14 @@
     font-weight: bold;
     border-radius: 2.5vw;
     cursor: pointer;
-    box-shadow: 0 0.1vw 8px -1px rgba(220, 20, 60, 0.7);
+    box-shadow: 0 0.8px 1.5px rgba(0, 0, 0, 0.034), 0 2px 3.6px rgba(0, 0, 0, 0.048), 0 3.8px 6.8px rgba(0, 0, 0, 0.06), 0 6.7px 12.1px rgba(0, 0, 0, 0.072), 0 12.5px 22.6px rgba(0, 0, 0, 0.086), 0 30px 54px rgba(0, 0, 0, 0.12);
     transition: box-shadow 100ms;
     z-index: 1;
     position: relative;
 }
 
 .add-card-button:hover {
-    box-shadow: 0 0.2vw 12px -2px rgba(220, 20, 60, 0.9);
+    box-shadow: 0 0.8px 1.5px rgba(0, 0, 0, 0.056), 0 2px 3.6px rgba(0, 0, 0, 0.081), 0 3.8px 6.8px rgba(0, 0, 0, 0.1), 0 6.7px 12.1px rgba(0, 0, 0, 0.119), 0 12.5px 22.6px rgba(0, 0, 0, 0.144), 0 30px 54px rgba(0, 0, 0, 0.2);
 }
 
 .add-card-button:active {
@@ -38,7 +38,6 @@
     display: flex;
     align-items: center;
     z-index: 0;
-
     position: absolute;
     top: 0;
     left: 50%;
@@ -49,25 +48,23 @@
     background-color: rgb(160, 15, 44);
     color: white;
     white-space: nowrap;
-    border-radius: 0.8vw;
+    border-radius: 1vw;
     cursor: pointer;
-    box-shadow: 0 0.1vw 4px 0 rgba(160, 15, 44, 0.75);
-
+    box-shadow: 0 0.8px 1.5px rgba(0, 0, 0, 0.034), 0 2px 3.6px rgba(0, 0, 0, 0.048), 0 3.8px 6.8px rgba(0, 0, 0, 0.06), 0 6.7px 12.1px rgba(0, 0, 0, 0.072), 0 12.5px 22.6px rgba(0, 0, 0, 0.086), 0 30px 54px rgba(0, 0, 0, 0.12);
     padding: 0.6vw 0vw;
     width: 0;
     overflow: hidden;
     transition: width 500ms, padding 500ms;
 }
 
-.add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
-.add-subcategory-button:hover {
+.add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button, .add-subcategory-button:hover {
     width: 100%;
     /* Extra left padding to appear further from .add-button */
-    padding: 0.6vw 0.6vw 0.6vw 3.2vw;
+    padding: 0.6vw 1vw 0.6vw 3.2vw;
 }
 
 .add-subcategory-button:hover {
-    box-shadow: 0 0.17vw 7px -1px rgba(160, 15, 44, 0.95);
+    box-shadow: 0 0.8px 1.5px rgba(0, 0, 0, 0.056), 0 2px 3.6px rgba(0, 0, 0, 0.081), 0 3.8px 6.8px rgba(0, 0, 0, 0.1), 0 6.7px 12.1px rgba(0, 0, 0, 0.119), 0 12.5px 22.6px rgba(0, 0, 0, 0.144), 0 30px 54px rgba(0, 0, 0, 0.2);
 }
 
 .add-subcategory-button:active {
@@ -82,23 +79,19 @@
         border-radius: 3vw;
         font-size: 2.5em;
     }
-
     .add-wrapper {
         width: 6vw;
         height: 6vw;
         left: 2.4vw;
         bottom: 2.4vw;
     }
-
     .add-subcategory-button {
-        border-radius: 1vw;
+        border-radius: 1.3vw;
         padding: 0.7vw 0vw;
         font-size: 0.95em;
     }
-
-    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
-    .add-subcategory-button:hover {
-        padding: 0.7vw 0.7vw 0.7vw 3.8vw;
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button, .add-subcategory-button:hover {
+        padding: 0.7vw 1.3vw 0.7vw 3.8vw;
     }
 }
 
@@ -107,23 +100,19 @@
         line-height: 8vw;
         border-radius: 4vw;
     }
-
     .add-wrapper {
         width: 8vw;
         height: 8vw;
         left: 3vw;
         bottom: 3vw;
     }
-
     .add-subcategory-button {
-        border-radius: 1.2vw;
+        border-radius: 1.6vw;
         padding: 1vw 0vw;
         font-size: 0.9em;
     }
-
-    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
-    .add-subcategory-button:hover {
-        padding: 1vw 1vw 1vw 5vw;
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button, .add-subcategory-button:hover {
+        padding: 1vw 1.6vw 1vw 5vw;
     }
 }
 
@@ -133,22 +122,18 @@
         border-radius: 6vw;
         font-size: 2.2em;
     }
-
     .add-wrapper {
         width: 12vw;
         height: 12vw;
         left: 4.2vw;
         bottom: 4.2vw;
     }
-
     .add-subcategory-button {
-        border-radius: 1.4vw;
+        border-radius: 1.8vw;
         padding: 1.2vw 0vw;
     }
-
-    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
-    .add-subcategory-button:hover {
-        padding: 1.2vw 1.2vw 1.2vw 8vw;
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button, .add-subcategory-button:hover {
+        padding: 1.2vw 2vw 1.2vw 8vw;
     }
 }
 
@@ -158,22 +143,18 @@
         border-radius: 7.5vw;
         font-size: 2.5em;
     }
-
     .add-wrapper {
         width: 15vw;
         height: 15vw;
         left: 5vw;
         bottom: 5vw;
     }
-
     .add-subcategory-button {
-        border-radius: 1.7vw;
+        border-radius: 2vw;
         padding: 1.5vw 0vw;
     }
-
-    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button,
-    .add-subcategory-button:hover {
-        padding: 1.5vw 1.5vw 1.5vw 10vw;
+    .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button, .add-subcategory-button:hover {
+        padding: 1.5vw 2.5vw 1.5vw 10vw;
     }
 }
 
@@ -188,7 +169,6 @@
     display: grid;
     grid-template-columns: auto auto 1fr;
     place-items: center stretch;
-    
     grid-gap: 1em;
     gap: 1em;
 }
@@ -201,7 +181,7 @@
     grid-column: 3 / 4;
 }
 
-.add-form input[type="checkbox"] + label {
+.add-form input[type="checkbox"]+label {
     grid-column: 2 / 4;
 }
 
