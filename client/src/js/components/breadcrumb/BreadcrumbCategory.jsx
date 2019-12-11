@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { DropTarget } from "react-dnd";
 
 import * as util from "../../util";
-import { draggableTypes } from "../../constants";
+import { clientOrigin, draggableTypes } from "../../constants";
 
 // Unpack linkedlist style object recursively
 export const BreadcrumbCategory = props => {
@@ -15,10 +15,10 @@ export const BreadcrumbCategory = props => {
         backgroundColor: util.colourFromInteger(props.category.colour),
         color: util.contrastingColourFromInteger(props.category.colour)
     };
-    
+
     // If lowest-depth (rightmost), display category colour
     if (props.depth === 0) {
-        style = {...style, ...activeStyle};
+        style = { ...style, ...activeStyle };
     }
 
     let className = "breadcrumb-category";
@@ -35,9 +35,26 @@ export const BreadcrumbCategory = props => {
 
             {props.connectDropTarget(
                 <a className={className} style={style} onClick={() => {
-                    return props.handleNavigate(`/category/${props.category.id}`);
+                    if (props.depth === 0) {
+                        if (navigator.share) {
+                            alert("sharing");
+                            navigator.share({
+                                title: `Flash: ${props.category.name}`,
+                                text: `View ${props.category.name} on Flash`,
+                                url: `${clientOrigin}/category/${props.category.id}`
+
+                            }).then(() => console.log("Shared successfully"));
+                        } else {
+                            console.log("Web Share API is not available");
+                        }
+                    } else {
+                        props.handleNavigate(`/category/${props.category.id}`);
+                    }
                 }}>
                     {props.category.name}
+                    {props.depth === 0 && navigator.share &&
+                        <i className="material-icons">share</i>
+                    }
                 </a>)
             }
         </>
