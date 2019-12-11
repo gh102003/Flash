@@ -13,8 +13,7 @@ export var SubcategoryEdit = props => {
     const textSize = Math.min(1, 1 - 0.005 * (props.name.length - 5));
 
     return (
-        // hides overflowing input but retains pseudo element stack effect
-        <div style={{ overflow: "hidden" }}>
+        <div>
             <div className="card subcategory card-edit"
                 style={props.styles}
                 onClick={(event) => event.stopPropagation()}

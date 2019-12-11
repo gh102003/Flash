@@ -39,7 +39,7 @@ export const BreadcrumbCategory = props => {
                         if (navigator.share) {
                             navigator.share({
                                 title: `Flash: ${props.category.name}`,
-                                text: `View ${props.category.name} on Flash`,
+                                text: `View '${props.category.name}' on Flash`,
                                 url: `${clientOrigin}/category/${props.category.id}`
 
                             }).then(() => console.log("Shared successfully"));

@@ -245,6 +245,7 @@
 }
 
 .card-edit div>input[type=text] {
+    max-width: 15vw; /* Prevent overflow */
     font-family: inherit;
     font-size: inherit;
     background: none;
@@ -259,4 +260,23 @@
 
 .card-edit input:focus {
     outline: none;
+}
+
+/* Prevent autosize input getting too big */
+@media only screen and (max-width: 1250px) {
+    .card-edit div>input[type=text] {
+        max-width: 20vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .card-edit div>input[type=text] {
+        max-width: 25vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .card-edit div>input[type=text] {
+        max-width: 39vw;
+    }
 }

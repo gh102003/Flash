@@ -366,7 +366,7 @@ export class Category extends React.Component {
                         }
                     </div>
                     {this.renderAddElement()}
-                    <AddButton handleClick={(nextForm) => this.setState({ currentForm: nextForm })} />
+                    <AddButton handleClick={nextForm => this.setState({ currentForm: nextForm })} />
                 </div>
             </>
         );
