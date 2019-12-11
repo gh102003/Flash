@@ -4,6 +4,7 @@
 }
 
 .breadcrumb-category {
+    text-overflow: clip;
     display: inline-flex;
     align-items: center;
     border-radius: 0 3vw 3vw 0;

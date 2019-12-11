@@ -37,7 +37,6 @@ export const BreadcrumbCategory = props => {
                 <a className={className} style={style} onClick={() => {
                     if (props.depth === 0) {
                         if (navigator.share) {
-                            alert("sharing");
                             navigator.share({
                                 title: `Flash: ${props.category.name}`,
                                 text: `View ${props.category.name} on Flash`,
