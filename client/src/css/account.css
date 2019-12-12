@@ -73,6 +73,31 @@
     width: 100%;
 }
 
+.modal.account h3 {
+    display: flex;
+    align-items: center;
+}
+
+.role-badge {
+    font-weight: normal;
+    margin: 0 -0.3em 0 0.7em;
+    font-size: 0.7em;
+    padding: 0.1em 0.3em;
+    border-radius: 0.3em;
+    background-color: rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.role-badge-admin {
+    background-color: rgb(50, 150, 255);
+    color: white;
+}
+
+.role-badge-moderator {
+    background-color: rgb(220, 230, 0);
+}
+
 /* Account for padding in nested inputs */
 .input-with-validation input[type="text"], .input-with-validation input[type="password"] {
     width: calc(100% - 1.6em);

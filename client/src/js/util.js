@@ -44,8 +44,8 @@ export function contrastingColourFromInteger(backgroundColor) {
  * @param {string} path the path to send the request to, excluding the initial /
  * @param {*} options options to be passed to fetch
  */
-export const authenticatedFetch = (path, options) =>
-    fetch(
+export const authenticatedFetch = async (path, options) =>
+    await fetch(
         constants.serverOrigin + "/" + path,
         {
             ...options,
@@ -65,8 +65,8 @@ export function getUserFromAuthToken(authToken) {
     else {
         return {
             id: decodedAuthToken.id,
-            emailAddress: decodedAuthToken.emailAddress,
-            username: decodedAuthToken.username,
+            // emailAddress: decodedAuthToken.emailAddress,
+            // username: decodedAuthToken.username,
             loginTimestamp: decodedAuthToken.iat // In Unix time
         };
     }

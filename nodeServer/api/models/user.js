@@ -22,7 +22,10 @@ const userSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0
-    }
+    },
+    roles: [{ // Discord-esque roles, e.g. "moderator" or "admin"
+        type: String,
+    }]
 });
 
 // Apply a transform to the 'toJSON' function, to change the name of the id key

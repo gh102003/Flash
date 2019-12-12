@@ -7,6 +7,8 @@ const User = require("../models/user");
 const Category = require("../models/category");
 const credentials = require("../../credentials");
 
+const verifyAuthToken = require("../middleware/verifyAuthToken");
+
 const router = express.Router();
 
 router.post("/signup", async (req, res, next) => {
@@ -31,7 +33,7 @@ router.post("/signup", async (req, res, next) => {
     if (existingEmailAddress) {
         return res.status(409).json({ error: "Email address already taken" }); // 409 Conflict
     }
-    
+
     const encryptedPassword = await bcrypt.hash(req.body.password, 10); // Encrypt
 
     let user;
@@ -95,7 +97,6 @@ router.post("/login", (req, res, next) => {
                     {
                         username: user.username,
                         emailAddress: user.emailAddress,
-                        subscriptionLevel: user.subscriptionLevel,
                         id: user.id
                     },
                     credentials.jwt.privateKey,
@@ -114,6 +115,16 @@ router.post("/login", (req, res, next) => {
             }
         })
         .catch(handleAuthFail);
+});
+
+router.get("/:userId", verifyAuthToken, async (req, res, next) => {
+    if (req.params.userId === req.user.id) {
+        const user = await User.findById(req.params.userId).select("-encryptedPassword");
+        if (!user) res.status(404).json({ message: `No user found for id ${req.params.userId}`});
+        res.status(200).json(user);
+    } else {
+        return res.status(401).json({ message: "unauthorised" });
+    }
 });
 
 //router.delete("/:userId", (req, res, next) => {

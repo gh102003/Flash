@@ -16,15 +16,43 @@ export class Account extends React.Component {
         };
     }
 
+    async componentDidMount() {
+        // If logged in but not enough data about the user
+        if (this.state.user && !this.state.user.username) {
+            // Get more data about user in a request
+            const userResponse = await util.authenticatedFetch("users/" + this.state.user.id, {
+                method: "GET"
+            });
+            const userData = await userResponse.json();
+
+            this.setState(oldState => ({ user: { ...userData, ...oldState.user } }));
+        }
+    }
+
+    renderRoleBadges() {
+        if (!this.state.user || !this.state.user.roles) return null;
+        return this.state.user.roles.map(role => (
+            <span key={role} className={`role-badge role-badge-${role}`}>{role}</span>
+        ));
+    }
+
     render() {
         let modalBox;
 
         if (!this.state.user) {
             modalBox = (
                 <Login
-                    afterLogin={response => {
-                        localStorage.setItem("AuthToken", response.token);
-                        this.setState({ user: util.getUserFromAuthToken(response.token) });
+                    afterLogin={async (loginResponse) => {
+                        localStorage.setItem("AuthToken", loginResponse.token);
+                        const loginResponseData = util.getUserFromAuthToken(loginResponse.token);
+
+                        // Get more data about user in a separate request
+                        const userResponse = await util.authenticatedFetch("users/" + loginResponseData.id, {
+                            method: "GET"
+                        });
+                        const userData = await userResponse.json();
+
+                        this.setState({ user: { ...userData, ...loginResponseData } });
                         this.props.afterAccountChange();
                     }}
                     handleClose={this.props.handleClose}
@@ -40,7 +68,7 @@ export class Account extends React.Component {
                     </div>
                     <div className="modal-body">
                         <h3 className="username">
-                            {this.state.user.username}
+                            {this.state.user.username}{this.renderRoleBadges()}
                         </h3>
                         <p>
                             {this.state.user.emailAddress}
