@@ -54,7 +54,7 @@ export class SignUpForm extends React.Component {
      */
     validateFormData() {
         if (!this.state.formData.username) return false;
-        if (!this.state.formData.emailAddress.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)) return false;
+        if (!this.state.formData.emailAddress.match(constants.emailAddressRegex)) return false;
         if (!this.state.formData.password) return false;
         if (!this.state.formData.repeatPassword) return false;
         if (this.state.formData.password !== this.state.formData.repeatPassword) return false;
@@ -143,7 +143,14 @@ export class SignUpForm extends React.Component {
                     onChange={event => this.updateForm("emailAddress", event.target.value)}
                 />
                 {
+                    // Check email address is valid
+                    this.state.formData.emailAddress &&
+                    !this.state.formData.emailAddress.match(constants.emailAddressRegex) &&
+                    <div className="validation-message">Invalid email address</div>
+                }
+                {
                     // Check last sign up for conflicting email address
+                    !(this.state.formData.emailAddress && !this.state.formData.emailAddress.match(constants.emailAddressRegex)) &&
                     !this.state.lastSignUp.success && this.state.lastSignUp.error.split(" ")[0] === "Email" &&
                     <div className="validation-message">{this.state.lastSignUp.error}</div>
                 }

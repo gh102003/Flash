@@ -5,6 +5,8 @@ export const serverOrigin = "http://192.168.1.66:3001";
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
 export const dataProtectionEmail = "mailto:gh102003g@gmail.com?subject=Data Protection";
 
+export const emailAddressRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
 export const draggableTypes = {
     FLASHCARD: "flashcard",
     SUBCATEGORY: "subcategory",
