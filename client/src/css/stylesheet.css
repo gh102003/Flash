@@ -1,6 +1,15 @@
 :root {
     font-size: 1.3em;
     font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* Override temporary inline styles for loading */
+    transition: background-color 800ms;
+    background-color: initial;
+}
+
+/* Shows a message if js cannot be loaded, but wait a second after this stylesheet is loaded */
+div.waiting-on-js {
+    transition: opacity 200ms 1s;
+    opacity: 1;
 }
 
 h3 {
