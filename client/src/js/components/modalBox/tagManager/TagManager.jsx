@@ -31,6 +31,13 @@ export class TagManager extends React.Component {
     }
 
     renderTags() {
+        console.log("render tags");
+        
+        // If the list of tags is empty
+        if (this.state.tags.length < 1) {
+            return (<div className="tags">No tags have been created yet</div>);
+        }
+
         return (
             <div className="tags">
                 {
@@ -72,7 +79,7 @@ export class TagManager extends React.Component {
                     <div className="modal-body">
                         Here are all of the tags you have created. To add one to a card, 
                         drag it out of this box. Or, you can test yourself with a short quiz.
-                        {this.state.tags ? this.renderTags() : <NetworkIndicator />}
+                        {this.state.tags !== null ? this.renderTags() : <NetworkIndicator />}
                         <AddTagForm afterSubmit={() => this.getDataFromServer()} />
                     </div>
                 </div>

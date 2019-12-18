@@ -1,9 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { DropTarget } from "react-dnd";
 
 import * as util from "../../util";
+import * as constants from "../../constants";
 import { clientOrigin, draggableTypes } from "../../constants";
+import { useEffect } from "react";
+import { useState } from "react";
 
 // Unpack linkedlist style object recursively
 export const BreadcrumbCategory = props => {
@@ -26,11 +29,64 @@ export const BreadcrumbCategory = props => {
         className += " dnd-hover";
     }
 
+    const parentBreadcrumb = props.category.parent &&
+        (<BreadcrumbCategoryDropTarget
+            handleCardMove={props.handleCardMove}
+            category={props.category.parent}
+            depth={props.depth + 1}
+            handleNavigate={props.handleNavigate}
+        />);
+
+    const [switchWorkspaceId, setSwitchWorkspaceId] = useState("/");
+
+    // Fetch ids for workspace switch
+    useEffect(() => {
+        if (!parentBreadcrumb) {
+            if (props.category.user) {
+                // Get public workspace
+                fetch(`${constants.serverOrigin}/categories`)
+                    .then(response => response.json())
+                    .then(response => {
+                        setSwitchWorkspaceId(response.categories[0].id);
+                    });
+            } else {
+                // Get personal workspace
+                util.authenticatedFetch(`categories`, {})
+                    .then(response => response.json())
+                    .then(response => {
+                        setSwitchWorkspaceId(response.categories[0].id);
+                    });
+            }
+        }
+    });
+
     return (
         <>
             {
-                props.category.parent &&
-                <BreadcrumbCategoryDropTarget handleCardMove={props.handleCardMove} category={props.category.parent} depth={props.depth + 1} handleNavigate={props.handleNavigate} />
+                parentBreadcrumb ||
+                (util.isLoggedIn() ?
+                    <Link
+                        className="breadcrumb-workspace"
+                        style={{ zIndex: props.depth + 1 }}
+                        to={switchWorkspaceId}
+                    >
+                        {props.category.user ?
+                            <i className="material-icons">person</i>
+                            :
+                            <i className="material-icons">public</i>
+                        }
+                        <span className="switch-workspace-cta">Switch workspace</span>
+
+                    </Link>
+                    :
+                    <div className="breadcrumb-workspace" style={{ zIndex: props.depth + 1 }}>
+                        {props.category.user ?
+                            <i className="material-icons">person</i>
+                            :
+                            <i className="material-icons">public</i>
+                        }
+                    </div>
+                )
             }
 
             {props.connectDropTarget(

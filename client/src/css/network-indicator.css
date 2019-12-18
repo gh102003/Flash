@@ -21,6 +21,7 @@
 
 .network-indicator.loading {
     animation: network-indicator-in 1500ms forwards;
+    padding-right: 0.5em; /* Offset for spinner */
 }
 
 @keyframes network-indicator-spinner {

@@ -12,6 +12,7 @@ export class AddButton extends React.Component {
             </div>
             <div className="add-subcategory-button-wrapper">
                 <div className="add-subcategory-button" onClick={() => this.props.handleClick("addCategory")}>
+                    <i className="material-icons">style</i>
                     Add Category
                 </div>
             </div>

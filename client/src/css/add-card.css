@@ -57,10 +57,16 @@
     transition: width 500ms, padding 500ms;
 }
 
+.add-subcategory-button i.material-icons {
+    margin-right: 0.4em;
+    vertical-align: middle;
+    padding-bottom: 0.2em;
+}
+
 .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button, .add-subcategory-button:hover {
     width: 100%;
     /* Extra left padding to appear further from .add-button */
-    padding: 0.6vw 1vw 0.6vw 3.2vw;
+    padding: 0.6vw 1vw 0.5vw 3.2vw;
 }
 
 .add-subcategory-button:hover {
@@ -118,13 +124,13 @@
 
 @media only screen and (max-width: 600px) {
     .add-card-button {
-        line-height: 12vw;
-        border-radius: 6vw;
+        line-height: 13vw;
+        border-radius: 7vw;
         font-size: 2.2em;
     }
     .add-wrapper {
-        width: 12vw;
-        height: 12vw;
+        width: 13vw;
+        height: 13vw;
         left: 4.2vw;
         bottom: 4.2vw;
     }
@@ -139,22 +145,22 @@
 
 @media only screen and (max-width: 400px) {
     .add-card-button {
-        line-height: 15vw;
-        border-radius: 7.5vw;
+        line-height: 17vw;
+        border-radius: 10vw;
         font-size: 2.5em;
     }
     .add-wrapper {
-        width: 15vw;
-        height: 15vw;
+        width: 17vw;
+        height: 17vw;
         left: 5vw;
         bottom: 5vw;
     }
     .add-subcategory-button {
-        border-radius: 2vw;
+        border-radius: 2.8vw;
         padding: 1.5vw 0vw;
     }
     .add-card-button:hover~.add-subcategory-button-wrapper .add-subcategory-button, .add-subcategory-button:hover {
-        padding: 1.5vw 2.5vw 1.5vw 10vw;
+        padding: 1.7vw 2.7vw 1.7vw 11vw;
     }
 }
 

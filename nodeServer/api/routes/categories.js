@@ -106,8 +106,8 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
         .populate("children flashcards")
         .then(category => {
             if (!category) throw new Error("not found");
-            // Don't allow if user is wrong
-            else if (category.user != req.user.id) throw new Error("unauthorised");
+            // Don't allow if user is wrong, but do allow if the category has no user (and is public)
+            else if (category.user && category.user != req.user.id) throw new Error("unauthorised");
             else return category;
         })
         .then(category => deepPopulateChildren(category))

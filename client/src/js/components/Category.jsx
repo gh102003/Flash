@@ -21,10 +21,10 @@ export class Category extends React.Component {
     componentDidMount() {
         this.getFromServer(this.props.match.params.id)
             .then(response => {
-                let { id, name, colour, parent, flashcards, children: subcategories } = response.category;
+                let { id, name, colour, parent, flashcards, children: subcategories, user } = response.category;
                 util.shuffle(flashcards);
 
-                this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories } });
+                this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories, user } });
             });
     }
 
@@ -79,9 +79,9 @@ export class Category extends React.Component {
 
                 this.getFromServer(this.props.match.params.id)
                     .then(response => {
-                        let { id, name, colour, parent, flashcards, children: subcategories } = response.category;
+                        let { id, name, colour, parent, flashcards, children: subcategories, user } = response.category;
                         util.shuffle(flashcards);
-                        this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories } });
+                        this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories, user } });
                     });
             }
         }

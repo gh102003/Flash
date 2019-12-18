@@ -4,7 +4,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom";
-import { DragDropContext } from "react-dnd";
+import { DndContext, DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 // import MultiBackend from 'react-dnd-multi-backend';
 // import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch'; // or any other pipeline
@@ -87,7 +87,7 @@ class Page extends React.Component {
                             if (this.state.rootCategoryId) {
                                 return <Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />;
                             } else {
-                                return <div className="categories-loading"><NetworkIndicator/></div>;
+                                return <div className="categories-loading"><NetworkIndicator /></div>;
                             }
                         }} />
                     </Switch>
@@ -109,11 +109,13 @@ class Page extends React.Component {
     }
 }
 
-var PageDndContext = DragDropContext(HTML5Backend)(Page);
-// var PageDndContext = DragDropContext(MultiBackend(HTML5toTouch))(Page);
-
 window.onload = function () {
-    ReactDOM.render(<PageDndContext></PageDndContext>, document.getElementById("root"));
+    ReactDOM.render(
+        (<DndProvider backend={HTML5Backend}>
+            <Page />
+        </DndProvider>),
+        document.getElementById("root")
+    );
 };
 
 serviceWorker.register();
