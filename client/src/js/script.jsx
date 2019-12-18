@@ -65,7 +65,7 @@ class Page extends React.Component {
                         </Link>
                         <div className="header-buttons">
                             <i className="material-icons tag-manager-button" onClick={() => this.setState({ modalOpen: "tagManager" })}>local_offer</i>
-                            <i className="material-icons account-button" onClick={() => this.setState({ modalOpen: "account" })}>person</i>
+                            <i className="material-icons account-button" onClick={() => this.setState({ modalOpen: "account" })}>{util.isLoggedIn() ? "person" : "account_circle"}</i>
                             <i className="material-icons info-button" onClick={() => this.setState({ modalOpen: "infoBox" })}>info</i>
                         </div>
                     </header>

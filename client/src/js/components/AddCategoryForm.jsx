@@ -51,7 +51,7 @@ export class AddCategoryForm extends React.Component {
                     <div className="modal-body">
                         <form className="add-category-form add-form" id="add-category-form" onSubmit={e => this.handleSubmit(e)} onClick={event => event.stopPropagation()}>
                             <label htmlFor="input-name">Name:</label>
-                            <input autoFocus id="input-name" name="name" type="text" size="30" value={this.state.name} onChange={e => this.handleChange(e)} />
+                            <input autoFocus id="input-name" name="name" type="text" autoComplete="off" size="30" value={this.state.name} onChange={e => this.handleChange(e)} />
                             <div className="colour-picker">
                                 <BlockPicker
                                     triangle="hide"
