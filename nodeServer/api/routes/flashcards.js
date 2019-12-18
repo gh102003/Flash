@@ -39,7 +39,7 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
         if (!category) {
             return res.status(400).json({ message: "containing category invalid" });
         }
-        else if (category.user != req.user.id) {
+        else if (category.user && category.user != req.user.id) {
             return res.status(400).json({ message: "containing category unauthorised" });
         }
     }
@@ -100,7 +100,7 @@ router.patch("/:flashcardId", verifyAuthToken, async (req, res, next) => {
     if (!category) {
         return res.status(400).json({ message: "containing category invalid" });
     }
-    else if (category.user != req.user.id) {
+    else if (category.user && category.user != req.user.id) {
         return res.status(400).json({ message: "containing category unauthorised" });
     }
 
@@ -133,7 +133,7 @@ router.patch("/:flashcardId", verifyAuthToken, async (req, res, next) => {
                 if (!destCategory) {
                     return res.status(400).json({ message: "move destination is invalid" });
                 }
-                else if (destCategory.user != req.user.id) {
+                else if (destCategory.user && destCategory.user != req.user.id) {
                     return res.status(401).json({ message: "move destination is unauthorised" });
                 }
             }
@@ -174,7 +174,7 @@ router.delete("/:flashcardId", verifyAuthToken, async (req, res, next) => {
     if (!category) {
         return res.status(400).json({ message: "containing category invalid" });
     }
-    else if (category.user != req.user.id) {
+    else if (category.user && category.user != req.user.id) {
         return res.status(400).json({ message: "containing category unauthorised" });
     }
 

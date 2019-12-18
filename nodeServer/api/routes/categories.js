@@ -29,7 +29,7 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
         .select("user")
         .exec();
 
-    if (parentCategory.user != req.user.id) {
+    if (parentCategory.user && parentCategory.user != req.user.id) {
         return res.status(401).json({ message: "unauthorised" });
     }
 
@@ -39,8 +39,8 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
         _id: new mongoose.Types.ObjectId()
     });
 
-    if (req.user.id) {
-        category.set("user", req.user.id);
+    if (parentCategory.user) {
+        category.set("user", parentCategory.user);
     }
 
     // Save category
@@ -142,7 +142,7 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
             if (!destCategory) {
                 return res.status(400).json({ message: "move destination is invalid" });
             }
-            else if (destCategory.user != req.user.id) {
+            else if (destCategory.user && destCategory.user != req.user.id) {
                 return res.status(401).json({ message: "move destination is unauthorised" });
             }
         }
@@ -162,7 +162,7 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
     }
 
     // Update if authorised
-    if (category.user == req.user.id) {
+    if (!category.user || category.user == req.user.id) {
         await category.update({ $set: updateOps });
     } else {
         return res.status(401).json({ message: "unauthorised" });
@@ -191,7 +191,7 @@ router.delete("/:categoryId", verifyAuthToken, async (req, res, next) => {
 
     if (!category) {
         return res.status(404).json({ message: `No valid category found with id '${req.params.categoryId}'` });
-    } else if (category.user != req.user.id) {
+    } else if (category.user && category.user != req.user.id) {
         return res.status(404).json({ message: "unauthorised" });
     }
 
