@@ -109,11 +109,15 @@ class Page extends React.Component {
     }
 }
 
+const PageDnd = () => (
+    <DndProvider backend={HTML5Backend}>
+        <Page />
+    </DndProvider>
+);
+
 window.onload = function () {
     ReactDOM.render(
-        (<DndProvider backend={HTML5Backend}>
-            <Page />
-        </DndProvider>),
+        <PageDnd/>,
         document.getElementById("root")
     );
 };
