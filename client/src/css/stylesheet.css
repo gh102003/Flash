@@ -4,6 +4,9 @@
     /* Override temporary inline styles for loading */
     transition: background-color 800ms;
     background-color: initial;
+
+    /* Disable double-tap to zoom */
+    touch-action: manipulation;
 }
 
 /* Shows a message if js cannot be loaded, but wait a second after this stylesheet is loaded */

@@ -11,12 +11,16 @@
     display: flex;
     align-items: center;
     border-radius: 0 3vw 3vw 0;
-    padding: 0.5em calc(0.7em + 0.6vw) 0.5em 2em; /* Compensate for rounded corners */
-    margin-right: -1.3em; /* Overlap */
+    padding: 0.5em calc(0.7em + 0.6vw) 0.5em 2.2em; /* Compensate for rounded corners */
+    margin-right: -1.5em; /* Overlap */
     background-color: #DFDFDF;
     box-shadow: 0.13em 0 4px -1px rgba(0, 0, 0, 0.3);
     position: relative;
     user-select: none;
+
+    /* Handle long text */
+    white-space: nowrap;
+    overflow-x: hidden;
 
     /* Override <Link> anchor styling */
     color: inherit;
@@ -46,7 +50,8 @@
     
     .breadcrumb-category, .breadcrumb-workspace {
         font-size: 0.8em;
-        padding: 0.4em 0.7em 0.4em 1.8em;
+        padding: 0.4em 0.7em 0.4em 2.1em;
+        max-width: 85vw;
     }
     
     .breadcrumb-workspace {
