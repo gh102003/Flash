@@ -1,4 +1,5 @@
 import * as constants from "./constants";
+import { serverOrigin, clientOrigin } from "./envConstants";
 import jsonwebtoken from "jsonwebtoken";
 
 export function shuffle(array) {
@@ -46,7 +47,7 @@ export function contrastingColourFromInteger(backgroundColor) {
  */
 export const authenticatedFetch = async (path, options) =>
     await fetch(
-        constants.serverOrigin + "/" + path,
+        serverOrigin + "/" + path,
         {
             ...options,
             headers: {

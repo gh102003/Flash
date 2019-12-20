@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
 import { QuizMaster } from "./QuizMaster.jsx";
 
-import * as constants from "../../constants";
+import * as util from "../../util";
 import "../../../css/quiz.css";
 
 export class Quiz extends React.Component {
@@ -92,14 +92,14 @@ export class Quiz extends React.Component {
 
         if (categoryId) {
             if (this.state.isRecursive) {
-                const response = await fetch(`${constants.serverOrigin}/categories/${categoryId}`, { method: "GET" });
+                const response = await util.authenticatedFetch(`categories/${categoryId}`, { method: "GET" });
                 const responseJson = await response.json();
                 let { colour, id, name } = responseJson.category;
                 let flashcards = this.processFlashcardTree(responseJson.category);
 
                 this.setState({ category: { colour, id, name }, flashcards, isLoaded: true });
             } else {
-                const response = await fetch(`${constants.serverOrigin}/categories/${categoryId}`, { method: "GET" });
+                const response = await util.authenticatedFetch(`categories/${categoryId}`, { method: "GET" });
                 const responseJson = await response.json();
                 let { colour, id, name, flashcards } = responseJson.category;
 
@@ -107,7 +107,7 @@ export class Quiz extends React.Component {
                 this.setState({ category: { colour, id, name }, flashcards, isLoaded: true });
             }
         } else if (tagId) {
-            const response = await fetch(`${constants.serverOrigin}/tags/${tagId}`, { method: "GET" });
+            const response = await util.authenticatedFetch(`tags/${tagId}`, { method: "GET" });
             const responseJson = await response.json();
             let { colour, id, name, flashcards } = responseJson;
 

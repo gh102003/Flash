@@ -1,6 +1,7 @@
 import React from "react";
 
 import * as constants from "../../../constants";
+import * as envConstants from "../../../envConstants";
 
 export class SignUpForm extends React.Component {
     constructor(props) {
@@ -69,7 +70,7 @@ export class SignUpForm extends React.Component {
             className="login-form"
             onSubmit={event => {
                 event.preventDefault();
-                fetch(`${constants.serverOrigin}/users/signup`, {
+                fetch(`${envConstants.serverOrigin}/users/signup`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

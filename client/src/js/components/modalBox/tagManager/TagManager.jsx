@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as constants from "../../../constants";
+import * as envConstants from "../../../envConstants";
 import { NetworkIndicator } from "../../NetworkIndicator.jsx";
 import { AddTagForm } from "./AddTagForm.jsx";
 import { Tag } from "./Tag.jsx";
@@ -21,7 +21,7 @@ export class TagManager extends React.Component {
     }
 
     getDataFromServer() {
-        fetch(`${constants.serverOrigin}/tags`, {
+        fetch(`${envConstants.serverOrigin}/tags`, {
             method: "GET"
         })
             .then(data => data.json())
@@ -47,7 +47,7 @@ export class TagManager extends React.Component {
                             colour={tag.colour}
                             handleQuizButtonClicked={this.props.handleClose}
                             handleDelete={() => {
-                                fetch(`${constants.serverOrigin}/tags/${tag.id}`, {
+                                fetch(`${envConstants.serverOrigin}/tags/${tag.id}`, {
                                     method: "DELETE"
                                 }).then(() => this.getDataFromServer());
                             }}

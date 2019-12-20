@@ -1,12 +1,12 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DropTarget } from "react-dnd";
 
 import * as util from "../../util";
-import * as constants from "../../constants";
-import { clientOrigin, draggableTypes } from "../../constants";
-import { useEffect } from "react";
-import { useState } from "react";
+import { draggableTypes } from "../../constants";
+import { clientOrigin, serverOrigin } from "../../envConstants";
+
+import { useEffect, useState } from "react";
 
 // Unpack linkedlist style object recursively
 export const BreadcrumbCategory = props => {
@@ -44,7 +44,7 @@ export const BreadcrumbCategory = props => {
         if (!parentBreadcrumb) {
             if (props.category.user) {
                 // Get public workspace
-                fetch(`${constants.serverOrigin}/categories`)
+                fetch(`${serverOrigin}/categories`)
                     .then(response => response.json())
                     .then(response => {
                         setSwitchWorkspaceId(response.categories[0].id);

@@ -2,6 +2,8 @@ import React from "react";
 import { BlockPicker } from "react-color";
 
 import * as constants from "../../../constants";
+import * as envConstants from "../../../envConstants";
+
 import * as util from "../../../util";
 
 export class AddTagForm extends React.Component {
@@ -21,7 +23,7 @@ export class AddTagForm extends React.Component {
         event.preventDefault();
 
         // Send to server
-        fetch(`${constants.serverOrigin}/tags/`, {
+        fetch(`${envConstants.serverOrigin}/tags/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

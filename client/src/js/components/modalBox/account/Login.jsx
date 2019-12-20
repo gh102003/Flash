@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { LoginForm } from "./LoginForm.jsx";
 import { SignUpForm } from "./SignUpForm.jsx";
 
-import * as constants from "../../../constants";
+import * as envConstants from "../../../envConstants";
 
 export const Login = props => {
     const [page, setPage] = useState("login"); // Either "login" or "signUp"
@@ -17,7 +17,7 @@ export const Login = props => {
      * @returns a promise that resolves if successful and rejects if authentication fails
      */
     const logIn = async (emailAddress, password) => {
-        const response = await fetch(`${constants.serverOrigin}/users/login`, {
+        const response = await fetch(`${envConstants.serverOrigin}/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

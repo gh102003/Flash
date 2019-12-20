@@ -5,7 +5,7 @@ import { FlashcardEdit } from "./FlashcardEdit.jsx";
 import { FlashcardModal } from "./FlashcardModal.jsx";
 
 import * as util from "../../util.js";
-import * as constants from "../../constants";
+import * as envConstants from "../../envConstants";
 
 export class Flashcard extends React.Component {
 
@@ -29,7 +29,7 @@ export class Flashcard extends React.Component {
     }
 
     handleTagAdd(tagId) {
-        fetch(`${constants.serverOrigin}/flashcards/${this.props.id}`, {
+        fetch(`${envConstants.serverOrigin}/flashcards/${this.props.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
