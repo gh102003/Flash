@@ -31,8 +31,6 @@ export class TagManager extends React.Component {
     }
 
     renderTags() {
-        console.log("render tags");
-        
         // If the list of tags is empty
         if (this.state.tags.length < 1) {
             return (<div className="tags">No tags have been created yet</div>);

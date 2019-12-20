@@ -24,7 +24,7 @@ export class AddCategoryForm extends React.Component {
                 category: {
                     name: this.state.name,
                     colour: util.colourToInteger(this.state.colour),
-                    parent: this.props.parentId
+                    parent: this.props.parent.id
                 }
             })
         }).then(() => {
@@ -33,8 +33,7 @@ export class AddCategoryForm extends React.Component {
         event.preventDefault();
     }
     render() {
-        const currentUser = util.getUserFromAuthToken(localStorage.getItem("AuthToken"));
-        const usernamesVisibleTo = currentUser ? "Only " + currentUser.username : "Everyone";
+        const usernamesVisibleTo = this.props.parent.user ? "Only you" : "Everyone";
 
         // Validation
         let enableSubmit = true;

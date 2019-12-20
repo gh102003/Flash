@@ -18,13 +18,15 @@
     position: relative;
     user-select: none;
 
-    /* Handle long text */
-    white-space: nowrap;
-    overflow-x: hidden;
-
     /* Override <Link> anchor styling */
     color: inherit;
     text-decoration: inherit;
+}
+
+.breadcrumb-category {
+    /* Handle long text */
+    white-space: nowrap;
+    overflow-x: hidden;
 }
 
 .breadcrumb-workspace .switch-workspace-cta {

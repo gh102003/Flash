@@ -279,7 +279,7 @@ export class Category extends React.Component {
                     if (indexToUpdate >= this.state.category.flashcards.length) {
                         indexToUpdate = 0;
                     }
-                    
+
                     this.handleCardEdit("flashcard", clientIndex, "view", "normal");
                     this.handleCardEdit("flashcard", indexToUpdate, "view", "modal");
                 }}
@@ -322,7 +322,8 @@ export class Category extends React.Component {
                 <AddCardForm
                     afterSubmit={() => this.afterAddFormSubmit()}
                     handleCancel={() => this.setState({ currentForm: null })}
-                    categoryId={this.props.match.params.id}>
+                    // Fallback if not loaded yet
+                    category={this.state.category || { id: this.state.category }}>
                 </AddCardForm>
             );
         } else if (this.state.currentForm === "addCategory") {
@@ -330,7 +331,7 @@ export class Category extends React.Component {
                 <AddCategoryForm
                     afterSubmit={() => this.afterAddFormSubmit()}
                     handleCancel={() => this.setState({ currentForm: null })}
-                    parentId={this.props.match.params.id}>
+                    parent={this.state.category || { id: this.state.category }}>
                 </AddCategoryForm>
             );
         }

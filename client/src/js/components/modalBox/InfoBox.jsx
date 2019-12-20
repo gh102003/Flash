@@ -14,13 +14,12 @@ export function InfoBox(props) {
                     <p>Create, manage and practise with your own flashcards!</p>
                     <h3>Tips</h3>
                     <ul>
-                        <li>Hover over the + button to add a new category</li>
                         <li>Click the pen icon to edit a card or category</li>
-                        <li>Bookmark a category for quick access</li>
                         <li>Drag a flashcard or category to move it</li>
-                        <li>The breadcrumb can also be clicked or dropped into</li>
+                        <li>The breadcrumbs can also be clicked or dropped into</li>
                         <li>Click the graph icon on a category to take a quiz</li>
                         <li>Create your own account to make private flashcards</li>
+                        <li>When you&apos;re logged in, use the breadcrumbs to switch between personal and public workspaces</li>
                     </ul>
                     <p className="external-link">
                         <i className="material-icons">open_in_new</i>

@@ -7,7 +7,7 @@ export class AddCardForm extends React.Component {
         super(props);
         this.state = { front: "", back: "", isReversible: false };
     }
-    _handleChange(event) {
+    handleChange(event) {
         let key = event.target.name;
         let value;
         if (event.target.type === "checkbox") {
@@ -18,7 +18,7 @@ export class AddCardForm extends React.Component {
         }
         this.setState({ [key]: value });
     }
-    _handleSubmit(event) {
+    handleSubmit(event) {
         authenticatedFetch("flashcards", {
             method: "POST",
             headers: {
@@ -27,7 +27,7 @@ export class AddCardForm extends React.Component {
             body: JSON.stringify({
                 flashcard: {
                     ...this.state,
-                    category: this.props.categoryId
+                    category: this.props.category.id
                 }
             })
         }).then(() => {
@@ -36,9 +36,7 @@ export class AddCardForm extends React.Component {
         event.preventDefault();
     }
     render() {
-
-        const currentUser = getUserFromAuthToken(localStorage.getItem("AuthToken"));
-        const usernamesVisibleTo = currentUser ? "Only " + currentUser.username : "Everyone";
+        const usernamesVisibleTo = this.props.category.user ? "Only you" : "Everyone";
 
         // Validation
         let enableSubmit = true;
@@ -53,12 +51,12 @@ export class AddCardForm extends React.Component {
                         <i className="material-icons button-close" onClick={this.props.handleCancel}>close</i>
                     </div>
                     <div className="modal-body">
-                        <form className="add-card-form add-form" id="add-card-form" onSubmit={(e) => this._handleSubmit(e)} onClick={event => event.stopPropagation()}>
+                        <form className="add-card-form add-form" id="add-card-form" onSubmit={(e) => this.handleSubmit(e)} onClick={event => event.stopPropagation()}>
                             <label htmlFor="input-front">Front:</label>
-                            <input autoFocus id="input-front" name="front" type="text" size="30" value={this.state.front} onChange={(e) => this._handleChange(e)} />
+                            <input autoFocus id="input-front" name="front" type="text" size="30" value={this.state.front} onChange={(e) => this.handleChange(e)} />
                             <label htmlFor="input-back">Back:</label>
-                            <input id="input-back" name="back" type="text" size="30" value={this.state.back} onChange={(e) => this._handleChange(e)} />
-                            <input id="input-isReversible" type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this._handleChange(e)} />
+                            <input id="input-back" name="back" type="text" size="30" value={this.state.back} onChange={(e) => this.handleChange(e)} />
+                            <input id="input-isReversible" type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this.handleChange(e)} />
                             <label htmlFor="input-isReversible">Reversible</label>
                             <div className="usernames-visible-to">{usernamesVisibleTo} will be able to see and edit this</div>
                             <div className="controls">

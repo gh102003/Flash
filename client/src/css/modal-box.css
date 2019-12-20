@@ -95,7 +95,8 @@
 
 @media only screen and (max-width: 600px) {
     .modal {
-        width: 96vw;
+        max-width: 92vw;
+        width: 92vw;
         font-size: 3.7vw;
         border-radius: 3.7vmin;
     }
