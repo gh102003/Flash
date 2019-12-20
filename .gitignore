@@ -5,19 +5,8 @@ node_modules/
 
 # Built files
 client/dist/
-#server/Apache24/htdocs/build/
-#!htdocs/build/.htaccess
 
 # Mongo Atlas
 nodeServer/credentials.js
 
-# Old python code
-server/
-
-# Python
-__pycache__/
-*.py[cod]
-
-#server/Apache24/htdocs/build/index.html
-#server/Apache24/htdocs/build/index_bundle.js
-#server/Apache24/htdocs/build/favicon.png
+marketing/
