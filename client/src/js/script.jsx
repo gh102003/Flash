@@ -18,7 +18,11 @@ import "../css/subcategory.css";
 import "../css/add-card.css";
 import "../css/modal-box.css";
 import "../css/tag.css";
+
+import "../ios-splashscreens"; // All in folder, using index.js
 import "../favicon.png";
+import "../icons-192.png";
+import "../icons-512.png";
 import "../apple-touch-icon.png";
 
 import { Category } from "./components/Category.jsx";
