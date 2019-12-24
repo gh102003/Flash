@@ -65,7 +65,7 @@ module.exports = {
             clientsClaim: true,
             skipWaiting: true,
 
-            navigateFallbackBlacklist: [/\/api\//],
+            navigateFallbackBlacklist: [/^.*:(444|3001)/],
             navigateFallback: "/index.html",
 
             // Exclude webpack related dev tools

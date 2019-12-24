@@ -53,15 +53,12 @@ module.exports = {
             clientsClaim: true,
             skipWaiting: true,
             
-            navigateFallbackBlacklist: [/\/api\//],
+            navigateFallbackBlacklist: [/^\/api\//],
             navigateFallback: "/index.html",
-
-            // Exclude webpack related dev tools
-            exclude: [/hot-update.json$/],
             
             // Runtime caching - remember last 10 backend GET requests for 5 minutes
             runtimeCaching: [{
-                urlPattern: /^.*:(444|3001)/,
+                urlPattern: /^\/api\//,
                 handler: "NetworkFirst",
                 options: {
                     networkTimeoutSeconds: 10,
