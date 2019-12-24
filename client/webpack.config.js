@@ -8,8 +8,8 @@ const WorkboxPlugin = require("workbox-webpack-plugin");
 
 module.exports = {
     mode: "development",
-    context: __dirname,
-    entry: "./src/js/script.jsx",
+    context: path.resolve(__dirname, "src"),
+    entry: "./js/script.jsx",
     devtool: "inline-source-map",
     output: {
         filename: "index_bundle.js",
@@ -33,7 +33,7 @@ module.exports = {
             {
                 test: /\.(jpg|jpeg|gif|png|ico)$/i,
                 exclude: /node_modules/,
-                loader: "file-loader?name=[name].[ext]"
+                loader: "file-loader?name=[path][name].[ext]"
             },
             {
                 test: /\.jsx?$/,
@@ -51,13 +51,13 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: "./src/index.html",
+            template: "./index.html",
             filename: "index.html"
         }),
         new CopyWebpackPlugin([
-            { from: "./src/manifest.json", to: "." },
-            { from: "./src/robots.txt", to: "." },
-            { from: "./src/sitemap.xml", to: "." }
+            { from: "./manifest.json", to: "." },
+            { from: "./robots.txt", to: "." },
+            { from: "./sitemap.xml", to: "." }
         ]),
         new WorkboxPlugin.GenerateSW({
             // these options encourage the ServiceWorkers to get in there fast

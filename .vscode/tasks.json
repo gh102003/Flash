@@ -3,24 +3,6 @@
     // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
-        // {
-        //     "label": "python_start_server",
-        //     "type": "shell",
-        //     "options": {
-        //         "cwd": "${workspaceFolder}/server/Apache24/bin"
-        //     },
-        //     "command": "httpd.exe",
-        //     "problemMatcher": []
-        // },
-        // {
-        //     "label": "python_start_webpack_watcher",
-        //     "type": "shell",
-        //     "options": {
-        //         "cwd": "${workspaceFolder}/server/Apache24/htdocs"
-        //     },
-        //     "command": "npx webpack --watch",
-        //     "problemMatcher": []
-        // },
         {
             "label": "start_webpack_watcher",
             "type": "shell",
@@ -42,6 +24,12 @@
         {
             "type": "npm",
             "script": "watch",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "build-client",
+            "group": "build",
             "problemMatcher": []
         }
     ]
