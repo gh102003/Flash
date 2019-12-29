@@ -42,16 +42,20 @@ class Page extends React.Component {
         this.getRootCategoryIdFromServer();
     }
 
-    getRootCategoryIdFromServer() {
+    async getRootCategoryIdFromServer() {
         this.setState({ rootCategoryId: undefined });
-        return util.authenticatedFetch("categories", { method: "GET" })
-            .then(response => {
-                return response.json();
-            })
-            .then(response => {
-                const rootCategory = response.categories[0];
-                this.setState({ rootCategoryId: rootCategory.id });
-            });
+        let response = await util.authenticatedFetch("categories", { method: "GET" });
+        let responseData = await response.json();
+        
+        // Handle invalid auth tokens
+        if (responseData.message != null && responseData.message.includes("token")) {
+            localStorage.removeItem("AuthToken");
+            response = await util.authenticatedFetch("categories", { method: "GET" });
+            responseData = await response.json();
+        }
+        
+        const rootCategory = responseData.categories[0];
+        this.setState({ rootCategoryId: rootCategory.id });
     }
 
     render() {

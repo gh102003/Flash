@@ -58,7 +58,7 @@ export const BreadcrumbCategory = props => {
                     });
             }
         }
-    });
+    }, [props.category.user]); // only when the user has actually changed
 
     return (
         <>
