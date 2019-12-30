@@ -1,6 +1,6 @@
 .breadcrumb {
     color: black;
-    margin-bottom: 0.4vw;
+    margin-bottom: 0.3vw;
 
     display: flex;
     flex-wrap: wrap;
@@ -47,7 +47,7 @@
 
 @media only screen and (max-width: 600px) {
     .breadcrumb {
-        margin-bottom: 0.2em;
+        margin-bottom: 0.05vw;
     }
     
     .breadcrumb-category, .breadcrumb-workspace {

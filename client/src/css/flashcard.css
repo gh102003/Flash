@@ -117,7 +117,7 @@
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 420px) {
     .flashcard-button .material-icons {
         font-size: 4.5vw;
     }
@@ -235,7 +235,7 @@
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 420px) {
     .flashcard-modal {
         border-radius: 5.1vw;
     }

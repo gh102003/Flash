@@ -216,13 +216,13 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
     .card {
-        height: 15vw;
+        height: 18vw;
         font-size: 1.15em;
         margin: 1.8vw;
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 420px) {
     .category-loaded .card-display {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -298,7 +298,7 @@ header+* {
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 420px) {
     header h1 {
         font-size: 2.3em;
     }

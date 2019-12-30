@@ -9,6 +9,9 @@
     left: -6px;
     overflow: visible;
     transition: top 100ms, left 100ms;
+
+    /* Partially correct for stack by increasing margin to reduce card size */
+    margin: 1.1vw;
 }
 
 .subcategory::before,
@@ -39,16 +42,28 @@
     .subcategory {
         top: -4px;
         left: -4px;
+        margin: 1.3vw;
     }
-
+    
     .subcategory::before {
         left: 4px;
         top: 4px;
     }
-
+    
     .subcategory::after {
         left: 8px;
         top: 8px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .subcategory {
+        margin: 1.9vw;
+    }
+}
+@media only screen and (max-width: 420px) {
+    .subcategory {
+        margin: 2.1vw;
     }
 }
 
