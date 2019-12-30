@@ -288,7 +288,7 @@ export class Category extends React.Component {
                 id={flashcard.id}
                 front={flashcard.front}
                 back={flashcard.back}
-                isReversible={flashcard.is_reversible}
+                isReversible={flashcard.isReversible}
                 tags={flashcard.tags}
                 colour={this.state.category.colour}
                 handleEdit={(key, newValue, operationType = null) => this.handleCardEdit("flashcard", clientIndex, key, newValue, operationType)}

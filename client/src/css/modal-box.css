@@ -3,7 +3,7 @@
     border-radius: 1.7vmin;
     background-color: white;
     position: relative;
-    font-size: 1.2vw;
+    font-size: calc(0.7vw + 0.3em);
 }
 
 .modal .modal-header {
@@ -17,7 +17,7 @@
 }
 
 .modal h2 {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin: 0;
 }
 

@@ -50,11 +50,17 @@ export class Flashcard extends React.Component {
             return (
                 <FlashcardEdit
                     text={text}
+                    isReversible={this.props.isReversible}
                     styles={styles}
-                    handleEdit={newValue => this.props.handleEdit(this.state.side, newValue)}
-                    handleSaveEdit={() => {
+                    handleTextEdit={newValue => this.props.handleEdit(this.state.side, newValue)}
+                    handleSaveTextEdit={() => {
                         this.props.handleSaveEdit({ propName: this.state.side, value: this.props[this.state.side] });
                         this.props.handleChangeView("normal");
+                    }}
+                    handleToggleReversible={() => {
+                        const nextReversible = !this.props.isReversible;
+                        this.props.handleEdit("isReversible", nextReversible);
+                        this.props.handleSaveEdit({ propName: "isReversible", value: nextReversible});
                     }}
                     handleDelete={() => this.props.handleDelete()}
                 />

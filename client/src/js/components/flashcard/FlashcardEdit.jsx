@@ -11,9 +11,15 @@ export class FlashcardEdit extends React.Component {
             <div className="card flashcard card-edit" style={this.props.styles} onClick={(event) => event.stopPropagation()}>
                 <div className="flashcard-button" onClick={event => {
                     event.stopPropagation();
-                    this.props.handleSaveEdit();
+                    this.props.handleSaveTextEdit();
                 }}>
                     <i className="material-icons" >done</i>
+                </div>
+                <div className="flashcard-button" onClick={event => {
+                    event.stopPropagation();
+                    this.props.handleToggleReversible();
+                }}>
+                    <i className="material-icons" >{this.props.isReversible ? "sync" : "sync_disabled"}</i>
                 </div>
                 <div className="flashcard-button" onClick={event => {
                     event.stopPropagation();
@@ -31,11 +37,11 @@ export class FlashcardEdit extends React.Component {
                         fontSize: textSize + "em",
                         borderBottom: `2px solid ${this.props.styles.color.replace("1)", "0.6)")}` // Transparent version of text colour
                     }}
-                    onChange={(e) => this.props.handleEdit(e.target.value)}
-                    onClick={(e) => e.stopPropagation()}
-                    onKeyDown={(e) => {
+                    onChange={e => this.props.handleTextEdit(e.target.value)}
+                    onClick={e => e.stopPropagation()}
+                    onKeyDown={e => {
                         if (e.keyCode === 13) { // Enter
-                            this.props.handleSaveEdit();
+                            this.props.handleSaveTextEdit();
                         }
                     }}
                 />
