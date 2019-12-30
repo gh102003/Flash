@@ -6,7 +6,7 @@ export function InfoBox(props) {
         <div className="modal-background" onClick={props.handleClose}>
             <div className="modal info-box" onClick={(event) => event.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>Flash v{version}{version.split(".")[0] < 1 && "-alpha"}</h2>
+                    <h2>Flash {version}{version.split(".")[0] < 1 && "-alpha"}</h2>
                     by George Howarth
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>

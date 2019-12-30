@@ -6,8 +6,9 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom";
 import { DndContext, DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-// import MultiBackend from 'react-dnd-multi-backend';
-// import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch'; // or any other pipeline
+import TouchBackend from "react-dnd-touch-backend";
+import MultiBackend, { MouseTransition, TouchTransition } from "react-dnd-multi-backend";
+// import HTML5toTouch from "react-dnd-multi-backend/lib/HTML5toTouch"; // or any other pipeline
 
 import * as util from "./util";
 import * as serviceWorker from "./initServiceWorker";
@@ -46,14 +47,14 @@ class Page extends React.Component {
         this.setState({ rootCategoryId: undefined });
         let response = await util.authenticatedFetch("categories", { method: "GET" });
         let responseData = await response.json();
-        
+
         // Handle invalid auth tokens
         if (responseData.message != null && responseData.message.includes("token")) {
             localStorage.removeItem("AuthToken");
             response = await util.authenticatedFetch("categories", { method: "GET" });
             responseData = await response.json();
         }
-        
+
         const rootCategory = responseData.categories[0];
         this.setState({ rootCategoryId: rootCategory.id });
     }
@@ -117,15 +118,31 @@ class Page extends React.Component {
     }
 }
 
+const DndBackendPipeline = {
+    backends: [
+        {
+            backend: HTML5Backend,
+            transition: MouseTransition
+        },
+        {
+            backend: TouchBackend,
+            options: { enableMouseEvents: true, delay: 500, delayTouchStart: 500 },
+            preview: true,
+            transition: TouchTransition
+        },
+    ]
+};
+
 const PageDnd = () => (
-    <DndProvider backend={HTML5Backend}>
+    // <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={MultiBackend(DndBackendPipeline)}>
         <Page />
     </DndProvider>
 );
 
 window.onload = function () {
     ReactDOM.render(
-        <PageDnd/>,
+        <PageDnd />,
         document.getElementById("root")
     );
 };
