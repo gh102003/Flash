@@ -15,8 +15,8 @@ export function InfoBox(props) {
                     <h3>Tips</h3>
                     <ul>
                         <li>Click the pen icon to edit a card or category</li>
-                        <li>Drag a flashcard or category to move it</li>
-                        <li>The breadcrumbs can also be clicked or dropped into</li>
+                        <li>Drag a flashcard or category to move it somewhere else</li>
+                        <li>The breadcrumbs can also be clicked or dropped into, but they can&apos;t be dragged</li>
                         <li>Click the graph icon on a category to take a quiz</li>
                         <li>Create your own account to make private flashcards</li>
                         <li>When you&apos;re logged in, use the breadcrumbs to switch between personal and public workspaces</li>
