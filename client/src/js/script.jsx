@@ -46,6 +46,21 @@ class Page extends React.Component {
 
     componentDidMount() {
         this.getRootCategoryIdFromServer();
+
+        // If logged in but not enough data about the user
+        if (this.state.currentUser && !this.state.currentUser.username) {
+            this.getUserData();
+        }
+    }
+
+    async getUserData() {
+        // Get more data about user in a request
+        const userResponse = await util.authenticatedFetch("users/" + this.state.currentUser.id, {
+            method: "GET"
+        });
+        const userData = await userResponse.json();
+
+        this.setState({ currentUser: { ...userData, ...this.state.currentUser } });
     }
 
     async getRootCategoryIdFromServer() {
@@ -83,7 +98,7 @@ class Page extends React.Component {
                             </Link>
                             <div className="header-buttons">
                                 <i className="material-icons tag-manager-button" onClick={() => this.setState({ modalOpen: "tagManager" })}>local_offer</i>
-                                <i className="material-icons account-button" onClick={() => this.setState({ modalOpen: "account" })}>{util.isLoggedIn() ? "person" : "account_circle"}</i>
+                                <i className="material-icons account-button" onClick={() => this.setState({ modalOpen: "account" })}>{this.state.currentUser ? "person" : "account_circle"}</i>
                                 <i className="material-icons info-button" onClick={() => this.setState({ modalOpen: "infoBox" })}>info</i>
                             </div>
                         </header>

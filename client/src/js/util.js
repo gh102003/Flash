@@ -57,8 +57,6 @@ export const authenticatedFetch = async (path, options) =>
         }
     );
 
-export const isLoggedIn = () => localStorage.getItem("AuthToken") != null;
-
 export function getUserFromAuthToken(authToken) {
     const decodedAuthToken = jsonwebtoken.decode(authToken);
 

@@ -6,7 +6,8 @@ import * as util from "../../util";
 import { draggableTypes } from "../../constants";
 import { clientOrigin, serverOrigin } from "../../envConstants";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 // Unpack linkedlist style object recursively
 export const BreadcrumbCategory = props => {
@@ -39,6 +40,8 @@ export const BreadcrumbCategory = props => {
 
     const [switchWorkspaceId, setSwitchWorkspaceId] = useState("/");
 
+    const currentUser = useContext(UserContext).currentUser;
+
     // Fetch ids for workspace switch
     useEffect(() => {
         if (!parentBreadcrumb) {
@@ -64,7 +67,7 @@ export const BreadcrumbCategory = props => {
         <>
             {
                 parentBreadcrumb ||
-                (util.isLoggedIn() ?
+                (currentUser ?
                     <Link
                         className="breadcrumb-workspace"
                         style={{ zIndex: props.depth + 1 }}

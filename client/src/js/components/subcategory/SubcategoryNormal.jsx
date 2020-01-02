@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { DropTarget, DragSource } from "react-dnd";
 
+import { UserContext } from "../../contexts/UserContext.js";
 import { draggableTypes } from "../../constants.js";
 
 export const SubcategoryNormal = props => {
+
+    const currentUser = useContext(UserContext).currentUser;
 
     let className = "card subcategory card-normal";
     if (props.isDragging) {
@@ -16,8 +19,11 @@ export const SubcategoryNormal = props => {
     let lockClassName = "subcategory-lock";
     if (props.locked === true) {
         lockClassName += " locked";
+        if (currentUser && currentUser.roles && currentUser.roles.includes("moderator")) {
+            lockClassName += " hoverable";
+        }
     } else {
-        lockClassName += " unlocked";
+        lockClassName += " unlocked hoverable";
     }
 
     // Font size can be manipulated by ems in CSS media queries as well as here
@@ -44,11 +50,10 @@ export const SubcategoryNormal = props => {
             </span>
             <span className={lockClassName}>
                 <i className="material-icons" onClick={event => {
+                    event.stopPropagation();
                     if (props.locked === false) {
-                        event.stopPropagation();
                         props.handleLock(true);
-                    } else if (props.locked === true) { // TODO: check if moderator
-                        event.stopPropagation();
+                    } else if (props.locked === true && currentUser.roles && currentUser.roles.includes("moderator")) {
                         props.handleLock(false);
                     }
                 }}>lock</i>

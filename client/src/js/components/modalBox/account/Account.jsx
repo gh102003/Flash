@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import { DateTime } from "luxon";
 
 import { Login } from "./Login.jsx";
 import { UserContext } from "../../../contexts/UserContext";
@@ -8,19 +8,6 @@ import * as util from "../../../util";
 import "../../../../css/account.css";
 
 export class Account extends React.Component {
-
-    async componentDidMount() {
-        // If logged in but not enough data about the user
-        if (this.context.currentUser && !this.context.currentUser.username) {
-            // Get more data about user in a request
-            const userResponse = await util.authenticatedFetch("users/" + this.context.currentUser.id, {
-                method: "GET"
-            });
-            const userData = await userResponse.json();
-
-            this.context.changeUser({...userData, ...this.context.currentUser});
-        }
-    }
 
     renderRoleBadges() {
         if (!this.context.currentUser || !this.context.currentUser.roles) return null;
@@ -45,14 +32,14 @@ export class Account extends React.Component {
                         });
                         const userData = await userResponse.json();
 
-                        this.context.changeUser({...userData, ...loginResponseData});
+                        this.context.changeUser({ ...userData, ...loginResponseData });
                         this.props.afterAccountChange();
                     }}
                     handleClose={this.props.handleClose}
                 />
             );
         } else {
-            let formattedLoginTime = moment.unix(this.context.currentUser.loginTimestamp).fromNow();
+            let formattedLoginTime = DateTime.fromSeconds(this.context.currentUser.loginTimestamp).toRelative();
             modalBox = (
                 <div className="modal account" onClick={event => event.stopPropagation()}>
                     <div className="modal-header">

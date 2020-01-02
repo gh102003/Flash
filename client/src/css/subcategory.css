@@ -162,18 +162,21 @@
     display: block;
     opacity: 0;
     transition: opacity 120ms;
-    cursor: pointer;
-
+    
     /* Here instead of .locked for hit region */
     clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 100% 100%);
     -webkit-clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 100% 100%);
 }
 
-.subcategory:hover .subcategory-lock i {
+.subcategory-lock.hoverable i {
+    cursor: pointer;
+}
+
+.subcategory:hover .subcategory-lock.unlocked i {
     opacity: 0.25;
 }
 
-.subcategory .subcategory-lock i:hover {
+.subcategory .subcategory-lock.unlocked.hoverable i:hover {
     opacity: 0.7;
 }
 
@@ -192,7 +195,7 @@
     color: #eee;
 }
 
-.subcategory .subcategory-lock.locked i:hover {
+.subcategory .subcategory-lock.locked.hoverable i:hover {
     color: #fff;
     text-shadow: 0 0.05vw 5px rgba(255, 255, 255, 0.5);
 }
