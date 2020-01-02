@@ -9,13 +9,11 @@
     left: -6px;
     overflow: visible;
     transition: top 100ms, left 100ms;
-
     /* Partially correct for stack by increasing margin to reduce card size */
     margin: 1.1vw;
 }
 
-.subcategory::before,
-.subcategory::after {
+.subcategory::before, .subcategory::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -44,12 +42,10 @@
         left: -4px;
         margin: 1.3vw;
     }
-    
     .subcategory::before {
         left: 4px;
         top: 4px;
     }
-    
     .subcategory::after {
         left: 8px;
         top: 8px;
@@ -61,6 +57,7 @@
         margin: 1.9vw;
     }
 }
+
 @media only screen and (max-width: 420px) {
     .subcategory {
         margin: 2.1vw;
@@ -68,10 +65,10 @@
 }
 
 /* hover effects */
+
 .subcategory.card-normal:hover, .subcategory.dnd-drop-hover {
     top: -9px;
     left: -9px;
-    cursor: pointer;
 }
 
 .subcategory.card-normal:hover::before, .subcategory.dnd-drop-hover::before {
@@ -89,12 +86,10 @@
         top: -6px;
         left: -6px;
     }
-
     .subcategory.card-normal:hover::before, .subcategory.dnd-drop-hover::before {
         top: 6px;
         left: 6px;
     }
-
     .subcategory.card-normal:hover::after, .subcategory.dnd-drop-hover::after {
         top: 12px;
         left: 12px;
@@ -106,12 +101,10 @@
         top: -3px;
         left: -3px;
     }
-
     .subcategory.card-normal:hover::before, .subcategory.dnd-drop-hover::before {
         top: 3px;
         left: 3px;
     }
-
     .subcategory.card-normal:hover::after, .subcategory.dnd-drop-hover::after {
         top: 6px;
         left: 6px;
@@ -136,12 +129,12 @@
 }
 
 /* Edit dialogs */
+
 @keyframes edit-dialog-in {
     from {
         opacity: 0;
         transform: scale(0) translateY(0);
     }
-    
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -159,4 +152,56 @@
 .edit-dialog .block-picker {
     font-family: "Maven Pro", Arial, Helvetica, sans-serif;
     box-shadow: 0 0.1vw 8px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Lock */
+
+.subcategory-lock i {
+    font-size: 0.6em;
+    padding: 0.8em 0.8em 1.7em 1.7em;
+    display: block;
+    opacity: 0;
+    transition: opacity 120ms;
+    cursor: pointer;
+
+    /* Here instead of .locked for hit region */
+    clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 100% 100%);
+    -webkit-clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 100% 100%);
+}
+
+.subcategory:hover .subcategory-lock i {
+    opacity: 0.25;
+}
+
+.subcategory .subcategory-lock i:hover {
+    opacity: 0.7;
+}
+
+/* Empty class used for shadow */
+
+.subcategory-lock {
+    position: absolute;
+    top: 0;
+    right: 0;
+    filter: drop-shadow(0 0.08vw 2px rgba(0, 0, 0, 0.5));
+}
+
+.subcategory .subcategory-lock.locked i {
+    opacity: 1;
+    background-color: crimson;
+    color: #eee;
+}
+
+.subcategory .subcategory-lock.locked i:hover {
+    color: #fff;
+    text-shadow: 0 0.05vw 5px rgba(255, 255, 255, 0.5);
+}
+
+
+@media only screen and (max-width: 600px) {
+    .subcategory-lock i {
+        filter: drop-shadow(0 0.1vw 1px rgba(0, 0, 0, 0.5));
+        padding: 1em 1em 2em 2em;
+        font-size: 0.7em;
+    }
 }

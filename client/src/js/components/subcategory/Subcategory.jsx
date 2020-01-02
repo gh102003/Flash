@@ -1,5 +1,4 @@
 import React from "react";
-import * as constants from "../../constants";
 import * as util from "../../util";
 
 import { SubcategoryNormalDnd } from "./SubcategoryNormal.jsx";
@@ -36,9 +35,14 @@ export class Subcategory extends React.Component {
                     id={this.props.id}
                     styles={styles}
                     name={this.props.name}
+                    locked={this.props.locked}
                     handleChangeView={newView => this.setState({ view: newView })}
                     handleCardMove={this.props.handleCardMove}
                     handleNavigate={this.props.handleNavigate}
+                    handleLock={lockState => {
+                        this.props.handleEdit("locked", lockState);
+                        this.props.handleSaveEdit({propName: "locked", value: lockState});
+                    }}
                 />
             );
         }

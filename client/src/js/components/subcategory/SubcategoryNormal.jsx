@@ -4,13 +4,20 @@ import { DropTarget, DragSource } from "react-dnd";
 
 import { draggableTypes } from "../../constants.js";
 
-export var SubcategoryNormal = props => {
+export const SubcategoryNormal = props => {
 
     let className = "card subcategory card-normal";
     if (props.isDragging) {
         className += " dnd-dragging";
     } else if (props.isDropOver) {
         className += " dnd-drop-hover";
+    }
+
+    let lockClassName = "subcategory-lock";
+    if (props.locked === true) {
+        lockClassName += " locked";
+    } else {
+        lockClassName += " unlocked";
     }
 
     // Font size can be manipulated by ems in CSS media queries as well as here
@@ -32,8 +39,19 @@ export var SubcategoryNormal = props => {
             <Link className="flashcard-button" to={`/quiz/category/${props.id}`} onClick={event => event.stopPropagation()}>
                 <i className="material-icons">assessment</i>
             </Link>
-            <span style={{fontSize: textSize + "em"}}>
+            <span style={{ fontSize: textSize + "em" }}>
                 {props.name}
+            </span>
+            <span className={lockClassName}>
+                <i className="material-icons" onClick={event => {
+                    if (props.locked === false) {
+                        event.stopPropagation();
+                        props.handleLock(true);
+                    } else if (props.locked === true) { // TODO: check if moderator
+                        event.stopPropagation();
+                        props.handleLock(false);
+                    }
+                }}>lock</i>
             </span>
         </div >
     ));
@@ -65,10 +83,10 @@ const dragSourceSpec = {
     beginDrag: props => ({ id: props.id })
 };
 
-var dragCollector = (connect, monitor) => ({
+const dragCollector = (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 });
 
-var SubcategoryNormalDropTarget = DropTarget([draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY], dropTargetSpec, dropCollector)(SubcategoryNormal);
-export var SubcategoryNormalDnd = DragSource(draggableTypes.SUBCATEGORY, dragSourceSpec, dragCollector)(SubcategoryNormalDropTarget);
+const SubcategoryNormalDropTarget = DropTarget([draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY], dropTargetSpec, dropCollector)(SubcategoryNormal);
+export const SubcategoryNormalDnd = DragSource(draggableTypes.SUBCATEGORY, dragSourceSpec, dragCollector)(SubcategoryNormalDropTarget);

@@ -21,10 +21,10 @@ export class Category extends React.Component {
     componentDidMount() {
         this.getFromServer(this.props.match.params.id)
             .then(response => {
-                let { id, name, colour, parent, flashcards, children: subcategories, user } = response.category;
+                let { id, name, colour, parent, flashcards, children: subcategories, user, locked } = response.category;
                 util.shuffle(flashcards);
 
-                this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories, user } });
+                this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories, user, locked } });
             });
     }
 
@@ -79,9 +79,9 @@ export class Category extends React.Component {
 
                 this.getFromServer(this.props.match.params.id)
                     .then(response => {
-                        let { id, name, colour, parent, flashcards, children: subcategories, user } = response.category;
+                        let { id, name, colour, parent, flashcards, children: subcategories, user, locked } = response.category;
                         util.shuffle(flashcards);
-                        this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories, user } });
+                        this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories, user, locked } });
                     });
             }
         }
@@ -125,9 +125,9 @@ export class Category extends React.Component {
         this.setState({ currentForm: null });
         this.getFromServer(this.props.match.params.id)
             .then(response => {
-                let { id, name, colour, parent, flashcards, children: subcategories } = response.category;
+                let { id, name, colour, parent, flashcards, children: subcategories, locked } = response.category;
                 util.shuffle(flashcards);
-                this.setState({ category: { id, name, colour, parent, flashcards, subcategories } });
+                this.setState({ category: { id, name, colour, parent, flashcards, subcategories, locked } });
             });
     }
 
@@ -307,6 +307,7 @@ export class Category extends React.Component {
                 id={subcategory.id}
                 name={subcategory.name}
                 colour={subcategory.colour}
+                locked={subcategory.locked}
                 handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
                 handleEdit={(key, newValue, operationType = null) => this.handleCardEdit("subcategory", clientIndex, key, newValue, operationType)}
                 handleSaveEdit={editData => this.handleCardSaveEdit("subcategory", clientIndex, editData)}

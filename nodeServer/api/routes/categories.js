@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Category = require("../models/category");
 const Flashcard = require("../models/flashcard");
+const User = require("../models/user");
 
 const verifyAuthToken = require("../middleware/verifyAuthToken");
 
@@ -66,11 +67,17 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
 // Individual categories
 router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
 
+    let inheritedLocked = false; // If the category is locked implicitly by one of its ancestors
+
     async function deepPopulateParent(category, depth = 0) {
         if (category.parent) {
 
             category.parent = await Category.findById(category.parent, { getters: true })
-                .select("colour parent flashcards children name user");
+                .select("colour parent flashcards children name user locked");
+
+            if (category.parent.locked) {
+                inheritedLocked = true;
+            }
 
             await deepPopulateParent(category.parent, depth + 1);
             return category;
@@ -85,7 +92,7 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
             let populatedChildren = await category.children
                 .map(async child => {
                     var populatedChild = await Category.findById(child._id, { virtuals: true })
-                        .select("name colour flashcards children user")
+                        .select("name colour flashcards children user locked")
                         // Don't populate if no permissions
                         .populate(child.user == req.user.id ? "flashcards children" : "");
 
@@ -102,7 +109,7 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
     // Find in database
     Category
         .findById(req.params.categoryId, { getters: true })
-        .select("colour parent flashcards children name user")
+        .select("colour parent flashcards children name user locked")
         .populate("children flashcards")
         .then(category => {
             if (!category) throw new Error("not found");
@@ -113,7 +120,16 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
         .then(category => deepPopulateChildren(category))
         .then(category => deepPopulateParent(category))
         .then(category => {
-            res.status(200).json({ category });
+            if (category.locked) {
+                res.status(200).json({ category });
+            } else {
+                res.status(200).json({
+                    category: {
+                        ...category.toJSON(),
+                        locked: inheritedLocked ? "inherited" : false
+                    }
+                });
+            }
         })
         .catch(error => {
             console.error(error);
@@ -133,7 +149,7 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
 
 router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
     const updateOps = {};
-    req.body.forEach(async op => {
+    for (const op of req.body) {
         updateOps[op.propName] = op.value;
 
         // Check if move destination is valid and authenticated
@@ -146,7 +162,16 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
                 return res.status(401).json({ message: "move destination is unauthorised" });
             }
         }
-    });
+
+        // Only moderators can unlock categories
+        if (op.propName === "locked" && op.value === false) {
+            const user = await User.find({ _id: req.user.id, roles: "moderator" });
+
+            if (user.length < 1) { // If there are no matching users who are moderators
+                return res.status(401).json({ message: "unauthorised" });
+            }
+        }
+    }
 
     // Get category
     let category;
@@ -177,7 +202,7 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
     }
 
     // Respond with updated category
-    res.status(200).json({ updatedCategory });
+    return res.status(200).json({ updatedCategory });
 });
 
 router.delete("/:categoryId", verifyAuthToken, async (req, res, next) => {

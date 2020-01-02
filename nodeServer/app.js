@@ -32,17 +32,17 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json()); // JSON
 
 // Fix CORS
-if (process.env.NODE_ENV === "development") {
-    app.use((req, res, next) => {
+app.use((req, res, next) => {
+    if (process.env.NODE_ENV === "development") {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "*");
-        if (req.method === "OPTIONS") {
-            res.header("Access-Control-Allow-Methods", "POST, PATCH, DELETE, GET");
-            return res.status(200).json({});
-        }
-        next();
-    });
-}
+    }
+    if (req.method === "OPTIONS") {
+        res.header("Access-Control-Allow-Methods", "POST, PATCH, DELETE, GET");
+        return res.status(200).json({});
+    }
+    next();
+});
 
 // Setup routers (middleware)
 app.use("/categories", categoryRoutes);
