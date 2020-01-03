@@ -59,12 +59,12 @@ export const FlashcardNormal = props => {
             props.handleFlip();
         }}>
             {/* Buttons */}
-            <div className="flashcard-button" onClick={event => {
+            {props.editable && <div className="flashcard-button" onClick={event => {
                 event.stopPropagation();
                 props.handleChangeView("edit");
             }}>
                 <i className="material-icons">edit</i>
-            </div>
+            </div>}
             <div className="flashcard-button" onClick={event => {
                 event.stopPropagation();
                 props.handleChangeView("modal");
@@ -72,7 +72,7 @@ export const FlashcardNormal = props => {
                 <i className="material-icons" >zoom_out_map</i>
             </div>
 
-            <span style={{fontSize: textSize + "em"}}>{props.text}</span>
+            <span style={{ fontSize: textSize + "em" }}>{props.text}</span>
 
             <div
                 className="tags"

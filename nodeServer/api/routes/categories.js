@@ -91,11 +91,19 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
             // Will return array of promises due to async function
             let populatedChildren = await category.children
                 .map(async child => {
-                    var populatedChild = await Category.findById(child._id, { virtuals: true })
+                    let populatedChild = await Category.findById(child._id, { virtuals: true })
                         .select("name colour flashcards children user locked")
                         // Don't populate if no permissions
                         .populate(child.user == req.user.id ? "flashcards children" : "");
 
+                    if (!populatedChild) {
+                        return Promise.resolve();
+                    }
+
+                    if (category.locked || inheritedLocked && populatedChild.locked === false) {
+                        populatedChild = {...populatedChild.toJSON(), locked: "inherited"};
+                    }
+                    
                     await deepPopulateChildren(populatedChild);
                     return populatedChild;
                 });
@@ -117,8 +125,8 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
             else if (category.user && category.user != req.user.id) throw new Error("unauthorised");
             else return category;
         })
-        .then(category => deepPopulateChildren(category))
         .then(category => deepPopulateParent(category))
+        .then(category => deepPopulateChildren(category))
         .then(category => {
             if (category.locked) {
                 res.status(200).json({ category });

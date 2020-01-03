@@ -3,6 +3,7 @@ import React from "react";
 import { FlashcardNormal } from "./FlashcardNormal.jsx";
 import { FlashcardEdit } from "./FlashcardEdit.jsx";
 import { FlashcardModal } from "./FlashcardModal.jsx";
+import { UserContext } from "../../contexts/UserContext";
 
 import * as util from "../../util.js";
 import * as envConstants from "../../envConstants";
@@ -46,6 +47,9 @@ export class Flashcard extends React.Component {
         let styles = { backgroundColor, color };
         let text = this.props[this.state.side];
 
+        const moderatorLoggedIn = !!(this.context.currentUser) && this.context.currentUser.roles && this.context.currentUser.roles.includes("moderator");
+        const editable = this.props.locked === false || moderatorLoggedIn;    
+
         if (this.props.view === "edit") {
             return (
                 <FlashcardEdit
@@ -60,7 +64,7 @@ export class Flashcard extends React.Component {
                     handleToggleReversible={() => {
                         const nextReversible = !this.props.isReversible;
                         this.props.handleEdit("isReversible", nextReversible);
-                        this.props.handleSaveEdit({ propName: "isReversible", value: nextReversible});
+                        this.props.handleSaveEdit({ propName: "isReversible", value: nextReversible });
                     }}
                     handleDelete={() => this.props.handleDelete()}
                 />
@@ -90,7 +94,7 @@ export class Flashcard extends React.Component {
         else {
             return (
                 <FlashcardNormal
-                    editable={true}
+                    editable={editable}
                     id={this.props.id}
                     text={text}
                     tags={this.props.tags}
@@ -111,3 +115,5 @@ export class Flashcard extends React.Component {
 
     }
 }
+
+Flashcard.contextType = UserContext;

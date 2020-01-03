@@ -162,10 +162,20 @@
     display: block;
     opacity: 0;
     transition: opacity 120ms;
-    
     /* Here instead of .locked for hit region */
     clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 100% 100%);
     -webkit-clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 100% 100%);
+}
+
+.subcategory .subcategory-lock.locked i {
+    opacity: 1;
+    background-color: crimson;
+    color: #eee;
+}
+
+.subcategory .subcategory-lock.inherited i {
+    opacity: 1;
+    /* color: #eee; */
 }
 
 .subcategory-lock.hoverable i {
@@ -180,26 +190,20 @@
     opacity: 0.7;
 }
 
-/* Empty class used for shadow */
-
-.subcategory-lock {
-    position: absolute;
-    top: 0;
-    right: 0;
-    filter: drop-shadow(0 0.08vw 2px rgba(0, 0, 0, 0.5));
-}
-
-.subcategory .subcategory-lock.locked i {
-    opacity: 1;
-    background-color: crimson;
-    color: #eee;
-}
-
 .subcategory .subcategory-lock.locked.hoverable i:hover {
     color: #fff;
     text-shadow: 0 0.05vw 5px rgba(255, 255, 255, 0.5);
 }
 
+.subcategory-lock { /* Empty class used for shadow */
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.subcategory-lock.locked {
+    filter: drop-shadow(0 0.08vw 2px rgba(0, 0, 0, 0.5));
+}
 
 @media only screen and (max-width: 600px) {
     .subcategory-lock i {

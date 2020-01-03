@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { BlockPicker } from "react-color";
 import AutosizeInput from "react-input-autosize";
-import * as util from "../../util";
 
+import * as util from "../../util";
 import * as constants from "../../constants";
 
 export var SubcategoryEdit = props => {
