@@ -1,13 +1,13 @@
 import React from "react";
 
-import { BreadcrumbCategoryDropTarget } from "./BreadcrumbCategory.jsx";
+import { BreadcrumbCategory } from "./BreadcrumbCategory.jsx";
 
 import "../../../css/breadcrumb.css";
 
 export const Breadcrumb = props => (
     <div className="breadcrumb">
         {
-            <BreadcrumbCategoryDropTarget
+            <BreadcrumbCategory
                 category={props.currentCategory}
                 handleCardMove={props.handleCardMove}
                 handleNavigate={props.handleNavigate}

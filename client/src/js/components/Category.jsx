@@ -290,7 +290,7 @@ export class Category extends React.Component {
                 back={flashcard.back}
                 isReversible={flashcard.isReversible}
                 tags={flashcard.tags}
-                locked={!!this.state.category} // Either true or false
+                locked={!!this.state.category.locked} // Either true or false
                 colour={this.state.category.colour}
                 handleEdit={(key, newValue, operationType = null) => this.handleCardEdit("flashcard", clientIndex, key, newValue, operationType)}
                 handleSaveEdit={editData => this.handleCardSaveEdit("flashcard", clientIndex, editData)}

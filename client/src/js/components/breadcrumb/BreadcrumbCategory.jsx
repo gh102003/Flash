@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { DropTarget } from "react-dnd";
+import { DropTarget, useDrop } from "react-dnd";
 
 import * as util from "../../util";
 import { draggableTypes } from "../../constants";
@@ -11,6 +11,22 @@ import { UserContext } from "../../contexts/UserContext";
 
 // Unpack linkedlist style object recursively
 export const BreadcrumbCategory = props => {
+
+    const [switchWorkspaceId, setSwitchWorkspaceId] = useState("/");
+    const currentUser = useContext(UserContext).currentUser;
+    const moderatorLoggedIn = !!(currentUser) && currentUser.roles && currentUser.roles.includes("moderator");
+    const editable = props.locked === false || moderatorLoggedIn;
+
+    const [collectedDropProps, drop] = useDrop({
+        accept: [draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY],
+        drop: item => {
+            props.handleCardMove(item.type, item.id, props.category.id);
+        },
+        canDrop: () => editable,
+        collect: monitor => ({
+            isDraggingOver: monitor.isOver()
+        })
+    });
 
     if (!props || !props.category.colour) throw new Error("BreadcrumbCategory must be supplied with a valid category");
 
@@ -26,21 +42,17 @@ export const BreadcrumbCategory = props => {
     }
 
     let className = "breadcrumb-category";
-    if (props.isDraggingOver) {
+    if (collectedDropProps.isDraggingOver) {
         className += " dnd-hover";
     }
 
     const parentBreadcrumb = props.category.parent &&
-        (<BreadcrumbCategoryDropTarget
+        (<BreadcrumbCategory
             handleCardMove={props.handleCardMove}
             category={props.category.parent}
             depth={props.depth + 1}
             handleNavigate={props.handleNavigate}
         />);
-
-    const [switchWorkspaceId, setSwitchWorkspaceId] = useState("/");
-
-    const currentUser = useContext(UserContext).currentUser;
 
     // Fetch ids for workspace switch
     useEffect(() => {
@@ -92,7 +104,7 @@ export const BreadcrumbCategory = props => {
                 )
             }
 
-            {props.connectDropTarget(
+            {drop(
                 <a className={className} style={style} onClick={() => {
                     if (props.depth === 0) {
                         if (navigator.share) {
@@ -109,9 +121,10 @@ export const BreadcrumbCategory = props => {
                         props.handleNavigate(`/category/${props.category.id}`);
                     }
                 }}>
+                    {props.category.locked === true && <i className="material-icons icon-locked">lock</i>}
                     {props.category.name}
                     {props.depth === 0 && navigator.share &&
-                        <i className="material-icons">share</i>
+                        <i className="material-icons icon-share">share</i>
                     }
                 </a>)
             }
@@ -119,18 +132,19 @@ export const BreadcrumbCategory = props => {
     );
 };
 
-const breadcrumbCategoryDropTargetSpec = {
-    drop: (props, monitor) => {
-        props.handleCardMove(monitor.getItemType(), monitor.getItem().id, props.category.id);
-    }
-};
+// const breadcrumbCategoryDropTargetSpec = {
+//     drop: (props, monitor) => {
+//         props.handleCardMove(monitor.getItemType(), monitor.getItem().id, props.category.id);
+//     },
+//     canDrop: props => !props.category.locked
+// };
 
-// Builds up extra props
-function collect(connect, monitor) {
-    return {
-        connectDropTarget: connect.dropTarget(),
-        isDraggingOver: monitor.isOver()
-    };
-}
+// // Builds up extra props
+// function collect(connect, monitor) {
+//     return {
+//         connectDropTarget: connect.dropTarget(),
+//         isDraggingOver: monitor.isOver()
+//     };
+// }
 
-export var BreadcrumbCategoryDropTarget = DropTarget([draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY], breadcrumbCategoryDropTargetSpec, collect)(BreadcrumbCategory);
+// export var BreadcrumbCategoryDropTarget = DropTarget([draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY], breadcrumbCategoryDropTargetSpec, collect)(BreadcrumbCategory);
