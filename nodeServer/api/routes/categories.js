@@ -8,6 +8,69 @@ const verifyAuthToken = require("../middleware/verifyAuthToken");
 
 const router = express.Router();
 
+/**
+ * Populates a category's parents as far as possible
+ * @param {mongoose.Document} category the category to populate
+ * @param {(parentCategory: mongoose.Document) => mongoose.Document} innerFunction a function to run for every parent, return a value to intercept and change the parent
+ * @param {number} depth used internally to track recursion depth
+ */
+const deepPopulateParent = async (category, innerFunction, depth = 0) => {
+    if (category.parent) {
+        // if (depth === 0) {
+        //     console.time("deepPopulateParent");
+        // }
+
+        category.parent = await Category.findById(category.parent, { getters: true })
+            .select("colour parent flashcards children name user locked");
+
+        innerFunction(category.parent);
+
+        await deepPopulateParent(category.parent, innerFunction, depth + 1);
+        
+        // if (depth === 0) {
+        //     console.timeEnd("deepPopulateParent");
+        // }
+        return category;
+    } else {
+        return category;
+    }
+};
+
+/**
+ * Populates a category's children as far as possible, as long as the authentication is correct
+ * @param {mongoose.Document} category 
+ * @param {*} authenticatedUserId 
+ * @param {(category: mongoose.Document, childCategory: mongoose.Document) => mongoose.Document} innerFunction a function to run for every authenticated child, return a value to intercept and change the child
+ */
+const deepPopulateChildren = async (category, authenticatedUserId, innerFunction) => {
+    if (category.children) {
+        // Will return array of promises due to async function
+        let populatedChildren = await category.children
+            .map(async child => {
+                let populatedChild = await Category.findById(child._id, { virtuals: true })
+                    .select("name colour flashcards children user locked")
+                    // Don't populate if no permissions
+                    .populate(child.user == authenticatedUserId ? "flashcards children" : "");
+
+                if (!populatedChild) {
+                    return Promise.resolve();
+                }
+
+                const returnedFromInnerFunction = innerFunction(category, populatedChild);
+                if (returnedFromInnerFunction) {
+                    populatedChild = returnedFromInnerFunction;
+                }
+
+                await deepPopulateChildren(populatedChild, authenticatedUserId, innerFunction);
+                return populatedChild;
+            });
+        // Resolve promises and save
+        let children = await Promise.all(populatedChildren);
+        category.children = children;
+    }
+    return category;
+};
+
 router.get("/", verifyAuthToken, (req, res, next) => {
     Category.find({ user: req.user.id })
         .then(categories => {
@@ -33,6 +96,8 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
     if (parentCategory.user && parentCategory.user != req.user.id) {
         return res.status(401).json({ message: "unauthorised" });
     }
+
+    // Make sure the parent isn't locked
 
     // Build category
     const category = new Category({
@@ -69,51 +134,6 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
 
     let inheritedLocked = false; // If the category is locked implicitly by one of its ancestors
 
-    async function deepPopulateParent(category, depth = 0) {
-        if (category.parent) {
-
-            category.parent = await Category.findById(category.parent, { getters: true })
-                .select("colour parent flashcards children name user locked");
-
-            if (category.parent.locked) {
-                inheritedLocked = true;
-            }
-
-            await deepPopulateParent(category.parent, depth + 1);
-            return category;
-        } else {
-            return category;
-        }
-    }
-
-    async function deepPopulateChildren(category) {
-        if (category.children) {
-            // Will return array of promises due to async function
-            let populatedChildren = await category.children
-                .map(async child => {
-                    let populatedChild = await Category.findById(child._id, { virtuals: true })
-                        .select("name colour flashcards children user locked")
-                        // Don't populate if no permissions
-                        .populate(child.user == req.user.id ? "flashcards children" : "");
-
-                    if (!populatedChild) {
-                        return Promise.resolve();
-                    }
-
-                    if (category.locked || inheritedLocked && populatedChild.locked === false) {
-                        populatedChild = {...populatedChild.toJSON(), locked: "inherited"};
-                    }
-                    
-                    await deepPopulateChildren(populatedChild);
-                    return populatedChild;
-                });
-            // Resolve promises and save
-            let children = await Promise.all(populatedChildren);
-            category.children = children;
-        }
-        return category;
-    }
-
     // Find in database
     Category
         .findById(req.params.categoryId, { getters: true })
@@ -125,8 +145,16 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
             else if (category.user && category.user != req.user.id) throw new Error("unauthorised");
             else return category;
         })
-        .then(category => deepPopulateParent(category))
-        .then(category => deepPopulateChildren(category))
+        .then(category => deepPopulateParent(category, parentCategory => {
+            if (parentCategory.locked) {
+                inheritedLocked = true;
+            }
+        }))
+        .then(category => deepPopulateChildren(category, req.user.id, (parentCategory, childCategory) => {
+            if (parentCategory.locked || inheritedLocked && childCategory.locked === false) {
+                return childCategory = { ...childCategory.toJSON(), locked: "inherited" };
+            }
+        }))
         .then(category => {
             if (category.locked) {
                 res.status(200).json({ category });

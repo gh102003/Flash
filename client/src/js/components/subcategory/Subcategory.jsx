@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import * as util from "../../util";
 
-import { UserContext } from "../../contexts/UserContext";
 import { SubcategoryNormal } from "./SubcategoryNormal.jsx";
 import { SubcategoryEdit } from "./SubcategoryEdit.jsx";
 
@@ -30,9 +29,10 @@ export const Subcategory = props => {
     } else {
         return (
             <SubcategoryNormal
-                id={props.id}
                 styles={styles}
+                id={props.id}
                 name={props.name}
+                user={props.user}
                 locked={props.locked}
                 handleChangeView={newView => setView(newView)}
                 handleCardMove={props.handleCardMove}

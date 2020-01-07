@@ -131,20 +131,3 @@ export const BreadcrumbCategory = props => {
         </>
     );
 };
-
-// const breadcrumbCategoryDropTargetSpec = {
-//     drop: (props, monitor) => {
-//         props.handleCardMove(monitor.getItemType(), monitor.getItem().id, props.category.id);
-//     },
-//     canDrop: props => !props.category.locked
-// };
-
-// // Builds up extra props
-// function collect(connect, monitor) {
-//     return {
-//         connectDropTarget: connect.dropTarget(),
-//         isDraggingOver: monitor.isOver()
-//     };
-// }
-
-// export var BreadcrumbCategoryDropTarget = DropTarget([draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY], breadcrumbCategoryDropTargetSpec, collect)(BreadcrumbCategory);

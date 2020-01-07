@@ -92,9 +92,9 @@ export class Category extends React.Component {
      */
     navigate(url, categoryData) {
         if (categoryData) {
-            let { id, name, colour, parent, flashcards, children: subcategories } = categoryData;
+            let { id, name, colour, parent, flashcards, children: subcategories, locked } = categoryData;
             util.shuffle(flashcards);
-            this.setState({ category: { id, name, colour, parent, flashcards, subcategories } });
+            this.setState({ category: { id, name, colour, parent, flashcards, subcategories, locked } });
         }
         this.props.history.push(url);
     }
@@ -308,6 +308,7 @@ export class Category extends React.Component {
                 id={subcategory.id}
                 name={subcategory.name}
                 colour={subcategory.colour}
+                user={subcategory.user || null}
                 locked={subcategory.locked}
                 handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
                 handleEdit={(key, newValue, operationType = null) => this.handleCardEdit("subcategory", clientIndex, key, newValue, operationType)}

@@ -20,7 +20,7 @@ const categorySchema = mongoose.Schema({
     },
     locked: {
         type: Boolean,
-        default: false
+        default: false,
     }
 });
 

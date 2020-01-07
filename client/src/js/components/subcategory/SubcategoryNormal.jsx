@@ -10,7 +10,7 @@ export const SubcategoryNormal = props => {
     const currentUser = useContext(UserContext).currentUser;
     const moderatorLoggedIn = !!(currentUser) && currentUser.roles && currentUser.roles.includes("moderator");
     const editable = props.locked === false || moderatorLoggedIn;
-    
+
     const [collectedDragProps, drag] = useDrag({
         item: {
             type: draggableTypes.SUBCATEGORY,
@@ -91,56 +91,22 @@ export const SubcategoryNormal = props => {
             <span style={{ fontSize: textSize + "em" }}>
                 {props.name}
             </span>
-            <span className={lockClassName}>
-                <i
-                    className="material-icons"
-                    title={lockTooltip}
-                    onClick={event => {
-                        event.stopPropagation();
-                        if (props.locked === false) {
-                            props.handleLock(true);
-                        } else if (props.locked === true && moderatorLoggedIn) {
-                            props.handleLock(false);
-                        }
-                    }}
-                >{props.locked === false ? "lock_open" : "lock"}</i>
-            </span>
+            {   // Don't show lock for categories in private workspaces unless they are already locked
+                (props.user === null || props.locked) && <span className={lockClassName}>
+                    <i
+                        className="material-icons"
+                        title={lockTooltip}
+                        onClick={event => {
+                            event.stopPropagation();
+                            if (props.locked === false) {
+                                props.handleLock(true);
+                            } else if (props.locked === true && moderatorLoggedIn) {
+                                props.handleLock(false);
+                            }
+                        }}
+                    >{props.locked === false ? "lock_open" : "lock"}</i>
+                </span>
+            }
         </div >
     ));
 };
-
-// DropTarget specification - actions for drop events
-// const dropTargetSpec = {
-//     drop: (props, monitor) => {
-//         props.handleCardMove(monitor.getItemType(), monitor.getItem().id, props.id);
-//     },
-//     canDrop: (props, monitor) => {
-//         if (!props.editable) return false;
-//         if (monitor.getItemType() === draggableTypes.SUBCATEGORY) {
-//             return monitor.getItem().id !== props.id;
-//         } else {
-//             return true;
-//         }
-//     }
-// };
-
-// // Builds up extra props
-// var dropCollector = (connect, monitor) => ({
-//     connectDropTarget: connect.dropTarget(),
-//     isDropOver: monitor.isOver()
-// });
-
-
-// // DragSource spec
-// const dragSourceSpec = {
-//     beginDrag: props => ({ id: props.id }),
-//     canDrag: props => props.editable
-// };
-
-// const dragCollector = (connect, monitor) => ({
-//     connectDragSource: connect.dragSource(),
-//     isDragging: monitor.isDragging()
-// });
-
-// const SubcategoryNormalDropTarget = DropTarget([draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY], dropTargetSpec, dropCollector)(SubcategoryNormal);
-// export const SubcategoryNormalDnd = DragSource(draggableTypes.SUBCATEGORY, dragSourceSpec, dragCollector)(SubcategoryNormalDropTarget);
