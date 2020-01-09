@@ -144,7 +144,8 @@
 .edit-dialog {
     z-index: 10;
     position: absolute;
-    top: 100%;
+    top: 85%;
+    left: 2%;
     transform-origin: top center;
     animation: edit-dialog-in 150ms ease-out forwards;
 }

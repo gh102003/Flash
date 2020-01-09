@@ -1,5 +1,5 @@
 import React from "react";
-import { BlockPicker } from "react-color";
+import { TwitterPicker } from "react-color";
 import * as util from "../util";
 import * as constants from "../constants";
 
@@ -52,9 +52,10 @@ export class AddCategoryForm extends React.Component {
                             <label htmlFor="input-name">Name:</label>
                             <input autoFocus id="input-name" name="name" type="text" autoComplete="off" size="30" value={this.state.name} onChange={e => this.handleChange(e)} />
                             <div className="colour-picker">
-                                <BlockPicker
-                                    triangle="hide"
+                                <TwitterPicker
                                     color={this.state.colour}
+                                    width={240}
+                                    triangle="hide"
                                     colors={constants.categoryColours}
                                     onChangeComplete={color => this.setState({ colour: color.hex })}
                                 />

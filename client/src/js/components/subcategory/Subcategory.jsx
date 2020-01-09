@@ -21,8 +21,8 @@ export const Subcategory = props => {
                 handleEdit={(key, newValue) => props.handleEdit(key, newValue)}
                 handleSaveEdit={(prop, newValue) => {
                     props.handleSaveEdit({ propName: prop, value: newValue });
-                    setView("normal");
                 }}
+                handleChangeView={newView => setView(newView)}
                 handleDelete={() => props.handleDelete()}
             />
         );

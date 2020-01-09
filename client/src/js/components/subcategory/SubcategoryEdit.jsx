@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BlockPicker } from "react-color";
+import { TwitterPicker } from "react-color";
 import AutosizeInput from "react-input-autosize";
 
 import * as util from "../../util";
@@ -16,11 +16,12 @@ export var SubcategoryEdit = props => {
         <div>
             <div className="card subcategory card-edit"
                 style={props.styles}
-                onClick={(event) => event.stopPropagation()}
+                onClick={event => event.stopPropagation()}
             >
                 <div className="flashcard-button" onClick={event => {
                     event.stopPropagation();
                     props.handleSaveEdit("name", props.name);
+                    props.handleChangeView("normal");
                 }}>
                     <i className="material-icons" >done</i>
                 </div>
@@ -58,6 +59,7 @@ export var SubcategoryEdit = props => {
                     onKeyDown={e => {
                         if (e.keyCode === 13) { // Enter
                             props.handleSaveEdit("name", props.name);
+                            props.handleChangeView("normal");
                         }
                     }}
                 />
@@ -65,13 +67,12 @@ export var SubcategoryEdit = props => {
                 {
                     editDialog === "colour" &&
                     <div className="edit-dialog edit-dialog-colour">
-                        <BlockPicker
-                            triangle="top"
+                        <TwitterPicker
+                            width={240}
                             color={props.styles.colour}
                             colors={constants.categoryColours}
-                            onChangeComplete={colour => {
-                                setEditDialog(null);
-                                let colourValue = util.colourToInteger(colour.hex);
+                            onChange={colour => {
+                                const colourValue = util.colourToInteger(colour.hex);
                                 props.handleEdit("colour", colourValue);
                                 props.handleSaveEdit("colour", colourValue);
                             }}

@@ -227,12 +227,18 @@
     display: inline-block;
 }
 
-.block-picker {
-    box-shadow: 0 0.05vw 10px -1px rgba(0, 0, 0, 0.3) !important;
+.twitter-picker {
+    box-shadow: 0 0.05vw 8px rgba(0, 0, 0, 0.3) !important;
 }
 
-.block-picker {
-    width: 202px !important;
+/* Hash symbol */
+.twitter-picker > div:last-child > div:first-of-type {
+    background-color: #e2e2e2 !important;
+}
+
+.edit-dialog .twitter-picker > div:last-child > div:first-of-type {
+    font-size: 0.6em !important;
+    line-height: 1 !important;
 }
 
 .add-category-form .colour-picker>div:hover {
