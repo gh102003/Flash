@@ -40,6 +40,12 @@
     margin: 0 0.4em 0.3em 0;
 }
 
+.add-tag-form .edit-dialog {
+    top: 100%;
+    left: initial;
+    right: 0;
+}
+
 @media only screen and (max-width: 900px) {
     .tag-manager .edit-dialog {
         position: fixed;
@@ -50,12 +56,12 @@
         animation: none;
         /* Animation messes with translation */
     }
-    .tag-manager .edit-dialog .block-picker {
+    .tag-manager .edit-dialog .twitter-picker {
         /* Stronger shadow */
-        box-shadow: 0 0.1vw 12px 3px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 0.1vw 15px 1px rgba(0, 0, 0, 0.6) !important;
     }
     /* Hide triangle */
-    .tag-manager .edit-dialog .block-picker>div:first-child {
+    .tag-manager .edit-dialog .twitter-picker>div:first-child, .tag-manager .edit-dialog .twitter-picker>div:nth-child(2) {
         display: none;
     }
 }

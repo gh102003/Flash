@@ -1,5 +1,5 @@
 import React from "react";
-import { BlockPicker } from "react-color";
+import { TwitterPicker } from "react-color";
 
 import * as constants from "../../../constants";
 import * as envConstants from "../../../envConstants";
@@ -84,8 +84,9 @@ export class AddTagForm extends React.Component {
                     {
                         this.state.editDialog === "colour" &&
                         <div className="edit-dialog edit-dialog-colour">
-                            <BlockPicker
-                                triangle="top"
+                            <TwitterPicker
+                                width={240}
+                                triangle="top-right"
                                 color={this.state.tag.colour}
                                 colors={constants.categoryColours}
                                 onChange={colour => {
