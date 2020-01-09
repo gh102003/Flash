@@ -23,10 +23,13 @@ const deepPopulateParent = async (category, innerFunction, depth = 0) => {
         category.parent = await Category.findById(category.parent, { getters: true })
             .select("colour parent flashcards children name user locked");
 
-        innerFunction(category.parent);
+        const returnedFromInnerFunction = innerFunction(category.parent);
+        if (returnedFromInnerFunction) {
+            category.parent = returnedFromInnerFunction;
+        }
 
         await deepPopulateParent(category.parent, innerFunction, depth + 1);
-        
+
         // if (depth === 0) {
         //     console.timeEnd("deepPopulateParent");
         // }
@@ -87,10 +90,14 @@ router.get("/", verifyAuthToken, (req, res, next) => {
 });
 
 router.post("/", verifyAuthToken, async (req, res, next) => {
+
+    if (!req.body.category || !req.body.category.parent) {
+        return res.status(400).json({ message: "A category must be supplied, as well as a parent" });
+    }
     // Check parent's user matches authenticated user
-    const parentCategory = await Category
+    let parentCategory = await Category
         .findById(req.body.category.parent)
-        .select("user")
+        .select("user locked parent")
         .exec();
 
     if (parentCategory.user && parentCategory.user != req.user.id) {
@@ -98,6 +105,18 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
     }
 
     // Make sure the parent isn't locked
+    const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
+    if (moderatorUser.length < 1) {
+        let inheritedLocked = false;
+
+        parentCategory = await deepPopulateParent(parentCategory, ancestorCategory => {
+            if (ancestorCategory.locked) inheritedLocked = true;
+        });
+
+        if (parentCategory.locked || inheritedLocked) {
+            return res.status(403).json({ message: "parent category is locked, so only moderators can create a category here" });
+        }
+    }
 
     // Build category
     const category = new Category({
@@ -190,20 +209,32 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
 
         // Check if move destination is valid and authenticated
         if (op.propName === "parent") {
-            const destCategory = await Category.findById(op.value);
+            let destCategory = await Category.findById(op.value);
             if (!destCategory) {
                 return res.status(400).json({ message: "move destination is invalid" });
             }
             else if (destCategory.user && destCategory.user != req.user.id) {
                 return res.status(401).json({ message: "move destination is unauthorised" });
             }
+
+            // Check the move destination isn't locked if a moderator isn't logged in
+            const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
+            if (moderatorUser.length < 1) {
+                let inheritedLocked = false;
+
+                destCategory = await deepPopulateParent(destCategory, parentCategory => {
+                    if (parentCategory.locked) inheritedLocked = true;
+                });
+
+                if (destCategory.locked || inheritedLocked) {
+                    return res.status(403).json({ message: "the move destination can only be edited by moderators because it or one of its ancestors is locked" });
+                }
+            }
         }
 
         // Only moderators can unlock categories
         if (op.propName === "locked" && op.value === false) {
-            const user = await User.find({ _id: req.user.id, roles: "moderator" });
-
-            if (user.length < 1) { // If there are no matching users who are moderators
+            if (moderatorUser.length < 1) { // If there are no matching users who are moderators
                 return res.status(401).json({ message: "unauthorised" });
             }
         }
@@ -220,6 +251,20 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
     // Check it exists
     if (!category) {
         return res.status(404).json({ message: `No valid category found with id '${req.params.categoryId}'` });
+    }
+
+    // Check the category isn't locked if a moderator isn't logged in
+    const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
+    if (moderatorUser.length < 1) {
+        let inheritedLocked = false;
+
+        category = await deepPopulateParent(category, parentCategory => {
+            if (parentCategory.locked) inheritedLocked = true;
+        });
+
+        if (category.locked || inheritedLocked) {
+            return res.status(403).json({ message: "this category can only be edited by moderators because it or one of its ancestors is locked" });
+        }
     }
 
     // Update if authorised
@@ -254,6 +299,20 @@ router.delete("/:categoryId", verifyAuthToken, async (req, res, next) => {
         return res.status(404).json({ message: `No valid category found with id '${req.params.categoryId}'` });
     } else if (category.user && category.user != req.user.id) {
         return res.status(404).json({ message: "unauthorised" });
+    }
+
+    // Check the category isn't locked if a moderator isn't logged in
+    const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
+    if (moderatorUser.length < 1) {
+        let inheritedLocked = false;
+
+        category = await deepPopulateParent(category, parentCategory => {
+            if (parentCategory.locked) inheritedLocked = true;
+        });
+
+        if (category.locked || inheritedLocked) {
+            return res.status(403).json({ message: "this category can only be deleted by moderators because it or one of its ancestors is locked" });
+        }
     }
 
     // Delete promises
