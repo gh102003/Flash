@@ -20,6 +20,7 @@ export function InfoBox(props) {
                         <li>Click the graph icon on a category to take a quiz</li>
                         <li>Create your own account to make private flashcards</li>
                         <li>When you&apos;re logged in, use the breadcrumbs to switch between personal and public workspaces</li>
+                        <li>Lock a category to stop other users editing or deleting it (apart from moderators)</li>
                     </ul>
                     <p className="external-link">
                         <i className="material-icons">open_in_new</i>

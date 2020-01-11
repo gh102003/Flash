@@ -150,8 +150,8 @@
     animation: edit-dialog-in 150ms ease-out forwards;
 }
 
-.edit-dialog .block-picker {
-    font-family: "Maven Pro", Arial, Helvetica, sans-serif;
+.edit-dialog .twitter-picker {
+    font-family: "Maven Pro", Arial, Helvetica, sans-serif !important;
     box-shadow: 0 0.1vw 8px 0 rgba(0, 0, 0, 0.3) !important;
 }
 

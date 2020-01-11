@@ -46,22 +46,23 @@
     right: 0;
 }
 
-@media only screen and (max-width: 900px) {
-    .tag-manager .edit-dialog {
+@media only screen and (max-width: 600px) {
+    .add-tag-form .edit-dialog, .edit-dialog {
         position: fixed;
         display: block;
         top: 50%;
         left: 50%;
+        right: initial;
         transform: translate(-50%, -50%);
         animation: none;
         /* Animation messes with translation */
     }
-    .tag-manager .edit-dialog .twitter-picker {
+    .edit-dialog .twitter-picker {
         /* Stronger shadow */
-        box-shadow: 0 0.1vw 15px 1px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 0.1vw 15px 5px rgba(0, 0, 0, 0.5) !important;
     }
     /* Hide triangle */
-    .tag-manager .edit-dialog .twitter-picker>div:first-child, .tag-manager .edit-dialog .twitter-picker>div:nth-child(2) {
+    .edit-dialog .twitter-picker>div:first-child, .edit-dialog .twitter-picker>div:nth-child(2) {
         display: none;
     }
 }

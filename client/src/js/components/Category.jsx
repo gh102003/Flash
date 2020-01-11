@@ -121,8 +121,7 @@ export class Category extends React.Component {
         }
     }
 
-    afterAddFormSubmit() {
-        this.setState({ currentForm: null });
+    updateCardsFromServer() {
         this.getFromServer(this.props.match.params.id)
             .then(response => {
                 let { id, name, colour, parent, flashcards, children: subcategories, locked } = response.category;
@@ -323,7 +322,10 @@ export class Category extends React.Component {
         if (this.state.currentForm === "addCard") {
             return (
                 <AddCardForm
-                    afterSubmit={() => this.afterAddFormSubmit()}
+                    afterSubmit={() => {
+                        this.setState({ currentForm: null });
+                        this.updateCardsFromServer();
+                    }}
                     handleCancel={() => this.setState({ currentForm: null })}
                     // Fallback if not loaded yet
                     category={this.state.category || { id: this.state.category }}>
@@ -332,7 +334,10 @@ export class Category extends React.Component {
         } else if (this.state.currentForm === "addCategory") {
             return (
                 <AddCategoryForm
-                    afterSubmit={() => this.afterAddFormSubmit()}
+                    afterSubmit={() => {
+                        this.setState({ currentForm: null });
+                        this.updateCardsFromServer();
+                    }}
                     handleCancel={() => this.setState({ currentForm: null })}
                     parent={this.state.category || { id: this.state.category }}>
                 </AddCategoryForm>
@@ -353,6 +358,7 @@ export class Category extends React.Component {
                         </Helmet>
                         <Breadcrumb
                             currentCategory={this.state.category}
+                            afterFlashcardImport={() => this.updateCardsFromServer()}
                             handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
                             handleNavigate={(url, categoryData) => this.navigate(url, categoryData)}
                         />

@@ -26,6 +26,18 @@ router.get("/:flashcardId", (req, res, next) => {
         });
 });
 
+/*
+ * POST requests
+ * 
+ *  Either
+ *      flashcard: {}
+ *  Or
+ *      flashcards: [
+ *          {},
+ *          {},
+ *          {}
+ *      ]
+ */
 router.post("/", verifyAuthToken, async (req, res, next) => {
 
     // Check if containing category is authorised
@@ -44,28 +56,48 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
         }
     }
 
-    // Create new flashcard
-    let flashcard;
-    try {
-        flashcard = new Flashcard({
-            _id: new mongoose.Types.ObjectId(),
-            ...req.body.flashcard
-        });
-    } catch (error) {
-        return res.status(400).json({ message: "malformed request data" });
-    }
-
-    // Save new flashcard
-    await flashcard.save();
-    try {
-        res.status(201).json({ createdFlashcard: flashcard });
-    } catch (error) {
-        if (error.name === "ValidationError" || error.message.includes("Cast to ObjectId failed")) {
-            res.status(400).json({ error });
-        } else {
-            console.error(error);
-            res.status(500).json({ error });
+    // Create new single flashcard
+    if (req.body.flashcard) {
+        let flashcard;
+        try {
+            flashcard = new Flashcard({
+                _id: new mongoose.Types.ObjectId(),
+                ...req.body.flashcard
+            });
+        } catch (error) {
+            return res.status(400).json({ message: "malformed request data" });
         }
+
+        // Save new flashcard
+        await flashcard.save();
+        // try {
+        return res.status(201).json({ createdFlashcard: flashcard });
+        // } catch (error) {
+        //     if (error.name === "ValidationError" || error.message.includes("Cast to ObjectId failed")) {
+        //         return res.status(400).json({ error });
+        //     } else {
+        //         console.error(error);
+        //         return res.status(500).json({ error });
+        //     }
+        // }
+    } else if (req.body.flashcards) {
+        const creationPromises = req.body.flashcards
+            .map(flashcard => new Flashcard({
+                _id: new mongoose.Types.ObjectId(),
+                ...flashcard
+            }))
+            .map(flashcard => flashcard.save());
+
+        try {
+            await Promise.all(creationPromises);
+        } catch (error) {
+            return res.status(500).json({ error });
+        }
+
+        return res.status(201).json({ createdFlashcards: req.body.flashcards });
+
+    } else {
+        return res.status(400).json({ message: "either a single 'flashcard' or an array of 'flashcards' must be supplied" });
     }
 });
 

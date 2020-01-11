@@ -203,6 +203,8 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
 });
 
 router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
+    const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
+
     const updateOps = {};
     for (const op of req.body) {
         updateOps[op.propName] = op.value;
@@ -218,7 +220,6 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
             }
 
             // Check the move destination isn't locked if a moderator isn't logged in
-            const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
             if (moderatorUser.length < 1) {
                 let inheritedLocked = false;
 
@@ -254,7 +255,6 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
     }
 
     // Check the category isn't locked if a moderator isn't logged in
-    const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
     if (moderatorUser.length < 1) {
         let inheritedLocked = false;
 
@@ -286,6 +286,7 @@ router.patch("/:categoryId", verifyAuthToken, async (req, res, next) => {
     return res.status(200).json({ updatedCategory });
 });
 
+// FIXME: Make sure to check child categories' lock statuses before deletion
 router.delete("/:categoryId", verifyAuthToken, async (req, res, next) => {
     // Find category to remove 
     let category;
@@ -317,9 +318,9 @@ router.delete("/:categoryId", verifyAuthToken, async (req, res, next) => {
 
     // Delete promises
     const deleteFlashcards =
-        Flashcard.deleteMany({ categoryId: req.params.categoryId }).exec();
+        Flashcard.deleteMany({ category: req.params.categoryId }).exec();
     const deleteChildren =
-        Category.deleteMany({ parentId: req.params.categoryId }).exec();
+        Category.deleteMany({ parent: req.params.categoryId }).exec();
     const deleteCategories =
         Category.deleteOne({ _id: req.params.categoryId }).exec();
 
