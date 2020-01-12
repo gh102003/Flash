@@ -47,8 +47,10 @@ export const ImportFlashcardsDialog = props => {
                     <input type="checkbox" checked={isReversible} onChange={event => setIsReversible(event.target.checked)} />
                     Reversible
                 </label>
-                <input type="submit" value="Import" disabled={!submitEnabled} />
-                <button onClick={() => props.handleClose()}>Cancel</button>
+                <div className="controls">
+                    <input type="submit" value="Import" disabled={!submitEnabled} />
+                    <button onClick={() => props.handleClose()}>Cancel</button>
+                </div>
             </form>
         </div>
     );

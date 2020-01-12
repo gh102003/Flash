@@ -63,6 +63,7 @@ export class LoginForm extends React.Component {
                     value={this.state.formData.password}
                     onChange={event => this.updateForm("password", event.target.value)}
                 />
+                <p className="privacy-notice">Data will be stored on your device to keep you logged in.</p>
                 <p className="sign-up-cta">
                     No account? <a href="" onClick={event => {
                         event.preventDefault();

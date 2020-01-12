@@ -196,7 +196,7 @@
     place-self: end;
 }
 
-.add-form .controls button:last-child {
+/*.add-form */.controls button:last-child {
     margin-right: 0;
 }
 

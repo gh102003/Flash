@@ -67,7 +67,7 @@ button, input[type="submit"] {
     position: relative;
 }
 
-input[type="submit"] {
+input[type="submit"], button.primary {
     background-color: crimson;
     color: white;
     transition: background-color 200ms, box-shadow 80ms;

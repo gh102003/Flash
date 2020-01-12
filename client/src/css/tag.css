@@ -148,7 +148,7 @@
     grid-template-columns: 1fr auto auto;
 }
 
-.add-tag-form button {
+.add-tag-form button, .add-tag-form input[type="submit"] {
     margin: 0;
 }
 

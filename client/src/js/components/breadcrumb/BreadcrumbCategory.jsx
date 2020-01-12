@@ -56,23 +56,30 @@ export const BreadcrumbCategory = props => {
 
     // Fetch ids for workspace switch
     useEffect(() => {
+        // Fetch request aborting
+        const abortController = new AbortController();
+        const abortControllerSignal = abortController.signal;
+
         if (!parentBreadcrumb) {
             if (props.category.user) {
                 // Get public workspace
-                fetch(`${serverOrigin}/categories`)
+                fetch(`${serverOrigin}/categories`, { signal: abortControllerSignal })
                     .then(response => response.json())
                     .then(response => {
                         setSwitchWorkspaceId(response.categories[0].id);
                     });
             } else {
                 // Get personal workspace
-                util.authenticatedFetch(`categories`, {})
+                util.authenticatedFetch(`categories`, { signal: abortControllerSignal })
                     .then(response => response.json())
                     .then(response => {
                         setSwitchWorkspaceId(response.categories[0].id);
                     });
             }
         }
+
+        // Abort requests on unmount
+        return () => abortController.abort();
     }, [props.category.user]); // only when the user has actually changed
 
     return (

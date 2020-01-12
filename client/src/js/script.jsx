@@ -34,12 +34,17 @@ import { Account } from "./components/modalBox/account/Account.jsx";
 import { TagManager } from "./components/modalBox/tagManager/TagManager.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
 import { NetworkIndicator } from "./components/NetworkIndicator.jsx";
+import { TrackingConsent } from "./components/modalBox/TrackingConsent.jsx";
 
 class Page extends React.Component {
     constructor(props) {
         super(props);
+
+        // Number of ms since consent was provided, null otherwise
+        const trackingConsent = localStorage.getItem("TrackingConsentTimestamp");
+
         this.state = {
-            modalOpen: null,
+            modalOpen: trackingConsent === null ? "trackingConsent" : null,
             currentUser: util.getUserFromAuthToken(localStorage.getItem("AuthToken"))
         };
     }
@@ -136,6 +141,7 @@ class Page extends React.Component {
                             )} />
                         }
                         {this.state.modalOpen === "infoBox" && <InfoBox handleClose={() => this.setState({ modalOpen: null })} />}
+                        {this.state.modalOpen === "trackingConsent" && <TrackingConsent handleClose={() => this.setState({ modalOpen: null })}/>}
                     </>
                 </BrowserRouter>
             </UserContext.Provider>

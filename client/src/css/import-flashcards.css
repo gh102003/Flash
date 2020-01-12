@@ -97,3 +97,7 @@ button.import-flashcards-button:active {
 .import-flashcards-dialog input[type="submit"] {
     margin-left: auto;
 }
+
+.import-flashcards-dialog .controls {
+    text-align: end;
+}
