@@ -8,18 +8,22 @@ export const TrackingConsent = props => {
         <div className="modal-background">
             <div className="modal tracking-consent">
                 <div className="modal-header">
-                    <h2>Tracking</h2>
+                    <h2>Tracking and Privacy</h2>
                 </div>
                 <div className="modal-body">
                     <p>
                         Flash uses cookies and other storage mechanisms for some of its key
-                        functionality, as well as for advertisements.
+                        functionality, as well as for analytics and advertisements.
                     </p>
 
                     <p>
-                        To enhance the efficiency of these advertisements, tracking data may
-                        be stored on your computer, but you have a right to decide whether
-                        this will happen. Do you agree to allow tracking?
+                        To enhance the efficiency and relevance of these advertisements, tracking
+                        identifiers may be stored on your device and used by third parties (including Google), 
+                        but you have a right to decide whether this will happen. You can revoke your
+                        consent at any time through the icon in the top right corner.
+                    </p>
+                    <p>
+                        Do you agree to tracking for ad personalisation?
                     </p>
 
                     <div className="controls">

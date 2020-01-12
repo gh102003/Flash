@@ -2,6 +2,9 @@ import React from "react";
 import { version, dataProtectionEmail, sourceCodeLink } from "../../constants";
 
 export function InfoBox(props) {
+
+    const trackingConsent = localStorage.getItem("TrackingConsentTimestamp");
+
     return (
         <div className="modal-background" onClick={props.handleClose}>
             <div className="modal info-box" onClick={(event) => event.stopPropagation()}>
@@ -34,6 +37,13 @@ export function InfoBox(props) {
                         <a href={dataProtectionEmail}>
                             data protection
                         </a> email
+                    </p>
+                    <p>
+                        {trackingConsent === null ? "Tracking consent has not been provided for ad personalisation" :
+                            <a href="" onClick={() => {
+                                localStorage.removeItem("TrackingConsentTimestamp");
+                            }}>Revoke tracking consent for ad personalisation.</a>
+                        }
                     </p>
                 </div>
             </div>
