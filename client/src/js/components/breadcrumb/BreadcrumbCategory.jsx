@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { DropTarget, useDrop } from "react-dnd";
+import { useDrop } from "react-dnd";
 
 import * as util from "../../util";
 import { draggableTypes } from "../../constants";
@@ -15,7 +15,7 @@ export const BreadcrumbCategory = props => {
     const [switchWorkspaceId, setSwitchWorkspaceId] = useState("/");
     const currentUser = useContext(UserContext).currentUser;
     const moderatorLoggedIn = !!(currentUser) && currentUser.roles && currentUser.roles.includes("moderator");
-    const editable = props.locked === false || moderatorLoggedIn;
+    const editable = props.category.locked === false || moderatorLoggedIn;
 
     const [collectedDropProps, drop] = useDrop({
         accept: [draggableTypes.FLASHCARD, draggableTypes.SUBCATEGORY],

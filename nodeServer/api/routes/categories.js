@@ -39,6 +39,7 @@ const deepPopulateParent = async (category, innerFunction, depth = 0) => {
     }
 };
 
+
 /**
  * Populates a category's children as far as possible, as long as the authentication is correct
  * @param {mongoose.Document} category 
@@ -330,3 +331,4 @@ router.delete("/:categoryId", verifyAuthToken, async (req, res, next) => {
 });
 
 module.exports = router;
+module.exports.deepPopulateParent = deepPopulateParent;
