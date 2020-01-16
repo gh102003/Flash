@@ -27,9 +27,18 @@ export class Account extends React.Component {
                         const loginResponseData = util.getUserFromAuthToken(loginResponse.token);
 
                         // Get more data about user in a separate request
-                        const userResponse = await util.authenticatedFetch("users/" + loginResponseData.id, {
-                            method: "GET"
-                        });
+                        let userResponse;
+                        try {
+                            userResponse = await util.authenticatedFetch("users/" + loginResponseData.id, {
+                                method: "GET"
+                            });
+                        } catch (error) {
+                            // Log out if the token is invalid or expired
+                            localStorage.removeItem("AuthToken");
+                            this.context.changeUser(null);
+                            this.props.afterAccountChange();
+                            return;
+                        }
                         const userData = await userResponse.json();
 
                         this.context.changeUser({ ...userData, ...loginResponseData });

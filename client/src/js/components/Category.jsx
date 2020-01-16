@@ -10,6 +10,7 @@ import { AddCategoryForm } from "./AddCategoryForm.jsx";
 import { AddButton } from "./AddButton.jsx";
 import { NetworkIndicator } from "./NetworkIndicator.jsx";
 import { Breadcrumb } from "./breadcrumb/Breadcrumb.jsx";
+import { UserContext } from "../contexts/UserContext";
 
 export class Category extends React.Component {
 
@@ -376,7 +377,26 @@ export class Category extends React.Component {
                         }
                     </div>
                     {this.renderAddElement()}
-                    <AddButton handleClick={nextForm => this.setState({ currentForm: nextForm })} />
+                    <UserContext.Consumer>
+                        {({ currentUser }) => {
+                            let renderAddButton = false;
+                            // If moderator, show add button
+                            if (currentUser && currentUser.roles && currentUser.roles.includes("moderator")) {
+                                renderAddButton = true;
+                            }
+                            
+                            // If loading or unlocked, show add button
+                            if (!this.state.category) {
+                                renderAddButton = true;
+                            } else if (this.state.category.locked === false) {
+                                renderAddButton = true;
+                            }
+
+                            if (renderAddButton) {
+                                return <AddButton handleClick={nextForm => this.setState({ currentForm: nextForm })} />
+                            }
+                        }}
+                    </UserContext.Consumer>
                 </div>
             </>
         );
