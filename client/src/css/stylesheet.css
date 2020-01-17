@@ -127,6 +127,8 @@ body {
 }
 
 .modal-background {
+    contain: content;
+
     animation: modal-background-in 300ms ease-out forwards;
     background-color: rgba(0, 0, 0, 0.75);
     

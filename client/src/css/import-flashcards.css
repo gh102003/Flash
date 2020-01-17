@@ -79,7 +79,7 @@ button.import-flashcards-button:active {
     padding: 0.5em;
     border-radius: 0.5em;
     resize: none;
-    font-family: monospace;
+    font-family: "SF Mono", Consolas, monospace;
     margin: 1em 0;
     width: calc(20em + 10vw);
     height: 13em;

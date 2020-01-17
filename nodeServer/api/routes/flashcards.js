@@ -42,31 +42,32 @@ router.get("/:flashcardId", (req, res, next) => {
  */
 router.post("/", verifyAuthToken, async (req, res, next) => {
 
-    let parentCategory = await Category.findById(req.body.flashcard.category);
-
-    // Check if containing category is authorised
-    if (parentCategory) {
-        if (parentCategory.user && parentCategory.user != req.user.id) {
-            return res.status(400).json({ message: "containing category unauthorised" });
-        }
-    } else {
-        return res.status(400).json({ message: "containing category invalid" });
-    }
-
-    // Check if containing category or one of its ancestors is locked
     const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
-    if (parentCategory && moderatorUser.length < 1) {
-        let ancestorLocked = false;
-        parentCategory = await deepPopulateParent(parentCategory, ancestor => {
-            if (ancestor.locked) ancestorLocked = true;
-        });
-        if (ancestorLocked || parentCategory.locked) {
-            return res.status(403).json({ message: "A card cannot be created here since the category or one of its ancestors is locked" });
-        }
-    }
 
     // Create new single flashcard
     if (req.body.flashcard) {
+        let parentCategory = await Category.findById(req.body.flashcard.category);
+
+        // Check if containing category is authorised
+        if (parentCategory) {
+            if (parentCategory.user && parentCategory.user != req.user.id) {
+                return res.status(400).json({ message: "containing category unauthorised" });
+            }
+        } else {
+            return res.status(400).json({ message: "containing category invalid" });
+        }
+
+        // Check if containing category or one of its ancestors is locked
+        if (parentCategory && moderatorUser.length < 1) {
+            let ancestorLocked = false;
+            parentCategory = await deepPopulateParent(parentCategory, ancestor => {
+                if (ancestor.locked) ancestorLocked = true;
+            });
+            if (ancestorLocked || parentCategory.locked) {
+                return res.status(403).json({ message: "A card cannot be created here since the category or one of its ancestors is locked" });
+            }
+        }
+
         let flashcard;
         try {
             flashcard = new Flashcard({
@@ -82,6 +83,29 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
         return res.status(201).json({ createdFlashcard: flashcard });
 
     } else if (req.body.flashcards) {
+        const parentCategories = req.body.flashcards.map(flashcard => flashcard.category);
+        parentCategories.forEach(async parentCategory => {
+            // Check if containing category is authorised
+            if (parentCategory) {
+                if (parentCategory.user && parentCategory.user != req.user.id) {
+                    return res.status(400).json({ message: "containing category unauthorised" });
+                }
+            } else {
+                return res.status(400).json({ message: "containing category invalid" });
+            }
+
+            // Check if containing category or one of its ancestors is locked
+            if (parentCategory && moderatorUser.length < 1) {
+                let ancestorLocked = false;
+                parentCategory = await deepPopulateParent(parentCategory, ancestor => {
+                    if (ancestor.locked) ancestorLocked = true;
+                });
+                if (ancestorLocked || parentCategory.locked) {
+                    return res.status(403).json({ message: "A card cannot be created here since the category or one of its ancestors is locked" });
+                }
+            }
+        });
+
         const creationPromises = req.body.flashcards
             .map(flashcard => new Flashcard({
                 _id: new mongoose.Types.ObjectId(),

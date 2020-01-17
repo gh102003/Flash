@@ -156,8 +156,7 @@ const DndBackendPipeline = {
             transition: MouseTransition
         },
         {
-            backend: TouchBackend,
-            options: { enableMouseEvents: true, delay: 500, delayTouchStart: 500 },
+            backend: TouchBackend({ enableMouseEvents: true, delay: 300 }),
             preview: true,
             transition: TouchTransition
         },
@@ -165,7 +164,6 @@ const DndBackendPipeline = {
 };
 
 const PageDnd = () => (
-    // <DndProvider backend={HTML5Backend}>
     <DndProvider backend={MultiBackend(DndBackendPipeline)}>
         <Page />
     </DndProvider>

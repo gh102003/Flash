@@ -393,7 +393,7 @@ export class Category extends React.Component {
                             }
 
                             if (renderAddButton) {
-                                return <AddButton handleClick={nextForm => this.setState({ currentForm: nextForm })} />
+                                return <AddButton handleClick={nextForm => this.setState({ currentForm: nextForm })} />;
                             }
                         }}
                     </UserContext.Consumer>
