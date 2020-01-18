@@ -4,11 +4,10 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom";
-import { DndContext, DndProvider } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import TouchBackend from "react-dnd-touch-backend";
 import MultiBackend, { MouseTransition, TouchTransition } from "react-dnd-multi-backend";
-// import HTML5toTouch from "react-dnd-multi-backend/lib/HTML5toTouch"; // or any other pipeline
 
 import * as util from "./util";
 import * as serviceWorker from "./initServiceWorker";
@@ -20,11 +19,8 @@ import "../css/add-card.css";
 import "../css/modal-box.css";
 import "../css/tag.css";
 
-import "../ios-splashscreens"; // All in folder, using index.js
-import "../favicon.png";
-import "../icons-192.png";
-import "../icons-512.png";
-import "../apple-touch-icon.png";
+import "../res/ios-splashscreens"; // All in folder, using index.js
+import "../res/icons";
 
 import { UserContext } from "./contexts/UserContext";
 

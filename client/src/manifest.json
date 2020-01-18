@@ -3,23 +3,23 @@
     "short_name": "Flash",
     "icons": [
       {
-        "src": "/apple-touch-icon.png",
+        "src": "res/icons/apple-touch-icon.png",
         "type": "image/png",
         "sizes": "180x180"
       },
       {
-        "src": "/favicon.png",
+        "src": "res/icons/favicon.png",
         "type": "image/png",
         "sizes": "16x16"
       },
       {
-        "src": "/icons-192.png",
+        "src": "res/icons/icon-192.png",
         "type": "image/png",
         "sizes": "192x192",
         "purpose": "maskable"
       },
       {
-        "src": "/icons-512.png",
+        "src": "res/icons/icon-512.png",
         "type": "image/png",
         "sizes": "512x512",
         "purpose": "maskable"
