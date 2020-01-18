@@ -58,7 +58,9 @@ export class Quiz extends React.Component {
                     <>
                         <QuizMaster flashcards={this.state.flashcards} />
                     </>
-                    : <NetworkIndicator />
+                    : <div className="quiz-master-loading">
+                        <NetworkIndicator />
+                    </div>
                 }
             </div>
         );

@@ -46,14 +46,14 @@
     animation: network-indicator-spinner 1.2s infinite linear;
 }
 
-.category-loading .card-display, .categories-loading {
+.category-loading .card-display, .categories-loading, .quiz-master-loading {
     display: flex;
     min-height: 65vh;
     align-items: center;
     justify-content: center;
 }
 
-.category-loading .network-indicator, .categories-loading .network-indicator {
+.category-loading .network-indicator, .categories-loading .network-indicator, .quiz .network-indicator {
     font-size: 3vw;
 }
 
@@ -65,18 +65,18 @@
     .category-loading .card-display, .categories-loading {
         min-height: 70vh;
     }
-    .category-loading .network-indicator, .categories-loading .network-indicator {
+    .category-loading .network-indicator, .categories-loading .network-indicator, .quiz .network-indicator {
         font-size: 4vw;
     }
 }
 @media only screen and (max-width: 600px) {
-    .category-loading .network-indicator, .categories-loading .network-indicator {
+    .category-loading .network-indicator, .categories-loading .network-indicator, .quiz .network-indicator {
         font-size: 5vw;
         margin: 2vw 3vw;
     }
 }
 @media only screen and (max-width: 420px) {
-    .category-loading .network-indicator, .categories-loading .network-indicator {
+    .category-loading .network-indicator, .categories-loading .network-indicator, .quiz .network-indicator {
         font-size: 6vw;
     }
 }

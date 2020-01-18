@@ -16,9 +16,6 @@ const router = express.Router();
  */
 const deepPopulateParent = async (category, innerFunction, depth = 0) => {
     if (category.parent) {
-        // if (depth === 0) {
-        //     console.time("deepPopulateParent");
-        // }
 
         category.parent = await Category.findById(category.parent, { getters: true })
             .select("colour parent flashcards children name user locked");
@@ -30,9 +27,6 @@ const deepPopulateParent = async (category, innerFunction, depth = 0) => {
 
         await deepPopulateParent(category.parent, innerFunction, depth + 1);
 
-        // if (depth === 0) {
-        //     console.timeEnd("deepPopulateParent");
-        // }
         return category;
     } else {
         return category;
@@ -51,13 +45,13 @@ const deepPopulateChildren = async (category, authenticatedUserId, innerFunction
         // Will return array of promises due to async function
         let populatedChildren = await category.children
             .map(async child => {
-                let populatedChild = await Category.findById(child._id, { virtuals: true })
+                let populatedChild = await Category.findById(child.id, { virtuals: true })
                     .select("name colour flashcards children user locked")
                     // Don't populate if no permissions
-                    .populate(child.user == authenticatedUserId ? "flashcards children" : "");
+                    .populate(!child.user || child.user == authenticatedUserId ? "flashcards children" : "");
 
                 if (!populatedChild) {
-                    return Promise.resolve();
+                    return null;
                 }
 
                 const returnedFromInnerFunction = innerFunction(category, populatedChild);
@@ -66,6 +60,7 @@ const deepPopulateChildren = async (category, authenticatedUserId, innerFunction
                 }
 
                 await deepPopulateChildren(populatedChild, authenticatedUserId, innerFunction);
+                console.log(populatedChild);
                 return populatedChild;
             });
         // Resolve promises and save
