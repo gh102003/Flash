@@ -1,4 +1,4 @@
-export const version = "1.7.2";
+export const version = "1.7.3";
 
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
 export const dataProtectionEmail = "mailto:gh102003g@gmail.com?subject=Data Protection";
@@ -30,4 +30,19 @@ export const categoryColours = [
     "#a4b0be",
     "#57606f",
     "#2f3542"
+];
+
+export const profilePictures = [
+    "bird-1",
+    "bird-2",
+    "dog-1",
+    "dog-2",
+    "dog-3",
+    "fox",
+    "giraffe",
+    "jaguar",
+    "lion",
+    "lizard",
+    "robin",
+    "sea-lion"
 ];

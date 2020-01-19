@@ -176,7 +176,6 @@
 
 .subcategory .subcategory-lock.inherited i {
     opacity: 1;
-    /* color: #eee; */
 }
 
 .subcategory-lock.hoverable i {
@@ -184,11 +183,11 @@
 }
 
 .subcategory:hover .subcategory-lock.unlocked i {
-    opacity: 0.25;
+    opacity: 0.2;
 }
 
 .subcategory .subcategory-lock.unlocked.hoverable i:hover {
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 .subcategory .subcategory-lock.locked.hoverable i:hover {

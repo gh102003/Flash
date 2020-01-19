@@ -59,9 +59,15 @@ class Page extends React.Component {
         const userResponse = await util.authenticatedFetch("users/" + this.state.currentUser.id, {
             method: "GET"
         });
-        const userData = await userResponse.json();
+        if (userResponse.status === 200) {
+            const userData = await userResponse.json();
 
-        this.setState({ currentUser: { ...userData, ...this.state.currentUser } });
+            this.setState({ currentUser: { ...userData, ...this.state.currentUser } });
+        } else {
+            this.setState({ currentUser: null });
+            localStorage.removeItem("AuthToken");
+            this.getRootCategoryIdFromServer().then(() => history.push("/"));
+        }
     }
 
     async getRootCategoryIdFromServer() {
@@ -98,9 +104,29 @@ class Page extends React.Component {
                                 <h1>Flash</h1>
                             </Link>
                             <div className="header-buttons">
-                                <i className="material-icons tag-manager-button" onClick={() => this.setState({ modalOpen: "tagManager" })}>local_offer</i>
-                                <i className="material-icons account-button" onClick={() => this.setState({ modalOpen: "account" })}>{this.state.currentUser ? "person" : "account_circle"}</i>
-                                <i className="material-icons info-button" onClick={() => this.setState({ modalOpen: "infoBox" })}>info</i>
+                                <i
+                                    className="material-icons tag-manager-button"
+                                    onClick={() => this.setState({ modalOpen: "tagManager" })}
+                                    tabIndex="0">
+                                    local_offer
+                                </i>
+                                <i
+                                    className="material-icons account-button"
+                                    onClick={() => this.setState({ modalOpen: "account" })}
+                                    tabIndex="0"
+                                >
+                                    {
+                                        this.state.currentUser && this.state.currentUser.profilePicture ?
+                                            <img src={"/res/profile-pictures/128/" + this.state.currentUser.profilePicture + ".png"} alt="account" />
+                                            : "person"
+                                    }
+                                </i>
+                                <i
+                                    className="material-icons info-button"
+                                    onClick={() => this.setState({ modalOpen: "infoBox" })}
+                                    tabIndex="0">
+                                    info
+                                </i>
                             </div>
                         </header>
                         <Switch>
@@ -137,7 +163,7 @@ class Page extends React.Component {
                             )} />
                         }
                         {this.state.modalOpen === "infoBox" && <InfoBox handleClose={() => this.setState({ modalOpen: null })} />}
-                        {this.state.modalOpen === "trackingConsent" && <TrackingConsent handleClose={() => this.setState({ modalOpen: null })}/>}
+                        {this.state.modalOpen === "trackingConsent" && <TrackingConsent handleClose={() => this.setState({ modalOpen: null })} />}
                     </>
                 </BrowserRouter>
             </UserContext.Provider>

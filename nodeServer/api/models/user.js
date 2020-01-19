@@ -20,12 +20,15 @@ const userSchema = mongoose.Schema({
     },
     subscriptionLevel: { // Free = 0, Pro = 1
         type: Number,
-        required: true,
         default: 0
     },
     roles: [{ // Discord-esque roles, e.g. "moderator" or "admin"
         type: String,
-    }]
+    }],
+    profilePicture: { // A string representing the filename (excluding extension which will always be '.png') from /res/profile-pictures/[resolution]/
+        type: String,
+        default: "lion"
+    }
 });
 
 // Apply a transform to the 'toJSON' function, to change the name of the id key

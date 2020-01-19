@@ -271,6 +271,11 @@ header a {
     margin-left: 0.6em;
 }
 
+.header-buttons i:focus {
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
 .header-buttons i:hover {
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
@@ -281,8 +286,21 @@ header a {
     text-shadow: none;
 }
 
+.header-buttons i img {
+    height: 0.8em;
+    width: 0.8em;
+    border-radius: 100%;
+    border: 2px solid white;
+    background-color: #ddd;
+    margin: 0.04em 0;
+}
+
 header+* {
     margin-top: calc(3.5em + 2.1vw);
+}
+
+.twitter-picker > div:last-child {
+    padding-bottom: 15px !important;
 }
 
 @media only screen and (max-width: 600px) {

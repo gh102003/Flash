@@ -120,8 +120,39 @@ router.post("/login", (req, res, next) => {
 router.get("/:userId", verifyAuthToken, async (req, res, next) => {
     if (req.params.userId === req.user.id) {
         const user = await User.findById(req.params.userId).select("-encryptedPassword");
-        if (!user) res.status(404).json({ message: `No user found for id ${req.params.userId}`});
+        if (!user) res.status(404).json({ message: `No user found for id ${req.params.userId}` });
         res.status(200).json(user);
+    } else {
+        return res.status(401).json({ message: "unauthorised" });
+    }
+});
+
+router.patch("/:userId", verifyAuthToken, async (req, res, next) => {
+    if (req.params.userId === req.user.id) {
+        const user = await User.findById(req.params.userId);
+        if (!user) {
+            res.status(404).json({ message: `No user found for id ${req.params.userId}` });
+        }
+
+        let updateOps = {};
+        // Use for...of loop to support async/await properly
+        for (const op of req.body) {
+            if (op.propName === "profilePicture") {
+                // Use $set operation type
+                updateOps["$set"] = {
+                    ...updateOps.$set,
+                    [op.propName]: op.value
+                };
+            } else {
+                return res.status(400).json({ message: "only profile picture can be changed" });
+            }
+        }
+
+        // Update database
+        await user.update(updateOps);
+        // Get new details and send in response
+        const updatedUser = await User.findById(req.params.userId).select("-encryptedPassword");
+        res.status(200).json({ updatedUser });
     } else {
         return res.status(401).json({ message: "unauthorised" });
     }

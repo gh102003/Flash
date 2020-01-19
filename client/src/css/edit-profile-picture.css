@@ -1,0 +1,30 @@
+.edit-dialog-profile-picture {
+    background-color: white;
+    box-shadow: 0 0.2vw 8px 0 rgba(0, 0, 0, 0.3) !important;
+    padding: 1em;
+    border-radius: 0.5em;
+}
+
+.edit-dialog-profile-picture p {
+    margin: 0;
+}
+
+.edit-dialog-profile-picture .profile-pictures {
+    margin-top: 1em;
+    display: grid;
+    gap: 0.7em;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.edit-dialog-profile-picture .profile-pictures img {
+    border-radius: 100%;
+    width: 4em;
+    height: 4em;
+    cursor: pointer;
+    background-color: #ddd;
+}
+
+.edit-dialog-profile-picture .profile-pictures img:hover, .edit-dialog-profile-picture .profile-pictures img:focus {
+    box-shadow: 0 0.1vw 4px rgba(0, 0, 0, 0.5);
+    outline: none;
+}

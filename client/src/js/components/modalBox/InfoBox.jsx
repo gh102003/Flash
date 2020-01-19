@@ -39,10 +39,10 @@ export function InfoBox(props) {
                         </a> email
                     </p>
                     <p>
-                        {trackingConsent === null ? "Tracking consent has not been provided for ad personalisation" :
+                        {trackingConsent === null ? "Tracking consent has not been provided for ad personalisation." :
                             <a href="" onClick={() => {
                                 localStorage.removeItem("TrackingConsentTimestamp");
-                            }}>Revoke tracking consent for ad personalisation.</a>
+                            }}>Revoke tracking consent for ad personalisation</a>
                         }
                     </p>
                 </div>

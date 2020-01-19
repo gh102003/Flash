@@ -58,7 +58,12 @@ export const authenticatedFetch = async (path, options) =>
     );
 
 export function getUserFromAuthToken(authToken) {
-    const decodedAuthToken = jsonwebtoken.decode(authToken);
+    let decodedAuthToken;
+    try {
+        decodedAuthToken = jsonwebtoken.decode(authToken);
+    } catch(error) {
+        return null;
+    }
 
     if (!decodedAuthToken) {
         return null;
