@@ -202,12 +202,12 @@
 
 @media only screen and (max-width: 600px) {
     .profile-picture span {
-        font-size: 1em;
+        font-size: 0.95em;
     }
     .profile-picture span i {
         margin-bottom: 0;
+        font-size: 1.8em;
     }
-
     .role-badge {
         font-size: 0.9em;
         margin: 0 0.5em 0 0;

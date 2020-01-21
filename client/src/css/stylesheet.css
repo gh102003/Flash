@@ -287,12 +287,26 @@ header a {
 }
 
 .header-buttons i img {
-    height: 0.8em;
-    width: 0.8em;
+    height: 0.9em;
+    width: 0.9em;
     border-radius: 100%;
-    border: 2px solid white;
+    border: 0.08em solid white;
     background-color: #ddd;
-    margin: 0.04em 0;
+    margin: 0.01em 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.header-buttons i img:focus {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+.header-buttons i img:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.header-buttons i img:active {
+    box-shadow: none;
 }
 
 header+* {
@@ -312,6 +326,7 @@ header+* {
     }
     .header-buttons i {
         font-size: 1.5em;
+        margin-left: 0.5em;
     }
     header+* {
         margin-top: 3.8em;
