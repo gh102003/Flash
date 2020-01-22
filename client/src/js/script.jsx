@@ -28,6 +28,7 @@ import { Category } from "./components/Category.jsx";
 import { InfoBox } from "./components/modalBox/InfoBox.jsx";
 import { Account } from "./components/modalBox/account/Account.jsx";
 import { TagManager } from "./components/modalBox/tagManager/TagManager.jsx";
+import { ManageSubscription } from "./components/subscription/ManageSubscription.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
 import { NetworkIndicator } from "./components/NetworkIndicator.jsx";
 import { TrackingConsent } from "./components/modalBox/TrackingConsent.jsx";
@@ -66,7 +67,7 @@ class Page extends React.Component {
         } else {
             this.setState({ currentUser: null });
             localStorage.removeItem("AuthToken");
-            this.getRootCategoryIdFromServer().then(() => history.push("/"));
+            this.getRootCategoryIdFromServer().then(() => history.pushState(null, null, "/"));
         }
     }
 
@@ -86,85 +87,116 @@ class Page extends React.Component {
         this.setState({ rootCategoryId: rootCategory.id });
     }
 
+    returnToBackgroundLocation(history, location) {
+        history.push(location.state ? location.state.background.pathname : "/");
+    }
+
     render() {
         return (
             <UserContext.Provider value={{
                 currentUser: this.state.currentUser,
                 changeUser: newUser => this.setState({ currentUser: newUser })
             }}>
+                <Helmet>
+                    <title>Flash</title>
+                    <meta property="og:site_name" content="Flash" />
+                    <meta property="og:description" content="Create, manage and practise with your own flashcards!" />
+                </Helmet>
                 <BrowserRouter>
-                    <>
-                        <Helmet>
-                            <title>Flash</title>
-                            <meta property="og:site_name" content="Flash" />
-                            <meta property="og:description" content="Create, manage and practise with your own flashcards!" />
-                        </Helmet>
-                        <header>
-                            <Link to="/">
-                                <h1>Flash</h1>
-                            </Link>
-                            <div className="header-buttons">
-                                <i
-                                    className="material-icons tag-manager-button"
-                                    onClick={() => this.setState({ modalOpen: "tagManager" })}
-                                    tabIndex="0">
-                                    local_offer
-                                </i>
-                                <i
-                                    className="material-icons account-button"
-                                    onClick={() => this.setState({ modalOpen: "account" })}
-                                    tabIndex="0"
-                                >
-                                    {
-                                        this.state.currentUser && this.state.currentUser.profilePicture ?
-                                            <img src={"/res/profile-pictures/128/" + this.state.currentUser.profilePicture + ".png"} alt="account" />
-                                            : "person"
+                    <Route render={({ match, location, history }) => (
+                        <>
+                            <header>
+                                <Link to="/">
+                                    <h1>Flash</h1>
+                                </Link>
+                                <div className="header-buttons">
+                                    <Link className="tag-manager-button" to={{
+                                        pathname: "/tag-manager",
+                                        // Save current location for the background while nodal is open
+                                        state: { background: location }
+                                    }}>
+                                        <i className="material-icons">local_offer</i>
+                                    </Link>
+                                    <Link /*tabIndex="0"*/ className="account-button" to={{
+                                        pathname: "/account",
+                                        state: { background: location }
+                                    }}>
+                                        {
+                                            this.state.currentUser && this.state.currentUser.profilePicture ?
+                                                <img src={"/res/profile-pictures/128/" + this.state.currentUser.profilePicture + ".png"} alt="account" />
+                                                : <i className="material-icons">person</i>
+                                        }
+                                    </Link>
+                                    <Link className="info-button" to={{
+                                        pathname: "/info",
+                                        state: { background: location }
+                                    }}>
+                                        <i className="material-icons">info</i>
+                                    </Link>
+                                </div>
+                            </header>
+                            {/* Intercept location and use the background location if it exists */}
+                            <Switch location={location.state ? location.state.background : location}>
+                                <Route path="/quiz/category/:categoryId" exact component={Quiz} />
+                                <Route path="/quiz/tag/:tagId" exact component={Quiz} />
+                                <Route path="/category/:id" exact render={(routeProps) => (
+                                    <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
+                                        if (invalidToken) {
+                                            localStorage.removeItem("AuthToken");
+                                        }
+                                        // Get a new root category based on the authenticated user, then go to it
+                                        this.getRootCategoryIdFromServer()
+                                            .then(() => routeProps.history.push("/"));
+                                    }} />
+                                )} />
+                                <Route render={() => {
+                                    // If there's a root category loaded then go to it, otherwise do nothing until the next render
+                                    if (this.state.rootCategoryId) {
+                                        if (location.pathname === "/") {
+                                            return <Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />;
+                                        } else {
+                                            // Redirect the background if a modal is open
+                                            history.push(location.pathname, {
+                                                background:
+                                                {
+                                                    pathname: `/category/${this.state.rootCategoryId}`
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        return <div className="categories-loading"><NetworkIndicator /></div>;
                                     }
-                                </i>
-                                <i
-                                    className="material-icons info-button"
-                                    onClick={() => this.setState({ modalOpen: "infoBox" })}
-                                    tabIndex="0">
-                                    info
-                                </i>
-                            </div>
-                        </header>
-                        <Switch>
-                            <Route path="/quiz/category/:categoryId" exact component={Quiz} />
-                            <Route path="/quiz/tag/:tagId" exact component={Quiz} />
-                            <Route path="/category/:id" exact render={(routeProps) => (
-                                <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
-                                    if (invalidToken) {
-                                        localStorage.removeItem("AuthToken");
-                                    }
-                                    // Get a new root category based on the authenticated user, then go to it
-                                    this.getRootCategoryIdFromServer()
-                                        .then(() => routeProps.history.push("/"));
                                 }} />
-                            )} />
-                            <Route render={() => {
-                                // If there's a root category loaded then go to it, otherwise do nothing until the next render
-                                if (this.state.rootCategoryId) {
-                                    return <Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />;
-                                } else {
-                                    return <div className="categories-loading"><NetworkIndicator /></div>;
-                                }
-                            }} />
-                        </Switch>
-                        {this.state.modalOpen === "tagManager" && <TagManager handleClose={() => this.setState({ modalOpen: null })} />}
-                        {this.state.modalOpen === "account" &&
-                            // Use a blank route for account to get access to history
-                            <Route render={({ history }) => (
-                                <Account handleClose={() => this.setState({ modalOpen: null })} afterAccountChange={() => {
-                                    // Get a new root category based on the authenticated user, then go to it
-                                    this.getRootCategoryIdFromServer()
-                                        .then(() => history.push("/"));
-                                }} />
-                            )} />
-                        }
-                        {this.state.modalOpen === "infoBox" && <InfoBox handleClose={() => this.setState({ modalOpen: null })} />}
-                        {this.state.modalOpen === "trackingConsent" && <TrackingConsent handleClose={() => this.setState({ modalOpen: null })} />}
-                    </>
+                            </Switch>
+
+                            {this.state.modalOpen === "trackingConsent" ? // Hide modals from routes if tracking consent modal is open
+                                <TrackingConsent handleClose={() => this.setState({ modalOpen: null })} /> :
+                                <Switch>
+                                    <Route path="/tag-manager">
+                                        {/* Restore background's url */}
+                                        <TagManager handleClose={() => this.returnToBackgroundLocation(history, location)} />
+                                    </Route>
+                                    <Route path="/account" exact>
+                                        <Account
+                                            handleClose={() => this.returnToBackgroundLocation(history, location)}
+                                            afterAccountChange={() => {
+                                                // Get a new root category based on the authenticated user, then go to it in the background
+                                                this.getRootCategoryIdFromServer()
+                                                    .then(() => history.push("/account", { background: { pathname: "/" } }));
+                                            }}
+                                        />
+                                    </Route>
+                                    <Route path="/account/manage-subscription">
+                                        <ManageSubscription handleClose={() => history.push("/account", location.state)} />
+                                    </Route>
+                                    <Route path="/info">
+                                        <InfoBox handleClose={() => this.returnToBackgroundLocation(history, location)} />
+                                    </Route>
+                                </Switch>
+                            }
+                        </>
+                    )}>
+                    </Route>
                 </BrowserRouter>
             </UserContext.Provider>
         );

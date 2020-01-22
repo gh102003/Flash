@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { DateTime } from "luxon";
 
 import { Login } from "./Login.jsx";
@@ -30,6 +31,8 @@ export const Account = props => {
         props.afterAccountChange();
     };
 
+    const location = useLocation();
+
     let modalBox;
 
     if (!userContext.currentUser) {
@@ -37,7 +40,7 @@ export const Account = props => {
             <Login
                 afterLogin={async loginResponse => {
                     localStorage.setItem("AuthToken", loginResponse.token);
-                    
+
                     let loginResponseData;
                     try {
                         loginResponseData = util.getUserFromAuthToken(loginResponse.token);
@@ -82,12 +85,12 @@ export const Account = props => {
                 <div className="modal-body">
                     <div className={userHasRoles ? "user-info user-info-roles" : "user-info"}>
                         <div className="profile-picture">
-                            <img
+                            {userContext.currentUser.profilePicture && <img
                                 src={"/res/profile-pictures/256/" + userContext.currentUser.profilePicture + ".png"}
                                 draggable="false"
                                 onClick={event => setEditDialog(editDialog ? null : "profilePicture")} // Event is here because click events are disabled for span in CSS
                                 tabIndex="0"
-                            />
+                            />}
                             <span>
                                 <i className="material-icons">edit</i>
                                 Change
@@ -105,7 +108,11 @@ export const Account = props => {
                     <p>
                         Logged in {formattedLoginTime}
                     </p>
-                    <button onClick={() => logOut()}>
+
+                    <h3>Flash Gold</h3>
+                    <Link to={{ pathname: "/account/manage-subscription", state: location.state }}>Upgrade now!</Link>
+
+                    <button className="btn-log-out" onClick={() => logOut()}>
                         Log out
                     </button>
                 </div>

@@ -1,4 +1,4 @@
-.modal.account button, .modal.account input[type="submit"] {
+.modal.account button.btn-log-out, .modal.account input[type="submit"] {
     margin: 1em 0 0 auto;
     display: block;
 }
