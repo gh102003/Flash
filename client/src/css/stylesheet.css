@@ -291,7 +291,7 @@ header a {
     height: 0.8em;
     width: 0.8em;
     border-radius: 100%;
-    border: 2px solid white;
+    border: 0.08em solid white;
     background-color: #ddd;
     margin: 0.04em 0;
     vertical-align: middle;
@@ -314,6 +314,7 @@ header+* {
     }
     .header-buttons a {
         font-size: 1.5em;
+        margin-left: 0.5em;
     }
     header+* {
         margin-top: 3.8em;
