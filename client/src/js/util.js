@@ -45,23 +45,22 @@ export function contrastingColourFromInteger(backgroundColor) {
  * @param {string} path the path to send the request to, excluding the initial /
  * @param {*} options options to be passed to fetch
  */
-export const authenticatedFetch = async (path, options) =>
-    await fetch(
-        serverOrigin + "/" + path,
-        {
-            ...options,
-            headers: {
-                ...options.headers,
-                "Authorization": localStorage.getItem("AuthToken") ? "Bearer " + localStorage.getItem("AuthToken") : ""
-            }
+export const authenticatedFetch = async (path, options) => await fetch(
+    serverOrigin + "/" + path,
+    {
+        ...options,
+        headers: {
+            ...options.headers,
+            "Authorization": localStorage.getItem("AuthToken") ? "Bearer " + localStorage.getItem("AuthToken") : ""
         }
-    );
+    }
+);
 
 export function getUserFromAuthToken(authToken) {
     let decodedAuthToken;
     try {
         decodedAuthToken = jsonwebtoken.decode(authToken);
-    } catch(error) {
+    } catch (error) {
         return null;
     }
 

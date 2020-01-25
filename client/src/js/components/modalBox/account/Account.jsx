@@ -30,7 +30,7 @@ export const Account = props => {
         userContext.changeUser(null);
         props.afterAccountChange();
     };
-
+    
     const location = useLocation();
 
     let modalBox;

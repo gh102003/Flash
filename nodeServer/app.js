@@ -8,6 +8,7 @@ const categoryRoutes = require("./api/routes/categories");
 const flashcardRoutes = require("./api/routes/flashcards");
 const tagRoutes = require("./api/routes/tags");
 const userRoutes = require("./api/routes/users");
+const billingRoutes = require("./api/routes/billing");
 
 const credentials = require("./credentials");
 
@@ -25,12 +26,6 @@ app.use(compression());
 // Logging middleware
 app.use(morgan("dev"));
 
-// Body parser middleware
-app.use(bodyParser.urlencoded({
-    extended: false
-})); // URL encoded (query string)
-app.use(bodyParser.json()); // JSON
-
 // Fix CORS
 app.use((req, res, next) => {
     if (process.env.NODE_ENV === "development") {
@@ -43,6 +38,14 @@ app.use((req, res, next) => {
     }
     next();
 });
+// Before body parser because it does itself
+app.use("/billing", billingRoutes);
+
+// Body parser middleware
+app.use(bodyParser.urlencoded({
+    extended: false
+})); // URL encoded (query string)
+app.use(bodyParser.json()); // JSON
 
 // Setup routers (middleware)
 app.use("/categories", categoryRoutes);

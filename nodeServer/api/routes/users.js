@@ -2,10 +2,13 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser"); // Body parsing
 
 const User = require("../models/user");
 const Category = require("../models/category");
 const credentials = require("../../credentials");
+
+const stripe = require("stripe")(credentials.stripe.secretKey);
 
 const verifyAuthToken = require("../middleware/verifyAuthToken");
 

@@ -143,6 +143,7 @@ class Page extends React.Component {
                                     <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
                                         if (invalidToken) {
                                             localStorage.removeItem("AuthToken");
+                                            this.setState({ currentUser: null });
                                         }
                                         // Get a new root category based on the authenticated user, then go to it
                                         this.getRootCategoryIdFromServer()
@@ -156,12 +157,14 @@ class Page extends React.Component {
                                             return <Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />;
                                         } else {
                                             // Redirect the background if a modal is open
-                                            history.push(location.pathname, {
-                                                background:
-                                                {
-                                                    pathname: `/category/${this.state.rootCategoryId}`
+                                            return <Redirect to={{
+                                                pathname: location.pathname,
+                                                state: {
+                                                    background: {
+                                                        pathname: `/category/${this.state.rootCategoryId}`
+                                                    }
                                                 }
-                                            });
+                                            }} />;
                                         }
                                     } else {
                                         return <div className="categories-loading"><NetworkIndicator /></div>;
