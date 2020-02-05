@@ -28,10 +28,13 @@ import { Category } from "./components/Category.jsx";
 import { InfoBox } from "./components/modalBox/InfoBox.jsx";
 import { Account } from "./components/modalBox/account/Account.jsx";
 import { TagManager } from "./components/modalBox/tagManager/TagManager.jsx";
-import { ManageSubscription } from "./components/subscription/ManageSubscription.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
 import { NetworkIndicator } from "./components/NetworkIndicator.jsx";
 import { TrackingConsent } from "./components/modalBox/TrackingConsent.jsx";
+import { ManageSubscription } from "./components/subscription/ManageSubscription.jsx";
+import { SubscriptionStarted } from "./components/subscription/SubscriptionStarted.jsx";
+import { SubscriptionUpdatedPayment } from "./components/subscription/SubscriptionUpdatedPayment.jsx";
+import { SubscriptionCancelled } from "./components/subscription/SubscriptionCancelled.jsx";
 
 class Page extends React.Component {
     constructor(props) {
@@ -95,7 +98,25 @@ class Page extends React.Component {
         return (
             <UserContext.Provider value={{
                 currentUser: this.state.currentUser,
-                changeUser: newUser => this.setState({ currentUser: newUser })
+                changeUser: newUser => this.setState({ currentUser: newUser }),
+                refreshUser: async () => {
+                    let userId = this.state.currentUser.id;
+
+                    // Get more data about user in a separate request
+                    let userResponse;
+                    try {
+                        userResponse = await util.authenticatedFetch("users/" + userId, {
+                            method: "GET"
+                        });
+                    } catch (error) {
+                        // Log out if the token is invalid or expired
+                        // logOut();
+                        return;
+                    }
+                    const userData = await userResponse.json();
+
+                    this.setState({ currentUser: { ...this.state.currentUser, ...userData, subscription: { ...userData.subscription } } });
+                }
             }}>
                 <Helmet>
                     <title>Flash</title>
@@ -175,7 +196,7 @@ class Page extends React.Component {
                             {this.state.modalOpen === "trackingConsent" ? // Hide modals from routes if tracking consent modal is open
                                 <TrackingConsent handleClose={() => this.setState({ modalOpen: null })} /> :
                                 <Switch>
-                                    <Route path="/tag-manager">
+                                    <Route path="/tag-manager" exact>
                                         {/* Restore background's url */}
                                         <TagManager handleClose={() => this.returnToBackgroundLocation(history, location)} />
                                     </Route>
@@ -189,10 +210,19 @@ class Page extends React.Component {
                                             }}
                                         />
                                     </Route>
-                                    <Route path="/account/manage-subscription">
+                                    <Route path="/account/subscription" exact>
                                         <ManageSubscription handleClose={() => history.push("/account", location.state)} />
                                     </Route>
-                                    <Route path="/info">
+                                    <Route path="/account/subscription/started" exact>
+                                        <SubscriptionStarted handleClose={() => history.push("/account/subscription", location.state)} />
+                                    </Route>
+                                    <Route path="/account/subscription/updated-payment" exact>
+                                        <SubscriptionUpdatedPayment handleClose={() => history.push("/account/subscription", location.state)} />
+                                    </Route>
+                                    <Route path="/account/subscription/cancelled" exact>
+                                        <SubscriptionCancelled handleClose={() => history.push("/account/subscription", location.state)} />
+                                    </Route>
+                                    <Route path="/info" exact>
                                         <InfoBox handleClose={() => this.returnToBackgroundLocation(history, location)} />
                                     </Route>
                                 </Switch>

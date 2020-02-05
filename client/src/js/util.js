@@ -70,9 +70,25 @@ export function getUserFromAuthToken(authToken) {
     else {
         return {
             id: decodedAuthToken.id,
-            // emailAddress: decodedAuthToken.emailAddress,
-            // username: decodedAuthToken.username,
             loginTimestamp: decodedAuthToken.iat // In Unix time
         };
     }
+}
+
+export function hasFlashGold(userData) {
+    if (!userData.subscription || !userData.subscription.stripeSubscription) {
+        return false;
+    }
+
+    const subscription = userData.subscription.stripeSubscription;
+
+    if (!subscription.status === "running" && !subscription.status === "trialing") {
+        return false;
+    }
+
+    if (!subscription.plan.id === "plan_GabJbtJjesLUYV") {
+        return false;
+    }
+
+    return true;
 }

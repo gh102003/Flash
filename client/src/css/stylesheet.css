@@ -7,6 +7,10 @@
 
     /* Disable double-tap to zoom */
     touch-action: manipulation;
+
+    /* CSS variables */
+    --flash-gold-colour: #ffb51d;
+    --flash-gold-shimmer-gradient: linear-gradient(45deg, #ffbe0a 0% 40%, #ffea70);
 }
 
 /* Shows a message if js cannot be loaded, but wait a second after this stylesheet is loaded */

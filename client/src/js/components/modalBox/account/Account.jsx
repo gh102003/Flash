@@ -54,20 +54,8 @@ export const Account = props => {
                         logOut();
                     }
 
-                    // Get more data about user in a separate request
-                    let userResponse;
-                    try {
-                        userResponse = await util.authenticatedFetch("users/" + loginResponseData.id, {
-                            method: "GET"
-                        });
-                    } catch (error) {
-                        // Log out if the token is invalid or expired
-                        logOut();
-                        return;
-                    }
-                    const userData = await userResponse.json();
-
-                    userContext.changeUser({ ...userData, ...loginResponseData });
+                    userContext.changeUser({ ...loginResponseData });
+                    userContext.refreshUser();
                     props.afterAccountChange();
                 }}
                 handleClose={props.handleClose}
@@ -110,7 +98,7 @@ export const Account = props => {
                     </p>
 
                     <h3>Flash Gold</h3>
-                    <Link to={{ pathname: "/account/manage-subscription", state: location.state }}>Upgrade now!</Link>
+                    <Link to={{ pathname: "/account/subscription", state: location.state }}>Upgrade now!</Link>
 
                     <button className="btn-log-out" onClick={() => logOut()}>
                         Log out

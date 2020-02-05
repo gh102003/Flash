@@ -18,9 +18,12 @@ const userSchema = mongoose.Schema({
         required: true,
         match: /^.{6,72}$/
     },
-    subscriptionLevel: { // Free = 0, Pro = 1
-        type: Number,
-        default: 0
+    subscription: {
+        type: new mongoose.Schema({
+            stripeSubscriptionId: String,
+            stripeCustomerId: String // Set when user first subscribes
+        }),
+        required: true
     },
     roles: [{ // Discord-esque roles, e.g. "moderator" or "admin"
         type: String,

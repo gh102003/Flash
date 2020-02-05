@@ -123,8 +123,26 @@ router.post("/login", (req, res, next) => {
 router.get("/:userId", verifyAuthToken, async (req, res, next) => {
     if (req.params.userId === req.user.id) {
         const user = await User.findById(req.params.userId).select("-encryptedPassword");
-        if (!user) res.status(404).json({ message: `No user found for id ${req.params.userId}` });
-        res.status(200).json(user);
+        if (!user) {
+            return res.status(404).json({ message: `No user found for id ${req.params.userId}` });
+        }
+
+        // Get subscription details from Stripe
+        if (user.subscription && user.subscription.stripeSubscriptionId) {
+
+            const stripeSubscription = await stripe.subscriptions.retrieve(user.subscription.stripeSubscriptionId, {
+                expand: ["default_payment_method"]
+            });
+            const userObj = user.toObject();
+            return res.status(200).json({
+                ...userObj,
+                subscription: {
+                    ...userObj.subscription, stripeSubscription
+                }
+            });
+        }
+
+        return res.status(200).json(user);
     } else {
         return res.status(401).json({ message: "unauthorised" });
     }
