@@ -185,6 +185,14 @@
     color: black;
 }
 
+.role-badge-flash-gold {
+    /* background-color: var(--flash-gold-colour); */
+    background: var(--flash-gold-shimmer-gradient);
+    background-size: 300%;
+    animation: 3s ease infinite alternate flash-gold-background-shimmer;
+    color: black;
+}
+
 /* Account for padding in nested inputs */
 .input-with-validation input[type="text"], .input-with-validation input[type="password"] {
     width: calc(100% - 1.6em);

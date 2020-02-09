@@ -32,6 +32,7 @@ import { TagManager } from "./components/modalBox/tagManager/TagManager.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
 import { NetworkIndicator } from "./components/NetworkIndicator.jsx";
 import { TrackingConsent } from "./components/modalBox/TrackingConsent.jsx";
+import { ToggleDarkTheme } from "./components/ToggleDarkTheme.jsx";
 import { ManageSubscription } from "./components/subscription/ManageSubscription.jsx";
 import { SubscriptionStarted } from "./components/subscription/SubscriptionStarted.jsx";
 import { SubscriptionUpdatedPayment } from "./components/subscription/SubscriptionUpdatedPayment.jsx";
@@ -67,12 +68,16 @@ class Page extends React.Component {
                 const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
                 if (darkModeMediaQuery.matches) {
                     this.setState({ theme: "dark" });
+                    // Background underneath content (html element) is also styled for consistency
+                    document.documentElement.style.backgroundColor = "#3a3a3a";
                 }
                 darkModeMediaQuery.addListener(event => {
                     this.setState({ theme: event.matches ? "dark" : "light" });
+                    document.documentElement.style.backgroundColor = event.matches ? "#3a3a3a" : "#fff";
                 });
             } else {
                 this.setState({ theme: "light" });
+                document.documentElement.style.backgroundColor = "#fff";
             }
         }
     }
@@ -150,6 +155,12 @@ class Page extends React.Component {
                                     <h1>Flash</h1>
                                 </Link>
                                 <div className="header-buttons">
+                                    {util.hasFlashGold(this.state.currentUser) &&
+                                        <ToggleDarkTheme theme={this.state.theme} setTheme={theme => {
+                                            document.documentElement.style.backgroundColor = theme === "dark" ? "#3a3a3a" : "#fff";
+                                            this.setState({ theme });
+                                        }} />
+                                    }
                                     <Link className="tag-manager-button" to={{
                                         pathname: "/tag-manager",
                                         // Save current location for the background while nodal is open

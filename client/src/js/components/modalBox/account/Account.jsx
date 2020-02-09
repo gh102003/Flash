@@ -30,7 +30,7 @@ export const Account = props => {
         userContext.changeUser(null);
         props.afterAccountChange();
     };
-    
+
     const location = useLocation();
 
     let modalBox;
@@ -89,7 +89,10 @@ export const Account = props => {
                         <h3 className="username">
                             {userContext.currentUser.username}
                         </h3>
-                        <div className="role-badges">{renderRoleBadges()}</div>
+                        <div className="role-badges">
+                            {renderRoleBadges()}
+                            {hasFlashGold && <span className={`role-badge role-badge-flash-gold`}>Flash Gold</span>}
+                        </div>
                     </div>
                     <p>
                         {userContext.currentUser.emailAddress}

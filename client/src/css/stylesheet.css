@@ -2,7 +2,7 @@
     font-size: 1.3em;
     font-family: "Maven Pro", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
     /* Override temporary inline styles for loading */
-    transition: background-color 800ms;
+    transition: background-color 500ms;
     background-color: initial;
 
     /* Disable double-tap to zoom */
@@ -15,6 +15,7 @@
 
 .theme {
     min-height: 100vh;
+    transition: background-color 500ms
 }
 
 a.link:link {
@@ -55,20 +56,23 @@ button {
 input[type="text"], input[type="password"] {
     font-size: 0.9em;
     border: none;
-    box-shadow: 0 0.08vw 5px -1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0.05vw 2px rgba(0, 0, 0, 0.1),
+                0 0.08vw 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
     transition: box-shadow 80ms;
     border-radius: 0.7em;
-    background-color: #eaeaea;
     padding: 0.6em 0.8em;
 }
 
 input[type="text"]:hover, input[type="password"]:hover {
-    box-shadow: 0 0.12vw 6px -1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.07vw 3px rgba(0, 0, 0, 0.2),
+                0 0.12vw 8px rgba(0, 0, 0, 0.16);
     outline: none;
 }
 
 input[type="text"]:focus, input[type="password"]:focus {
-    box-shadow: 0 0.15vw 8px -1px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0.07vw 5px rgba(0, 0, 0, 0.23),
+                0 0.12vw 10px rgba(0, 0, 0, 0.2);
     outline: none;
 }
 

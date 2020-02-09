@@ -1,6 +1,6 @@
 .theme-dark {
     background-color: #3a3a3a;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.75);
     -webkit-font-smoothing: antialiased !important;
 }
 
@@ -14,7 +14,7 @@
 
 .theme-dark .modal, .theme-dark .import-flashcards-dialog, .theme-dark .edit-dialog {
     background-color: #444;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .theme-dark .modal.manage-subscription .subscription {
@@ -36,12 +36,28 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
+input[type="text"], input[type="password"] {
+    border-color: transparent;
+    box-shadow: 0 0.05vw 2px rgba(0, 0, 0, 0.2),
+                0 0.08vw 6px rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"]:hover, input[type="password"]:hover {
+    box-shadow: 0 0.07vw 3px rgba(0, 0, 0, 0.38),
+                0 0.12vw 8px rgba(0, 0, 0, 0.3);
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow: 0 0.07vw 5px rgba(0, 0, 0, 0.42),
+                0 0.12vw 10px rgba(0, 0, 0, 0.38);
+}
+
 .theme-dark input[type="submit"], .theme-dark button.primary {
     background-color: crimson;
 }
 
 .theme-dark input[type="submit"]:disabled, .theme-dark button.primary:disabled {
-    background-color: hsl(348, 33%, 60%);
+    background-color: hsl(348, 20%, 35%);
 }
 
 .theme-dark textarea {
@@ -50,6 +66,10 @@
 
 .theme-dark .twitter-picker {
     background-color: #444 !important;
+}
+
+.theme-dark .add-category-form .twitter-picker {
+    background-color: #4f4f4f !important;
 }
 
 .theme-dark .twitter-picker > div:last-child > div:first-of-type {
@@ -93,4 +113,8 @@
 
 .theme-dark .card {
     box-shadow: 0 0.1vw 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.add-form .usernames-visible-to {
+    opacity: 0.6;
 }
