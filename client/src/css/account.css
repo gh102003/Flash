@@ -182,6 +182,7 @@
 
 .role-badge-moderator {
     background-color: rgb(220, 230, 0);
+    color: black;
 }
 
 /* Account for padding in nested inputs */

@@ -76,13 +76,13 @@ export function getUserFromAuthToken(authToken) {
 }
 
 export function hasFlashGold(userData) {
-    if (!userData.subscription || !userData.subscription.stripeSubscription) {
+    if (!userData || !userData.subscription || !userData.subscription.stripeSubscription) {
         return false;
     }
 
     const subscription = userData.subscription.stripeSubscription;
 
-    if (!subscription.status === "running" && !subscription.status === "trialing") {
+    if (!(subscription.status === "active" || subscription.status === "trialing")) {
         return false;
     }
 

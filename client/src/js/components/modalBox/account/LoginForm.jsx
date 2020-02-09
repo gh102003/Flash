@@ -65,7 +65,7 @@ export class LoginForm extends React.Component {
                 />
                 <p className="privacy-notice">Data will be stored on your device to keep you logged in.</p>
                 <p className="sign-up-cta">
-                    No account? <a href="" onClick={event => {
+                    No account? <a href="" className="link" onClick={event => {
                         event.preventDefault();
                         this.props.handleSignUpCta();
                     }}>Sign up</a> to get started.

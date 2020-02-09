@@ -27,20 +27,20 @@ export function InfoBox(props) {
                     </ul>
                     <p className="external-link">
                         <i className="material-icons">open_in_new</i>
-                        <a href={sourceCodeLink}>
+                        <a className="link" href={sourceCodeLink}>
                             View source
                         </a> on GitHub
                     </p>
                     <p className="external-link">
                         <i className="material-icons">email</i>
                         Send a&nbsp;
-                        <a href={dataProtectionEmail}>
+                        <a className="link" href={dataProtectionEmail}>
                             data protection
                         </a> email
                     </p>
-                    <p>
+                    <p className="external-link">
                         {trackingConsent === null ? "Tracking consent has not been provided for ad personalisation." :
-                            <a href="" onClick={() => {
+                            <a className="link" href="" onClick={() => {
                                 localStorage.removeItem("TrackingConsentTimestamp");
                             }}>Revoke tracking consent for ad personalisation</a>
                         }

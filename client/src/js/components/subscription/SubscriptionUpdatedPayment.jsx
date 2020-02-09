@@ -11,6 +11,7 @@ export const SubscriptionUpdatedPayment = props => {
         userContext.refreshUser();
     }, []);
 
+    //TODO: show error if details couldn't be updated
     return (
         <div className="modal-background" onClick={props.handleClose} >
             <div className="modal subscription-updated-payment" onClick={event => event.stopPropagation()}>

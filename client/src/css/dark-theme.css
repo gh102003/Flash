@@ -1,0 +1,96 @@
+.theme-dark {
+    background-color: #3a3a3a;
+    color: rgba(255, 255, 255, 0.8);
+    -webkit-font-smoothing: antialiased !important;
+}
+
+.theme-dark .import-flashcards-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-dark .import-flashcards-button:active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.theme-dark .modal, .theme-dark .import-flashcards-dialog, .theme-dark .edit-dialog {
+    background-color: #444;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-dark .modal.manage-subscription .subscription {
+    background-color: #555;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2), -4px -4px 6px rgba(255, 255, 255, 0.15);
+}
+
+.theme-dark .modal.manage-subscription .subscription.subscription-gold::after {
+    box-shadow: 4px 4px 6px rgba(170, 122, 0, 0.3), -4px -4px 6px rgba(255, 240, 206, 0.2)
+}
+
+.theme-dark .modal.manage-subscription .subscription .price-details {
+    color: rgba(255, 255, 255, 0.6);
+    border-left-color: rgba(255, 255, 255, 0.4);
+}
+
+.theme-dark input, .theme-dark button, .theme-dark textarea {
+    background-color: #555;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-dark input[type="submit"], .theme-dark button.primary {
+    background-color: crimson;
+}
+
+.theme-dark input[type="submit"]:disabled, .theme-dark button.primary:disabled {
+    background-color: hsl(348, 33%, 60%);
+}
+
+.theme-dark textarea {
+    border-color: #666;
+}
+
+.theme-dark .twitter-picker {
+    background-color: #444 !important;
+}
+
+.theme-dark .twitter-picker > div:last-child > div:first-of-type {
+    background-color: #666 !important;
+}
+
+.theme-dark .twitter-picker input {
+    box-shadow: none !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.theme-dark .twitter-picker>div:nth-child(2) {
+    border-bottom-color: #444 !important;
+}
+
+.theme-dark a.link:link {
+    color: #7af;
+}
+
+.theme-dark a.link:visited {
+    color: #b8f;
+}
+
+.theme-dark a.link:active {
+    color: #f78;
+}
+
+.theme-dark .network-indicator.loading::after {
+    border-color: #777;
+    border-top-color: crimson;
+}
+
+.theme-dark .breadcrumb-category {
+    background-color: #555;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-dark .breadcrumb-category:hover {
+    background-color: #666;
+}
+
+.theme-dark .card {
+    box-shadow: 0 0.1vw 8px 0 rgba(0, 0, 0, 0.4);
+}

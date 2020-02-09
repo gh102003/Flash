@@ -62,6 +62,7 @@ export const Account = props => {
             />
         );
     } else {
+        const hasFlashGold = util.hasFlashGold(userContext.currentUser);
         const formattedLoginTime = DateTime.fromSeconds(userContext.currentUser.loginTimestamp).toRelative();
         const userHasRoles = userContext.currentUser && userContext.currentUser.roles && userContext.currentUser.roles.length > 0;
         modalBox = (
@@ -98,7 +99,7 @@ export const Account = props => {
                     </p>
 
                     <h3>Flash Gold</h3>
-                    <Link to={{ pathname: "/account/subscription", state: location.state }}>Upgrade now!</Link>
+                    <Link className="link" to={{ pathname: "/account/subscription", state: location.state }}>{hasFlashGold ? "Manage subscription" : "Upgrade now!"}</Link>
 
                     <button className="btn-log-out" onClick={() => logOut()}>
                         Log out

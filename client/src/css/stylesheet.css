@@ -13,6 +13,19 @@
     --flash-gold-shimmer-gradient: linear-gradient(45deg, #ffbe0a 0% 40%, #ffea70);
 }
 
+.theme {
+    min-height: 100vh;
+}
+
+a.link:link {
+    text-decoration: none;
+    border-bottom: 1px dotted;
+}
+
+a.link:hover {
+    border-bottom: 1px solid;
+}
+
 /* Shows a message if js cannot be loaded, but wait a second after this stylesheet is loaded */
 div.waiting-on-js {
     transition: opacity 200ms 1s;
@@ -42,27 +55,27 @@ button {
 input[type="text"], input[type="password"] {
     font-size: 0.9em;
     border: none;
-    box-shadow: 0 0.08vw 5px -1px rgba(120, 120, 120, 0.6);
+    box-shadow: 0 0.08vw 5px -1px rgba(0, 0, 0, 0.4);
     transition: box-shadow 80ms;
     border-radius: 0.7em;
-    background-color: #eee;
+    background-color: #eaeaea;
     padding: 0.6em 0.8em;
 }
 
 input[type="text"]:hover, input[type="password"]:hover {
-    box-shadow: 0 0.12vw 6px -1px rgba(120, 120, 120, 0.7);
+    box-shadow: 0 0.12vw 6px -1px rgba(0, 0, 0, 0.5);
     outline: none;
 }
 
 input[type="text"]:focus, input[type="password"]:focus {
-    box-shadow: 0 0.15vw 8px -1px rgba(120, 120, 120, 0.8);
+    box-shadow: 0 0.15vw 8px -1px rgba(0, 0, 0, 0.6);
     outline: none;
 }
 
 button, input[type="submit"] {
     border-radius: 0.7em;
     padding: 0.6em 0.8em;
-    box-shadow: 0 0.1vw 5px -1px rgba(120, 120, 120, 0.5);
+    box-shadow: 0 0.1vw 5px -1px rgba(0, 0, 0, 0.3);
     transition: box-shadow 80ms;
     margin: 0 calc(0.2vw + 0.5em) 0 0;
     border: none;
@@ -80,7 +93,7 @@ input[type="submit"], button.primary {
 }
 
 button:hover {
-    box-shadow: 0 0.12vw 6px -1px rgba(120, 120, 120, 0.7);
+    box-shadow: 0 0.12vw 6px -1px rgba(0, 0, 0, 0.5);
 }
 
 input[type="submit"]:hover {
@@ -186,7 +199,7 @@ body {
     border-radius: 1vw;
     font-size: 1.5em;
     overflow: hidden;
-    box-shadow: 0 0.1vw 5px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0.1vw 8px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     word-break: break-word;
     /* Centering of text */
@@ -302,7 +315,7 @@ header a {
 }
 
 header+* {
-    margin-top: calc(3.5em + 2.1vw);
+    padding-top: calc(3.5em + 2.1vw);
 }
 
 .twitter-picker > div:last-child {
@@ -321,7 +334,7 @@ header+* {
         margin-left: 0.5em;
     }
     header+* {
-        margin-top: 3.8em;
+        padding-top: 3.8em;
     }
 }
 
@@ -333,6 +346,6 @@ header+* {
         font-size: 1.4em;
     }
     header+* {
-        margin-top: 3.3em;
+        padding-top: 3.3em;
     }
 }

@@ -22,6 +22,7 @@ export const ManageSubscription = props => {
     }
 
     const hasFlashGold = util.hasFlashGold(userContext.currentUser);
+    
     let currentPlanInfo;
     let checkoutButtonText;
     if (hasFlashGold) {
@@ -33,8 +34,7 @@ export const ManageSubscription = props => {
                 </p>
             );
         } catch (error) {
-            console.log("no default payment method attached to stripe customer");
-
+            console.log("no payment method attached to stripe subscription");
         }
         checkoutButtonText = "Edit payment details";
     } else {
@@ -80,7 +80,7 @@ export const ManageSubscription = props => {
                                 <li className="feature-sidelined">Everything in basic, plus...</li>
                                 <li>Stand a level above the rest with exclusive profile pictures</li>
                                 <li>Meticulously analyse your progress with extended quiz options and access to our machine learning algorithm</li>
-                                <li>Match your personality with colour themes including <span style={{ backgroundColor: "#446", color: "#ddd" }}>dark mode</span></li>
+                                <li>Match your personality with colour themes including dark mode</li>
                                 {/* <li>Get exclusive access to premium sets tailored specifically to your course</li> */}
                                 <li>Show off your commitment to the maintenance of Flash with free merchandise delivered straight to your front door (UK mainland only)</li>
                             </ul>

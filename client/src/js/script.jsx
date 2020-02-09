@@ -18,6 +18,7 @@ import "../css/subcategory.css";
 import "../css/add-card.css";
 import "../css/modal-box.css";
 import "../css/tag.css";
+import "../css/dark-theme.css";
 
 import "../res/ios-splashscreens"; // All in folder, using index.js
 import "../res/icons";
@@ -45,7 +46,8 @@ class Page extends React.Component {
 
         this.state = {
             modalOpen: trackingConsent === null ? "trackingConsent" : null,
-            currentUser: util.getUserFromAuthToken(localStorage.getItem("AuthToken"))
+            currentUser: util.getUserFromAuthToken(localStorage.getItem("AuthToken")),
+            theme: "light"
         };
     }
 
@@ -55,6 +57,23 @@ class Page extends React.Component {
         // If logged in but not enough data about the user
         if (this.state.currentUser && !this.state.currentUser.username) {
             this.getUserData();
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.currentUser !== this.state.currentUser) {
+            // TODO: dark mode toggle switch
+            if (util.hasFlashGold(this.state.currentUser) && window.matchMedia) {
+                const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+                if (darkModeMediaQuery.matches) {
+                    this.setState({ theme: "dark" });
+                }
+                darkModeMediaQuery.addListener(event => {
+                    this.setState({ theme: event.matches ? "dark" : "light" });
+                });
+            } else {
+                this.setState({ theme: "light" });
+            }
         }
     }
 
@@ -125,7 +144,7 @@ class Page extends React.Component {
                 </Helmet>
                 <BrowserRouter>
                     <Route render={({ match, location, history }) => (
-                        <>
+                        <div className={"theme theme-" + this.state.theme}>
                             <header>
                                 <Link to="/">
                                     <h1>Flash</h1>
@@ -138,7 +157,7 @@ class Page extends React.Component {
                                     }}>
                                         <i className="material-icons">local_offer</i>
                                     </Link>
-                                    <Link /*tabIndex="0"*/ className="account-button" to={{
+                                    <Link className="account-button" to={{
                                         pathname: "/account",
                                         state: { background: location }
                                     }}>
@@ -227,7 +246,7 @@ class Page extends React.Component {
                                     </Route>
                                 </Switch>
                             }
-                        </>
+                        </div>
                     )}>
                     </Route>
                 </BrowserRouter>

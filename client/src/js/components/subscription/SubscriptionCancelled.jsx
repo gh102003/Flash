@@ -2,17 +2,19 @@ import React, { useContext, useEffect } from "react";
 
 import { UserContext } from "../../contexts/UserContext";
 import * as util from "../../util";
+import { useState } from "react";
 
 export const SubscriptionCancelled = props => {
     const userContext = useContext(UserContext);
     const currentUser = userContext.currentUser;
 
+    let [updating, setUpdating] = useState(true);
     // Refresh user data when modal is opened
     useEffect(() => {
-        userContext.refreshUser();
+        userContext.refreshUser().then(() => setUpdating(false));
     }, []);
 
-    if (currentUser && !util.hasFlashGold(currentUser)) {
+    if (updating || (currentUser && !util.hasFlashGold(currentUser))) {
         return (
             <div className="modal-background" onClick={props.handleClose} >
                 <div className="modal subscription-cancelled" onClick={event => event.stopPropagation()}>

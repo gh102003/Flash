@@ -1,7 +1,7 @@
 .modal {
     width: 50vw;
     border-radius: 1.7vmin;
-    background-color: white;
+    background-color: #f3f3f3;
     position: relative;
     font-size: calc(0.7vw + 0.3em);
 }

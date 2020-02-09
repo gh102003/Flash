@@ -204,7 +204,7 @@ export class SignUpForm extends React.Component {
 
 
             <p className="sign-up-cta">
-                Already got an account? <a href="" onClick={event => {
+                Already got an account? <a href="" className="link" onClick={event => {
                     event.preventDefault();
                     this.props.handleLoginCta();
                 }}>Login</a> instead.

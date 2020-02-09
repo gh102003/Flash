@@ -30,6 +30,7 @@ button.import-flashcards-button:focus {
 }
 
 button.import-flashcards-button:active {
+    top: 0;
     background-color: #e0e0e0;
 }
 

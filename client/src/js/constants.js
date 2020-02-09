@@ -1,7 +1,7 @@
 export const version = "1.7.3-gold";
 
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
-export const dataProtectionEmail = "mailto:gh102003g@gmail.com?subject=Data Protection";
+export const dataProtectionEmail = "mailto:data-protection@flashapp.uk.to";
 
 export const emailAddressRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
