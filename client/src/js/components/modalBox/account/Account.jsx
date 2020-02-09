@@ -73,7 +73,7 @@ export const Account = props => {
                 </div>
                 <div className="modal-body">
                     <div className={userHasRoles ? "user-info user-info-roles" : "user-info"}>
-                        <div className="profile-picture">
+                        <div className={"profile-picture" + (hasFlashGold ? " profile-picture-flash-gold" : "")}>
                             {userContext.currentUser.profilePicture && <img
                                 src={"/res/profile-pictures/256/" + userContext.currentUser.profilePicture + ".png"}
                                 draggable="false"

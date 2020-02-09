@@ -63,7 +63,6 @@ class Page extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.currentUser !== this.state.currentUser) {
-            // TODO: dark mode toggle switch
             if (util.hasFlashGold(this.state.currentUser) && window.matchMedia) {
                 const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
                 if (darkModeMediaQuery.matches) {
@@ -119,6 +118,8 @@ class Page extends React.Component {
     }
 
     render() {
+        const hasFlashGold = util.hasFlashGold(this.state.currentUser);
+
         return (
             <UserContext.Provider value={{
                 currentUser: this.state.currentUser,
@@ -155,7 +156,7 @@ class Page extends React.Component {
                                     <h1>Flash</h1>
                                 </Link>
                                 <div className="header-buttons">
-                                    {util.hasFlashGold(this.state.currentUser) &&
+                                    {hasFlashGold &&
                                         <ToggleDarkTheme theme={this.state.theme} setTheme={theme => {
                                             document.documentElement.style.backgroundColor = theme === "dark" ? "#3a3a3a" : "#fff";
                                             this.setState({ theme });
@@ -168,7 +169,7 @@ class Page extends React.Component {
                                     }}>
                                         <i className="material-icons">local_offer</i>
                                     </Link>
-                                    <Link className="account-button" to={{
+                                    <Link className={"account-button" + (hasFlashGold ? " account-button-gold" : "")} to={{
                                         pathname: "/account",
                                         state: { background: location }
                                     }}>
