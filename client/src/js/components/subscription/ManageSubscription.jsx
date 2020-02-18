@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Redirect, useLocation, useHistory } from "react-router";
 
+import { CouponCodeInput } from "./CouponCodeInput.jsx";
 import * as util from "../../util";
 import "../../../css/manage-subscription.css";
 
@@ -22,7 +23,7 @@ export const ManageSubscription = props => {
     }
 
     const hasFlashGold = util.hasFlashGold(userContext.currentUser);
-    
+
     let currentPlanInfo;
     let checkoutButtonText;
     if (hasFlashGold) {
@@ -50,16 +51,10 @@ export const ManageSubscription = props => {
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>
                 <div className="modal-body">
-                    <p>
-                        Subscribe to Flash Gold for a prodigious upgrade with even more features!
-                    </p>
-                    {/* <h3>Coming soon to Flash Gold:</h3>
-                    <ul>
-                        <li>Match your personality with colour themes including <span style={{ backgroundColor: "#446", color: "#ddd" }}>dark mode</span></li>
+                    <p>Subscribe to Flash Gold for a prodigious upgrade with even more features!</p>
+                    {/*<ul>
                         <li>Meticulously analyse your progress with extended quiz options</li>
-                        <li>Stand a level above the rest with exclusive profile pictures</li>
                         <li>Build up your resilience over time using our exclusive machine learning algorithms, powered by AI</li>
-                        <li>Show off your commitment to the maintenance of Flash with free merchandise delivered straight to your front door (UK mainland only)</li>
                         <li>Get exclusive access to premium sets tailored specifically to your course</li>
                     </ul> */}
 
@@ -81,7 +76,6 @@ export const ManageSubscription = props => {
                                 <li>Stand a level above the rest with exclusive profile pictures</li>
                                 <li>Meticulously analyse your progress with extended quiz options and access to our machine learning algorithm</li>
                                 <li>Match your personality with colour themes including dark mode</li>
-                                {/* <li>Get exclusive access to premium sets tailored specifically to your course</li> */}
                                 <li>Show off your commitment to the maintenance of Flash with free merchandise delivered straight to your front door (UK mainland only)</li>
                             </ul>
                             <div className="price price-gold">
@@ -99,38 +93,66 @@ export const ManageSubscription = props => {
 
                     {currentPlanInfo}
 
-                    <button className={hasFlashGold ? undefined : "get-flash-gold-cta"} onClick={async () => {
-                        // Request checkout session id from server
-                        const response = await util.authenticatedFetch("billing/checkout", { method: "GET" });
-                        if (response.status === 401) {
-                            userContext.changeUser(null);
-                            localStorage.removeItem("AuthToken");
-                            history.push("/account", location.state);
-                            return;
-                        }
-                        if (!response.ok) {
-                            alert("Payment failed");
-                        }
-                        const responseJson = await response.json();
+                    {userContext.currentUser.subscription &&
+                        <CouponCodeInput
+                            prevDiscount={userContext.currentUser.subscription.stripeDiscount}
+                            applyCouponCode={async nextCouponCode => {
+                                const response = await util.authenticatedFetch("billing/apply-coupon", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        couponCode: nextCouponCode
+                                    })
+                                });
 
-                        // eslint-disable-next-line no-undef
-                        const stripe = Stripe("pk_test_bdVzKb9hL6kZLnCIcOSQvXM200pKT3Oa5j");
-                        const { error } = await stripe.redirectToCheckout({ sessionId: responseJson.session.id });
-                        if (error) {
-                            alert("Payment failed");
-                        }
-                    }}>{checkoutButtonText}</button>
+                                if (response.status !== 200) {
+                                    throw new Error("coupon code could not be applied");
+                                }
 
-                    {hasFlashGold &&
-                        <button onClick={async () => {
-                            const response = await util.authenticatedFetch("billing/cancel-subscription", { method: "GET" });
-                            if (response.status !== 200) {
-                                alert("There was an error cancelling your subscription. Please contact us at billing@flashapp.uk.to for assistance.");
-                            } else {
-                                history.push("/account/subscription/cancelled", location.state);
-                            }
-                        }}>Cancel subscription</button>
+                                await userContext.refreshUser();
+                            }}
+                        />
                     }
+
+                    <p>
+                        <button className={hasFlashGold ? undefined : "get-flash-gold-cta"} onClick={async () => {
+                            // Request checkout session id from server
+                            const response = await util.authenticatedFetch("billing/checkout", { method: "GET" });
+
+                            // If the user wasn't authenticated
+                            if (response.status === 401) {
+                                userContext.changeUser(null);
+                                localStorage.removeItem("AuthToken");
+                                history.push("/account", location.state);
+                                return;
+                            }
+                            if (!response.ok) {
+                                alert("Payment failed");
+                            }
+
+                            const responseJson = await response.json();
+
+                            // eslint-disable-next-line no-undef
+                            const stripe = Stripe("pk_test_bdVzKb9hL6kZLnCIcOSQvXM200pKT3Oa5j");
+                            const { error } = await stripe.redirectToCheckout({ sessionId: responseJson.session.id });
+                            if (error) {
+                                alert("Payment failed");
+                            }
+                        }}>{checkoutButtonText}</button>
+
+                        {hasFlashGold &&
+                            <button onClick={async () => {
+                                const response = await util.authenticatedFetch("billing/cancel-subscription", { method: "GET" });
+                                if (response.status !== 200) {
+                                    alert("There was an error cancelling your subscription. Please contact us at billing@flashapp.uk.to for assistance.");
+                                } else {
+                                    history.push("/account/subscription/cancelled", location.state);
+                                }
+                            }}>Cancel subscription</button>
+                        }
+                    </p>
                 </div>
             </div>
         </div>

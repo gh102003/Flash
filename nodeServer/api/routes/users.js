@@ -126,6 +126,21 @@ router.get("/:userId", verifyAuthToken, async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ message: `No user found for id ${req.params.userId}` });
         }
+        let userObj = user.toObject();
+
+        // Get customer details for Stripe, for coupon code display
+        if (user.subscription && user.subscription.stripeCustomerId) {
+            const stripeCustomer = await stripe.customers.retrieve(user.subscription.stripeCustomerId);
+            if (stripeCustomer) {
+                userObj = {
+                    ...userObj,
+                    subscription: {
+                        ...userObj.subscription,
+                        stripeDiscount: stripeCustomer.discount
+                    }
+                };
+            }
+        }
 
         // Get subscription details from Stripe
         if (user.subscription && user.subscription.stripeSubscriptionId) {
@@ -133,16 +148,15 @@ router.get("/:userId", verifyAuthToken, async (req, res, next) => {
             const stripeSubscription = await stripe.subscriptions.retrieve(user.subscription.stripeSubscriptionId, {
                 expand: ["default_payment_method"]
             });
-            const userObj = user.toObject();
-            return res.status(200).json({
+            userObj = {
                 ...userObj,
                 subscription: {
                     ...userObj.subscription, stripeSubscription
                 }
-            });
+            };
         }
 
-        return res.status(200).json(user);
+        return res.status(200).json(userObj);
     } else {
         return res.status(401).json({ message: "unauthorised" });
     }

@@ -21,7 +21,8 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
     if (currentSubscription
         && currentSubscription.plan.id === "plan_GabJbtJjesLUYV"
         && (currentSubscription.status === "active" || currentSubscription.status === "trialing")) {
-        // Create a setupintent with customer and subscription metadata, for later updating payment method on server
+        // Create a setupintent with customer and subscription metadata, for later updating payment method on server in the webhook
+
         data = {
             setup_intent_data: {
                 metadata: {
@@ -34,18 +35,29 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
             success_url: "http://localhost:3000/account/subscription/updated-payment"
         };
     } else {
-        const stripeCustomerId = user.subscription && user.subscription.stripeCustomerId;
+
+        let stripeCustomerId = user.subscription && user.subscription.stripeCustomerId;
+
+        // Create a Stripe customer if the user does not have one already
+        try {
+            if (!stripeCustomerId) {
+                stripeCustomerId = await stripe.customers.create({
+                    email: user.emailAddress,
+                });
+            }
+        } catch (error) {
+            return res.status(500).json({ error });
+        }
 
         // Create a new subscription
         data = {
             // Returned by the webhook when the payment is completed, used to update database
             client_reference_id: req.user.id,
             customer: stripeCustomerId,
-            customer_email: stripeCustomerId ? undefined : user.emailAddress,
             subscription_data: {
                 items: [{
                     plan: "plan_GabJbtJjesLUYV",
-                }],
+                }]
             },
             mode: "subscription",
             success_url: "http://localhost:3000/account/subscription/started"
@@ -63,6 +75,45 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
     } catch (error) {
         return res.status(400).json({ message: error });
     }
+});
+
+router.post("/apply-coupon", bodyParser.json(), verifyAuthToken, async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    let stripeCustomerId = user.subscription && user.subscription.stripeCustomerId;
+
+    if (req.body.couponCode === undefined) {
+        return res.status(400).json({ message: "a coupon code or 'null' must be supplied" });
+    }
+
+    // Create Stripe customer if they don't have one already, otherwise update with coupon code
+    try {
+        if (!stripeCustomerId) {
+            // Create Stripe customer with coupon code
+            const stripeCustomer = await stripe.customers.create({
+                email: user.emailAddress,
+                coupon: req.body.couponCode
+            });
+            // Save Stripe customer id to database
+            await user.update({ subscription: { stripeCustomerId: stripeCustomer.id } });
+        } else {
+            // Update customer with coupon
+            await stripe.customers.update(stripeCustomerId, {
+                coupon: req.body.couponCode
+            });
+        }
+    } catch (error) {
+        // If coupon code is invalid
+        if (error.code === "resource_missing" && error.param === "coupon") {
+            return res.status(400).json({ message: "invalid coupon code" });
+        } else {
+            return res.status(400).json({ message: "could not apply coupon code" });
+        }
+    }
+
+    return res.status(200).json({
+        message: "applied coupon code successfully",
+        couponCode: req.body.couponCode
+    });
 });
 
 router.get("/cancel-subscription", verifyAuthToken, async (req, res, next) => {
@@ -134,7 +185,6 @@ const handleFulfillment = async session => {
         .findById(userId)
         .updateOne({
             subscription: {
-                //level: 1,
                 stripeCustomerId: session.customer,
                 stripeSubscriptionId: session.subscription
             }
@@ -150,10 +200,7 @@ const handleCancelSubscription = async subscriptionId => {
         .updateOne({
             $unset: {
                 "subscription.stripeSubscriptionId": 1
-            },
-            // $set: {
-            //     "subscription.level": 0
-            // }
+            }
         });
 };
 

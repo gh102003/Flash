@@ -110,7 +110,7 @@ button:active, input[type="submit"]:active {
     outline: none !important;
 }
 
-input[type="submit"]:disabled {
+input[type="submit"]:disabled, button.primary:disabled {
     background-color: hsl(348, 33%, 60%);
     cursor: not-allowed;
     box-shadow: none;
