@@ -37,6 +37,8 @@ import { ManageSubscription } from "./components/subscription/ManageSubscription
 import { SubscriptionStarted } from "./components/subscription/SubscriptionStarted.jsx";
 import { SubscriptionUpdatedPayment } from "./components/subscription/SubscriptionUpdatedPayment.jsx";
 import { SubscriptionCancelled } from "./components/subscription/SubscriptionCancelled.jsx";
+import { PaymentHistory } from "./components/subscription/PaymentHistory.jsx";
+import { FlashGoldTerms } from "./components/subscription/FlashGoldTerms.jsx";
 
 class Page extends React.Component {
     constructor(props) {
@@ -129,13 +131,13 @@ class Page extends React.Component {
 
                     // Get more data about user in a separate request
                     let userResponse;
-                    try {
-                        userResponse = await util.authenticatedFetch("users/" + userId, {
-                            method: "GET"
-                        });
-                    } catch (error) {
+                    userResponse = await util.authenticatedFetch("users/" + userId, {
+                        method: "GET"
+                    });
+                    if (userResponse.status !== 200) {
                         // Log out if the token is invalid or expired
-                        // logOut();
+                        this.setState({ currentUser: null });
+                        localStorage.removeItem("AuthToken");
                         return;
                     }
                     const userData = await userResponse.json();
@@ -164,8 +166,9 @@ class Page extends React.Component {
                                     }
                                     <Link className="tag-manager-button" to={{
                                         pathname: "/tag-manager",
-                                        // Save current location for the background while nodal is open
-                                        state: { background: location }
+                                        // Save current location for the background while modal is open
+                                        // Flow is the current flow, like "start_subscription"
+                                        state: { background: location, flow: null }
                                     }}>
                                         <i className="material-icons">local_offer</i>
                                     </Link>
@@ -252,6 +255,12 @@ class Page extends React.Component {
                                     </Route>
                                     <Route path="/account/subscription/cancelled" exact>
                                         <SubscriptionCancelled handleClose={() => history.push("/account/subscription", location.state)} />
+                                    </Route>
+                                    <Route path="/account/subscription/payment-history" exact>
+                                        <PaymentHistory handleClose={() => history.push("/account/subscription", location.state)} />
+                                    </Route>
+                                    <Route path="/account/subscription/terms" exact>
+                                        <FlashGoldTerms handleClose={() => history.push("/account/subscription", location.state)} />
                                     </Route>
                                     <Route path="/info" exact>
                                         <InfoBox handleClose={() => this.returnToBackgroundLocation(history, location)} />

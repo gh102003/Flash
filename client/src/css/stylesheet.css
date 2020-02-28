@@ -116,6 +116,10 @@ input[type="submit"]:disabled, button.primary:disabled {
     box-shadow: none;
 }
 
+input[type="text"]:disabled, button:disabled {
+    box-shadow: none;
+}
+
 /* End of buttons, inputs and anchors */
 
 body {

@@ -1,0 +1,77 @@
+.modal.flash-gold-terms {
+    /* width: 60vw; */
+    margin: 2vw 0;
+    max-height: calc(100vh - 4vw);
+}
+
+.modal.flash-gold-terms .modal-body {
+    /* Scrolling on phones */
+    overflow-y: auto;
+    max-height: calc(85vh - 5em);
+}
+
+.terms {
+    position: relative;
+    background-color: white;
+    padding: 2em;
+    margin: 1em 0;
+    font-size: 0.9em;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.terms p {
+    margin: 0.6em 0 0 0;
+    text-align: justify;
+}
+
+.terms h3 {
+    margin-top: 0;
+    font-size: 1.3em;
+}
+
+.terms h4 {
+    margin: 1em 0 0 0;
+}
+
+.terms .terms-header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.terms .terms-title {
+    flex-grow: 1;
+}
+
+.terms i.terms-print {
+    font-size: 1.8em;
+    cursor: pointer;
+}
+
+.terms i.terms-print:hover {
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.modal.flash-gold-terms button {
+    margin-top: 1em;
+    display: block;
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .terms {
+        padding: 1em;
+    }
+    .terms p {
+        text-align: start;
+    }
+    .terms h3 {
+        font-size: 1.2em;
+    }
+}
+
+@media only print {
+    .modal.flash-gold-terms {
+        width: 85vw;
+    }
+}

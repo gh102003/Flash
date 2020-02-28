@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
+import { NetworkIndicator } from "../NetworkIndicator.jsx";
 import "../../../css/coupon.css";
-import { useEffect } from "react";
 
 export const CouponCodeInput = ({ prevDiscount, applyCouponCode }) => {
     // Input is controlled here; data is passed up to ManageSubscription when buttons are clicked
@@ -16,16 +16,8 @@ export const CouponCodeInput = ({ prevDiscount, applyCouponCode }) => {
     if (prevDiscount) {
         return (
             <div className="coupon-code-input">
-                <h3>Voucher</h3>
-                <p>Current voucher (
-                    <a href="" className="link" onClick={event => {
-                        event.preventDefault();
-                        applyCouponCode(null);
-                    }}>
-                        remove
-                    </a>
-                    ):
-                </p>
+                <h3>Current Voucher</h3>
+                {couponApplicationState === "loading" && <NetworkIndicator />}
                 <div className="coupon">
                     <h4 className="coupon-name">{prevDiscount.coupon.name}</h4>
                     <p className="coupon-code">{prevDiscount.coupon.id}</p>
@@ -39,15 +31,31 @@ export const CouponCodeInput = ({ prevDiscount, applyCouponCode }) => {
                         </span>
                     </p>
                     <p className="coupon-redeemed">Redeemed {DateTime.fromSeconds(prevDiscount.start).toRelative()}</p>
-                    <p className="coupon-expires">Expires {DateTime.fromSeconds(prevDiscount.end).toRelative()}</p>
+                    <p className="coupon-expires">{
+                        prevDiscount.end ?
+                            "Expires " + DateTime.fromSeconds(prevDiscount.end).toRelative()
+                            : "Never expires"
+                    }</p>
+                    <p className="coupon-remove">
+                        <a href="" className="link" onClick={async event => {
+                            event.preventDefault();
+                            setCouponApplicationState("loading");
+                            await applyCouponCode(null);
+                            setCouponApplicationState("normal");
+                        }}>
+                            Remove
+                        </a>
+                    </p>
                 </div>
             </div>
         );
     }
 
     const applyButtonClicked = async () => {
+        setCouponApplicationState("loading");
         try {
             await applyCouponCode(couponCode);
+            setCouponApplicationState("normal");
         } catch (error) {
             console.error("invalid coupon");
             // Shake button
@@ -58,28 +66,28 @@ export const CouponCodeInput = ({ prevDiscount, applyCouponCode }) => {
 
     return (
         <div className="coupon-code-input">
-            <h3>Voucher</h3>
             {inputVisible ?
                 <>
                     <input
                         value={couponCode}
                         type="text"
+                        disabled={couponApplicationState === "loading"}
                         onChange={event => setCouponCode(event.target.value.trim())}
                         autoFocus={true}
                         onKeyDown={event => {
                             if (event.keyCode === 13) { // Enter
-                                applyButtonClicked(); 
+                                applyButtonClicked();
                             }
                         }}
                         placeholder="Enter your voucher code"
                     />
                     <button
-                        disabled={couponCode === ""}
+                        disabled={couponCode === "" || couponApplicationState === "loading"}
                         className={"primary coupon-code-apply coupon-code-apply-" + couponApplicationState}
                         onClick={applyButtonClicked}>
-                        Apply
+                        {couponApplicationState === "loading" ? <NetworkIndicator /> : "Apply"}
                     </button>
-                    <button onClick={() => setInputVisibility(false)}>Cancel</button>
+                    <button disabled={couponApplicationState === "loading"} onClick={() => setInputVisibility(false)}>Cancel</button>
                 </>
                 :
                 <a href="" className="link show-coupon-input" onClick={event => {

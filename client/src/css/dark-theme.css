@@ -36,20 +36,17 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
-input[type="text"], input[type="password"] {
+.theme-dark input[type="text"], .theme-dark input[type="password"] {
     border-color: transparent;
-    box-shadow: 0 0.05vw 2px rgba(0, 0, 0, 0.2),
-                0 0.08vw 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.05vw 2px rgba(0, 0, 0, 0.2), 0 0.08vw 6px rgba(0, 0, 0, 0.2);
 }
 
-input[type="text"]:hover, input[type="password"]:hover {
-    box-shadow: 0 0.07vw 3px rgba(0, 0, 0, 0.38),
-                0 0.12vw 8px rgba(0, 0, 0, 0.3);
+.theme-dark input[type="text"]:hover, .theme-dark input[type="password"]:hover {
+    box-shadow: 0 0.07vw 3px rgba(0, 0, 0, 0.38), 0 0.12vw 8px rgba(0, 0, 0, 0.3);
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
-    box-shadow: 0 0.07vw 5px rgba(0, 0, 0, 0.42),
-                0 0.12vw 10px rgba(0, 0, 0, 0.38);
+.theme-dark input[type="text"]:focus, .theme-dark input[type="password"]:focus {
+    box-shadow: 0 0.07vw 5px rgba(0, 0, 0, 0.42), 0 0.12vw 10px rgba(0, 0, 0, 0.38);
 }
 
 .theme-dark input[type="submit"], .theme-dark button.primary {
@@ -72,7 +69,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     background-color: #4f4f4f !important;
 }
 
-.theme-dark .twitter-picker > div:last-child > div:first-of-type {
+.theme-dark .twitter-picker>div:last-child>div:first-of-type {
     background-color: #666 !important;
 }
 
@@ -117,4 +114,27 @@ input[type="text"]:focus, input[type="password"]:focus {
 
 .add-form .usernames-visible-to {
     opacity: 0.6;
+}
+
+/* Coupon */
+
+.theme-dark .coupon {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.theme-dark .coupon .coupon-code {
+    background-color: #ddd;
+}
+
+/* Payment history */
+.theme-dark .payment-history-list {
+    background-color: #555;
+}
+
+.theme-dark .payment-history-list th {
+    background-color: #666;
+}
+
+.theme-dark .payment-history-list th, .theme-dark .payment-history-list td {
+    border-top-color: #6f6f6f;
 }

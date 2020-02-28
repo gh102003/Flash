@@ -6,6 +6,7 @@ import * as util from "../../util";
 import "../../../css/manage-subscription.css";
 
 import { UserContext } from "../../contexts/UserContext";
+import { Link } from "react-router-dom";
 
 export const ManageSubscription = props => {
 
@@ -25,7 +26,6 @@ export const ManageSubscription = props => {
     const hasFlashGold = util.hasFlashGold(userContext.currentUser);
 
     let currentPlanInfo;
-    let checkoutButtonText;
     if (hasFlashGold) {
         try {
             const paymentMethod = userContext.currentUser.subscription.stripeSubscription.default_payment_method;
@@ -37,17 +37,15 @@ export const ManageSubscription = props => {
         } catch (error) {
             console.log("no payment method attached to stripe subscription");
         }
-        checkoutButtonText = "Edit payment details";
     } else {
         currentPlanInfo = <p className="current-plan-info">You&apos;re currently not subscribed to Flash Gold.</p>;
-        checkoutButtonText = "Get Flash Gold now";
     }
 
     return (
         <div className="modal-background" onClick={props.handleClose} >
             <div className="modal manage-subscription" onClick={event => event.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>Manage Subscription</h2>
+                    <h2>Subscription</h2>
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>
                 <div className="modal-body">
@@ -71,6 +69,9 @@ export const ManageSubscription = props => {
                         </div>
                         <div className="subscription subscription-gold">
                             <h3>Flash Gold</h3>
+                            <p className="terms-link">
+                                <Link className="link" to={{ pathname: "/account/subscription/terms", state: location.state }}>Terms</Link>
+                            </p>
                             <ul className="subscription-feature-list">
                                 <li className="feature-sidelined">Everything in basic, plus...</li>
                                 <li>Stand a level above the rest with exclusive profile pictures</li>
@@ -107,6 +108,13 @@ export const ManageSubscription = props => {
                                     })
                                 });
 
+                                if (response.status === 401) {
+                                    userContext.changeUser(null);
+                                    localStorage.removeItem("AuthToken");
+                                    history.push("/account", location.state);
+                                    return;
+                                }
+
                                 if (response.status !== 200) {
                                     throw new Error("coupon code could not be applied");
                                 }
@@ -117,31 +125,37 @@ export const ManageSubscription = props => {
                     }
 
                     <p>
-                        <button className={hasFlashGold ? undefined : "get-flash-gold-cta"} onClick={async () => {
-                            // Request checkout session id from server
-                            const response = await util.authenticatedFetch("billing/checkout", { method: "GET" });
+                        {!hasFlashGold &&
+                            <button className="get-flash-gold-cta" onClick={() => {
+                                history.push("/account/subscription/terms", { ...location.state, flow: "start_subscription" });
+                            }}>Get Flash Gold now</button>
+                        }
+                        {hasFlashGold &&
+                            <button onClick={async () => {
+                                // Request checkout session id from server
+                                const response = await util.authenticatedFetch("billing/checkout", { method: "GET" });
 
-                            // If the user wasn't authenticated
-                            if (response.status === 401) {
-                                userContext.changeUser(null);
-                                localStorage.removeItem("AuthToken");
-                                history.push("/account", location.state);
-                                return;
-                            }
-                            if (!response.ok) {
-                                alert("Payment failed");
-                            }
+                                // If the user wasn't authenticated
+                                if (response.status === 401) {
+                                    userContext.changeUser(null);
+                                    localStorage.removeItem("AuthToken");
+                                    history.push("/account", location.state);
+                                    return;
+                                }
+                                if (!response.ok) {
+                                    alert("Edit failed");
+                                }
 
-                            const responseJson = await response.json();
+                                const responseJson = await response.json();
 
-                            // eslint-disable-next-line no-undef
-                            const stripe = Stripe("pk_test_bdVzKb9hL6kZLnCIcOSQvXM200pKT3Oa5j");
-                            const { error } = await stripe.redirectToCheckout({ sessionId: responseJson.session.id });
-                            if (error) {
-                                alert("Payment failed");
-                            }
-                        }}>{checkoutButtonText}</button>
-
+                                // eslint-disable-next-line no-undef
+                                const stripe = Stripe("pk_test_bdVzKb9hL6kZLnCIcOSQvXM200pKT3Oa5j");
+                                const { error } = await stripe.redirectToCheckout({ sessionId: responseJson.session.id });
+                                if (error) {
+                                    alert("Edit failed");
+                                }
+                            }}>Edit payment details</button>
+                        }
                         {hasFlashGold &&
                             <button onClick={async () => {
                                 const response = await util.authenticatedFetch("billing/cancel-subscription", { method: "GET" });
@@ -152,6 +166,8 @@ export const ManageSubscription = props => {
                                 }
                             }}>Cancel subscription</button>
                         }
+
+                        <button onClick={() => history.push("/account/subscription/payment-history", location.state)}>Payment history</button>
                     </p>
                 </div>
             </div>

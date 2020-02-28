@@ -7,7 +7,7 @@
 .modal.manage-subscription .modal-body {
     /* Scrolling on phones */
     overflow-y: auto;
-    max-height: calc(85vh - 6em);
+    max-height: calc(85vh - 5em);
 }
 
 .subscription-comparison {
@@ -131,6 +131,10 @@
 
 .subscription-feature-list>li {
     margin-bottom: 0.5em;
+}
+
+.subscription .terms-link {
+    margin: -0.5em 0 1em 0;
 }
 
 /* Price */

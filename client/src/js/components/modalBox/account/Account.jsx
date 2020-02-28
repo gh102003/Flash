@@ -63,7 +63,7 @@ export const Account = props => {
         );
     } else {
         const hasFlashGold = util.hasFlashGold(userContext.currentUser);
-        const formattedLoginTime = userContext.currentUser ? DateTime.fromSeconds(userContext.currentUser.loginTimestamp).toRelative() : "";
+        const formattedLoginTime = (userContext.currentUser && userContext.currentUser.loginTimestamp) ? DateTime.fromSeconds(userContext.currentUser.loginTimestamp).toRelative() : "";
         const userHasRoles = userContext.currentUser && userContext.currentUser.roles && userContext.currentUser.roles.length > 0;
         modalBox = (
             <div className="modal account" onClick={event => event.stopPropagation()}>

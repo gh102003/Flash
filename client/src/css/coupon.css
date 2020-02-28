@@ -6,8 +6,21 @@
     animation: login-btn-wiggle 250ms linear 0s 3;
 }
 
-.coupon {
+.coupon-code-input .network-indicator.loading {
+    animation: network-indicator-in 200ms forwards;
+    position: relative;
+}
+
+.coupon-code-input button.coupon-code-apply-loading .network-indicator.loading {
+    padding-right: 1.2em;
+}
+
+.coupon-code-input {
     margin: 1em 0;
+}
+
+.coupon {
+    margin: 0.5em 0;
     background-color: rgb(160, 15, 44);
     box-shadow: 0 0.1em 8px 0 rgba(0, 0, 0, 0.4);
     color: white;
@@ -27,6 +40,10 @@
     font-size: 1.3em;
 }
 
+.coupon p {
+    margin-top: 0.5em;
+}
+
 .coupon .coupon-code {
     font-family: "SF Mono", Consolas, monospace;
     letter-spacing: 0.1em;
@@ -34,4 +51,14 @@
     padding: 0.2em 0.4em;
     border-radius: 0.3em;
     color: black;
+}
+.coupon .coupon-remove a.link:link {
+    color: #7af;
+}
+
+.coupon .coupon-remove a.link:visited {
+    color: #b8f;
+}
+.coupon .coupon-remove a.link:active {
+    color: #f78;
 }

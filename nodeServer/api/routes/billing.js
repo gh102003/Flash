@@ -131,6 +131,20 @@ router.get("/cancel-subscription", verifyAuthToken, async (req, res, next) => {
     }
 });
 
+router.get("/invoice-history", verifyAuthToken, async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+
+    // Return empty array if there is no Stripe customer
+    if (!user.subscription || !user.subscription.stripeCustomerId) {
+        return res.status(200).json({ invoices: [] });
+    }
+
+    // Only returns last 10
+    const invoices = await stripe.invoices.list({ customer: user.subscription.stripeCustomerId });
+    
+    return res.status(200).json({ invoices: invoices.data });
+});
+
 // Receives a request from Stripe when the subscription is confirmed
 router.post("/webhook", bodyParser.raw({ type: "application/json" }), (req, res, next) => {
     const signature = req.headers["stripe-signature"]; // Used to verify that the event was sent by Stripe
