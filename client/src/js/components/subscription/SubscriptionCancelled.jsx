@@ -24,7 +24,7 @@ export const SubscriptionCancelled = props => {
                     </div>
                     <div className="modal-body">
                         <p>
-                            We&apos;re sorry to see you go! If you have any feedback, please email <a href="mailto:feedback@flashapp.uk.to">feedback@flashapp.uk.to</a>
+                            We&apos;re sorry to see you go! If you have any feedback, please email <a className="link" href="mailto:feedback@flashapp.uk.to">feedback@flashapp.uk.to</a>
 
                         </p>
                         <p>

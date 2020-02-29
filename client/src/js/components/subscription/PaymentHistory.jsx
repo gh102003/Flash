@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { DateTime } from "luxon";
 
 import * as util from "../../util";
@@ -11,9 +11,17 @@ export const PaymentHistory = props => {
     const userContext = useContext(UserContext);
     const currentUser = userContext.currentUser;
 
+    const history = useHistory();
+
     const [payments, setPayments] = useState(null);
     useEffect(() => {
         util.authenticatedFetch(`billing/invoice-history`, { method: "GET" })
+            .then(response => {
+                if (response.status === 401) {
+                    history.push("/account", location.state);
+                }
+                return response;
+            })
             .then(response => response.json())
             .then(invoices => setPayments(invoices.invoices));
     }, []);
