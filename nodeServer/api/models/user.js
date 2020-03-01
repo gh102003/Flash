@@ -13,6 +13,11 @@ const userSchema = mongoose.Schema({
         unique: true,
         match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     },
+    verifiedEmail: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     encryptedPassword: {
         type: String,
         required: true,
@@ -23,7 +28,8 @@ const userSchema = mongoose.Schema({
             stripeSubscriptionId: String,
             stripeCustomerId: String // Set when user first subscribes
         }),
-        required: true
+        required: true,
+        default: {}
     },
     roles: [{ // Discord-esque roles, e.g. "moderator" or "admin"
         type: String,

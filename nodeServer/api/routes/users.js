@@ -2,17 +2,20 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser"); // Body parsing
 
+const load_template = require("../../load_template");
+const email = require("../../email");
 const User = require("../models/user");
 const Category = require("../models/category");
 const credentials = require("../../credentials");
+const verifyAuthToken = require("../middleware/verifyAuthToken");
 
 const stripe = require("stripe")(credentials.stripe.secretKey);
 
-const verifyAuthToken = require("../middleware/verifyAuthToken");
-
 const router = express.Router();
+
+// Compile Handlebars templates for emails
+const verifyEmailAddressTemplate = load_template("verify_email_address.hbs");
 
 router.post("/signup", async (req, res, next) => {
     // Check for existing user with same name
@@ -62,6 +65,38 @@ router.post("/signup", async (req, res, next) => {
     });
     await homeCategory.save();
 
+    // Create email verifcation token
+    const emailVerificationToken = jwt.sign(
+        // Send payload (claims made by the client)
+        // When clicked, ensure the token's details matches the stored details and
+        // only ever send a email_verification token by email to the correct address
+        {
+            id: user.id,
+            emailAddress: user.emailAddress,
+            type: "email_verification"
+        },
+        credentials.jwt.privateKey,
+        {
+            expiresIn: "14d"
+        }
+    );
+
+    // Send verification email
+    email.sendMail({
+        from: "Flash Accounts <account@flashapp.uk.to>",
+        to: user.emailAddress,
+        subject: "Verify your email address",
+        html: verifyEmailAddressTemplate({ verifyUrl: process.env.port + "/verify-email/" + emailVerificationToken })
+    }, (error, info, response) => {
+        if (error) {
+            console.error("Error sending verification email to", req.body.emailAddress);
+            console.error(error);
+        } else {
+            console.log("Successfully sent verification email to", req.body.emailAddress);
+
+        }
+    });
+
     // Send response
     res.status(201).json({
         createdUser: {
@@ -104,7 +139,7 @@ router.post("/login", (req, res, next) => {
                     },
                     credentials.jwt.privateKey,
                     {
-                        expiresIn: "1h"
+                        expiresIn: "6h"
                     }
                 );
 
