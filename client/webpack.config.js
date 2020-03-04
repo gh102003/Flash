@@ -22,6 +22,7 @@ module.exports = {
         inline: true,
         port: 3000,
         historyApiFallback: {
+            disableDotRule: true, // For URLs with dots (i.e. password reset JWTs)
             rewrites: [
                 { from: /index_bundle.js$/, to: "/index_bundle.js" },
                 { from: /^\/category\/\w*$/, to: "/index.html" }

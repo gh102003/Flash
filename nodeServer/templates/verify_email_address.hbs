@@ -26,6 +26,8 @@
         p {
             text-align: center;
             margin: 2em 0.4em;
+            font-size: 0.6em;
+            color: black;
         }
 
         footer p {
@@ -35,6 +37,7 @@
 
         div.main,
         footer {
+            color: black;
             margin: 0 auto;
             max-width: 50em;
         }
@@ -58,9 +61,13 @@
             background-color: rgb(160, 15, 44);
         }
 
-        @media all and (min-width: 900px) {
+        @media (min-width: 900px) {
             .cta {
                 font-size: 2.5em;
+            }
+
+            p {
+                font-size: 1em;
             }
 
             p a.button {
@@ -87,7 +94,6 @@
     </div>
     <footer>
         <p>
-
             This email was sent because you created an account at <a
                 href="https://flashapp.uk.to">https://flashapp.uk.to</a>
         </p>

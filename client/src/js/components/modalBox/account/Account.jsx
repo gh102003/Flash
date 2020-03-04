@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { DateTime } from "luxon";
 
@@ -17,6 +17,10 @@ export const Account = props => {
 
     const userContext = useContext(UserContext);
     const [editDialog, setEditDialog] = useState(null);
+
+    useEffect(() => {
+        userContext.refreshUser();
+    }, []);
 
     const renderRoleBadges = () => {
         if (!userContext.currentUser || !userContext.currentUser.roles) return null;
@@ -94,9 +98,15 @@ export const Account = props => {
                             {hasFlashGold && <span className={`role-badge role-badge-flash-gold`}>Flash Gold</span>}
                         </div>
                     </div>
-                    <p>
-                        {userContext.currentUser.emailAddress}
-                    </p>
+                    {userContext.currentUser.emailAddress &&
+                        <p>
+                            {userContext.currentUser.emailAddress}
+                            &nbsp;({userContext.currentUser.verifiedEmail ?
+                                <span className="email-verification email-verified">verified</span>
+                                : <span className="email-verification email-not-verified">not verified</span>
+                            })
+                        </p>
+                    }
                     <p>
                         Logged in {formattedLoginTime}
                     </p>

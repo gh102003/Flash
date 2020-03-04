@@ -12,7 +12,7 @@ export const SubscriptionStarted = props => {
             <div className="modal-background" onClick={props.handleClose} >
                 <div className="modal subscription-started" onClick={event => event.stopPropagation()}>
                     <div className="modal-header">
-                        <h2>Thank you!</h2>
+                        <h2>Thank You!</h2>
                         <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                     </div>
                     <div className="modal-body">

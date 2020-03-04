@@ -197,6 +197,10 @@
     color: black;
 }
 
+.email-not-verified {
+    color: red;
+}
+
 /* Account for padding in nested inputs */
 .input-with-validation input[type="text"], .input-with-validation input[type="password"] {
     width: calc(100% - 1.6em);

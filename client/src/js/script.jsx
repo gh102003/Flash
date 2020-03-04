@@ -39,6 +39,7 @@ import { SubscriptionUpdatedPayment } from "./components/subscription/Subscripti
 import { SubscriptionCancelled } from "./components/subscription/SubscriptionCancelled.jsx";
 import { PaymentHistory } from "./components/subscription/PaymentHistory.jsx";
 import { FlashGoldTerms } from "./components/subscription/FlashGoldTerms.jsx";
+import { VerifyEmailAddress } from "./components/modalBox/account/VerifyEmailAddress.jsx";
 
 class Page extends React.Component {
     constructor(props) {
@@ -244,6 +245,11 @@ class Page extends React.Component {
                                             }}
                                         />
                                     </Route>
+
+                                    <Route path="/account/verify-email/:emailVerificationToken" render={routeProps => (
+                                        <VerifyEmailAddress emailVerificationToken={routeProps.match.params.emailVerificationToken} handleClose={() => history.push("/account", location.state)} />
+                                    )} />
+
                                     <Route path="/account/subscription" exact>
                                         <ManageSubscription handleClose={() => history.push("/account", location.state)} />
                                     </Route>
