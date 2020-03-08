@@ -49,7 +49,7 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
             if (!stripeCustomerId) {
                 stripeCustomerId = await stripe.customers.create({
                     email: user.emailAddress,
-                });
+                }).id;
             }
         } catch (error) {
             return res.status(500).json({ error });
