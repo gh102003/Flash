@@ -3,6 +3,7 @@ import { Redirect, useLocation, useHistory } from "react-router";
 
 import { CouponCodeInput } from "./CouponCodeInput.jsx";
 import * as util from "../../util";
+import * as envConstants from "../../envConstants";
 import "../../../css/manage-subscription.css";
 
 import { UserContext } from "../../contexts/UserContext";
@@ -157,7 +158,8 @@ export const ManageSubscription = props => {
                                             const responseJson = await response.json();
 
                                             // eslint-disable-next-line no-undef
-                                            const stripe = Stripe("pk_test_bdVzKb9hL6kZLnCIcOSQvXM200pKT3Oa5j");
+                                            // const stripe = Stripe("pk_test_bdVzKb9hL6kZLnCIcOSQvXM200pKT3Oa5j");
+                                            const stripe = Stripe(envConstants.stripePublicKey);
                                             const { error } = await stripe.redirectToCheckout({ sessionId: responseJson.session.id });
                                             if (error) {
                                                 alert("Edit failed");

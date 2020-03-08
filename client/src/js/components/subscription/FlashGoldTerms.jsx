@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import { UserContext } from "../../contexts/UserContext";
 import * as util from "../../util";
+import * as envConstants from "../../envConstants";
 import "../../../css/terms.css";
 import { useLocation } from "react-router";
 
@@ -137,7 +138,7 @@ export const FlashGoldTerms = props => {
                             const responseJson = await response.json();
 
                             // eslint-disable-next-line no-undef
-                            const stripe = Stripe("pk_test_bdVzKb9hL6kZLnCIcOSQvXM200pKT3Oa5j");
+                            const stripe = Stripe(envConstants.stripePublicKey);
                             const { error } = await stripe.redirectToCheckout({ sessionId: responseJson.session.id });
                             if (error) {
                                 alert("Payment failed");
