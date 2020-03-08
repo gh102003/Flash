@@ -1,4 +1,5 @@
 import * as constants from "./constants";
+import * as envConstants from "./envConstants";
 import { serverOrigin, clientOrigin } from "./envConstants";
 import jsonwebtoken from "jsonwebtoken";
 
@@ -86,7 +87,7 @@ export function hasFlashGold(userData) {
         return false;
     }
 
-    if (!subscription.plan.id === "plan_GabJbtJjesLUYV") {
+    if (!subscription.plan.id === envConstants.stripePlan) {
         return false;
     }
 
