@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Maven+Pro:400,700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: "Maven Pro", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 1.5em;
+            color: black;
+        }
+
+        h1 {
+            background-color: crimson;
+            color: white;
+            padding: 0.3em 0.5em;
+            margin: 0;
+            font-size: 2em;
+        }
+
+        p {
+            text-align: center;
+            margin: 2em 0.4em;
+            font-size: 0.6em;
+            color: black;
+        }
+
+        footer p {
+            margin: 0.7em 0.4em;
+            color: #555;
+        }
+
+        div.main,
+        footer {
+            color: black;
+            margin: 0 auto;
+            max-width: 50em;
+        }
+
+        .cta {
+            font-size: 1.5em;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        p a.button {
+            color: white;
+            background-color: crimson;
+            border-radius: 0.5em;
+            padding: 0.5em 0.7em;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .button:hover {
+            background-color: rgb(160, 15, 44);
+        }
+
+        @media (min-width: 900px) {
+            .cta {
+                font-size: 2.5em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            p a.button {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+
+<body style="">
+    <header>
+        <h1>Flash</h1>
+    </header>
+    <div class="main">
+        <p class="cta">
+            Verify your email address to finish setting up your Flash account
+        </p>
+        <p>
+            <a class="button" href="{{verifyUrl}}">
+                Click here
+            </a>
+        </p>
+        <p>Didn't work? Use this link: <a href="{{verifyUrl}}">{{verifyUrl}}</a></p>
+    </div>
+    <footer>
+        <p>
+            This email was sent because you created an account at <a
+                href="https://flashapp.uk.to">https://flashapp.uk.to</a>
+        </p>
+        <p>
+            Please reply if this was unintended
+        </p>
+    </footer>
+</body>
+
+</html>

@@ -30,14 +30,14 @@ button.import-flashcards-button:focus {
 }
 
 button.import-flashcards-button:active {
+    top: 0;
     background-color: #e0e0e0;
 }
 
 .import-flashcards-button i {
     margin-left: -0.2em;
     margin-right: 0.3em;
-    position: relative;
-    top: 0.1em;
+    padding-bottom: 0.08em;
 }
 
 @media only screen and (max-width: 600px) {

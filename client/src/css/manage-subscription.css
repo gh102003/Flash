@@ -1,0 +1,235 @@
+.modal.manage-subscription {
+    width: 60vw;
+    margin: 2vw 0;
+    max-height: calc(100vh - 4vw);
+}
+
+.modal.manage-subscription .modal-body {
+    /* Scrolling on phones */
+    overflow-y: auto;
+    max-height: calc(85vh - 5em);
+}
+
+.modal.manage-subscription .network-indicator {
+    font-size: 1.2em;
+}
+
+.subscription-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+    gap: 1em;
+    margin: 1em 0;
+}
+
+.subscription {
+    font-size: 0.9em;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    align-items: center;
+    border-radius: 1em;
+    padding: 1.2em;
+    background-color: #eee;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.15), -4px -4px 6px rgba(255, 255, 255, 1);
+}
+
+.subscription.subscription-gold {
+    box-shadow: none;
+    position: relative;
+    margin: 0.4em;
+    border: none;
+    transition: all 120ms;
+}
+
+@keyframes flash-gold-background-shimmer {
+    0% {
+        background-position: 100% 100%
+    }
+    12% {
+        background-position: 50% 50%;
+    }
+    24%, 100% {
+        background-position: 0% 0%
+    }
+}
+
+.get-flash-gold-cta {
+    background: var(--flash-gold-shimmer-gradient);
+    background-size: 300%;
+    animation: 3s ease infinite alternate flash-gold-background-shimmer;
+}
+
+.manage-subscription .current-plan-info {
+    margin: 0.7em 0;
+}
+
+.subscription.subscription-gold::after {
+    transition: all 120ms;
+    box-shadow: 4px 4px 6px rgba(170, 122, 0, 0.2), -4px -4px 6px rgba(255, 240, 206, 0.8);
+    background: var(--flash-gold-shimmer-gradient);
+    background-size: 300%;
+    animation: 3s ease infinite alternate flash-gold-background-shimmer;
+    border-radius: 1.3em;
+    position: absolute;
+    z-index: -1;
+    content: "";
+    left: -0.4em;
+    right: -0.4em;
+    top: -0.4em;
+    bottom: -0.4em;
+}
+
+.subscription.subscription-gold:hover {
+    margin: 0.8em;
+    padding: 0.8em;
+}
+
+.subscription.subscription-gold:hover::after {
+    /* border-radius: 1.6em; */
+    left: -0.8em;
+    right: -0.8em;
+    top: -0.8em;
+    bottom: -0.8em;
+}
+
+@media only screen and (max-width: 1250px) {
+    .modal.manage-subscription {
+        width: 70vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .subscription {
+        font-size: 1em;
+    }
+    .modal.manage-subscription {
+        width: 80vw;
+        margin: 4vw 0;
+        max-height: calc(100vh - 8vw);
+    }
+    .subscription-comparison {
+        /* Switch to single column layout */
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .modal.manage-subscription {
+        width: 92vw;
+    }
+    .modal.manage-subscription {
+        margin: 0vw 0 20vw 0;
+        max-height: calc(100vh - 14vh);
+    }
+    .modal.manage-subscription .modal-body {
+        max-height: calc(85vh - 14.5vh);
+    }
+}
+
+.subscription h3 {
+    margin: 0 0 0.5em 0;
+    font-family: "Patua One", Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    font-weight: normal;
+}
+
+.subscription .subscription-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.subscription-feature-list>li {
+    margin-bottom: 0.5em;
+}
+
+.subscription .terms-link {
+    margin: -0.5em 0 0.5em 0;
+}
+
+.subscription .feature-sidelined {
+    color: #888;
+}
+
+/* Price */
+
+.subscription .price {
+    font-family: "Patua One", Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    position: relative;
+    transition: transform 200ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.subscription .price.price-gold {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: repeat(2, 1fr);
+    /* Create padding on right but don't put off-center */
+    padding-right: 0.5em;
+    margin-right: -0.5em;
+}
+
+.subscription .price span {
+    text-align: left;
+    font-size: 0.7em;
+}
+
+.subscription .price>span:first-child {
+    font-size: 1.3em;
+    grid-row: 1/3;
+    vertical-align: middle;
+    padding: 0;
+    padding-right: 0.3em;
+    line-height: 1.3;
+}
+
+.subscription .price-details {
+    opacity: 0;
+    transition: opacity 200ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    ;
+    position: absolute;
+    left: 100%;
+    font-family: "Maven Pro", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #555;
+    border-left: 1px solid #666;
+    padding-left: 0.5em;
+}
+
+.subscription .price-details span {
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.subscription .price:hover .price-details {
+    opacity: 1;
+}
+
+.subscription.subscription-gold .price:hover {
+    transform: translateX(-30%);
+}
+
+/* Email verification required */
+
+.modal.manage-subscription .email-verification-required {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.modal.manage-subscription .email-verification-incomplete .email-verification-dependent {
+    opacity: 0.3;
+    pointer-events: none;
+    filter: blur(2px);
+}
+
+.modal.manage-subscription .email-verification-incomplete .get-flash-gold-cta {
+    animation: none;
+}
+
+.modal.manage-subscription .email-verification-incomplete .email-verification-cta {
+    position: absolute;
+    max-width: 450px;
+    font-weight: bold;
+}

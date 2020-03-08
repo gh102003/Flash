@@ -13,14 +13,23 @@ const userSchema = mongoose.Schema({
         unique: true,
         match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     },
+    verifiedEmail: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     encryptedPassword: {
         type: String,
         required: true,
         match: /^.{6,72}$/
     },
-    subscriptionLevel: { // Free = 0, Pro = 1
-        type: Number,
-        default: 0
+    subscription: {
+        type: new mongoose.Schema({
+            stripeSubscriptionId: String,
+            stripeCustomerId: String // Set when user first subscribes
+        }),
+        required: true,
+        default: {}
     },
     roles: [{ // Discord-esque roles, e.g. "moderator" or "admin"
         type: String,

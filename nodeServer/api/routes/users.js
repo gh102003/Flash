@@ -3,13 +3,55 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
+const load_template = require("../../load_template");
+const email = require("../../email");
 const User = require("../models/user");
 const Category = require("../models/category");
 const credentials = require("../../credentials");
-
 const verifyAuthToken = require("../middleware/verifyAuthToken");
 
+const stripe = require("stripe")(credentials.stripe.secretKey);
+stripe.setMaxNetworkRetries(2);
+
 const router = express.Router();
+
+// Compile Handlebars templates for emails
+const verifyEmailAddressTemplate = load_template("verify_email_address.hbs");
+
+const sendVerificationEmail = user => new Promise((resolve, reject) => {
+    // Create email verifcation token
+    const emailVerificationToken = jwt.sign(
+        // Send payload (claims made by the client)
+        // When clicked, ensure the token's details matches the stored details and
+        // only ever send a email_verification token by email to the correct address
+        {
+            id: user.id,
+            emailAddress: user.emailAddress,
+            type: "email_verification"
+        },
+        credentials.jwt.privateKey,
+        {
+            expiresIn: "14d"
+        }
+    );
+
+    // Send verification email
+    email.sendMail({
+        from: "Flash Accounts <account@flashapp.uk.to>",
+        to: user.emailAddress,
+        subject: "Verify your email address",
+        html: verifyEmailAddressTemplate({ verifyUrl: process.env.ADDRESS + "/account/verify-email/" + emailVerificationToken })
+    }, (error, info, response) => {
+        if (error) {
+            console.error("Error sending verification email to", user.emailAddress);
+            console.error(error);
+            reject(error);
+        } else {
+            console.log("Successfully sent verification email to", user.emailAddress);
+            resolve(info);
+        }
+    });
+});
 
 router.post("/signup", async (req, res, next) => {
     // Check for existing user with same name
@@ -59,6 +101,8 @@ router.post("/signup", async (req, res, next) => {
     });
     await homeCategory.save();
 
+    await sendVerificationEmail(user);
+
     // Send response
     res.status(201).json({
         createdUser: {
@@ -70,6 +114,24 @@ router.post("/signup", async (req, res, next) => {
         }
     });
 
+});
+
+router.get("/resend-verification-email", verifyAuthToken, async (req, res, next) => {
+    if (!req.user.id) {
+        return res.status(400).json({ message: "no user is logged in" });
+    }
+    const user = await User.findById(req.user.id);
+
+    if (req.user.emailVerified) {
+        return res.status(400).json({ message: "email address of user is already verified" });
+    }
+
+    try {
+        await sendVerificationEmail(user);
+    } catch (error) {
+        return res.status(500).json({ message: "could not send verification email" });
+    }
+    return res.status(200).json({ message: "successfully sent verification email" });
 });
 
 router.post("/login", (req, res, next) => {
@@ -101,7 +163,7 @@ router.post("/login", (req, res, next) => {
                     },
                     credentials.jwt.privateKey,
                     {
-                        expiresIn: "1h"
+                        expiresIn: "6h"
                     }
                 );
 
@@ -117,11 +179,63 @@ router.post("/login", (req, res, next) => {
         .catch(handleAuthFail);
 });
 
+router.post("/verify-email", async (req, res, next) => {
+    if (!req.body || !req.body.emailVerificationToken) {
+        return res.status(400).json({ message: "you must supply an email verification token" });
+    }
+
+    let payload;
+    try {
+        payload = jwt.verify(req.body.emailVerificationToken, credentials.jwt.privateKey);
+    } catch (error) {
+        return res.status(401).json({ message: "invalid or expired email verification token" });
+    }
+    const user = await User.findById(payload.id);
+    if (payload.type === "email_verification" && user.emailAddress === payload.emailAddress) {
+        await user.update({ verifiedEmail: true });
+        return res.status(200).json({ message: "successfully verified email address" });
+    } else {
+        return res.status(401).json({ message: "incorrect email verification token" });
+    }
+});
+
 router.get("/:userId", verifyAuthToken, async (req, res, next) => {
     if (req.params.userId === req.user.id) {
         const user = await User.findById(req.params.userId).select("-encryptedPassword");
-        if (!user) res.status(404).json({ message: `No user found for id ${req.params.userId}` });
-        res.status(200).json(user);
+        if (!user) {
+            return res.status(404).json({ message: `No user found for id ${req.params.userId}` });
+        }
+        let userObj = user.toObject();
+
+        // Get customer details for Stripe, for coupon code display
+        if (user.subscription && user.subscription.stripeCustomerId) {
+            const stripeCustomer = await stripe.customers.retrieve(user.subscription.stripeCustomerId);
+            if (stripeCustomer) {
+                userObj = {
+                    ...userObj,
+                    subscription: {
+                        ...userObj.subscription,
+                        stripeDiscount: stripeCustomer.discount
+                    }
+                };
+            }
+        }
+
+        // Get subscription details from Stripe
+        if (user.subscription && user.subscription.stripeSubscriptionId) {
+
+            const stripeSubscription = await stripe.subscriptions.retrieve(user.subscription.stripeSubscriptionId, {
+                expand: ["default_payment_method"]
+            });
+            userObj = {
+                ...userObj,
+                subscription: {
+                    ...userObj.subscription, stripeSubscription
+                }
+            };
+        }
+
+        return res.status(200).json(userObj);
     } else {
         return res.status(401).json({ message: "unauthorised" });
     }

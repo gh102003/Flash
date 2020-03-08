@@ -60,7 +60,6 @@ const deepPopulateChildren = async (category, authenticatedUserId, innerFunction
                 }
 
                 await deepPopulateChildren(populatedChild, authenticatedUserId, innerFunction);
-                console.log(populatedChild);
                 return populatedChild;
             });
         // Resolve promises and save

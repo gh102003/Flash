@@ -1,4 +1,4 @@
-.modal.account button, .modal.account input[type="submit"] {
+.modal.account button.btn-log-out, .modal.account input[type="submit"] {
     margin: 1em 0 0 auto;
     display: block;
 }
@@ -25,6 +25,11 @@
     .modal.account {
         width: 92vw;
     }
+}
+
+.modal.account .network-indicator {
+    animation-delay: 0;
+    font-size: 1.2em;
 }
 
 .login-form {
@@ -132,6 +137,10 @@
     position: relative;
 }
 
+.profile-picture-flash-gold>img {
+    border: 0.3em solid var(--flash-gold-colour);
+}
+
 .profile-picture span {
     opacity: 0;
     position: absolute;
@@ -182,6 +191,19 @@
 
 .role-badge-moderator {
     background-color: rgb(220, 230, 0);
+    color: black;
+}
+
+.role-badge-flash-gold {
+    /* background-color: var(--flash-gold-colour); */
+    background: var(--flash-gold-shimmer-gradient);
+    background-size: 300%;
+    animation: 3s ease infinite alternate flash-gold-background-shimmer;
+    color: black;
+}
+
+.email-not-verified {
+    color: red;
 }
 
 /* Account for padding in nested inputs */
