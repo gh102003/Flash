@@ -33,7 +33,7 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
             },
             customer_email: user.emailAddress,
             mode: "setup",
-            success_url: "http://localhost:3000/account/subscription/updated-payment"
+            success_url: process.env.ADDRESS + "/account/subscription/updated-payment"
         };
     } else {
 
@@ -66,14 +66,14 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
                 }]
             },
             mode: "subscription",
-            success_url: "http://localhost:3000/account/subscription/started"
+            success_url:  process.env.ADDRESS + "/account/subscription/started"
         };
     }
 
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
-            cancel_url: "http://localhost:3000/account/subscription",
+            cancel_url:  process.env.ADDRESS + "/account/subscription",
             ...data
         });
 
