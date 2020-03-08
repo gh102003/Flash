@@ -1,4 +1,4 @@
-export const version = "1.7.3-gold";
+export const version = "2.0.0";
 
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
 export const dataProtectionEmail = "mailto:data-protection@flashapp.uk.to";
