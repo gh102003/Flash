@@ -11,6 +11,7 @@ const credentials = require("../../credentials");
 const verifyAuthToken = require("../middleware/verifyAuthToken");
 
 const stripe = require("stripe")(credentials.stripe.secretKey);
+stripe.setMaxNetworkRetries(2);
 
 const router = express.Router();
 
@@ -119,7 +120,7 @@ router.get("/resend-verification-email", verifyAuthToken, async (req, res, next)
     if (!req.user.id) {
         return res.status(400).json({ message: "no user is logged in" });
     }
-    const user = User.findById(req.user.id);
+    const user = await User.findById(req.user.id);
 
     if (req.user.emailVerified) {
         return res.status(400).json({ message: "email address of user is already verified" });

@@ -131,6 +131,7 @@ export const FlashGoldTerms = props => {
                             }
                             if (!response.ok) {
                                 alert("Payment failed");
+                                return;
                             }
 
                             const responseJson = await response.json();
@@ -140,6 +141,7 @@ export const FlashGoldTerms = props => {
                             const { error } = await stripe.redirectToCheckout({ sessionId: responseJson.session.id });
                             if (error) {
                                 alert("Payment failed");
+                                return;
                             }
                         }}>I agree</button>
                     }

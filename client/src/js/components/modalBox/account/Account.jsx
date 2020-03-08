@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { DateTime } from "luxon";
 
 import { Login } from "./Login.jsx";
+import { NetworkIndicator } from "../../NetworkIndicator.jsx";
 import { UserContext } from "../../../contexts/UserContext";
 import * as util from "../../../util";
 
@@ -17,6 +18,7 @@ export const Account = props => {
 
     const userContext = useContext(UserContext);
     const [editDialog, setEditDialog] = useState(null);
+    const [emailVerificationTriggered, setEmailVerificationTriggered] = useState(false); // Makes sure user can't spam verify, must close modal and reopen first
 
     useEffect(() => {
         userContext.refreshUser();
@@ -76,43 +78,59 @@ export const Account = props => {
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>
                 <div className="modal-body">
-                    <div className={userHasRoles ? "user-info user-info-roles" : "user-info"}>
-                        <div className={"profile-picture" + (hasFlashGold ? " profile-picture-flash-gold" : "")}>
-                            {userContext.currentUser.profilePicture && <img
-                                src={"/res/profile-pictures/256/" + userContext.currentUser.profilePicture + ".png"}
-                                draggable="false"
-                                onClick={event => setEditDialog(editDialog ? null : "profilePicture")} // Event is here because click events are disabled for span in CSS
-                                tabIndex="0"
-                            />}
-                            <span>
-                                <i className="material-icons">edit</i>
-                                Change
-                            </span>
-                            {editDialog === "profilePicture" && <ProfilePictureEdit handleClose={() => setEditDialog(null)} />}
-                        </div>
-                        <h3 className="username">
-                            {userContext.currentUser.username}
-                        </h3>
-                        <div className="role-badges">
-                            {renderRoleBadges()}
-                            {hasFlashGold && <span className={`role-badge role-badge-flash-gold`}>Flash Gold</span>}
-                        </div>
-                    </div>
-                    {userContext.currentUser.emailAddress &&
-                        <p>
-                            {userContext.currentUser.emailAddress}
-                            &nbsp;({userContext.currentUser.verifiedEmail ?
-                                <span className="email-verification email-verified">verified</span>
-                                : <span className="email-verification email-not-verified">not verified</span>
-                            })
-                        </p>
-                    }
-                    <p>
-                        Logged in {formattedLoginTime}
-                    </p>
+                    {userContext.currentUser.emailAddress ? // Wait for extended user data to be loaded
+                        <>
+                            <div className={userHasRoles ? "user-info user-info-roles" : "user-info"}>
+                                <div className={"profile-picture" + (hasFlashGold ? " profile-picture-flash-gold" : "")}>
+                                    {userContext.currentUser.profilePicture && <img
+                                        src={"/res/profile-pictures/256/" + userContext.currentUser.profilePicture + ".png"}
+                                        draggable="false"
+                                        onClick={event => setEditDialog(editDialog ? null : "profilePicture")} // Event is here because click events are disabled for span in CSS
+                                        tabIndex="0"
+                                    />}
+                                    <span>
+                                        <i className="material-icons">edit</i>
+                                        Change
+                                    </span>
+                                    {editDialog === "profilePicture" && <ProfilePictureEdit handleClose={() => setEditDialog(null)} />}
+                                </div>
+                                <h3 className="username">
+                                    {userContext.currentUser.username}
+                                </h3>
+                                <div className="role-badges">
+                                    {renderRoleBadges()}
+                                    {hasFlashGold && <span className={`role-badge role-badge-flash-gold`}>Flash Gold</span>}
+                                </div>
+                            </div>
+                            <p>
+                                {userContext.currentUser.emailAddress}
+                                {userContext.currentUser.verifiedEmail ?
+                                    <span className="email-verification email-verified"> (verified)</span>
+                                    : <span className="email-verification email-not-verified"> (not verified:&nbsp;
+                                        {
+                                            emailVerificationTriggered ? "check your emails"
+                                                : <a className="link" href="" onClick={async event => {
+                                                    event.preventDefault();
+                                                    setEmailVerificationTriggered(true);
+                                                    const response = await util.authenticatedFetch("users/resend-verification-email", { method: "GET" });
+                                                    if (!response.ok) {
+                                                        alert("Flash could not send a verification email");
+                                                        setEmailVerificationTriggered(false);
+                                                    }
+                                                }}>click here</a>
+                                        })
+                                    </span>
+                                }
+                            </p>
+                            <p>
+                                Logged in {formattedLoginTime}
+                            </p>
 
-                    <h3>Flash Gold</h3>
-                    <Link className="link" to={{ pathname: "/account/subscription", state: location.state }}>{hasFlashGold ? "Manage subscription" : "Upgrade now!"}</Link>
+                            <h3>Flash Gold</h3>
+                            <Link className="link" to={{ pathname: "/account/subscription", state: location.state }}>{hasFlashGold ? "Manage subscription" : "Upgrade now!"}</Link>
+                        </>
+                        : <NetworkIndicator />
+                    }
 
                     <button className="btn-log-out" onClick={() => logOut()}>
                         Log out

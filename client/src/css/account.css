@@ -27,6 +27,11 @@
     }
 }
 
+.modal.account .network-indicator {
+    animation-delay: 0;
+    font-size: 1.2em;
+}
+
 .login-form {
     width: 100%;
     margin-top: 1em;

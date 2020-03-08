@@ -9,7 +9,7 @@ const Handlebars = require("handlebars");
 const compileTemplate = templatePath => {
     const templateFile = fs.readFileSync(path.join(__dirname, "templates", templatePath), { encoding: "utf8" });
     const template = Handlebars.compile(templateFile);
-    console.log("loaded template at '" + templatePath + "'");
+    console.log("Loaded template at '" + templatePath + "'");
     
     return template;
 };

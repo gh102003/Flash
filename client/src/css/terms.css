@@ -10,6 +10,16 @@
     max-height: calc(85vh - 5em);
 }
 
+@media only screen and (max-width: 600px) {
+    .modal.flash-gold-terms {
+        margin: 0vw 0 20vw 0;
+        max-height: calc(100vh - 14vh);
+    }
+    .modal.flash-gold-terms .modal-body {
+        max-height: calc(85vh - 14.5vh);
+    }
+}
+
 .terms {
     position: relative;
     background-color: white;

@@ -8,6 +8,7 @@ const credentials = require("../../credentials");
 const verifyAuthToken = require("../middleware/verifyAuthToken");
 
 const stripe = require("stripe")(credentials.stripe.secretKey);
+stripe.setMaxNetworkRetries(2);
 
 const router = express.Router();
 
@@ -35,6 +36,11 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
             success_url: "http://localhost:3000/account/subscription/updated-payment"
         };
     } else {
+
+        // Check the user's email address is verified
+        if (!user.verifiedEmail) {
+            return res.status(401).json({ message: "email address must be verified before starting a subscription" });
+        }
 
         let stripeCustomerId = user.subscription && user.subscription.stripeCustomerId;
 
@@ -141,7 +147,7 @@ router.get("/invoice-history", verifyAuthToken, async (req, res, next) => {
 
     // Only returns last 10
     const invoices = await stripe.invoices.list({ customer: user.subscription.stripeCustomerId });
-    
+
     return res.status(200).json({ invoices: invoices.data });
 });
 
