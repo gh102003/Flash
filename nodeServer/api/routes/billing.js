@@ -20,7 +20,7 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
 
     let data;
     if (currentSubscription
-        && currentSubscription.plan.id === "plan_GabJbtJjesLUYV"
+        && currentSubscription.plan.id === process.env.STRIPE_PLAN
         && (currentSubscription.status === "active" || currentSubscription.status === "trialing")) {
         // Create a setupintent with customer and subscription metadata, for later updating payment method on server in the webhook
 
@@ -62,7 +62,7 @@ router.get("/checkout", verifyAuthToken, async (req, res, next) => {
             customer: stripeCustomerId,
             subscription_data: {
                 items: [{
-                    plan: "plan_GabJbtJjesLUYV",
+                    plan: process.env.STRIPE_PLAN,
                 }]
             },
             mode: "subscription",

@@ -158,7 +158,6 @@ export const ManageSubscription = props => {
                                             const responseJson = await response.json();
 
                                             // eslint-disable-next-line no-undef
-                                            // const stripe = Stripe("pk_test_bdVzKb9hL6kZLnCIcOSQvXM200pKT3Oa5j");
                                             const stripe = Stripe(envConstants.stripePublicKey);
                                             const { error } = await stripe.redirectToCheckout({ sessionId: responseJson.session.id });
                                             if (error) {
