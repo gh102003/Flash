@@ -65,6 +65,8 @@
     "html-webpack-plugin": "^3.2.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2",
     "style-loader": "^0.23.1",
     "webpack": "^4.41.3",
     "webpack-cli": "^3.3.10",
