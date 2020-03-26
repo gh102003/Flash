@@ -69,11 +69,6 @@
     }
 }
 
-.card:active .tags .tag {
-    /* Used to shift scrollbar up when card is pressed down */
-    margin: 0 0.4em calc(0.3em - 0.2vw) 0;
-}
-
 .card .tags .tag {
     &:first-child {
         margin-left: 0;

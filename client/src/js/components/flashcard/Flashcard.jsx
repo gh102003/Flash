@@ -48,7 +48,7 @@ export class Flashcard extends React.Component {
         let text = this.props[this.state.side];
 
         const moderatorLoggedIn = !!(this.context.currentUser) && this.context.currentUser.roles && this.context.currentUser.roles.includes("moderator");
-        const editable = this.props.locked === false || moderatorLoggedIn;    
+        const editable = this.props.locked === false || moderatorLoggedIn;
 
         if (this.props.view === "edit") {
             return (
@@ -93,23 +93,52 @@ export class Flashcard extends React.Component {
         }
         else {
             return (
-                <FlashcardNormal
-                    editable={editable}
-                    id={this.props.id}
-                    text={text}
-                    tags={this.props.tags}
-                    styles={styles}
-                    handleFlip={() => this.flip()}
-                    handleChangeView={view => this.props.handleChangeView(view)}
-                    handleTagAdd={tag => {
-                        this.props.handleEdit("tags", tag, "push");
-                        this.props.handleSaveEdit({ propName: "tags", type: "push", value: tag.id });
-                    }}
-                    handleTagDelete={tag => {
-                        this.props.handleEdit("tags", tag, "pull");
-                        this.props.handleSaveEdit({ propName: "tags", type: "pull", value: tag.id });
-                    }}
-                />
+                <div className={"flashcard-whole flashcard-whole-" + this.state.side}>
+                    <FlashcardNormal
+                        editable={editable}
+                        id={this.props.id}
+
+                        text={this.props.front}
+
+                        side="front"
+                        // activeSide={this.state.side}
+
+                        tags={this.props.tags}
+                        styles={styles}
+                        handleFlip={() => this.flip()}
+                        handleChangeView={view => this.props.handleChangeView(view)}
+                        handleTagAdd={tag => {
+                            this.props.handleEdit("tags", tag, "push");
+                            this.props.handleSaveEdit({ propName: "tags", type: "push", value: tag.id });
+                        }}
+                        handleTagDelete={tag => {
+                            this.props.handleEdit("tags", tag, "pull");
+                            this.props.handleSaveEdit({ propName: "tags", type: "pull", value: tag.id });
+                        }}
+                    />
+                    <FlashcardNormal
+                        editable={editable}
+                        id={this.props.id}
+
+                        text={this.props.back}
+
+                        side="back"
+                        // activeSide={this.state.side}
+
+                        tags={this.props.tags}
+                        styles={styles}
+                        handleFlip={() => this.flip()}
+                        handleChangeView={view => this.props.handleChangeView(view)}
+                        handleTagAdd={tag => {
+                            this.props.handleEdit("tags", tag, "push");
+                            this.props.handleSaveEdit({ propName: "tags", type: "push", value: tag.id });
+                        }}
+                        handleTagDelete={tag => {
+                            this.props.handleEdit("tags", tag, "pull");
+                            this.props.handleSaveEdit({ propName: "tags", type: "pull", value: tag.id });
+                        }}
+                    />
+                </div>
             );
         }
 

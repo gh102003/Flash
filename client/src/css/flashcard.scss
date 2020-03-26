@@ -26,6 +26,51 @@
     }
 }
 
+/* Where there are two sides back-to-back */
+.flashcard-whole {
+    position: relative;
+    perspective: calc(400px + 20em);
+    .flashcard-side {
+        position: absolute;
+        // width: 100%;
+        left: 0;
+        right: 0;
+        transition: transform 500ms ease;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        &:active {
+            position: absolute;
+            top: 0;
+        }
+    }
+    .flashcard-side-front {
+        transform: rotateX(0deg);
+        &:active:not(.dnd-dragging){
+            transform: rotateX(25deg);
+        }
+    }
+    .flashcard-side-back {
+        transform: rotateX(-180deg);
+        &:active:not(.dnd-dragging) {
+            transform: rotateX(-155deg);
+        }
+    }
+    &.flashcard-whole-back {
+        .flashcard-side-front {
+            transform: rotateX(180deg);
+            &:active:not(.dnd-dragging) {
+                transform: rotateX(155deg);
+            }
+        }
+        .flashcard-side-back {
+            transform: rotateX(0deg);
+            &:active:not(.dnd-dragging) {
+                transform: rotateX(-25deg);
+            }
+        }
+    }
+}
+
 /* =============== Flashcard buttons =============== */
 
 .flashcard-button {

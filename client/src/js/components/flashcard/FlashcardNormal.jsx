@@ -29,7 +29,7 @@ export const FlashcardNormal = props => {
         }
     });
 
-    let className = "card flashcard card-normal";
+    let className = "card flashcard card-normal flashcard-side flashcard-side-" + props.side;
     if (collectedDragProps.isDragging) {
         className += " dnd-dragging";
     }
