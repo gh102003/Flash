@@ -80,19 +80,19 @@ input[type="text"],
 input[type="password"] {
     font-size: 0.9em;
     border: none;
-    box-shadow: 0 0.05vw 2px rgba(0, 0, 0, 0.1), 0 0.08vw 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.05vw 2px rgba(0, 0, 0, 0.05), 0 0.08vw 6px rgba(0, 0, 0, 0.05);
     border: 1px solid #ccc;
     transition: box-shadow 80ms;
     border-radius: 0.7em;
     padding: 0.6em 0.8em;
 
     &:hover {
-        box-shadow: 0 0.07vw 3px rgba(0, 0, 0, 0.2), 0 0.12vw 8px rgba(0, 0, 0, 0.16);
+        box-shadow: 0 0.07vw 3px rgba(0, 0, 0, 0.1), 0 0.12vw 8px rgba(0, 0, 0, 0.08);
         outline: none;
     }
 
     &:focus {
-        box-shadow: 0 0.07vw 5px rgba(0, 0, 0, 0.23), 0 0.12vw 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0.07vw 5px rgba(0, 0, 0, 0.12), 0 0.12vw 10px rgba(0, 0, 0, 0.1);
         outline: none;
     }
 }
