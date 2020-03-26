@@ -30,9 +30,12 @@
 .flashcard-whole {
     position: relative;
     perspective: calc(400px + 20em);
+    height: 8.4vw; // Flashcard height + flashcard padding
+    margin: 1vw;
+
     .flashcard-side {
         position: absolute;
-        // width: 100%;
+        margin: 0; // Parent has margin instead
         left: 0;
         right: 0;
         transition: transform 500ms ease;
@@ -68,6 +71,26 @@
                 transform: rotateX(-25deg);
             }
         }
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    .flashcard-whole {
+        height: 10.4vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .flashcard-whole {
+        height: 15vw;
+        margin: 1.2vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .flashcard-whole {
+        height: 21vw;
+        margin: 1.8vw;
     }
 }
 
