@@ -1,0 +1,91 @@
+@keyframes network-indicator-in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.network-indicator {
+    &.offline {
+        animation: network-indicator-in 200ms forwards;
+        color: red;
+    }
+
+    &.loading {
+        animation: network-indicator-in 1500ms forwards;
+        padding-right: 0.5em; /* Offset for spinner */
+
+        &::after {
+            content: "";
+            position: absolute;
+            margin-left: 0.5em;
+            margin-top: 0.25em;
+            width: 0.5em;
+            height: 0.5em;
+            border-radius: 50%;
+            border: 0.15em solid #ccc;
+            border-top: 0.15em solid crimson;
+            animation: network-indicator-spinner 1.2s infinite linear;
+        }
+    }
+    i.material-icons {
+        padding-right: 0.5em;
+        vertical-align: middle;
+    }
+}
+
+@keyframes network-indicator-spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.category-loading .card-display,
+.categories-loading,
+.quiz-master-loading {
+    display: flex;
+    min-height: 65vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-loading .network-indicator,
+.categories-loading .network-indicator,
+.quiz .network-indicator {
+    font-size: 3vw;
+}
+
+@media only screen and (max-width: 900px) {
+    .category-loading .card-display,
+    .categories-loading {
+        min-height: 70vh;
+    }
+    .category-loading .network-indicator,
+    .categories-loading .network-indicator,
+    .quiz .network-indicator {
+        font-size: 4vw;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .category-loading .network-indicator,
+    .categories-loading .network-indicator,
+    .quiz .network-indicator {
+        font-size: 5vw;
+        margin: 2vw 3vw;
+    }
+}
+@media only screen and (max-width: 420px) {
+    .category-loading .network-indicator,
+    .categories-loading .network-indicator,
+    .quiz .network-indicator {
+        font-size: 6vw;
+    }
+}

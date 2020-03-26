@@ -1,0 +1,123 @@
+.modal {
+    width: 50vw;
+    border-radius: 1.7vmin;
+    background-color: #f3f3f3;
+    position: relative;
+    font-size: calc(0.7vw + 0.3em);
+
+    .modal-header {
+        padding: 3vmin;
+        background-color: crimson;
+        color: white;
+        border-radius: 1.7vmin 1.7vmin 0 0;
+    }
+
+    .modal-body {
+        padding: 3vmin;
+        p {
+            margin: 0.7em 0 0 0;
+        }
+
+        > *:first-child {
+            margin: 0;
+        }
+
+        ul {
+            margin-top: 0;
+            padding-left: 1.7em;
+
+            li {
+                line-height: 1.35em;
+            }
+        }
+    }
+
+    h2 {
+        font-size: 1.6em;
+        margin: 0;
+    }
+
+    .button-close {
+        font-size: 1.5em;
+        position: absolute;
+        top: 2.5vmin;
+        right: 2.5vmin;
+        cursor: pointer;
+
+        &:hover {
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.7);
+        }
+        &:active {
+            text-shadow: none;
+            top: calc(2.5vmin + 2px);
+        }
+    }
+}
+
+.external-link i {
+    padding-bottom: 0.05em;
+    padding-right: 0.5em;
+    font-size: 1.35em;
+}
+
+@media only screen and (max-width: 1250px) {
+    .modal {
+        width: 60vw;
+        font-size: 1.6vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .modal {
+        width: 70vw;
+        max-width: 85vw;
+        font-size: 2.2vw;
+        border-radius: 2.8vmin;
+        
+        .modal-header {
+            border-radius: 2.8vmin 2.8vmin 0 0;
+            padding: 3.8vmin;
+        }
+        .modal-body {
+            padding: 3.8vmin;
+        }
+        .button-close {
+            top: 3.3vmin;
+            right: 3.3vmin;
+            
+            &:active {
+                text-shadow: none;
+                top: calc(3.3vmin + 2px);
+            }
+        }
+    }
+    .external-link i {
+        padding-right: 0.6em;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .modal {
+        max-width: 92vw;
+        width: 92vw;
+        font-size: 3.4vw;
+        border-radius: 3.7vmin;
+        
+        .modal-header {
+            border-radius: 3.7vmin 3.7vmin 0 0;
+            padding: 4.5vmin;
+        }
+        .modal-body {
+            padding: 4.5vmin;
+        }
+        .button-close {
+            top: 3.8vmin;
+            right: 3.8vmin;
+            
+            &:active {
+                text-shadow: none;
+                top: calc(3.8vmin + 2px);
+            }
+        }
+    }
+}

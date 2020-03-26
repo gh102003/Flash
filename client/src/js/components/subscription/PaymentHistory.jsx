@@ -3,7 +3,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { DateTime } from "luxon";
 
 import * as util from "../../util";
-import "../../../css/payment-history.css";
+import "../../../css/payment-history.scss";
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
 import { UserContext } from "../../contexts/UserContext";
 

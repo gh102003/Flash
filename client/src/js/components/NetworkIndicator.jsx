@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/network-indicator.css";
+import "../../css/network-indicator.scss";
 
 export const NetworkIndicator = () => (
     navigator.onLine ? <LoadingIndicator /> : <OfflineIndicator />

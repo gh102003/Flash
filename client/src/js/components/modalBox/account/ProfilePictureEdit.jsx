@@ -4,7 +4,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import * as constants from "../../../constants";
 import * as util from "../../../util";
 
-import "../../../../css/edit-profile-picture.css";
+import "../../../../css/edit-profile-picture.scss";
 require.context("../../../../res/profile-pictures/128");
 
 export const ProfilePictureEdit = props => {

@@ -12,13 +12,13 @@ import MultiBackend, { MouseTransition, TouchTransition } from "react-dnd-multi-
 import * as util from "./util";
 import * as serviceWorker from "./initServiceWorker";
 
-import "../css/stylesheet.css";
-import "../css/flashcard.css";
-import "../css/subcategory.css";
-import "../css/add-card.css";
-import "../css/modal-box.css";
-import "../css/tag.css";
-import "../css/dark-theme.css";
+import "../css/stylesheet.scss";
+import "../css/flashcard.scss";
+import "../css/subcategory.scss";
+import "../css/add-card.scss";
+import "../css/modal-box.scss";
+import "../css/tag.scss";
+import "../css/dark-theme.scss";
 
 import "../res/ios-splashscreens"; // All in folder, using index.js
 import "../res/icons";

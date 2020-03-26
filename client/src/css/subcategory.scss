@@ -1,0 +1,213 @@
+/* using pseudo-elements as a 'stack' */
+
+.subcategory {
+    font-family: "Patua One", Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: black;
+    position: relative;
+    top: -6px;
+    left: -6px;
+    overflow: visible;
+    transition: top 100ms, left 100ms;
+    /* Partially correct for stack by increasing margin to reduce card size */
+    margin: 1.1vw;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: inherit;
+        border-radius: inherit;
+        box-shadow: inherit;
+        transition: inherit;
+    }
+
+    &::before {
+        left: 6px;
+        top: 6px;
+        z-index: -1;
+    }
+
+    &::after {
+        left: 12px;
+        top: 12px;
+        z-index: -2;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .subcategory {
+        top: -4px;
+        left: -4px;
+        margin: 1.3vw;
+
+        &::before {
+            left: 4px;
+            top: 4px;
+        }
+        &::after {
+            left: 8px;
+            top: 8px;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .subcategory {
+        margin: 1.9vw;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .subcategory {
+        margin: 2.1vw;
+    }
+}
+
+/* hover effects */
+
+.subcategory.card-normal:hover,
+.subcategory.dnd-drop-hover {
+    top: -9px;
+    left: -9px;
+
+    &::before {
+        top: 9px;
+        left: 9px;
+    }
+
+    &::after {
+        top: 18px;
+        left: 18px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .subcategory.card-normal:hover,
+    .subcategory.dnd-drop-hover {
+        top: -6px;
+        left: -6px;
+
+        &::before {
+            top: 6px;
+            left: 6px;
+        }
+        &::after {
+            top: 12px;
+            left: 12px;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .subcategory.card-normal:hover,
+    .subcategory.dnd-drop-hover {
+        top: -3px;
+        left: -3px;
+        &::before {
+            top: 3px;
+            left: 3px;
+        }
+        &::after {
+            top: 6px;
+            left: 6px;
+        }
+    }
+}
+
+/* Dragging effects */
+
+.subcategory.card-normal.dnd-dragging {
+    top: -3px;
+    left: -3px;
+    &::before {
+        left: 3px;
+        top: 3px;
+    }
+
+    &::after {
+        left: 6px;
+        top: 6px;
+    }
+}
+
+/* Edit dialogs */
+
+@keyframes edit-dialog-in {
+    from {
+        opacity: 0;
+        transform: scale(0) translateY(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.edit-dialog {
+    z-index: 10;
+    position: absolute;
+    top: 85%;
+    left: 2%;
+    transform-origin: top center;
+    animation: edit-dialog-in 150ms ease-out forwards;
+    .twitter-picker {
+        font-family: "Maven Pro", Arial, Helvetica, sans-serif !important;
+        box-shadow: 0 0.1vw 8px 0 rgba(0, 0, 0, 0.3) !important;
+    }
+}
+
+.subcategory:hover .subcategory-lock.unlocked i {
+    opacity: 0.2;
+}
+
+.subcategory-lock {
+    /* Empty class used for shadow */
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    i {
+        font-size: 0.6em;
+        padding: 0.8em 0.8em 1.7em 1.7em;
+        display: block;
+        opacity: 0;
+        transition: opacity 120ms;
+        /* Here instead of .locked for hit region */
+        clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 100% 100%);
+        -webkit-clip-path: polygon(0% 0%, 50% 0%, 100% 50%, 100% 100%);
+    }
+    &.locked {
+        filter: drop-shadow(0 0.08vw 2px rgba(0, 0, 0, 0.5));
+
+        i {
+            opacity: 1;
+            background-color: crimson;
+            color: #eee;
+        }
+    }
+    &.inherited i {
+        opacity: 1;
+    }
+    &.hoverable i {
+        cursor: pointer;
+    }
+    &.unlocked.hoverable i:hover {
+        opacity: 0.6;
+    }
+    
+    &.locked.hoverable i:hover {
+        color: #fff;
+        text-shadow: 0 0.05vw 5px rgba(255, 255, 255, 0.5);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .subcategory-lock i {
+        filter: drop-shadow(0 0.1vw 1px rgba(0, 0, 0, 0.5));
+        padding: 1em 1em 2em 2em;
+        font-size: 0.7em;
+    }
+}

@@ -3,7 +3,7 @@ import React from "react";
 import { BreadcrumbCategory } from "./BreadcrumbCategory.jsx";
 import { ImportFlashcardsDialog } from "./ImportFlashcardsDialog.jsx";
 
-import "../../../css/breadcrumb.css";
+import "../../../css/breadcrumb.scss";
 import { useState } from "react";
 
 export const Breadcrumb = props => {

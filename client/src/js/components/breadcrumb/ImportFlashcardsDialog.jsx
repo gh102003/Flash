@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "../../../css/import-flashcards.css";
+import "../../../css/import-flashcards.scss";
 import * as util from "../../util";
 
 export const ImportFlashcardsDialog = props => {

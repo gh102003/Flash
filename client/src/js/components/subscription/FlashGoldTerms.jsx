@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import * as util from "../../util";
 import * as envConstants from "../../envConstants";
-import "../../../css/terms.css";
+import "../../../css/terms.scss";
 import { useLocation } from "react-router";
 
 export const FlashGoldTerms = props => {

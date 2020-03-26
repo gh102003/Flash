@@ -1,0 +1,87 @@
+.modal.payment-history {
+    max-height: calc(100vh - 4vw);
+
+    .modal-body {
+        /* Scrolling on phones */
+        overflow-y: auto;
+        max-height: calc(85vh - 6em);
+    }
+}
+
+.payment-history-list {
+    background-color: #ddd;
+    margin-top: 1em;
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        background-color: #ccc;
+    }
+
+    th,
+    td {
+        padding: 0.5em 1em 0.5em 0.5em;
+        border-top: 1px solid #b8b8b8;
+        margin: 0;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .network-indicator {
+        animation: network-indicator-in 200ms forwards;
+        font-size: 1.5em;
+        text-align: center;
+        padding: 2em 0;
+    }
+
+    td.no-payments {
+        text-align: center;
+        padding: 3em 0;
+    }
+
+    td.invoice-number {
+        font-family: "SF Mono", Consolas, monospace;
+        font-size: 0.9em;
+    }
+
+    .amount {
+        text-align: right;
+        padding-right: 3em;
+    }
+
+    td.invoice-number .link {
+        color: inherit;
+    }
+
+    .status-bad {
+        color: red;
+    }
+
+    .date .date-short {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    .payment-history-list {
+        font-size: 0.9em;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .payment-history-list {
+        th,
+        td {
+            padding: 0.5em;
+        }
+        .amount {
+            padding-right: 1em;
+        }
+        .date .date-long {
+            display: none;
+        }
+        .date .date-short {
+            display: initial;
+        }
+    }
+}

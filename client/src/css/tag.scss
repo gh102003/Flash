@@ -3,26 +3,26 @@
     visibility: hidden;
 }
 
-.tag-manager {
+.modal.tag-manager {
     min-height: 50vh;
     display: grid;
     grid-template-rows: auto 1fr;
-}
 
-.tag-manager .modal-body {
-    display: flex;
-    justify-content: space-between;
-    flex-flow: column nowrap;
+    .modal-body {
+        display: flex;
+        justify-content: space-between;
+        flex-flow: column nowrap;
+    }
+    .tags {
+        margin: 1em 0;
+        animation: fade-in 200ms forwards ease;
+    }
 }
 
 .tags {
+    // includes tags on flashcards
     display: flex;
     flex-flow: row wrap;
-}
-
-.tag-manager .tags {
-    margin: 1em 0;
-    animation: fade-in 200ms forwards ease;
 }
 
 .tag {
@@ -47,7 +47,8 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .add-tag-form .edit-dialog, .edit-dialog {
+    .add-tag-form .edit-dialog,
+    .edit-dialog {
         position: fixed;
         display: block;
         top: 50%;
@@ -62,26 +63,29 @@
         box-shadow: 0 0.1vw 15px 5px rgba(0, 0, 0, 0.5) !important;
     }
     /* Hide triangle */
-    .edit-dialog .twitter-picker>div:first-child, .edit-dialog .twitter-picker>div:nth-child(2) {
+    .edit-dialog .twitter-picker > div:first-child,
+    .edit-dialog .twitter-picker > div:nth-child(2) {
         display: none;
     }
 }
 
-/* Used to shift scrollbar up when card is pressed down */
-
 .card:active .tags .tag {
+    /* Used to shift scrollbar up when card is pressed down */
     margin: 0 0.4em calc(0.3em - 0.2vw) 0;
 }
 
-.card .tags .tag:first-child {
-    margin-left: 0;
+.card .tags .tag {
+    &:first-child {
+        margin-left: 0;
+    }
+    
+    &:last-child {
+        margin-right: 1em;
+    }
 }
 
-.card .tags .tag:last-child {
-    margin-right: 1em;
-}
-
-.tag.dnd-dragging, .card:hover .tag {
+.tag.dnd-dragging,
+.card:hover .tag {
     opacity: 0.7;
 }
 
@@ -107,19 +111,19 @@
     /* Firefox scrollbar */
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.6) rgba(255, 255, 255, 0.2);
-}
 
-.card .tags::-webkit-scrollbar {
-    height: 8px;
-    background-color: rgba(255, 255, 255, 0.25);
-    opacity: 0.25;
-    border-radius: 20px;
-}
+    &::-webkit-scrollbar {
+        height: 8px;
+        background-color: rgba(255, 255, 255, 0.25);
+        opacity: 0.25;
+        border-radius: 20px;
+    }
 
-.card .tags::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.5);
-    opacity: 0.6;
-    border-radius: 20px;
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.5);
+        opacity: 0.6;
+        border-radius: 20px;
+    }
 }
 
 .card .tag {
@@ -132,46 +136,46 @@
     margin-left: 0.4em;
 }
 
-.add-tag-form .usernames-visible-to {
-    font-style: italic;
-    font-size: 0.9em;
-    font-style: italic;
-    opacity: 0.8;
-    grid-row: 1;
-    grid-column: 1 / 4;
-    margin-bottom: 0.8em;
-}
-
 .add-tag-form {
     margin: 0;
     display: grid;
     grid-template-columns: 1fr auto auto;
-}
 
-.add-tag-form button, .add-tag-form input[type="submit"] {
-    margin: 0;
-}
+    button,
+    input[type="submit"] {
+        margin: 0;
+    }
+    button::before {
+        content: "";
+        display: inline;
+        vertical-align: middle;
+    }
 
-.add-tag-form button::before {
-    content: "";
-    display: inline;
-    vertical-align: middle;
-}
+    p.usernames-visible-to {
+        font-style: italic;
+        font-size: 0.9em;
+        font-style: italic;
+        opacity: 0.8;
+        grid-row: 1;
+        grid-column: 1 / 4;
+        margin-bottom: 0.8em;
+    }
 
-.add-tag-form .colour-preview {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    vertical-align: middle;
-    margin-left: 0.7em;
-    position: relative;
-    top: -0.1em;
-    border-radius: 0.2em;
-}
+    .colour-preview {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        vertical-align: middle;
+        margin-left: 0.7em;
+        position: relative;
+        top: -0.1em;
+        border-radius: 0.2em;
+    }
 
-.add-tag-form>* {
-    margin: 0 0.6em 0 0;
-    grid-row: 2;
+    > * {
+        margin: 0 0.6em 0 0;
+        grid-row: 2;
+    }
 }
 
 .tag-button {
@@ -181,13 +185,13 @@
     position: relative;
     cursor: pointer;
     color: inherit;
-}
 
-.tag-button:hover {
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-}
+    &:hover {
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
 
-.tag-button:active {
-    text-shadow: none;
-    top: 0;
+    &:active {
+        text-shadow: none;
+        top: 0;
+    }
 }

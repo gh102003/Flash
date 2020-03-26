@@ -1,0 +1,274 @@
+.flashcard {
+    transition: opacity 200ms;
+
+    &.card-normal {
+        &:hover {
+            box-shadow: 0 0.2vw 10px 0 rgba(0, 0, 0, 0.5);
+        }
+        &:active {
+            position: relative;
+            box-shadow: none;
+            top: 0.2vw;
+        }
+    }
+
+    &.flashcard-modal:hover {
+        box-shadow: 0 0.2vw 10px 0 rgba(0, 0, 0, 0.5);
+        /* cursor: pointer; */
+    }
+
+    &.dnd-dragging {
+        opacity: 0.5;
+        transition: opacity 500ms;
+        .flashcard-button {
+            opacity: 0;
+        }
+    }
+}
+
+/* =============== Flashcard buttons =============== */
+
+.flashcard-button {
+    line-height: 0.5;
+    position: absolute;
+    left: 0.5vw;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 0.35vw;
+    border-radius: 8vw;
+    opacity: 0;
+    transition: opacity 120ms;
+    cursor: pointer;
+
+    .material-icons {
+        font-size: 1.3vw;
+        color: black;
+    }
+
+    &:nth-child(1) {
+        top: 0.5vw;
+    }
+    &:nth-child(2) {
+        top: 2.9vw;
+    }
+    &:nth-child(3) {
+        top: 0.5vw;
+        left: 2.9vw;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    .flashcard-button {
+        left: 0.6vw;
+        padding: 0.5vw;
+
+        .material-icons {
+            font-size: 1.9vw;
+        }
+
+        &:nth-child(1) {
+            top: 0.6vw;
+        }
+        &:nth-child(2) {
+            top: 3.9vw;
+        }
+        &:nth-child(3) {
+            top: 0.6vw;
+            left: 3.9vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .flashcard-button {
+        left: 0.8vw;
+        padding: 0.7vw;
+
+        .material-icons {
+            font-size: 2.3vw;
+        }
+        &:nth-child(1) {
+            top: 0.8vw;
+        }
+        &:nth-child(2) {
+            top: 5vw;
+        }
+        &:nth-child(3) {
+            top: 0.8vw;
+            left: 5vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .flashcard-button {
+        left: 1vw;
+        padding: 1vw;
+        .material-icons {
+            font-size: 3.2vw;
+        }
+        &:nth-child(1) {
+            top: 1vw;
+        }
+        &:nth-child(2) {
+            top: 7vw;
+        }
+        &:nth-child(3) {
+            top: 1vw;
+            left: 7vw;
+        }
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .flashcard-button {
+        left: 1.4vw;
+        padding: 1.4vw;
+        .material-icons {
+            font-size: 4.5vw;
+        }
+        &:nth-child(1) {
+            top: 1.4vw;
+        }
+        &:nth-child(2) {
+            top: 10vw;
+        }
+        &:nth-child(3) {
+            top: 1.4vw;
+            left: 10vw;
+        }
+    }
+}
+
+.card:hover .flashcard-button,
+.card-edit .flashcard-button {
+    opacity: 0.25;
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.card span,
+.card .auto-size-input-wrapper {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.flashcard-modal {
+    width: 87vmin;
+    height: 55vmin;
+    padding: 5vmin;
+    font-size: 11vmin;
+    border-radius: 1.7vw;
+    margin: 0;
+
+    &:hover {
+        box-shadow: 0 0.4vmin 20px 0 rgba(0, 0, 0, 0.6);
+    }
+
+    .flashcard-button {
+        opacity: 0.3;
+        top: 2vmin;
+        left: initial;
+        padding: 1vmin;
+        display: inline-flex;
+
+        &:nth-child(1) {
+            left: 2vmin;
+        }
+    }
+
+    .flashcard-button-wrapper {
+        position: absolute;
+        right: 2vmin;
+        top: 2vmin;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8vw;
+        display: inline-flex;
+
+        .flashcard-button {
+            background-color: rgba(255, 255, 255, 0.27);
+            margin: 0 0.5vmin;
+            position: static;
+        }
+        &:first-child {
+            margin-left: 0;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .material-icons {
+        font-size: 3.3vmin;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .flashcard-modal {
+        border-radius: 3.4vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .flashcard-modal .flashcard-button {
+        top: 2.5vmin;
+        padding: 1.3vmin;
+
+        &:nth-child(1) {
+            left: 2.5vmin;
+        }
+        .material-icons {
+            font-size: 5vmin;
+        }
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .flashcard-modal {
+        border-radius: 5.1vw;
+        .material-icons {
+            font-size: 6.5vmin;
+        }
+    }
+}
+
+.card-edit div > input[type="text"] {
+    max-width: 15vw; /* Prevent overflow */
+    font-family: inherit;
+    font-size: inherit;
+    background: none;
+    padding: 3px;
+    text-align: center;
+    width: 80%;
+    border: none;
+    border-radius: 0;
+    color: inherit;
+    box-shadow: none;
+    opacity: 0.9;
+
+    &:focus {
+        outline: none;
+        opacity: 1;
+    }
+}
+
+/* Prevent autosize input getting too big */
+@media only screen and (max-width: 1250px) {
+    .card-edit div > input[type="text"] {
+        max-width: 20vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .card-edit div > input[type="text"] {
+        max-width: 25vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .card-edit div > input[type="text"] {
+        max-width: 39vw;
+    }
+}

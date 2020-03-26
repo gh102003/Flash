@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
-import "../../../css/coupon.css";
+import "../../../css/coupon.scss";
 
 export const CouponCodeInput = ({ prevDiscount, applyCouponCode }) => {
     // Input is controlled here; data is passed up to ManageSubscription when buttons are clicked

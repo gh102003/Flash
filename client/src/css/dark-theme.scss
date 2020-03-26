@@ -1,0 +1,178 @@
+.theme-dark {
+    background-color: #3a3a3a;
+    color: rgba(255, 255, 255, 0.8);
+    -webkit-font-smoothing: antialiased !important;
+
+    .import-flashcards-button {
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        &:active {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+    }
+
+    .modal,
+    .import-flashcards-dialog,
+    .edit-dialog {
+        background-color: #444;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .modal.manage-subscription {
+        .subscription {
+            background-color: #555;
+            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2), -4px -4px 6px rgba(255, 255, 255, 0.15);
+
+            &.subscription-gold::after {
+                box-shadow: 4px 4px 6px rgba(170, 122, 0, 0.3), -4px -4px 6px rgba(255, 240, 206, 0.2);
+            }
+
+            .price-details {
+                color: rgba(255, 255, 255, 0.6);
+                border-left-color: rgba(255, 255, 255, 0.4);
+            }
+        }
+    }
+
+    input,
+    button,
+    textarea {
+        background-color: #555;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        border-color: transparent;
+        box-shadow: 0 0.05vw 2px rgba(0, 0, 0, 0.2), 0 0.08vw 6px rgba(0, 0, 0, 0.2);
+
+        &:hover {
+            box-shadow: 0 0.07vw 3px rgba(0, 0, 0, 0.38), 0 0.12vw 8px rgba(0, 0, 0, 0.3);
+        }
+
+        &:focus {
+            box-shadow: 0 0.07vw 5px rgba(0, 0, 0, 0.42), 0 0.12vw 10px rgba(0, 0, 0, 0.38);
+        }
+    }
+
+    input[type="submit"],
+    button.primary {
+        background-color: crimson;
+
+        &:disabled {
+            background-color: hsl(348, 20%, 35%);
+        }
+    }
+
+    textarea {
+        border-color: #666;
+    }
+
+    .twitter-picker {
+        background-color: #444 !important;
+
+        > div:last-child > div:first-of-type {
+            background-color: #666 !important;
+        }
+
+        input {
+            box-shadow: none !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        > div:nth-child(2) {
+            border-bottom-color: #444 !important;
+        }
+    }
+
+    .add-category-form .twitter-picker {
+        background-color: #4f4f4f !important;
+    }
+
+    a.link {
+        &:link {
+            color: #7af;
+        }
+
+        &:visited {
+            color: #b8f;
+        }
+
+        &:active {
+            color: #f78;
+        }
+    }
+
+    .network-indicator.loading::after {
+        border-color: #777;
+        border-top-color: crimson;
+    }
+
+    .breadcrumb-category {
+        background-color: #555;
+        color: rgba(255, 255, 255, 0.8);
+
+        &:hover {
+            background-color: #666;
+        }
+    }
+
+    .card {
+        box-shadow: 0 0.1vw 8px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .usernames-visible-to {
+        opacity: 0.6;
+    }
+
+    .quiz-stats {
+        background-color: #555;
+    }
+
+    .quiz-start-btn {
+        background-color: crimson;
+        color: white;
+    }
+
+    .quiz-answer-entry input {
+        box-shadow: none;
+        border-bottom-color: rgba(255, 255, 255, 0.5);
+
+        &:hover,
+        &:focus {
+            box-shadow: none;
+            border-bottom-color: rgba(255, 255, 255, 0.75);
+        }
+    }
+
+    .quiz-empty {
+        border-color: #666;
+    }
+
+    .coupon {
+        color: rgba(255, 255, 255, 0.9);
+        &.coupon-code {
+            background-color: #ddd;
+        }
+    }
+
+    /* Payment history */
+    .payment-history-list {
+        background-color: #555;
+
+        th {
+            background-color: #666;
+            border-top-color: #6f6f6f;
+        }
+        td {
+            border-top-color: #6f6f6f;
+        }
+    }
+
+
+    .terms {
+        background-color: #555;
+        color: rgba(255, 255, 255, 0.9);
+    }
+}

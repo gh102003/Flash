@@ -5,14 +5,15 @@
     flex-wrap: wrap;
 }
 
-.breadcrumb-category, .breadcrumb-workspace {
+.breadcrumb-category,
+.breadcrumb-workspace {
     text-overflow: clip;
     display: flex;
     align-items: center;
     border-radius: 0 3vw 3vw 0;
     padding: 0.5em calc(0.7em + 0.6vw) 0.5em 2.2em;
     /* Overlap */
-    background-color: #DFDFDF;
+    background-color: #dfdfdf;
     box-shadow: 0.13em 0 4px -1px rgba(0, 0, 0, 0.3);
     position: relative;
     user-select: none;
@@ -27,30 +28,46 @@
     /* Handle long text */
     white-space: nowrap;
     overflow-x: hidden;
-}
 
-.breadcrumb-workspace .switch-workspace-cta {
-    font-size: 0.7em;
-    max-width: 5em;
-    margin-left: 0.7em;
-    line-height: 1.1;
-}
+    &:hover,
+    &.dnd-hover {
+        background-color: #cfcfcf;
+    }
 
-.breadcrumb-category:hover, .breadcrumb-category.dnd-hover {
-    background-color: #CFCFCF;
+    .material-icons.icon-locked {
+        margin-right: 0.6em;
+    }
+
+    /* Sharing with Web Share API */
+    .material-icons.icon-share {
+        margin-left: 0.4em;
+        margin-right: -0.3em;
+        padding: 0.1em 0.4em 0.1em 0.2em;
+    }
+    .material-icons.icon-share:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 10em;
+    }
 }
 
 .breadcrumb-workspace {
     padding: 0.4em calc(0.4em + 0.6vw) 0.4em 1.5vw;
     background-color: crimson;
     color: white;
+    .switch-workspace-cta {
+        font-size: 0.7em;
+        max-width: 5em;
+        margin-left: 0.7em;
+        line-height: 1.1;
+    }
 }
 
 @media only screen and (max-width: 600px) {
     .breadcrumb {
         margin-bottom: 0.05vw;
     }
-    .breadcrumb-category, .breadcrumb-workspace {
+    .breadcrumb-category,
+    .breadcrumb-workspace {
         font-size: 0.8em;
         padding: 0.4em 0.7em 0.4em 2.1em;
         max-width: 85vw;
@@ -59,23 +76,6 @@
         padding: 0.3em calc(0.4em + 0.6vw) 0.3em 3vw;
         line-height: 1.2;
     }
-}
-
-.breadcrumb-category i.material-icons.icon-locked {
-    margin-right: 0.6em;
-}
-
-/* Sharing with Web Share API */
-
-.breadcrumb-category i.material-icons.icon-share {
-    margin-left: 0.4em;
-    margin-right: -0.3em;
-    padding: 0.1em 0.4em 0.1em 0.2em;
-}
-
-.breadcrumb-category i.material-icons.icon-share:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 10em;
 }
 
 @media only screen and (max-width: 600px) {

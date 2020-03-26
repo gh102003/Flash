@@ -5,7 +5,7 @@ import { NetworkIndicator } from "../NetworkIndicator.jsx";
 import { QuizMaster } from "./QuizMaster.jsx";
 
 import * as util from "../../util";
-import "../../../css/quiz.css";
+import "../../../css/quiz.scss";
 
 export class Quiz extends React.Component {
 

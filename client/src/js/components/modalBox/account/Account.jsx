@@ -7,7 +7,7 @@ import { NetworkIndicator } from "../../NetworkIndicator.jsx";
 import { UserContext } from "../../../contexts/UserContext";
 import * as util from "../../../util";
 
-import "../../../../css/account.css";
+import "../../../../css/account.scss";
 import { ProfilePictureEdit } from "./ProfilePictureEdit.jsx";
 
 // Whole folder as dependency

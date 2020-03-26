@@ -8,15 +8,15 @@
     margin: 0 1.5vw;
     font-size: calc(0.5vw + 0.5em);
     margin-bottom: 0.9em;
-}
 
-.quiz-setup .setting {
-    display: flex;
-    align-items: center;
-}
+    .setting {
+        display: flex;
+        align-items: center;
 
-.quiz-setup .setting input {
-    margin-right: 0.7em;
+        input {
+            margin-right: 0.7em;
+        }
+    }
 }
 
 .quiz-title {
@@ -30,7 +30,9 @@
     font-size: calc(0.5vw + 0.5em);
 }
 
-.quiz-flashcard, .quiz-start-btn, .quiz-empty {
+.quiz-flashcard,
+.quiz-start-btn,
+.quiz-empty {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,13 +50,11 @@
 
     grid-column: 1;
     grid-row: 1;
-}
-
-.quiz-flashcard, .quiz-start-btn {
     box-shadow: 0 0.1vw 8px rgba(0, 0, 0, 0.4);
 }
 
 .quiz-empty {
+    box-shadow: none;
     border-radius: 0.2em;
     border: 0.2em dashed #ccc;
     animation: fade-in 300ms both;
@@ -77,16 +77,17 @@
     animation: quiz-start-btn-in 500ms both;
     background-color: crimson;
     color: white;
+    
+    &:hover {
+        box-shadow: 0 0.09vw 7px 0 rgba(0, 0, 0, 0.6);
+    }
+    
+    &:active {
+        top: 0.2vw;
+        box-shadow: none;
+    }
 }
 
-.quiz-start-btn:hover {
-    box-shadow: 0 0.09vw 7px 0 rgba(0, 0, 0, 0.6);
-}
-
-.quiz-start-btn:active {
-    top: 0.2vw;
-    box-shadow: none;
-}
 
 @keyframes fade-in {
     from {
@@ -101,41 +102,42 @@
 .quiz-answer-entry {
     grid-column: 1;
     grid-row: 2;
-
     text-align: center;
     margin: 0 3em;
     position: relative;
     align-self: center;
     animation: fade-in 300ms forwards;
+
+    input {
+        font-size: 1.4em;
+        text-align: center;
+        border: none;
+        border-radius: 10px 10px 0 0;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+        padding: 5px;
+        background-color: transparent;
+        box-shadow: none;
+        
+        &:hover {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.75);
+            box-shadow: none;
+        }
+        
+        &:focus {
+            outline: none;
+            border-bottom: 2px solid rgba(0, 0, 0, 1);
+            box-shadow: none;
+        }
+    }
+    
+    
+    button {
+        position: absolute;
+        right: 0;
+        margin: 0;
+    }
 }
 
-.quiz-answer-entry input {
-    font-size: 1.4em;
-    text-align: center;
-    border: none;
-    border-radius: 10px 10px 0 0;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.6);
-    padding: 5px;
-    background-color: transparent;
-    box-shadow: none;
-}
-
-.quiz-answer-entry input:hover {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.75);
-    box-shadow: none;
-}
-
-.quiz-answer-entry input:focus {
-    outline: none;
-    border-bottom: 2px solid rgba(0, 0, 0, 1);
-    box-shadow: none;
-}
-
-.quiz-answer-entry button {
-    position: absolute;
-    right: 0;
-    margin: 0;
-}
 
 @keyframes quiz-stats-in {
     from {
@@ -162,17 +164,18 @@
     user-select: none;
     -moz-user-select: none;
     box-shadow: 0 0.1vw 10px rgba(0, 0, 0, 0.6);
-}
-
-.quiz-stats div {
-    text-align: center;
-    font-size: 1.2em
-}
-
-.quiz-stats .quiz-stat div:last-child {
-    font-size: 3.2em;
-    font-weight: 700;
-    font-family: "Patua One";
+    
+    .quiz-stat {
+        text-align: center;
+        font-size: 1.2em;
+        
+        div:last-child {
+            font-size: 3.2em;
+            font-weight: 700;
+            font-family: "Patua One";
+        }
+    }
+    
 }
 
 .quiz-timer {
@@ -201,7 +204,9 @@
         animation: fade-in 400ms both;
     }
 
-    .quiz-flashcard, .quiz-start-btn, .quiz-empty {
+    .quiz-flashcard,
+    .quiz-start-btn,
+    .quiz-empty {
         margin: 0 0.5em;
         font-size: 3em;
     }
@@ -215,7 +220,7 @@
     .quiz-start-btn {
         animation: fade-in 400ms both;
     }
-    
+
     .quiz-setup {
         margin: 0 3vw;
     }

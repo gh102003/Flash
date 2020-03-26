@@ -4,7 +4,7 @@ import { Redirect, useLocation, useHistory } from "react-router";
 import { CouponCodeInput } from "./CouponCodeInput.jsx";
 import * as util from "../../util";
 import * as envConstants from "../../envConstants";
-import "../../../css/manage-subscription.css";
+import "../../../css/manage-subscription.scss";
 
 import { UserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
