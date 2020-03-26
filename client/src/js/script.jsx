@@ -146,8 +146,10 @@ class Page extends React.Component {
                     this.setState({ currentUser: { ...this.state.currentUser, ...userData, subscription: { ...userData.subscription } } });
                 }
             }}>
-                <Helmet>
-                    <title>Flash</title>
+                <Helmet
+                    defaultTitle="Flash"
+                    titleTemplate="%s - Flash"
+                >
                     <meta property="og:site_name" content="Flash" />
                     <meta property="og:description" content="Create, manage and practise with your own flashcards!" />
                 </Helmet>

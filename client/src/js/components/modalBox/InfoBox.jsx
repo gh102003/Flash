@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { version, dataProtectionEmail, sourceCodeLink } from "../../constants";
 
 export function InfoBox(props) {
@@ -7,6 +8,10 @@ export function InfoBox(props) {
 
     return (
         <div className="modal-background" onClick={props.handleClose}>
+            <Helmet>
+                <title>Info</title>
+                <meta property="og:title" content="Info" />
+            </Helmet>
             <div className="modal info-box" onClick={(event) => event.stopPropagation()}>
                 <div className="modal-header">
                     <h2>Flash {version}{version.split(".")[0] < 1 && "-alpha"}</h2>

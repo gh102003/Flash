@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Redirect, useHistory } from "react-router-dom";
 import { DateTime } from "luxon";
 
@@ -9,7 +10,6 @@ import { UserContext } from "../../contexts/UserContext";
 
 export const PaymentHistory = props => {
     const userContext = useContext(UserContext);
-    const currentUser = userContext.currentUser;
 
     const history = useHistory();
 
@@ -60,6 +60,10 @@ export const PaymentHistory = props => {
 
     return (
         <div className="modal-background" onClick={props.handleClose} >
+            <Helmet>
+                <title>Payment History</title>
+                <meta property="og:title" content="Payment History" />
+            </Helmet>
             <div className="modal payment-history" onClick={event => event.stopPropagation()}>
                 <div className="modal-header">
                     <h2>Payment History</h2>

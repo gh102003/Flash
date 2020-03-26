@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 import { UserContext } from "../../contexts/UserContext";
 import * as util from "../../util";
@@ -17,6 +18,10 @@ export const SubscriptionCancelled = props => {
     if (updating || (currentUser && !util.hasFlashGold(currentUser))) {
         return (
             <div className="modal-background" onClick={props.handleClose} >
+                <Helmet>
+                    <title>Subscription Cancelled</title>
+                    <meta property="og:title" content="Subscription Cancelled" />
+                </Helmet>
                 <div className="modal subscription-cancelled" onClick={event => event.stopPropagation()}>
                     <div className="modal-header">
                         <h2>Goodbye</h2>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import * as envConstants from "../../../envConstants";
 import { NetworkIndicator } from "../../NetworkIndicator.jsx";
@@ -69,13 +70,17 @@ export class TagManager extends React.Component {
 
         return (
             <div className={className} onClick={this.props.handleClose}>
+                <Helmet>
+                    <title>Tag Manager</title>
+                    <meta property="og:title" content="Tag Manager" />
+                </Helmet>
                 <div className="modal tag-manager" onClick={event => event.stopPropagation()}>
                     <div className="modal-header">
                         <h2>Tag Manager</h2>
                         <i className="material-icons button-close" onClick={this.props.handleClose}>close</i>
                     </div>
                     <div className="modal-body">
-                        Here are all of the tags you have created. To add one to a card, 
+                        Here are all of the tags you have created. To add one to a card,
                         drag it out of this box. Or, you can test yourself with a short quiz.
                         {this.state.tags !== null ? this.renderTags() : <NetworkIndicator />}
                         <AddTagForm afterSubmit={() => this.getDataFromServer()} />

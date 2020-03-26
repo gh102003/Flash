@@ -123,7 +123,7 @@
         }
     }
 
-    .terms-link {
+    p.terms-link {
         margin: -0.5em 0 0.5em 0;
     }
 
@@ -225,12 +225,11 @@
 @media only screen and (max-width: 600px) {
     .modal.manage-subscription {
         width: 92vw;
-    }
-    .modal.manage-subscription {
         margin: 0vw 0 20vw 0;
         max-height: calc(100vh - 14vh);
-    }
-    .modal.manage-subscription .modal-body {
-        max-height: calc(85vh - 14.5vh);
+
+        .modal-body {
+            max-height: calc(85vh - 14.5vh);
+        }
     }
 }

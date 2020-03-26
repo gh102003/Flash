@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Redirect, useLocation, useHistory } from "react-router";
 
 import { CouponCodeInput } from "./CouponCodeInput.jsx";
@@ -45,6 +46,10 @@ export const ManageSubscription = props => {
 
     return (
         <div className="modal-background" onClick={props.handleClose} >
+            <Helmet>
+                <title>Subscription</title>
+                <meta property="og:title" content="Subscription" />
+            </Helmet>
             <div className="modal manage-subscription" onClick={event => event.stopPropagation()}>
                 <div className="modal-header">
                     <h2>Subscription</h2>

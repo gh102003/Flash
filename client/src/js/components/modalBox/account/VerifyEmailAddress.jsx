@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
+
 import { serverOrigin } from "../../../envConstants";
 
 export const VerifyEmailAddress = ({ handleClose, emailVerificationToken }) => {
 
     const [verificationResult, setVerificationResult] = useState(null);
 
-console.log(emailVerificationToken);
+    console.log(emailVerificationToken);
 
 
     useEffect(() => {
@@ -23,6 +25,10 @@ console.log(emailVerificationToken);
 
     return (
         <div className="modal-background" onClick={handleClose} >
+            <Helmet>
+                <title>Verify Email Address</title>
+                <meta property="og:title" content="Verify Email Address" />
+            </Helmet>
             <div className="modal verify-email-address" onClick={event => event.stopPropagation()}>
                 <div className="modal-header">
                     <h2>Verify Email Address</h2>

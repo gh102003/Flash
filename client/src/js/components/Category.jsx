@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 
 import * as util from "../util";
+import * as envConstants from "../envConstants";
 import { draggableTypes } from "../constants";
 import { Flashcard } from "./flashcard/Flashcard.jsx";
 import { Subcategory } from "./subcategory/Subcategory.jsx";
@@ -354,8 +355,9 @@ export class Category extends React.Component {
                     this.state.category &&
                     <>
                         <Helmet>
-                            <title>{this.state.category.name} | Flash</title>
+                            <title>{this.state.category.name}</title>
                             <meta property="og:title" content={this.state.category.name} />
+                            <meta property="og:url" content={`${envConstants.clientOrigin}/category/${this.state.category.id}`}/>
                         </Helmet>
                         <Breadcrumb
                             currentCategory={this.state.category}

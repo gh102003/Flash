@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Helmet } from "react-helmet";
 
 import { UserContext } from "../../contexts/UserContext";
 import * as util from "../../util";
@@ -10,6 +11,10 @@ export const SubscriptionStarted = props => {
     if (currentUser && util.hasFlashGold(currentUser)) {
         return (
             <div className="modal-background" onClick={props.handleClose} >
+                <Helmet>
+                    <title>Subscription Started</title>
+                    <meta property="og:title" content="Subscription Started" />
+                </Helmet>
                 <div className="modal subscription-started" onClick={event => event.stopPropagation()}>
                     <div className="modal-header">
                         <h2>Thank You!</h2>
@@ -30,6 +35,10 @@ export const SubscriptionStarted = props => {
     } else {
         return (
             <div className="modal-background" onClick={props.handleClose} >
+                <Helmet>
+                    <title>Subscription Started</title>
+                    <meta property="og:title" content="Subscription Started" />
+                </Helmet>
                 <div className="modal subscription-started" onClick={event => event.stopPropagation()}>
                     <div className="modal-header">
                         <h2>Error</h2>

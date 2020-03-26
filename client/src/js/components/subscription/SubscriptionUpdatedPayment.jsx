@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import { Helmet } from "react-helmet";
 
 import { UserContext } from "../../contexts/UserContext";
 
@@ -14,6 +15,10 @@ export const SubscriptionUpdatedPayment = props => {
     //TODO: show error if details couldn't be updated
     return (
         <div className="modal-background" onClick={props.handleClose} >
+            <Helmet>
+                <title>Subscription Updated</title>
+                <meta property="og:title" content="Subscription Updated" />
+            </Helmet>
             <div className="modal subscription-updated-payment" onClick={event => event.stopPropagation()}>
                 <div className="modal-header">
                     <h2>Success!</h2>

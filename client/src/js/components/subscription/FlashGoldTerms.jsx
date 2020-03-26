@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Helmet } from "react-helmet";
 
 import { UserContext } from "../../contexts/UserContext";
 import * as util from "../../util";
@@ -12,6 +13,10 @@ export const FlashGoldTerms = props => {
 
     return (
         <div className="modal-background" onClick={props.handleClose} >
+            <Helmet>
+                <title>Flash Gold Terms</title>
+                <meta property="og:title" content="Flash Gold Terms" />
+            </Helmet>
             <div className="modal flash-gold-terms" onClick={event => event.stopPropagation()}>
                 <div className="modal-header">
                     <h2>Flash Gold Terms</h2>
@@ -67,8 +72,8 @@ export const FlashGoldTerms = props => {
                         </p>
                         <p>
                             Vouchers may be offered to subscribers as special discounts. Only one may be applied
-                            at once. Even if a voucher offers a 100% discount, subscribers are still required to 
-                            enter payment details and they must cancel their subscription 24 hours before the 
+                            at once. Even if a voucher offers a 100% discount, subscribers are still required to
+                            enter payment details and they must cancel their subscription 24 hours before the
                             voucher expires to avoid being charged. Flash retains the right to revoke a voucher at
                             any time by providing a 14 day notice period to any subscribers using it.
                         </p>

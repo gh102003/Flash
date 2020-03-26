@@ -45,6 +45,19 @@
             }
         }
     }
+
+    .get-flash-gold-cta {
+        padding: 1em;
+        margin-top: 0.8em;
+        border-radius: 0.5em;
+
+        h3 {
+            margin: 0;
+        }
+        p {
+            margin: 0.5em 0 0.5em 0;
+        }
+    }
 }
 
 @media only screen and (max-width: 1250px) {
@@ -177,9 +190,9 @@
 }
 
 .role-badge {
-    margin: 0 0.7em 0 0;
+    margin: 0 0.5em 0 0;
     font-size: 0.8em;
-    padding: 0.1em 0.3em;
+    padding: 0.1em 0.4em;
     border-radius: 0.3em;
     background-color: rgba(0, 0, 0, 0.2);
     text-transform: uppercase;

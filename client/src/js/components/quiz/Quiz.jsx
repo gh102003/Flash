@@ -35,15 +35,16 @@ export class Quiz extends React.Component {
         } else if (this.props.match.params.tagId) {
             title = "Tag " + title;
         }
+        title = title + ": " + (this.state.category == null ? "" : this.state.category.name);
 
         return (
             <div className="quiz">
                 <Helmet>
-                    {/* Set OpenGraph meta tags in the head using React Helmet */}
-                    <title>{title} | Flash</title>
+                    <title>{title}</title>
+                    <meta property="og:title" content={title} />
                 </Helmet>
                 <div className="quiz-setup">
-                    <h2 className="quiz-title">{title}: {this.state.category == null ? "" : this.state.category.name}</h2>
+                    <h2 className="quiz-title">{title}</h2>
                     {this.props.match.params.categoryId && <div className="setting">
                         <input
                             id="isRecursive"

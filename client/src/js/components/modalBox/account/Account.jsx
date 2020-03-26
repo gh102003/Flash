@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Link, useLocation } from "react-router-dom";
 import { DateTime } from "luxon";
 
@@ -73,6 +74,10 @@ export const Account = props => {
         const userHasRoles = userContext.currentUser && userContext.currentUser.roles && userContext.currentUser.roles.length > 0;
         modalBox = (
             <div className="modal account" onClick={event => event.stopPropagation()}>
+                <Helmet>
+                    <title>Account</title>
+                    <meta property="og:title" content="Account" />
+                </Helmet>
                 <div className="modal-header">
                     <h2>Account</h2>
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
@@ -126,8 +131,15 @@ export const Account = props => {
                                 Logged in {formattedLoginTime}
                             </p>
 
-                            <h3>Flash Gold</h3>
-                            <Link className="link" to={{ pathname: "/account/subscription", state: location.state }}>{hasFlashGold ? "Manage subscription" : "Upgrade now!"}</Link>
+                            <div className="get-flash-gold-cta">
+                                <h3>Flash Gold</h3>
+                                {!hasFlashGold &&
+                                    <p>
+                                        Flash Gold comes with even more features and expands on both the appearance and functionality of Flash.
+                                    </p>
+                                }
+                                <Link className="link" to={{ pathname: "/account/subscription", state: location.state }}>{hasFlashGold ? "Manage subscription" : "Find out more"}</Link>
+                            </div>
                         </>
                         : <NetworkIndicator />
                     }
