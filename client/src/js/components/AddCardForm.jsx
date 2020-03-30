@@ -1,5 +1,7 @@
 import React from "react";
+import { GlobalHotKeys } from "react-hotkeys";
 
+import * as constants from "../constants";
 import { authenticatedFetch, getUserFromAuthToken } from "../util";
 
 export class AddCardForm extends React.Component {
@@ -45,6 +47,9 @@ export class AddCardForm extends React.Component {
 
         return (
             <div className="modal-background" onClick={this.props.handleCancel}>
+                <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                    CLOSE_MODAL_BOX: this.props.handleCancel
+                }} />
                 <div className="modal add add-card" onClick={event => event.stopPropagation()}>
                     <div className="modal-header">
                         <h2>Add Flashcard</h2>

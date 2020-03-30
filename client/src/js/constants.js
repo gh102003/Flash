@@ -1,4 +1,4 @@
-export const version = "2.0.3";
+export const version = "2.1.0";
 
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
 export const dataProtectionEmail = "mailto:data-protection@flashapp.uk.to";
@@ -9,6 +9,19 @@ export const draggableTypes = {
     FLASHCARD: "flashcard",
     SUBCATEGORY: "subcategory",
     TAG: "tag"
+};
+
+export const keyMap = {
+    ADD_FLASHCARD: { name: "Add a new flashcard", sequence: "f", action: "keyup" },
+    ADD_CATEGORY: { name: "Add a new category", sequence: "c", action: "keyup" },
+    IMPORT_FLASHCARDS: { name: "Import flashcards", sequences: ["ctrl+i", "command+i"] },
+    TOGGLE_THEME: { name: "Toggle between light and dark theme (Flash Gold required)", sequence: "d" },
+    SWITCH_WORKSPACE: { name: "Switch between public and personal workspaces", sequence: "w" },
+    OPEN_INFO_MODAL_BOX: { name: "Open the info page", sequence: "i" },
+    OPEN_ACCOUNT_MODAL_BOX: { name: "Open the account page", sequence: "a", action: "keyup" },
+    OPEN_TAG_MANAGER_MODAL_BOX: { name: "Open the tag manager", sequence: "t" },
+    CLOSE_MODAL_BOX: { name: "Close the current dialog", sequence: "esc" },
+    BACK_UP_TO_PARENT: { name: "Return to the parent category", sequences: ["ctrl+up", "command+up"]}
 };
 
 export const categoryColours = [

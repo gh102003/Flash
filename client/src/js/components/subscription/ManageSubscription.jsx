@@ -1,9 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Redirect, useLocation, useHistory } from "react-router";
+import { GlobalHotKeys } from "react-hotkeys";
 
 import { CouponCodeInput } from "./CouponCodeInput.jsx";
 import * as util from "../../util";
+import * as constants from "../../constants";
 import * as envConstants from "../../envConstants";
 import "../../../css/manage-subscription.scss";
 
@@ -46,6 +48,9 @@ export const ManageSubscription = props => {
 
     return (
         <div className="modal-background" onClick={props.handleClose} >
+            <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                CLOSE_MODAL_BOX: props.handleClose
+            }} />
             <Helmet>
                 <title>Subscription</title>
                 <meta property="og:title" content="Subscription" />

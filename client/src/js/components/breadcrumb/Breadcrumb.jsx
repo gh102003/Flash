@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { GlobalHotKeys } from "react-hotkeys";
 
 import { BreadcrumbCategory } from "./BreadcrumbCategory.jsx";
 import { ImportFlashcardsDialog } from "./ImportFlashcardsDialog.jsx";
+import * as constants from "../../constants";
 
 import "../../../css/breadcrumb.scss";
-import { useState } from "react";
 
 export const Breadcrumb = props => {
     const [importDialogOpen, setImportDialogOpen] = useState(false);
@@ -18,6 +19,9 @@ export const Breadcrumb = props => {
                     depth={0}
                 />
             }
+            <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                IMPORT_FLASHCARDS: () => (!history.state.state || !history.state.state.background) && setImportDialogOpen(!importDialogOpen)
+            }} />
             <div className="import-flashcards">
                 <button className="import-flashcards-button" onClick={() => setImportDialogOpen(!importDialogOpen)}>
                     <i className="material-icons">import_export</i>

@@ -1,5 +1,7 @@
 import React from "react";
 import { TwitterPicker } from "react-color";
+import { GlobalHotKeys } from "react-hotkeys";
+
 import * as util from "../util";
 import * as constants from "../constants";
 
@@ -42,6 +44,9 @@ export class AddCategoryForm extends React.Component {
 
         return (
             <div className="modal-background" onClick={this.props.handleCancel}>
+                <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                    CLOSE_MODAL_BOX: this.props.handleCancel
+                }} />
                 <div className="modal add add-category" onClick={event => event.stopPropagation()}>
                     <div className="modal-header">
                         <h2>Add Category</h2>

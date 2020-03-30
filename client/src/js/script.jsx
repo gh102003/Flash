@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Helmet } from "react-helmet";
+import { GlobalHotKeys, configure as configureHotkeys } from "react-hotkeys";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom";
 import { DndProvider } from "react-dnd";
@@ -10,6 +11,7 @@ import TouchBackend from "react-dnd-touch-backend";
 import MultiBackend, { MouseTransition, TouchTransition } from "react-dnd-multi-backend";
 
 import * as util from "./util";
+import * as constants from "./constants";
 import * as serviceWorker from "./initServiceWorker";
 
 import "../css/stylesheet.scss";
@@ -40,6 +42,10 @@ import { SubscriptionCancelled } from "./components/subscription/SubscriptionCan
 import { PaymentHistory } from "./components/subscription/PaymentHistory.jsx";
 import { FlashGoldTerms } from "./components/subscription/FlashGoldTerms.jsx";
 import { VerifyEmailAddress } from "./components/modalBox/account/VerifyEmailAddress.jsx";
+
+configureHotkeys({
+    ignoreKeymapAndHandlerChangesByDefault: false
+});
 
 class Page extends React.Component {
     constructor(props) {
@@ -230,6 +236,38 @@ class Page extends React.Component {
                                 }} />
                             </Switch>
 
+                            <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                                OPEN_INFO_MODAL_BOX: () => {
+                                    if (location.state && location.state.background) {
+                                        history.push("/info", { background: location.state.background });
+                                    } else {
+                                        history.push("/info", { background: location });
+                                    }},
+                                OPEN_ACCOUNT_MODAL_BOX: () => {
+                                    if (location.state && location.state.background) {
+                                        history.push("/account", { background: location.state.background });
+                                    } else {
+                                        history.push("/account", { background: location });
+                                    }},
+                                OPEN_TAG_MANAGER_MODAL_BOX: () => {
+                                    if (location.state && location.state.background) {
+                                        history.push("/tag-manager", { background: location.state.background });
+                                    } else {
+                                        history.push("/tag-manager", { background: location });
+                                    }},
+                                TOGGLE_THEME: () => {
+                                    if (hasFlashGold) {
+                                        if (this.state.theme === "dark") {
+                                            document.documentElement.style.backgroundColor = "#fff";
+                                            this.setState({ theme: "light" });
+                                        } else {
+                                            document.documentElement.style.backgroundColor = "#3a3a3a";
+                                            this.setState({ theme: "dark" });
+                                        }
+                                    }
+                                }
+                            }} />
+
                             {this.state.modalOpen === "trackingConsent" ? // Hide modals from routes if tracking consent modal is open
                                 <TrackingConsent handleClose={() => this.setState({ modalOpen: null })} /> :
                                 <Switch>
@@ -251,7 +289,6 @@ class Page extends React.Component {
                                     <Route path="/account/verify-email/:emailVerificationToken" render={routeProps => (
                                         <VerifyEmailAddress emailVerificationToken={routeProps.match.params.emailVerificationToken} handleClose={() => history.push("/account", location.state)} />
                                     )} />
-
                                     <Route path="/account/subscription" exact>
                                         <ManageSubscription handleClose={() => history.push("/account", location.state)} />
                                     </Route>

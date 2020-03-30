@@ -118,6 +118,7 @@ export class SignUpForm extends React.Component {
             </label>
             <div className="input-with-validation">
                 <input
+                    autoFocus
                     id="username"
                     autoComplete="username"
                     type="text"

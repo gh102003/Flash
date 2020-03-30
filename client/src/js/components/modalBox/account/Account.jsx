@@ -2,10 +2,13 @@ import React, { useContext, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation } from "react-router-dom";
 import { DateTime } from "luxon";
+import { GlobalHotKeys } from "react-hotkeys";
+
 
 import { Login } from "./Login.jsx";
 import { NetworkIndicator } from "../../NetworkIndicator.jsx";
 import { UserContext } from "../../../contexts/UserContext";
+import * as constants from "../../../constants";
 import * as util from "../../../util";
 
 import "../../../../css/account.scss";
@@ -154,6 +157,9 @@ export const Account = props => {
 
     return (
         <div className="modal-background" onClick={props.handleClose} >
+            <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                CLOSE_MODAL_BOX: props.handleClose
+            }} />
             {modalBox}
         </div>
     );

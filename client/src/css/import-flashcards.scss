@@ -15,6 +15,8 @@ button.import-flashcards-button {
     margin: 0;
     padding: 0.4em 0.6em;
     user-select: none;
+    /* For dark theme */
+    transition: background-color 400ms, color 400ms;
 
     &:hover {
         background-color: #eaeaea;

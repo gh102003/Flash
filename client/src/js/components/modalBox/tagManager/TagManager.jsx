@@ -1,6 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { GlobalHotKeys } from "react-hotkeys";
 
+import * as constants from "../../../constants";
 import * as envConstants from "../../../envConstants";
 import { NetworkIndicator } from "../../NetworkIndicator.jsx";
 import { AddTagForm } from "./AddTagForm.jsx";
@@ -70,6 +72,9 @@ export class TagManager extends React.Component {
 
         return (
             <div className={className} onClick={this.props.handleClose}>
+                <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                    CLOSE_MODAL_BOX: this.props.handleClose
+                }} />
                 <Helmet>
                     <title>Tag Manager</title>
                     <meta property="og:title" content="Tag Manager" />

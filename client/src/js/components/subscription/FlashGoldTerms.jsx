@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
+import { useLocation } from "react-router";
 import { Helmet } from "react-helmet";
+import { GlobalHotKeys } from "react-hotkeys";
 
 import { UserContext } from "../../contexts/UserContext";
 import * as util from "../../util";
+import * as constants from "../../constants";
 import * as envConstants from "../../envConstants";
 import "../../../css/terms.scss";
-import { useLocation } from "react-router";
 
 export const FlashGoldTerms = props => {
     const userContext = useContext(UserContext);
@@ -13,6 +15,9 @@ export const FlashGoldTerms = props => {
 
     return (
         <div className="modal-background" onClick={props.handleClose} >
+            <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                CLOSE_MODAL_BOX: props.handleClose
+            }} />
             <Helmet>
                 <title>Flash Gold Terms</title>
                 <meta property="og:title" content="Flash Gold Terms" />

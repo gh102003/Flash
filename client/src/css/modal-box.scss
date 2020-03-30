@@ -1,9 +1,11 @@
 .modal {
-    width: 50vw;
+    width: 60vw;
     border-radius: 1.7vmin;
     background-color: #f3f3f3;
     position: relative;
     font-size: calc(0.7vw + 0.3em);
+    /* For dark theme */
+    transition: background-color 400ms, color 400ms;
 
     .modal-header {
         padding: 3vmin;
@@ -62,14 +64,14 @@
 
 @media only screen and (max-width: 1250px) {
     .modal {
-        width: 60vw;
+        width: 70vw;
         font-size: 1.6vw;
     }
 }
 
 @media only screen and (max-width: 900px) {
     .modal {
-        width: 70vw;
+        width: 80vw;
         max-width: 85vw;
         font-size: 2.2vw;
         border-radius: 2.8vmin;
@@ -119,5 +121,14 @@
                 top: calc(3.8vmin + 2px);
             }
         }
+    }
+}
+
+.modal.info-box {
+    max-height: calc(100vh - 4vw);
+
+    .modal-body {
+        overflow-y: auto;
+        max-height: calc(88vh - 5em);
     }
 }

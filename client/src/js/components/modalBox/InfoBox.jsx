@@ -1,13 +1,34 @@
 import React from "react";
+import { GlobalHotKeys, getApplicationKeyMap } from "react-hotkeys";
 import { Helmet } from "react-helmet";
-import { version, dataProtectionEmail, sourceCodeLink } from "../../constants";
+import { version, dataProtectionEmail, sourceCodeLink, keyMap } from "../../constants";
+
+import "../../../css/keyboard-shortcuts.scss";
 
 export function InfoBox(props) {
 
     const trackingConsent = localStorage.getItem("TrackingConsentTimestamp");
 
+    const renderKeyboardShortcuts = () => {
+        return Object.values(keyMap).map((action, index) => // take directly from constants because getApplicationKeyMap doesn't always work
+            <React.Fragment key={index}>
+                <dt className="shortcut">
+                    {(action.sequences ? action.sequences[0] : action.sequence).split("+").map(key =>
+                        <span className="key" key={key}>
+                            {key.replace("up", "\u25b2")/*.replace("ctrl", "ctrl/\u2318").replace("alt", "alt/\u2325")*/}
+                        </span>
+                    )}
+                </dt>
+                <dd>{action.name}</dd>
+            </React.Fragment>
+        );
+    };
+
     return (
         <div className="modal-background" onClick={props.handleClose}>
+            <GlobalHotKeys keyMap={keyMap} handlers={{
+                CLOSE_MODAL_BOX: props.handleClose
+            }} />
             <Helmet>
                 <title>Info</title>
                 <meta property="og:title" content="Info" />
@@ -22,7 +43,6 @@ export function InfoBox(props) {
                     <p>Create, manage and practise with your own flashcards!</p>
                     <h3>Tips</h3>
                     <ul>
-                        <li>Click the pen icon to edit a card or category</li>
                         <li>Drag a flashcard or category to move it somewhere else</li>
                         <li>The breadcrumbs can also be clicked or dropped into, but they can&apos;t be dragged</li>
                         <li>Click the graph icon on a category to take a quiz</li>
@@ -30,6 +50,10 @@ export function InfoBox(props) {
                         <li>When you&apos;re logged in, use the breadcrumbs to switch between personal and public workspaces</li>
                         <li>Lock a category to stop other users editing or deleting it (apart from moderators)</li>
                     </ul>
+                    <h3>Keyboard Shortcuts</h3>
+                    <dl className="keyboard-shortcuts">
+                        {renderKeyboardShortcuts()}
+                    </dl>
                     <p className="external-link">
                         <i className="material-icons">open_in_new</i>
                         <a className="link" href={sourceCodeLink}>
@@ -38,7 +62,7 @@ export function InfoBox(props) {
                     </p>
                     <p className="external-link">
                         <i className="material-icons">email</i>
-                        Send a&nbsp;
+                        Send us a&nbsp;
                         <a className="link" href={dataProtectionEmail}>
                             data protection
                         </a> email

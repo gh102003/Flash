@@ -175,4 +175,18 @@
         background-color: #555;
         color: rgba(255, 255, 255, 0.9);
     }
+
+    .get-flash-gold-cta {
+        a.link {
+            &:link {
+                color: blue;
+            }
+            &:visited {
+                color: #551A8B;
+            }
+            &:active {
+                color: red;
+            }
+        }
+    }
 }

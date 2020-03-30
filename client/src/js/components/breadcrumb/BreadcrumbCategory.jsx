@@ -1,12 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useDrop } from "react-dnd";
+import { GlobalHotKeys } from "react-hotkeys";
 
 import * as util from "../../util";
+import * as constants from "../../constants";
 import { draggableTypes } from "../../constants";
 import { clientOrigin, serverOrigin } from "../../envConstants";
-
-import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 // Unpack linkedlist style object recursively
@@ -82,24 +82,31 @@ export const BreadcrumbCategory = props => {
         return () => abortController.abort();
     }, [props.category.user]); // only when the user has actually changed
 
+    const history = useHistory();
+
     return (
         <>
             {
                 parentBreadcrumb ||
                 (currentUser ?
-                    <Link
-                        className="breadcrumb-workspace"
-                        style={{ zIndex: props.depth + 1 }}
-                        to={switchWorkspaceId}
-                    >
-                        {props.category.user ?
-                            <i className="material-icons">person</i>
-                            :
-                            <i className="material-icons">public</i>
-                        }
-                        <span className="switch-workspace-cta">Switch workspace</span>
+                    <>
+                        <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                            SWITCH_WORKSPACE: () => history.push("/category/" + switchWorkspaceId)
+                        }} />
+                        <Link
+                            className="breadcrumb-workspace"
+                            style={{ zIndex: props.depth + 1 }}
+                            to={switchWorkspaceId}
+                        >
+                            {props.category.user ?
+                                <i className="material-icons">person</i>
+                                :
+                                <i className="material-icons">public</i>
+                            }
+                            <span className="switch-workspace-cta">Switch workspace</span>
 
-                    </Link>
+                        </Link>
+                    </>
                     :
                     <div className="breadcrumb-workspace" style={{ zIndex: props.depth + 1 }}>
                         {props.category.user ?
@@ -132,6 +139,11 @@ export const BreadcrumbCategory = props => {
                     {props.category.name}
                     {props.depth === 0 && navigator.share &&
                         <i className="material-icons icon-share">share</i>
+                    }
+                    {props.depth === 1 && // Hotkey for going to parent category
+                        <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                            BACK_UP_TO_PARENT: () => props.handleNavigate(`/category/${props.category.id}`)
+                        }} />
                     }
                 </a>)
             }

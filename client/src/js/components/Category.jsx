@@ -1,7 +1,9 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { GlobalHotKeys } from "react-hotkeys";
 
 import * as util from "../util";
+import * as constants from "../constants";
 import * as envConstants from "../envConstants";
 import { draggableTypes } from "../constants";
 import { Flashcard } from "./flashcard/Flashcard.jsx";
@@ -91,6 +93,7 @@ export class Category extends React.Component {
 
     /** Used to navigate imperatively to another category
      * @param categoryData (optional) data for the category to be navigated to
+     * TODO: remove
      */
     navigate(url, categoryData) {
         if (categoryData) {
@@ -357,8 +360,12 @@ export class Category extends React.Component {
                         <Helmet>
                             <title>{this.state.category.name}</title>
                             <meta property="og:title" content={this.state.category.name} />
-                            <meta property="og:url" content={`${envConstants.clientOrigin}/category/${this.state.category.id}`}/>
+                            <meta property="og:url" content={`${envConstants.clientOrigin}/category/${this.state.category.id}`} />
                         </Helmet>
+                        <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                            ADD_FLASHCARD: () => (!history.state.state || !history.state.state.background) && this.setState({ currentForm: "addCard" }),
+                            ADD_CATEGORY: () => (!history.state.state || !history.state.state.background) && this.setState({ currentForm: "addCategory" })
+                        }} />
                         <Breadcrumb
                             currentCategory={this.state.category}
                             afterFlashcardImport={() => this.updateCardsFromServer()}
@@ -386,7 +393,7 @@ export class Category extends React.Component {
                             if (currentUser && currentUser.roles && currentUser.roles.includes("moderator")) {
                                 renderAddButton = true;
                             }
-                            
+
                             // If loading or unlocked, show add button
                             if (!this.state.category) {
                                 renderAddButton = true;

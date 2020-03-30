@@ -47,6 +47,7 @@ export class LoginForm extends React.Component {
                     Email Address:
                 </label>
                 <input
+                    autoFocus
                     id="email-address"
                     autoComplete="email"
                     type="text"

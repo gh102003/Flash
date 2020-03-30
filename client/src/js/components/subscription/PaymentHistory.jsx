@@ -2,7 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Redirect, useHistory } from "react-router-dom";
 import { DateTime } from "luxon";
+import { GlobalHotKeys } from "react-hotkeys";
 
+import * as constants from "../../constants";
 import * as util from "../../util";
 import "../../../css/payment-history.scss";
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
@@ -60,6 +62,9 @@ export const PaymentHistory = props => {
 
     return (
         <div className="modal-background" onClick={props.handleClose} >
+            <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                CLOSE_MODAL_BOX: props.handleClose
+            }} />
             <Helmet>
                 <title>Payment History</title>
                 <meta property="og:title" content="Payment History" />
