@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 
-import { serverOrigin } from "../../../envConstants";
+import { serverOrigin } from "../../envConstants";
 
 export const VerifyEmailAddress = ({ handleClose, emailVerificationToken }) => {
 

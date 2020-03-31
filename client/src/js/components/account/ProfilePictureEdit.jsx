@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 
-import { UserContext } from "../../../contexts/UserContext";
-import * as constants from "../../../constants";
-import * as util from "../../../util";
+import { UserContext } from "../../contexts/UserContext";
+import * as constants from "../../constants";
+import * as util from "../../util";
 
-import "../../../../css/edit-profile-picture.scss";
-require.context("../../../../res/profile-pictures/128");
+import "../../../css/edit-profile-picture.scss";
+// eslint-disable-next-line no-undef
+require.context("../../../res/profile-pictures/128");
 
 export const ProfilePictureEdit = props => {
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { GlobalHotKeys, getApplicationKeyMap } from "react-hotkeys";
 import { Helmet } from "react-helmet";
-import { version, dataProtectionEmail, sourceCodeLink, keyMap } from "../../constants";
+import { version, dataProtectionEmail, sourceCodeLink, keyMap } from "../constants";
 
-import "../../../css/keyboard-shortcuts.scss";
+import "../../css/keyboard-shortcuts.scss";
 
 export function InfoBox(props) {
 

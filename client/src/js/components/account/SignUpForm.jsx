@@ -1,7 +1,7 @@
 import React from "react";
 
-import * as constants from "../../../constants";
-import * as envConstants from "../../../envConstants";
+import * as constants from "../../constants";
+import * as envConstants from "../../envConstants";
 
 export class SignUpForm extends React.Component {
     constructor(props) {

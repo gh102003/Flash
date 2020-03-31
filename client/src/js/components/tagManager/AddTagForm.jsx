@@ -1,10 +1,9 @@
 import React from "react";
 import { TwitterPicker } from "react-color";
 
-import * as constants from "../../../constants";
-import * as envConstants from "../../../envConstants";
-
-import * as util from "../../../util";
+import * as constants from "../../constants";
+import * as envConstants from "../../envConstants";
+import * as util from "../../util";
 
 export class AddTagForm extends React.Component {
     constructor(props) {

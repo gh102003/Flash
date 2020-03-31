@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 import * as constants from "../../constants.js";
-import { Tag } from "../modalBox/tagManager/Tag.jsx";
+import { Tag } from "../tagManager/Tag.jsx";
 
 export const FlashcardNormal = props => {
 

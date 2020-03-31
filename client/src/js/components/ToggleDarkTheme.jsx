@@ -7,7 +7,6 @@ export const ToggleDarkTheme = props => {
             props.setTheme(props.theme === "dark" ? "light" : "dark");
         }}>
             <i className="material-icons">{props.theme === "dark" ? "brightness_3" : "brightness_7"}</i>
-            {/* <i className="material-icons">brightness_medium</i> */}
         </a>
     );
 };

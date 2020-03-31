@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { useDrag } from "react-dnd";
-import * as util from "../../../util";
-import * as constants from "../../../constants";
+
+import * as util from "../../util";
+import * as constants from "../../constants";
 
 export const Tag = props => {
     // Drag and drop hook

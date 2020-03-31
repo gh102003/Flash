@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { LoginForm } from "./LoginForm.jsx";
 import { SignUpForm } from "./SignUpForm.jsx";
 
-import * as envConstants from "../../../envConstants";
+import * as envConstants from "../../envConstants";
 
 export const Login = props => {
     const [page, setPage] = useState("login"); // Either "login" or "signUp"

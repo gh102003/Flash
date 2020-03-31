@@ -6,17 +6,17 @@ import { GlobalHotKeys } from "react-hotkeys";
 
 
 import { Login } from "./Login.jsx";
-import { NetworkIndicator } from "../../NetworkIndicator.jsx";
-import { UserContext } from "../../../contexts/UserContext";
-import * as constants from "../../../constants";
-import * as util from "../../../util";
+import { NetworkIndicator } from "../NetworkIndicator.jsx";
+import { UserContext } from "../../contexts/UserContext";
+import * as constants from "../../constants";
+import * as util from "../../util";
 
-import "../../../../css/account.scss";
+import "../../../css/account.scss";
 import { ProfilePictureEdit } from "./ProfilePictureEdit.jsx";
 
 // Whole folder as dependency
 // eslint-disable-next-line no-undef
-require.context("../../../../res/profile-pictures/256");
+require.context("../../../res/profile-pictures/256");
 
 export const Account = props => {
 

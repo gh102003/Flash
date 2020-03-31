@@ -28,12 +28,12 @@ import "../res/icons";
 import { UserContext } from "./contexts/UserContext";
 
 import { Category } from "./components/Category.jsx";
-import { InfoBox } from "./components/modalBox/InfoBox.jsx";
-import { Account } from "./components/modalBox/account/Account.jsx";
-import { TagManager } from "./components/modalBox/tagManager/TagManager.jsx";
+import { InfoBox } from "./components/InfoBox.jsx";
+import { Account } from "./components/account/Account.jsx";
+import { TagManager } from "./components/tagManager/TagManager.jsx";
 import { Quiz } from "./components/quiz/Quiz.jsx";
 import { NetworkIndicator } from "./components/NetworkIndicator.jsx";
-import { TrackingConsent } from "./components/modalBox/TrackingConsent.jsx";
+import { TrackingConsent } from "./components/TrackingConsent.jsx";
 import { ToggleDarkTheme } from "./components/ToggleDarkTheme.jsx";
 import { ManageSubscription } from "./components/subscription/ManageSubscription.jsx";
 import { SubscriptionStarted } from "./components/subscription/SubscriptionStarted.jsx";
@@ -41,7 +41,7 @@ import { SubscriptionUpdatedPayment } from "./components/subscription/Subscripti
 import { SubscriptionCancelled } from "./components/subscription/SubscriptionCancelled.jsx";
 import { PaymentHistory } from "./components/subscription/PaymentHistory.jsx";
 import { FlashGoldTerms } from "./components/subscription/FlashGoldTerms.jsx";
-import { VerifyEmailAddress } from "./components/modalBox/account/VerifyEmailAddress.jsx";
+import { VerifyEmailAddress } from "./components/account/VerifyEmailAddress.jsx";
 
 configureHotkeys({
     ignoreKeymapAndHandlerChangesByDefault: false

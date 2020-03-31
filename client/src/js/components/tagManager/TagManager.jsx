@@ -2,9 +2,9 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { GlobalHotKeys } from "react-hotkeys";
 
-import * as constants from "../../../constants";
-import * as envConstants from "../../../envConstants";
-import { NetworkIndicator } from "../../NetworkIndicator.jsx";
+import * as constants from "../../constants";
+import * as envConstants from "../../envConstants";
+import { NetworkIndicator } from "../NetworkIndicator.jsx";
 import { AddTagForm } from "./AddTagForm.jsx";
 import { Tag } from "./Tag.jsx";
 
