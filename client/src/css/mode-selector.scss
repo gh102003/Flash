@@ -1,0 +1,55 @@
+.mode-selector {
+    margin-left: 1.5vw;
+    margin-right: 1.5vw;
+
+    @media only screen and (max-width: 600px) {
+        margin: 0 3vw;
+    }
+
+    h2 {
+        margin: 0.3em 0;
+    }
+}
+
+.choose-mode {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+
+    .mode {
+        height: 50vh;
+        display: flex;
+        justify-content: space-evenly;
+        flex-flow: column nowrap;
+        background-color: #e0e0e0;
+        padding: 2em;
+        margin: 1em;
+        width: min(70vw, 20em);
+        border-radius: 0.5em;
+        cursor: pointer;
+        transition: background-color 400ms, color 400ms;
+        transform: perspective(800px);
+        transform-style: preserve-3d;
+        perspective-origin: center center;
+
+        @media only screen and (max-width: 600px) {
+            font-size: 0.8em;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 2em;
+            margin: 0.3em 0;
+            transform: translateZ(30px);
+        }
+        p {
+            margin: 0;
+            transform: translateZ(10px);
+        }
+        svg {
+            margin: 1em 0.5em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transform: translateZ(20px);
+        }
+    }
+}

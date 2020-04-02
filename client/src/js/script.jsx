@@ -28,6 +28,7 @@ import "../res/icons";
 import { UserContext } from "./contexts/UserContext";
 
 import { Category } from "./components/Category.jsx";
+import { Prioritise } from "./components/prioritise/Prioritise.jsx";
 import { InfoBox } from "./components/InfoBox.jsx";
 import { Account } from "./components/account/Account.jsx";
 import { TagManager } from "./components/tagManager/TagManager.jsx";
@@ -42,6 +43,7 @@ import { SubscriptionCancelled } from "./components/subscription/SubscriptionCan
 import { PaymentHistory } from "./components/subscription/PaymentHistory.jsx";
 import { FlashGoldTerms } from "./components/subscription/FlashGoldTerms.jsx";
 import { VerifyEmailAddress } from "./components/account/VerifyEmailAddress.jsx";
+import { ModeSelector } from "./components/modeSelector/ModeSelector.jsx";
 
 configureHotkeys({
     ignoreKeymapAndHandlerChangesByDefault: false
@@ -134,7 +136,10 @@ class Page extends React.Component {
                 currentUser: this.state.currentUser,
                 changeUser: newUser => this.setState({ currentUser: newUser }),
                 refreshUser: async () => {
-                    let userId = this.state.currentUser.id;
+                    if (!this.state.currentUser) {
+                        return;
+                    }
+                    const userId = this.state.currentUser.id;
 
                     // Get more data about user in a separate request
                     let userResponse;
@@ -173,6 +178,9 @@ class Page extends React.Component {
                                             this.setState({ theme });
                                         }} />
                                     }
+                                    <Link className="home-button" to="/">
+                                        <i className="material-icons">home</i>
+                                    </Link>
                                     <Link className="tag-manager-button" to={{
                                         pathname: "/tag-manager",
                                         // Save current location for the background while modal is open
@@ -214,11 +222,12 @@ class Page extends React.Component {
                                             .then(() => routeProps.history.push("/"));
                                     }} />
                                 )} />
-                                <Route render={() => {
+                                <Route path="/prioritise" exact component={Prioritise} />
+                                <Route path="/category" render={() => {
                                     // If there's a root category loaded then go to it, otherwise do nothing until the next render
                                     if (this.state.rootCategoryId) {
-                                        if (location.pathname === "/") {
-                                            return <Redirect from="/" to={`/category/${this.state.rootCategoryId}`} exact />;
+                                        if (location.pathname === "/category") {
+                                            return <Redirect from="/category" to={`/category/${this.state.rootCategoryId}`} exact />;
                                         } else {
                                             // Redirect the background if a modal is open
                                             return <Redirect to={{
@@ -234,6 +243,7 @@ class Page extends React.Component {
                                         return <div className="categories-loading"><NetworkIndicator /></div>;
                                     }
                                 }} />
+                                <Route component={ModeSelector}/>
                             </Switch>
 
                             <GlobalHotKeys keyMap={constants.keyMap} handlers={{
@@ -242,19 +252,22 @@ class Page extends React.Component {
                                         history.push("/info", { background: location.state.background });
                                     } else {
                                         history.push("/info", { background: location });
-                                    }},
+                                    }
+                                },
                                 OPEN_ACCOUNT_MODAL_BOX: () => {
                                     if (location.state && location.state.background) {
                                         history.push("/account", { background: location.state.background });
                                     } else {
                                         history.push("/account", { background: location });
-                                    }},
+                                    }
+                                },
                                 OPEN_TAG_MANAGER_MODAL_BOX: () => {
                                     if (location.state && location.state.background) {
                                         history.push("/tag-manager", { background: location.state.background });
                                     } else {
                                         history.push("/tag-manager", { background: location });
-                                    }},
+                                    }
+                                },
                                 TOGGLE_THEME: () => {
                                     if (hasFlashGold) {
                                         if (this.state.theme === "dark") {
