@@ -93,3 +93,35 @@ export function hasFlashGold(userData) {
 
     return true;
 }
+
+/**
+ * Gets the colour for a rating number
+ * null = unrated, grey
+ * 0 = red
+ * 1 = yellow
+ * 2 = green
+ * @param {Number | null} rating can be a float (due to averages for each course section)
+ * @returns a string representing a CSS color using rgb()
+ */
+export const getColourForRating = rating => {
+    if (rating === null) {
+        return "rgb(150, 150, 150)";
+    }
+
+    let [red, green, blue] = [30, 30, 30]; // individual values out of 255
+
+    if (rating <= 1) {
+        red = 255;
+    } else {
+        red = Math.max(255 - 100 * (rating - 1), 30);
+    }
+
+    green = Math.min(30 + rating * 255, 255);
+
+    return `rgb(${red}, ${green}, ${blue})`;
+};
+
+// // Test getColourRating
+// for (let i = 0; i <= 2; i += 0.2) {
+//     console.log(`%c${i}`, `background-color:${getColourForRating(i)}`);
+// }

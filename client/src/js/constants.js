@@ -1,4 +1,4 @@
-export const version = "2.1.0";
+export const version = "2.2.0";
 
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
 export const dataProtectionEmail = "mailto:data-protection@flashapp.uk.to";
@@ -64,3 +64,10 @@ export const profilePictures = [
     { location: "silhouette-1", name: "silhouette 1", flashGoldRequired: true },
     { location: "silhouette-2", name: "silhouette 2", flashGoldRequired: true }
 ];
+
+export const ratingColours = {
+    null: "#555",
+    1: "#e22",
+    2: "#ee2",
+    3: "#2e2"
+};

@@ -16,7 +16,7 @@ export const ModeSelector = () => {
                         Sort your priorities for your crucial courses by ticking off what you know and what&apos;s still left to learn.
                     </p>
                     <svg viewBox="0 0 290 180">
-                        <rect width="100%" height="100%" fill="white" rx="3" />
+                        <rect className="background" width="100%" height="100%" fill="white" rx="3" />
 
                         {/* List */}
                         <rect x="5" y="5" width="145" height="30" fill="#D1DADF" rx="3"/>
@@ -53,7 +53,7 @@ export const ModeSelector = () => {
                         Use spaced repetition to get the facts into your head with the classic Flash experience.
                     </p>
                     <svg viewBox="0 0 290 180">
-                        <rect width="100%" height="100%" fill="white" rx="3" />
+                        <rect className="background" width="100%" height="100%" fill="white" rx="3" />
                         {/* Cards */}
                         <rect x="13" y="13" width="60" height="40" fill="#B84DAA" rx="5" />
                         <rect x="10" y="10" width="60" height="40" fill="#C359B5" rx="5" />

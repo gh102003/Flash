@@ -26,7 +26,20 @@
     }
 }
 
+@keyframes add-wrapper-in {
+    from {
+        transform: translateY(7vw) scale(0.5);
+    }
+
+    to {
+        transform: none;
+    }
+}
+
+
 .add-wrapper {
+    animation: add-wrapper-in 150ms ease-out both;
+
     user-select: none;
     width: 5vw;
     height: 5vw;

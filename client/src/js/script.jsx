@@ -168,9 +168,18 @@ class Page extends React.Component {
                     <Route render={({ match, location, history }) => (
                         <div className={"theme theme-" + this.state.theme}>
                             <header>
-                                <Link to="/">
-                                    <h1>Flash</h1>
-                                </Link>
+                                <span>
+                                    <Link to="/">
+                                        <h1>Flash</h1>
+                                    </Link>
+                                    <h2 className="mode-heading">
+                                        <Switch location={location.state ? location.state.background : location}>
+                                            <Route path="/quiz" render={() => "Quiz"} />
+                                            <Route path="/category" render={() => "Learn"} />
+                                            <Route path="/prioritise" render={() => "Prioritise"} />
+                                        </Switch>
+                                    </h2>
+                                </span>
                                 <div className="header-buttons">
                                     {hasFlashGold &&
                                         <ToggleDarkTheme theme={this.state.theme} setTheme={theme => {
@@ -178,17 +187,17 @@ class Page extends React.Component {
                                             this.setState({ theme });
                                         }} />
                                     }
-                                    <Link className="home-button" to="/">
+                                    {/* <Link className="home-button" to="/">
                                         <i className="material-icons">home</i>
-                                    </Link>
-                                    <Link className="tag-manager-button" to={{
+                                    </Link> */}
+                                    {/* <Link className="tag-manager-button" to={{
                                         pathname: "/tag-manager",
                                         // Save current location for the background while modal is open
                                         // Flow is the current flow, like "start_subscription"
                                         state: { background: location, flow: null }
                                     }}>
                                         <i className="material-icons">local_offer</i>
-                                    </Link>
+                                    </Link> */}
                                     <Link className={"account-button" + (hasFlashGold ? " account-button-gold" : "")} to={{
                                         pathname: "/account",
                                         state: { background: location }
@@ -222,7 +231,7 @@ class Page extends React.Component {
                                             .then(() => routeProps.history.push("/"));
                                     }} />
                                 )} />
-                                <Route path="/prioritise" exact component={Prioritise} />
+                                <Route path="/prioritise" component={Prioritise} />
                                 <Route path="/category" render={() => {
                                     // If there's a root category loaded then go to it, otherwise do nothing until the next render
                                     if (this.state.rootCategoryId) {
@@ -243,7 +252,7 @@ class Page extends React.Component {
                                         return <div className="categories-loading"><NetworkIndicator /></div>;
                                     }
                                 }} />
-                                <Route component={ModeSelector}/>
+                                <Route component={ModeSelector} />
                             </Switch>
 
                             <GlobalHotKeys keyMap={constants.keyMap} handlers={{

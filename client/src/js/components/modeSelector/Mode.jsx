@@ -15,7 +15,7 @@ export const Mode = ({ path, children }) => {
             const y = event.clientY - centreY;  // y position relative to element's centre.
 
             const distance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-            const rotationAmount = (distance * 0.1) - (Math.pow(distance, 2) * 0.0002);
+            const rotationAmount = (distance * 0.1) - (Math.pow(distance, 2) * 0.00025);
             modeRef.current.style.transform = `perspective(800px) rotate3D(${-y}, ${x}, 0, ${rotationAmount}deg) `;
         }}
         onMouseLeave={() => {

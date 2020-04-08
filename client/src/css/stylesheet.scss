@@ -59,7 +59,6 @@ button {
     background-color: #eee;
 }
 
-
 /*.add-form */
 .controls button:last-child {
     margin-right: 0;
@@ -80,7 +79,7 @@ button {
 }
 
 input[type="text"],
-input[type="password"] {    
+input[type="password"] {
     font-size: 0.9em;
     border: none;
     box-shadow: 0 0.05vw 2px rgba(0, 0, 0, 0.05), 0 0.08vw 6px rgba(0, 0, 0, 0.05);
@@ -112,7 +111,6 @@ input[type="submit"] {
     -webkit-appearance: none;
     position: relative;
     transition: box-shadow 80ms, /* For dark theme */ background-color 400ms, color 400ms;
-
 }
 
 input[type="submit"],
@@ -310,6 +308,17 @@ header {
     h1 {
         margin: 0;
         font-size: 2.8em;
+        display: inline;
+        vertical-align: middle;
+        letter-spacing: -1px;
+    }
+    .mode-heading {
+        font-weight: normal;
+        display: inline;
+        margin: 0 0 0 0.25em;
+        font-size: 2.8em;
+        vertical-align: middle;
+        letter-spacing: -2px;
     }
     a {
         color: inherit;
@@ -367,27 +376,37 @@ header + * {
 @media only screen and (max-width: 600px) {
     header {
         padding: 0.8vw 3vw;
-    }
-    header h1 {
-        font-size: 2.6em;
+
+        h1 {
+            font-size: 2.6em;
+        }
+        .mode-heading {
+            font-size: 2em;
+        }
+        + * {
+            padding-top: 3.8em;
+        }
     }
     .header-buttons a {
         font-size: 1.5em;
-        margin-left: 0.5em;
-    }
-    header + * {
-        padding-top: 3.8em;
+        margin-left: 0.3em;
     }
 }
 
 @media only screen and (max-width: 420px) {
-    header h1 {
-        font-size: 2.3em;
+    header {
+        h1 {
+            font-size: 2.1em;
+        }
+        .mode-heading {
+            font-size: 1.6em;
+            letter-spacing: -1px;
+        }
+        + * {
+            padding-top: 3.3em;
+        }
     }
     .header-buttons a {
         font-size: 1.4em;
-    }
-    header + * {
-        padding-top: 3.3em;
     }
 }

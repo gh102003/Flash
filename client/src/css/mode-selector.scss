@@ -1,6 +1,8 @@
 .mode-selector {
     margin-left: 1.5vw;
     margin-right: 1.5vw;
+    text-align: center;
+    overflow: hidden;
 
     @media only screen and (max-width: 600px) {
         margin: 0 3vw;
@@ -20,11 +22,14 @@
         height: 50vh;
         display: flex;
         justify-content: space-evenly;
+        align-items: center;
         flex-flow: column nowrap;
-        background-color: #e0e0e0;
+        // background-color: #e0e0e0;
+        background-color: #d1dadf;
         padding: 2em;
         margin: 1em;
-        width: min(70vw, 20em);
+        width: 70vw;
+        max-width: 20em;
         border-radius: 0.5em;
         cursor: pointer;
         transition: background-color 400ms, color 400ms;
@@ -40,16 +45,16 @@
             text-align: center;
             font-size: 2em;
             margin: 0.3em 0;
-            transform: translateZ(30px);
+            transform: translateZ(20px);
         }
         p {
             margin: 0;
-            transform: translateZ(10px);
         }
         svg {
-            margin: 1em 0.5em;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            // margin: 1em 0.5em;
             transform: translateZ(20px);
+            width: 70%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
     }
 }
