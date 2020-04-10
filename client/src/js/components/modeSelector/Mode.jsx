@@ -20,7 +20,7 @@ export const Mode = ({ path, children }) => {
         }}
         onMouseLeave={() => {
             modeRef.current.style.transition = "transform 400ms";
-            modeRef.current.style.transform = "perspective(800px) ";
+            modeRef.current.style.transform = "perspective(800px)";
         }}
         onMouseEnter={() => {
             modeRef.current.style.transition = "none";
@@ -31,10 +31,6 @@ export const Mode = ({ path, children }) => {
             onClick={() => history.push(path)}
         >
             {children}
-            {/* <h3>Prioritise</h3>
-            <p>
-                Sort your priorities for your crucial courses by ticking off what you know and what&apos;s still left to learn.
-            </p> */}
         </div>
     </div>;
 };

@@ -1,22 +1,26 @@
 .mode-selector {
-    margin-left: 1.5vw;
-    margin-right: 1.5vw;
-    text-align: center;
     overflow: hidden;
+    // margin-left: 1.5vw;
+    // margin-right: 1.5vw;
 
-    @media only screen and (max-width: 600px) {
-        margin: 0 3vw;
-    }
+    // @media only screen and (max-width: 600px) {
+        // margin: 0 3vw;
+    // }
 
-    h2 {
-        margin: 0.3em 0;
-    }
+    background-image: url(https://cdn.pixabay.com/photo/2019/05/26/16/43/norway-4230682_960_720.jpg);
+    background-size: cover;
+    min-height: 90vh;
 }
 
 .choose-mode {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+    margin: 8vh 0;
+
+    @media only screen and (max-width: 900px) {
+        margin: 0;
+    }
 
     .mode {
         height: 50vh;
@@ -25,7 +29,9 @@
         align-items: center;
         flex-flow: column nowrap;
         // background-color: #e0e0e0;
-        background-color: #d1dadf;
+        // background-color: #d1dadf;
+        background-color: rgba(209, 218, 223, 0.8);
+        backdrop-filter: blur(5px);
         padding: 2em;
         margin: 1em;
         width: 70vw;
@@ -38,6 +44,7 @@
         perspective-origin: center center;
 
         @media only screen and (max-width: 600px) {
+            height: 40vh;
             font-size: 0.8em;
         }
 
@@ -51,10 +58,10 @@
             margin: 0;
         }
         svg {
-            // margin: 1em 0.5em;
             transform: translateZ(20px);
             width: 70%;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 0.8em 0;
         }
     }
 }

@@ -174,6 +174,7 @@ class Page extends React.Component {
                                     </Link>
                                     <h2 className="mode-heading">
                                         <Switch location={location.state ? location.state.background : location}>
+                                            {/* TODO: links */}
                                             <Route path="/quiz" render={() => "Quiz"} />
                                             <Route path="/category" render={() => "Learn"} />
                                             <Route path="/prioritise" render={() => "Prioritise"} />

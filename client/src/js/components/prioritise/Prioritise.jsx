@@ -1,9 +1,13 @@
-import React from "react";
-import { Route, useHistory, Switch } from "react-router";
+import React, { useState, useEffect } from "react";
+import { Route, useHistory, useRouteMatch, Switch } from "react-router";
 
 import "../../../css/prioritise.scss";
+import * as envConstants from "../../envConstants";
 import { Course } from "./Course.jsx";
+import { Section } from "./Section.jsx";
+import { Link } from "react-router-dom";
 
+/*
 let courses = [
     {
         title: "Chemistry",
@@ -22,6 +26,7 @@ let courses = [
                 id: "4i33o4k234",
                 topics: [
                     {
+                        id: "434i23krewr",
                         name: "Covalent Bonding",
                         description: "How atoms share electrons",
                         linkedCategory: "545554sadsd4sad4s4das5d45",
@@ -34,11 +39,13 @@ let courses = [
                 ]
             },
             {
+                id: "5e8f069d1c9d440000f11804",
                 name: "6: Rate and Extent of Chemical Change",
-                id: "4i34fjsdfjj",
+                course: "5e8f069d1c9d440000f117ff",
                 // calculate average rating of all topics
                 topics: [
                     {
+                        id: "434i2fdsfewr",
                         name: "Rate of Reaction",
                         description: "The amount of reactant used or product formed in a certain unit of time, like g/s, cm3/s and mol/s",
                         linkedCategory: "545554sadsd4sad4s4das5d45",
@@ -49,6 +56,7 @@ let courses = [
                         rating: 1 // Displayed as a coloured dot; provided by server in an /api/priorities GET request; null for unrated
                     },
                     {
+                        id: "434i324krewr",
                         name: "Calulate Rate from Tangent",
                         description: "Draw a tangent and calculate the gradient of it using units like g/s, cm3/s and mol/s",
                         linkedCategory: "545554sadsd4sad4s4das5d45",
@@ -151,17 +159,29 @@ let courses = [
     }
 ];
 
-courses = [...courses, ...courses, ...courses];
+courses = [...courses, ...courses, ...courses];*/
 
 export const Prioritise = props => {
+
     const history = useHistory();
+    const { path, url } = useRouteMatch();
+
+    const [courses, setCourses] = useState([]);
+    useEffect(() => {
+        fetch(`${envConstants.serverOrigin}/prioritise/courses`)
+            .then(response => response.json())
+            .then(response => setCourses(response.courses));
+    }, []);
 
     return <div className="prioritise">
         <Switch>
-            <Route path="/prioritise/course/:courseId" exact render={({ match }) => (
-                <Course course={courses.filter(course => course.id === match.params.courseId)[0]} />
+            <Route path={path + "/course/:courseId"} exact render={({ match }) => (
+                <Course courseId={match.params.courseId} />
             )} />
-            <Route path="/prioritise/course/:courseId/sections/:sectionId" exact/>
+            <Route path={path + "/course/:courseId/section/:sectionId"} render={({ match }) => {
+                const course = courses.filter(course => course.id === match.params.courseId)[0];
+                return <Section course={course} sectionId={match.params.sectionId} />;
+            }} />
             <Route>
                 <div className="courses">
                     {courses.map((course, index) => (
