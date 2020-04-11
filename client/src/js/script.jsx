@@ -201,7 +201,7 @@ class Page extends React.Component {
                                     </Link> */}
                                     <Link className={"account-button" + (hasFlashGold ? " account-button-gold" : "")} to={{
                                         pathname: "/account",
-                                        state: { background: location }
+                                        state: { ...location.state, background: location }
                                     }}>
                                         {
                                             this.state.currentUser && this.state.currentUser.profilePicture ?
@@ -211,7 +211,7 @@ class Page extends React.Component {
                                     </Link>
                                     <Link className="info-button" to={{
                                         pathname: "/info",
-                                        state: { background: location }
+                                        state: { ...location.state, background: location }
                                     }}>
                                         <i className="material-icons">info</i>
                                     </Link>
@@ -243,6 +243,7 @@ class Page extends React.Component {
                                             return <Redirect to={{
                                                 pathname: location.pathname,
                                                 state: {
+                                                    ...location.state,
                                                     background: {
                                                         pathname: `/category/${this.state.rootCategoryId}`
                                                     }
@@ -259,23 +260,23 @@ class Page extends React.Component {
                             <GlobalHotKeys keyMap={constants.keyMap} handlers={{
                                 OPEN_INFO_MODAL_BOX: () => {
                                     if (location.state && location.state.background) {
-                                        history.push("/info", { background: location.state.background });
+                                        history.push("/info", { ...location.state, background: location.state.background });
                                     } else {
-                                        history.push("/info", { background: location });
+                                        history.push("/info", { ...location.state, background: location });
                                     }
                                 },
                                 OPEN_ACCOUNT_MODAL_BOX: () => {
                                     if (location.state && location.state.background) {
-                                        history.push("/account", { background: location.state.background });
+                                        history.push("/account", { ...location.state, background: location.state.background });
                                     } else {
-                                        history.push("/account", { background: location });
+                                        history.push("/account", { ...location.state, background: location });
                                     }
                                 },
                                 OPEN_TAG_MANAGER_MODAL_BOX: () => {
                                     if (location.state && location.state.background) {
-                                        history.push("/tag-manager", { background: location.state.background });
+                                        history.push("/tag-manager", { ...location.state, background: location.state.background });
                                     } else {
-                                        history.push("/tag-manager", { background: location });
+                                        history.push("/tag-manager", { ...location.state, background: location });
                                     }
                                 },
                                 TOGGLE_THEME: () => {
@@ -304,7 +305,7 @@ class Page extends React.Component {
                                             afterAccountChange={() => {
                                                 // Get a new root category based on the authenticated user, then go to it in the background
                                                 this.getRootCategoryIdFromServer()
-                                                    .then(() => history.push("/account", { background: { pathname: "/" } }));
+                                                    .then(() => history.push("/account", { ...location.state, background: { pathname: "/" } }));
                                             }}
                                         />
                                     </Route>

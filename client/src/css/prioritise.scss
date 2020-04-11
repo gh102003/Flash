@@ -127,6 +127,7 @@ $pale-background: #d1dadf;
         border-radius: 100%;
         padding: 1em;
         line-height: 1;
+        cursor: not-allowed;
     }
 
     h4 {
@@ -196,7 +197,7 @@ $pale-background: #d1dadf;
             background-color: desaturate(darken($color: $pale-background, $amount: 40), $amount: 4);
             color: white;
             box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-            transform: translate(-2px, -2px);
+            transform: translate(-3px, -3px);
         }
 
         h3 {

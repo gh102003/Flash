@@ -14,7 +14,7 @@ export const CourseSection = props => {
 
     return <Link className="course-section" to={`/prioritise/course/${props.course.id}/section/${props.section.id}`}>
         <h3>{props.section.name}</h3>
-        <span className="rating" title="Average of all topics" style={{ backgroundColor: getColourForRating(average) }}></span>
+        <span className="rating" title="Average of topics" style={{ backgroundColor: getColourForRating(average) }}></span>
         {props.section.topics && props.section.topics.length > 0 && <>
             <h4>Topics</h4>
             <ul className="topics-list">
