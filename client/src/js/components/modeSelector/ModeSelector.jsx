@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import "../../../css/mode-selector.scss";
 import { Mode } from "./Mode.jsx";
@@ -67,6 +67,11 @@ export const ModeSelector = () => {
                         <rect x="80" y="60" width="60" height="40" fill="#dc143c" rx="5" />
                     </svg>
                 </Mode>
+            </div>
+            <div className="news-cta">
+                <Link className="link" to="/coronavirus">
+                    Find out what Flash is doing to battle the Coronavirus
+                </Link>
             </div>
         </div>
     );

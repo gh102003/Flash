@@ -7,13 +7,23 @@
         url(data:image/webp;base64,UklGRnIBAABXRUJQVlA4IGYBAACwCQCdASoyACEAPpE+mUelo6KhMBVaqLASCWUAvkAAxFqrAfWdyJBnUGWJzv5K234/O9dsj9wBLN2yA4VBqYhio9qpWccPvbv36N8jqz3c5v6cW6IDAADygfXehTaPJwyDbKqKa5J5ABthDuPNx7in7rZYOtkRUp717rtr6Om2ojITcgsIhetpyWbspmgQ6ohMxJ1WUOdYDlq6Dldp8fdCDOA+vHoojP4YRolPJf/Fhn8aLKHL12+JBddsvTPp6Dz67hZAT90xNOLQGe1CKyMc6wxo5/n7hQraTmRQBHEvaASKZ2bJ3OAZWqCGHeLvGn0qYlJmFnT5iVUZ7jXbNopL7/UH87OABW2xi1iHNhuVGyY5lyfE1yuMK76Fly8IjkM3PI4XWHDobPkebPFfWSxWvSJslv8JIpD7n/tf+n0YhXe12empv400HP+XzQyNx1nFLfnelS65WtBpMeo1CIIOY+jgAAAA);
     background-size: cover;
     min-height: 90vh;
+    text-align: center;
+
+    .news-cta {
+        display: inline-block;
+        border-radius: 0.5em;
+        padding: 0.8em 1.2em;
+        background-color: rgba(209, 218, 223, 0.8);
+        backdrop-filter: blur(5px);
+        margin: 2vh;
+    }
 }
 
 .choose-mode {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
-    margin: 8vh 0;
+    margin: 2vh 0;
 
     @media only screen and (max-width: 900px) {
         margin: 0;
@@ -30,7 +40,7 @@
         padding: 2em;
         margin: 1em;
         width: 70vw;
-        max-width: 20em;
+        max-width: 17em;
         border-radius: 0.5em;
         cursor: pointer;
         transition: background-color 400ms, color 400ms;

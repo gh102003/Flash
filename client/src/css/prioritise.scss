@@ -102,6 +102,10 @@ $pale-background: #d1dadf;
     margin: 0 0 0.8em 0;
     font-size: 0.9em;
 
+    @media only screen and (max-width: 600px) {
+        font-size: 0.7em;
+    }
+
     h2 {
         margin: 0.3em 0 0 0;
     }
@@ -120,8 +124,13 @@ $pale-background: #d1dadf;
     margin: 0.5em 0;
     font-size: 0.8em;
     display: grid;
+    gap: 0 0.5em;
     grid-template-columns: 1fr auto;
     transition: background-color 100ms;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 0.7em;
+    }
 
     &:hover {
         background-color: desaturate(darken($color: $pale-background, $amount: 10), $amount: 1);
@@ -155,9 +164,17 @@ $pale-background: #d1dadf;
     grid-template-rows: auto 1fr;
     gap: 0.8em 1em;
 
+    @media only screen and (max-width: 600px) {
+        gap: 0.7em 0.5em;
+    }
+
     .section-title {
         font-size: 0.9em;
         grid-column: 1/3;
+
+        @media only screen and (max-width: 600px) {
+            font-size: 0.7em;
+        }
 
         h2 {
             margin: 0.3em 0 0 0;
@@ -193,6 +210,11 @@ $pale-background: #d1dadf;
         transition: all 100ms;
         font-size: 0.8em;
         cursor: default;
+        
+        @media only screen and (max-width: 600px) {
+            padding: 0.7em 0.8em;
+            font-size: 0.7em;
+        }
 
         &:hover {
             background-color: desaturate(darken($color: $pale-background, $amount: 10), $amount: 1);
@@ -256,6 +278,11 @@ $pale-background: #d1dadf;
         border-radius: 0.3em;
         background-color: $pale-background;
         transition: background-color 100ms, color 100ms;
+        
+        @media only screen and (max-width: 600px) {
+            font-size: 0.8em;
+            padding: 0.7em 0.8em;
+        }
 
         h3 {
             margin-top: 0;

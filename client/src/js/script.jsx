@@ -44,6 +44,7 @@ import { PaymentHistory } from "./components/subscription/PaymentHistory.jsx";
 import { FlashGoldTerms } from "./components/subscription/FlashGoldTerms.jsx";
 import { VerifyEmailAddress } from "./components/account/VerifyEmailAddress.jsx";
 import { ModeSelector } from "./components/modeSelector/ModeSelector.jsx";
+import {CoronavirusInfo} from "./components/CoronavirusInfo.jsx";
 
 configureHotkeys({
     ignoreKeymapAndHandlerChangesByDefault: false
@@ -174,7 +175,6 @@ class Page extends React.Component {
                                     </Link>
                                     <h2 className="mode-heading">
                                         <Switch location={location.state ? location.state.background : location}>
-                                            {/* TODO: links */}
                                             <Route path="/quiz" render={() => "Quiz"} />
                                             <Route path="/category" render={() => <Link to={"/category"}>Learn</Link>} />
                                             <Route path="/prioritise" render={() => <Link to={"/prioritise"}>Prioritise</Link>} />
@@ -233,6 +233,9 @@ class Page extends React.Component {
                                     }} />
                                 )} />
                                 <Route path="/prioritise" component={Prioritise} />
+                                <Route path="/coronavirus">
+                                    <CoronavirusInfo/>
+                                </Route>
                                 <Route path="/category" render={() => {
                                     // If there's a root category loaded then go to it, otherwise do nothing until the next render
                                     if (this.state.rootCategoryId) {
