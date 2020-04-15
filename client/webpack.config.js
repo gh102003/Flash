@@ -58,7 +58,8 @@ module.exports = {
         new CopyWebpackPlugin([
             { from: "./manifest.json", to: "." },
             { from: "./robots.txt", to: "." },
-            { from: "./sitemap.xml", to: "." }
+            { from: "./sitemap.xml", to: "." },
+            { from: "./res", to: "./res" }
         ]),
         new WorkboxPlugin.GenerateSW({
             // these options encourage the ServiceWorkers to get in there fast
@@ -70,9 +71,9 @@ module.exports = {
             navigateFallback: "/index.html",
 
             // Exclude webpack related dev tools
-            exclude: [/hot-update.json$/],
+            exclude: [/hot-update\.json$/],
 
-            // Runtime caching - remember last 10 backend GET requests for 5 minutes
+            // Runtime caching - remember last 10 backend GET requests for 10 minutes
             runtimeCaching: [{
                 urlPattern: /^.*:(444|3001)/,
                 handler: "NetworkFirst",
@@ -81,7 +82,7 @@ module.exports = {
                     cacheName: "backend-runtime-cache",
                     expiration: {
                         maxEntries: 10,
-                        maxAgeSeconds: 60 * 5,
+                        maxAgeSeconds: 60 * 10,
                     },
                     cacheableResponse: {
                         statuses: [200]

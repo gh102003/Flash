@@ -51,7 +51,7 @@ export const authenticatedFetch = async (path, options) => await fetch(
     {
         ...options,
         headers: {
-            ...options.headers,
+            ...(options && options.headers),
             "Authorization": localStorage.getItem("AuthToken") ? "Bearer " + localStorage.getItem("AuthToken") : ""
         }
     }
@@ -104,24 +104,22 @@ export function hasFlashGold(userData) {
  * @returns a string representing a CSS color using rgb()
  */
 export const getColourForRating = rating => {
-    if (rating === null) {
-        return "rgb(150, 150, 150)";
+    if (rating == null) {
+        return "rgb(170, 170, 170)";
     }
 
-    let [red, green, blue] = [30, 30, 30]; // individual values out of 255
+    let red, green, blue = 0; // individual values out of 255
 
-    if (rating <= 1) {
-        red = 255;
-    } else {
-        red = Math.max(255 - 100 * (rating - 1), 30);
-    }
+    red = Math.min(-122 * rating ** 2 + 128 * rating + 254, 255);
 
-    green = Math.min(30 + rating * 255, 255);
+    // green = Math.min(20 + rating * 235, 255);
+    green = Math.min(-155 * rating ** 2 + 390 * rating + 20, 255);
 
     return `rgb(${red}, ${green}, ${blue})`;
 };
 
-// // Test getColourRating
+// // Test getColourForRating
 // for (let i = 0; i <= 2; i += 0.2) {
-//     console.log(`%c${i}`, `background-color:${getColourForRating(i)}`);
+//     const colour = getColourForRating(i);
+//     console.log(`%c${i.toString().padStart(20)} | ${colour}`, `background-color:${colour}`);
 // }

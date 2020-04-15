@@ -176,8 +176,8 @@ class Page extends React.Component {
                                         <Switch location={location.state ? location.state.background : location}>
                                             {/* TODO: links */}
                                             <Route path="/quiz" render={() => "Quiz"} />
-                                            <Route path="/category" render={() => "Learn"} />
-                                            <Route path="/prioritise" render={() => "Prioritise"} />
+                                            <Route path="/category" render={() => <Link to={"/category"}>Learn</Link>} />
+                                            <Route path="/prioritise" render={() => <Link to={"/prioritise"}>Prioritise</Link>} />
                                         </Switch>
                                     </h2>
                                 </span>
@@ -352,7 +352,7 @@ const DndBackendPipeline = {
             transition: MouseTransition
         },
         {
-            backend: TouchBackend({ enableMouseEvents: true, delay: 300 }),
+            backend: TouchBackend({ enableMouseEvents: true, delay: 250 }),
             preview: true,
             transition: TouchTransition
         },

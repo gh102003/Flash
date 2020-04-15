@@ -3,12 +3,13 @@ import { CourseSection } from "./CourseSection.jsx";
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
 
 import * as envConstants from "../../envConstants";
+import * as util from "../../util";
 
 export const Course = props => {
 
     const [course, setCourse] = useState();
     useEffect(() => {
-        fetch(`${envConstants.serverOrigin}/prioritise/courses/${props.courseId}`)
+        util.authenticatedFetch(`prioritise/courses/${props.courseId}`)
             .then(response => response.json())
             .then(setCourse);
     }, []);
@@ -24,7 +25,7 @@ export const Course = props => {
             <a className="link" href={course.specificationUrl} target="_blank" rel="noopener noreferrer">View Specification</a>
         </div>
         <div className="sections">
-            {course.sections.map((section, index) => (
+            {course.sections && course.sections.map((section, index) => (
                 <CourseSection key={index} section={section} course={course} />
             ))}
         </div>

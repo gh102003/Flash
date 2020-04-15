@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express"); // Framework
 const morgan = require("morgan"); // Logging
 const bodyParser = require("body-parser"); // Body parsing
@@ -39,6 +40,9 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+app.use("/static", express.static(path.join(__dirname, "static")));
+
 // Before body parser because it does itself
 app.use("/billing", billingRoutes);
 

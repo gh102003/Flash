@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTransition, animated } from "react-spring";
 
 import "../../../css/import-flashcards.scss";
 import * as util from "../../util";
@@ -37,7 +38,7 @@ export const ImportFlashcardsDialog = props => {
     };
 
     return (
-        <div className="import-flashcards-dialog">
+        <animated.div className="import-flashcards-dialog" style={props.style}>
             Import flashcards from a list or spreadsheet.
             From Quizlet, click the three dots, &lsquo;export&rsquo;, then copy and paste the text here.
             All the cards will be created in the current category ({props.category.name}).
@@ -52,6 +53,6 @@ export const ImportFlashcardsDialog = props => {
                     <button onClick={() => props.handleClose()}>Cancel</button>
                 </div>
             </form>
-        </div>
+        </animated.div>
     );
 };

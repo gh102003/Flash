@@ -16,7 +16,7 @@ import { ProfilePictureEdit } from "./ProfilePictureEdit.jsx";
 
 // Whole folder as dependency
 // eslint-disable-next-line no-undef
-require.context("../../../res/profile-pictures/256");
+require.context("../../../res/profile-pictures/256", true, /^\.\/.*$/, "lazy");
 
 export const Account = props => {
 

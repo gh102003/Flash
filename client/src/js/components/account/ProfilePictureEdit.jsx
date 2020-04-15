@@ -6,7 +6,7 @@ import * as util from "../../util";
 
 import "../../../css/edit-profile-picture.scss";
 // eslint-disable-next-line no-undef
-require.context("../../../res/profile-pictures/128");
+require.context("../../../res/profile-pictures/128", true, /^\.\/.*$/, "lazy");
 
 export const ProfilePictureEdit = props => {
 

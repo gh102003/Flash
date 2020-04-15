@@ -19,11 +19,11 @@ export const Mode = ({ path, children }) => {
             modeRef.current.style.transform = `perspective(800px) rotate3D(${-y}, ${x}, 0, ${rotationAmount}deg) `;
         }}
         onMouseLeave={() => {
-            modeRef.current.style.transition = "transform 400ms";
+            modeRef.current.style.transition = "transform 400ms, background-color 400ms, color 400ms";
             modeRef.current.style.transform = "perspective(800px)";
         }}
         onMouseEnter={() => {
-            modeRef.current.style.transition = "none";
+            modeRef.current.style.transition = "background-color 400ms, color 400ms";
         }}>
         {/* Receives mouse events so that it is a constant size */}
         <div className="mode"

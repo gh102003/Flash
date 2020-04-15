@@ -5,7 +5,7 @@ import "../../../css/prioritise.scss";
 import * as envConstants from "../../envConstants";
 import { Course } from "./Course.jsx";
 import { Section } from "./Section.jsx";
-import { Link } from "react-router-dom";
+import { NetworkIndicator } from "../NetworkIndicator.jsx";
 
 /*
 let courses = [
@@ -184,16 +184,24 @@ export const Prioritise = props => {
             }} />
             <Route>
                 <div className="courses">
-                    {courses.map((course, index) => (
-                        <div key={index} tabIndex="0" className="course-card" onClick={() => history.push(`/prioritise/course/${course.id}`)}>
-                            <img src={course.image} />
-                            <div className="course-info">
-                                <h3>{course.title}</h3>
-                                <p>{course.subtitle}</p>
-                                <a className="link" href={course.specificationUrl} target="_blank" rel="noopener noreferrer">View Specification</a>
+                    {courses.length > 0 ? <>
+                        {courses.map((course, index) => (
+                            <div key={index} tabIndex="0" className="course-card" onClick={() => history.push(`/prioritise/course/${course.id}`)}>
+                                <img src={course.imageUrl} />
+                                <div className="course-info">
+                                    <h3>{course.title}</h3>
+                                    <p>{course.subtitle}</p>
+                                    <a className="link" href={course.specificationUrl} target="_blank" rel="noopener noreferrer">View Specification</a>
+                                </div>
                             </div>
+                        ))}
+                        <div className="coming-soon">
+                            <p>
+                                More courses coming soon!
+                            </p>
                         </div>
-                    ))}
+                    </> : <NetworkIndicator />
+                    }
                 </div>
             </Route>
         </Switch>

@@ -17,11 +17,11 @@ export const ModeSelector = () => {
                         <rect className="background" width="100%" height="100%" fill="white" rx="3" />
 
                         {/* List */}
-                        <rect x="5" y="5" width="145" height="30" fill="#D1DADF" rx="3" />
-                        <rect x="5" y="40" width="145" height="30" fill="#D1DADF" rx="3" />
-                        <rect x="5" y="75" width="145" height="30" fill="#D1DADF" rx="3" />
-                        <rect x="5" y="110" width="145" height="30" fill="#D1DADF" rx="3" />
-                        <rect x="5" y="145" width="145" height="30" fill="#D1DADF" rx="3" />
+                        <rect className="panel" x="5" y="5" width="145" height="30" fill="#D1DADF" rx="3" />
+                        <rect className="panel" x="5" y="40" width="145" height="30" fill="#D1DADF" rx="3" />
+                        <rect className="panel" x="5" y="75" width="145" height="30" fill="#D1DADF" rx="3" />
+                        <rect className="panel" x="5" y="110" width="145" height="30" fill="#D1DADF" rx="3" />
+                        <rect className="panel" x="5" y="145" width="145" height="30" fill="#D1DADF" rx="3" />
 
                         {/* Dots */}
                         <circle cx="135" cy="20" r="5" fill="yellow" />
@@ -31,7 +31,7 @@ export const ModeSelector = () => {
                         <circle cx="135" cy="160" r="5" fill="yellow" />
 
                         {/* Details */}
-                        <rect x="155" y="5" width="130" height="170" fill="#D1DADF" rx="5" />
+                        <rect className="panel" x="155" y="5" width="130" height="170" fill="#D1DADF" rx="5" />
                         <rect x="165" y="15" width="67" height="15" fill="#777" />
                         <rect x="165" y="34" width="110" height="5" fill="#999" />
                         <rect x="165" y="42" width="85" height="5" fill="#999" />

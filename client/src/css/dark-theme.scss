@@ -3,6 +3,14 @@
     color: rgba(255, 255, 255, 0.8);
     -webkit-font-smoothing: antialiased !important;
 
+    --flash-gold-colour: #e49a06;
+    --flash-gold-shimmer-gradient: linear-gradient(45deg, #c99505 0% 40%, #dbc85b);
+
+    h2:not(.mode-heading, .modal-header),
+    h3 {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
     .import-flashcards-button {
         &:hover {
             background-color: rgba(255, 255, 255, 0.1);
@@ -170,19 +178,21 @@
         }
     }
 
-
     .terms {
         background-color: #555;
         color: rgba(255, 255, 255, 0.9);
     }
 
     .get-flash-gold-cta {
+        h3 {
+            color: black;
+        }
         a.link {
             &:link {
                 color: blue;
             }
             &:visited {
-                color: #551A8B;
+                color: #551a8b;
             }
             &:active {
                 color: red;
@@ -190,7 +200,92 @@
         }
     }
 
+    .role-badge:not(.role-badge-flash-gold) {
+        filter: brightness(0.85) contrast(0.85);
+    }
+
     .choose-mode .mode {
-        background-color: #555;
+        background-color: rgba(60, 60, 60, 0.85);
+
+        svg {
+            .background {
+                fill: #555;
+            }
+
+            .panel {
+                fill: #646464;
+            }
+        } 
+    }
+
+    .course-card {
+        background-color: #494949;
+
+        .course-info p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        img {
+            filter: brightness(0.9) contrast(0.7);
+        }
+    }
+
+    .rating {
+        filter: brightness(0.9) contrast(0.8);
+        border: none;
+    }
+
+    .course {
+        .course-info {
+            .subtitle {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .course-section {
+            background-color: #525252;
+
+            &:hover {
+                background-color: #5d5d5d;
+            }
+
+            &:active {
+                background-color: #656565;
+            }
+
+            h4,
+            ul {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+    }
+
+    .section {
+        .section-title h2 a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        a.section-topic {
+            background-color: #525252;
+
+            &:hover {
+                background-color: #5d5d5d;
+            }
+
+            &:active {
+                background-color: #656565;
+            }
+
+            &.section-topic-active {
+                background-color: #4a5c65;
+            }
+
+            p {
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+        .topic-wrapper .topic {
+            background-color: #525252;
+        }
     }
 }

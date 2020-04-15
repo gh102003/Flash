@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink, Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
 import { useTransition, animated, config } from "react-spring";
 
 import { Topic } from "./Topic.jsx";
+import { UserContext } from "../../contexts/UserContext";
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
-import * as envConstants from "../../envConstants";
+import { authenticatedFetch, getColourForRating } from "../../util";
 
 export const Section = props => {
 
+    const userContext = useContext(UserContext);
     const { path, url } = useRouteMatch();
 
     const [section, setSection] = useState([]);
     useEffect(() => {
-        fetch(`${envConstants.serverOrigin}/prioritise/sections/${props.sectionId}`)
+        authenticatedFetch(`prioritise/sections/${props.sectionId}`)
             .then(response => response.json())
             .then(response => setSection(response));
     }, []);
@@ -45,6 +47,37 @@ export const Section = props => {
                     activeClassName="section-topic-active"
                 >
                     <h3>{topic.name}</h3>
+                    <div
+                        className={userContext.currentUser ? "rating" : "rating rating-disabled"}
+                        style={{ backgroundColor: getColourForRating(topic.rating) }}
+                        title={userContext.currentUser ? "Click to rate" : "Login to rate"}
+                        onClick={async event => {
+                            event.preventDefault();
+
+                            if (!userContext.currentUser) {
+                                return;
+                            }
+
+                            const newRating = topic.rating !== null ? (topic.rating + 1) % 3 : 0;
+                            // Update on client
+                            setSection({
+                                ...section,
+                                topics: Object.assign([...section.topics], {
+                                    [index]: { ...topic, rating: newRating }
+                                })
+                            });
+                            // Update on server
+                            const res = await authenticatedFetch(`prioritise/topics/${topic.id}/rating`, {
+                                method: "PATCH",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({ rating: newRating })
+                            });
+                        }}
+                    />
+
+                    <p>{topic.description}</p>
                 </NavLink>
             ))}
         </div>

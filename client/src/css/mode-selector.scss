@@ -1,13 +1,10 @@
 .mode-selector {
     overflow: hidden;
-    // margin-left: 1.5vw;
-    // margin-right: 1.5vw;
 
-    // @media only screen and (max-width: 600px) {
-        // margin: 0 3vw;
-    // }
-
-    background-image: url(https://cdn.pixabay.com/photo/2019/05/26/16/43/norway-4230682_960_720.jpg);
+    background: url(/res/backgrounds/high/norway.webp),
+        // use jpeg image fallback for Safari
+        url(/res/backgrounds/low/norway.jpg),
+        url(data:image/webp;base64,UklGRnIBAABXRUJQVlA4IGYBAACwCQCdASoyACEAPpE+mUelo6KhMBVaqLASCWUAvkAAxFqrAfWdyJBnUGWJzv5K234/O9dsj9wBLN2yA4VBqYhio9qpWccPvbv36N8jqz3c5v6cW6IDAADygfXehTaPJwyDbKqKa5J5ABthDuPNx7in7rZYOtkRUp717rtr6Om2ojITcgsIhetpyWbspmgQ6ohMxJ1WUOdYDlq6Dldp8fdCDOA+vHoojP4YRolPJf/Fhn8aLKHL12+JBddsvTPp6Dz67hZAT90xNOLQGe1CKyMc6wxo5/n7hQraTmRQBHEvaASKZ2bJ3OAZWqCGHeLvGn0qYlJmFnT5iVUZ7jXbNopL7/UH87OABW2xi1iHNhuVGyY5lyfE1yuMK76Fly8IjkM3PI4XWHDobPkebPFfWSxWvSJslv8JIpD7n/tf+n0YhXe12empv400HP+XzQyNx1nFLfnelS65WtBpMeo1CIIOY+jgAAAA);
     background-size: cover;
     min-height: 90vh;
 }
@@ -28,8 +25,6 @@
         justify-content: space-evenly;
         align-items: center;
         flex-flow: column nowrap;
-        // background-color: #e0e0e0;
-        // background-color: #d1dadf;
         background-color: rgba(209, 218, 223, 0.8);
         backdrop-filter: blur(5px);
         padding: 2em;

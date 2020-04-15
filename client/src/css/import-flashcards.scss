@@ -48,17 +48,6 @@ button.import-flashcards-button {
 
 /* Dialog */
 
-@keyframes import-flashcards-dialog-in {
-    from {
-        transform: scale(0);
-        opacity: 0.7;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
 .import-flashcards-dialog {
     z-index: 100;
     position: absolute;
@@ -70,7 +59,6 @@ button.import-flashcards-button {
     border-radius: 0.5em;
     font-size: calc(0.6em + 0.3vw);
     transform-origin: top right;
-    animation: import-flashcards-dialog-in 300ms both;
     
     textarea {
         padding: 0.5em;
