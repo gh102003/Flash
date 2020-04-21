@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 module.exports = {
     mode: "development",
@@ -51,6 +52,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new LodashModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: "./index.html",
             filename: "index.html"

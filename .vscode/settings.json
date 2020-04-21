@@ -3,5 +3,8 @@
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
     "eslint.enable": true,
-    "eslint.workingDirectories": ["./client", "./nodeServer"],
+    "eslint.workingDirectories": [
+        "./client",
+        "./nodeServer"
+    ]
 }
