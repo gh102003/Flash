@@ -1,4 +1,6 @@
-export const version = "2.2.0";
+export const version = "2.2.1";
+
+export const googleAnalyticsTrackingId = "UA-164247818-1";
 
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
 export const dataProtectionEmail = "mailto:data-protection@flashapp.uk.to";

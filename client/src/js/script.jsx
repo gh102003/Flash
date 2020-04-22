@@ -9,6 +9,8 @@ import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import TouchBackend from "react-dnd-touch-backend";
 import MultiBackend, { MouseTransition, TouchTransition } from "react-dnd-multi-backend";
+import ReactGA from "react-ga";
+import { createBrowserHistory } from "history";
 
 import * as util from "./util";
 import * as constants from "./constants";
@@ -44,18 +46,23 @@ import { PaymentHistory } from "./components/subscription/PaymentHistory.jsx";
 import { FlashGoldTerms } from "./components/subscription/FlashGoldTerms.jsx";
 import { VerifyEmailAddress } from "./components/account/VerifyEmailAddress.jsx";
 import { ModeSelector } from "./components/modeSelector/ModeSelector.jsx";
-import {CoronavirusInfo} from "./components/CoronavirusInfo.jsx";
+import { CoronavirusInfo } from "./components/CoronavirusInfo.jsx";
 
 configureHotkeys({
     ignoreKeymapAndHandlerChangesByDefault: false
 });
 
+ReactGA.initialize(constants.googleAnalyticsTrackingId);
+
 class Page extends React.Component {
     constructor(props) {
         super(props);
 
-        // Number of ms since consent was provided, null otherwise
-        const trackingConsent = localStorage.getItem("TrackingConsentTimestamp");
+        let trackingConsent = localStorage.getItem("TrackingConsentTimestamp");
+        if (trackingConsent < new Date("2020-04-22")) { // Date the consent message was updated
+            trackingConsent = null;
+            localStorage.removeItem("TrackingConsentTimestamp");
+        }
 
         this.state = {
             modalOpen: trackingConsent === null ? "trackingConsent" : null,
@@ -129,8 +136,27 @@ class Page extends React.Component {
         history.push(location.state ? location.state.background.pathname : "/");
     }
 
+    initAnalytics(hasFlashGold) {
+        if (this.state.currentUser) {
+            ReactGA.set({
+                userId: this.state.currentUser,
+                hasFlashGold
+            });
+        }
+
+        const history = createBrowserHistory();
+
+        // Initialize google analytics page view tracking
+        history.listen(location => {
+            ReactGA.set({ page: location.pathname }); // Update the user's current page
+            ReactGA.pageview(location.pathname); // Record a pageview for the given page
+        });
+    }
+
     render() {
         const hasFlashGold = util.hasFlashGold(this.state.currentUser);
+
+        this.initAnalytics(hasFlashGold);
 
         return (
             <UserContext.Provider value={{
@@ -234,7 +260,7 @@ class Page extends React.Component {
                                 )} />
                                 <Route path="/prioritise" component={Prioritise} />
                                 <Route path="/coronavirus">
-                                    <CoronavirusInfo/>
+                                    <CoronavirusInfo />
                                 </Route>
                                 <Route path="/category" render={() => {
                                     // If there's a root category loaded then go to it, otherwise do nothing until the next render
