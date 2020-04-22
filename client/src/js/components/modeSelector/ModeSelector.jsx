@@ -9,7 +9,10 @@ export const ModeSelector = () => {
         <div className="mode-selector">
             <div className="choose-mode">
                 <Mode path="/prioritise">
-                    <h3>Prioritise</h3>
+                    <h3>
+                        Prioritise
+                        <span className="mode-badge">Beta</span>
+                    </h3>
                     <p>
                         Sort your priorities for your crucial courses by ticking off what you know and what&apos;s still left to learn.
                     </p>

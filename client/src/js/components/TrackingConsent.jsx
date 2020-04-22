@@ -1,7 +1,5 @@
 import React from "react";
 
-import "../../css/tracking-consent.scss";
-
 export const TrackingConsent = props => {
 
     return (

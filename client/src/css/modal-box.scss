@@ -54,6 +54,11 @@
             top: calc(2.5vmin + 2px);
         }
     }
+
+    div.controls {
+        margin-top: 1em;
+        text-align: right;
+    }
 }
 
 .external-link i {
@@ -130,5 +135,18 @@
     .modal-body {
         overflow-y: auto;
         max-height: calc(88vh - 5em);
+    }
+}
+
+.modal.login-prompt {
+    width: 40vw;
+    @media only screen and (max-width: 1250px) {
+        width: 50vw;
+    }
+    @media only screen and (max-width: 900px) {
+        width: 70vw;
+    }
+    @media only screen and (max-width: 600px) {
+        width: 92vw;
     }
 }
