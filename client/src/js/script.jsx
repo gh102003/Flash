@@ -13,6 +13,7 @@ import ReactGA from "react-ga";
 import { createBrowserHistory } from "history";
 
 import * as util from "./util";
+import * as envConstants from "./envConstants";
 import * as constants from "./constants";
 import * as serviceWorker from "./initServiceWorker";
 
@@ -62,8 +63,8 @@ class Page extends React.Component {
             localStorage.removeItem("TrackingConsentTimestamp");
         }
 
-        if (localStorage.getItem("TrackingConsentTimestamp")) {
-            ReactGA.initialize(constants.googleAnalyticsTrackingId);
+        if (trackingConsent) {
+            this.initAnalytics();
         }
 
         this.state = {
@@ -84,6 +85,8 @@ class Page extends React.Component {
         // Initialize google analytics page view tracking
         const history = createBrowserHistory();
         history.listen(location => {
+            console.log("pageview");
+            
             ReactGA.set({ page: location.pathname }); // Update the user's current page
             ReactGA.pageview(location.pathname); // Record a pageview for the given page
         });
@@ -143,6 +146,18 @@ class Page extends React.Component {
 
     returnToBackgroundLocation(history, location) {
         history.push(location.state ? location.state.background.pathname : "/");
+    }
+
+    initAnalytics() {
+        console.log("init analytics");
+        
+        ReactGA.initialize(constants.googleAnalyticsTrackingId, {
+            debug: true,
+            gaOptions: {
+                cookieDomain: envConstants.clientOrigin,
+                siteSpeedSampleRate: 20
+            }
+        });
     }
 
     render() {
@@ -321,7 +336,7 @@ class Page extends React.Component {
                             {this.state.modalOpen === "trackingConsent" ? // Hide modals from routes if tracking consent modal is open
                                 <TrackingConsent handleClose={didAgree => {
                                     if (didAgree) {
-                                        ReactGA.initialize(constants.googleAnalyticsTrackingId);
+                                        this.initAnalytics();
                                     }
                                     this.setState({ modalOpen: null });
                                 }} /> :
