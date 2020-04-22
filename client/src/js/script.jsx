@@ -52,8 +52,6 @@ configureHotkeys({
     ignoreKeymapAndHandlerChangesByDefault: false
 });
 
-ReactGA.initialize(constants.googleAnalyticsTrackingId);
-
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -62,6 +60,10 @@ class Page extends React.Component {
         if (trackingConsent < new Date("2020-04-22")) { // Date the consent message was updated
             trackingConsent = null;
             localStorage.removeItem("TrackingConsentTimestamp");
+        }
+
+        if (localStorage.getItem("TrackingConsentTimestamp")) {
+            ReactGA.initialize(constants.googleAnalyticsTrackingId);
         }
 
         this.state = {
@@ -78,6 +80,13 @@ class Page extends React.Component {
         if (this.state.currentUser && !this.state.currentUser.username) {
             this.getUserData();
         }
+
+        // Initialize google analytics page view tracking
+        const history = createBrowserHistory();
+        history.listen(location => {
+            ReactGA.set({ page: location.pathname }); // Update the user's current page
+            ReactGA.pageview(location.pathname); // Record a pageview for the given page
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -136,32 +145,20 @@ class Page extends React.Component {
         history.push(location.state ? location.state.background.pathname : "/");
     }
 
-    initAnalytics(hasFlashGold) {
-        if (this.state.currentUser) {
-            ReactGA.set({
-                userId: this.state.currentUser,
-                hasFlashGold
-            });
-        }
-
-        const history = createBrowserHistory();
-
-        // Initialize google analytics page view tracking
-        history.listen(location => {
-            ReactGA.set({ page: location.pathname }); // Update the user's current page
-            ReactGA.pageview(location.pathname); // Record a pageview for the given page
-        });
-    }
-
     render() {
         const hasFlashGold = util.hasFlashGold(this.state.currentUser);
-
-        this.initAnalytics(hasFlashGold);
 
         return (
             <UserContext.Provider value={{
                 currentUser: this.state.currentUser,
-                changeUser: newUser => this.setState({ currentUser: newUser }),
+                changeUser: newUser => {
+                    // Update analytics
+                    ReactGA.set({
+                        userId: newUser,
+                        hasFlashGold: util.hasFlashGold(newUser)
+                    });
+                    this.setState({ currentUser: newUser });
+                },
                 refreshUser: async () => {
                     if (!this.state.currentUser) {
                         return;
@@ -322,7 +319,12 @@ class Page extends React.Component {
                             }} />
 
                             {this.state.modalOpen === "trackingConsent" ? // Hide modals from routes if tracking consent modal is open
-                                <TrackingConsent handleClose={() => this.setState({ modalOpen: null })} /> :
+                                <TrackingConsent handleClose={didAgree => {
+                                    if (didAgree) {
+                                        ReactGA.initialize(constants.googleAnalyticsTrackingId);
+                                    }
+                                    this.setState({ modalOpen: null });
+                                }} /> :
                                 <Switch>
                                     <Route path="/tag-manager" exact>
                                         {/* Restore background's url */}

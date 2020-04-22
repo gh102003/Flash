@@ -30,12 +30,12 @@ export const TrackingConsent = props => {
                     <div className="controls">
                         <button className="primary" onClick={() => {
                             localStorage.setItem("TrackingConsentTimestamp", Date.now());
-                            props.handleClose();
+                            props.handleClose(true);
                         }}>
                             Yes
                         </button>
                         <button onClick={() => {
-                            props.handleClose();
+                            props.handleClose(false);
                         }}>
                             No
                         </button>
