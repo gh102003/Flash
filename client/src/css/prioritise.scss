@@ -263,41 +263,46 @@ $pale-background: #d1dadf;
     .topic-switcher {
         overflow: visible;
         position: relative;
+        transform: translateZ(0); // create 'containing block' for descendents to reset tblr
     }
 
     .topic-wrapper {
         position: fixed;
-        margin-right: 1.5vw;
-        @media only screen and (max-width: 600px) {
-            margin-right: 3vw;
-        }
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
     }
 
     .topic {
-        height: 60vh;
+        max-height: 100%;
+        box-sizing: border-box;
         padding: 1em;
         border-radius: 0.3em;
         background-color: $pale-background;
         transition: background-color 100ms, color 100ms;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overflow-wrap: break-word;
         
         @media only screen and (max-width: 600px) {
-            font-size: 0.8em;
+            font-size: 0.75em;
             padding: 0.7em 0.8em;
         }
 
         h3 {
             margin-top: 0;
         }
-
+        
         h4 {
             margin: 0 0 0.5em 0;
         }
-
+        
         ul {
             margin: 0;
             padding-left: 1.5em;
         }
-
+        
         li {
             margin: 0.3em 0;
         }
