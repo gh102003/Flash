@@ -119,14 +119,14 @@ button.primary {
     color: white;
     transition: background-color 200ms, box-shadow 80ms;
     box-shadow: 0 0.1vw 4px 0 rgba(220, 20, 60, 0.5);
+    
+    &:hover {
+        box-shadow: 0 0.12vw 6px 0 rgba(220, 20, 60, 0.7);
+    }
 }
 
 button:hover {
     box-shadow: 0 0.12vw 6px -1px rgba(0, 0, 0, 0.5);
-}
-
-input[type="submit"]:hover {
-    box-shadow: 0 0.12vw 6px 0 rgba(220, 20, 60, 0.7);
 }
 
 button:active,

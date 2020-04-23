@@ -89,7 +89,9 @@ router.post("/signup", async (req, res, next) => {
         await user.save();
     }
     catch (error) {
-        return res.status(400).json({ error: "Malformed user data" }); // 409 Conflict
+        const errorsTypesToSend = ["username", "emailAddress"];
+        const errorFields = Object.keys(error.errors).filter(error => errorsTypesToSend.includes(error));
+        return res.status(400).json({ error: "Malformed user data", errorFields });
     }
 
     // Create a new 'home' category for the new user

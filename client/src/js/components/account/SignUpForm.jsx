@@ -55,6 +55,7 @@ export class SignUpForm extends React.Component {
      */
     validateFormData() {
         if (!this.state.formData.username) return false;
+        if (this.state.formData.username.length > 25 || this.state.formData.username.length < 4) return false;
         if (!this.state.formData.emailAddress.match(constants.emailAddressRegex)) return false;
         if (!this.state.formData.password) return false;
         if (!this.state.formData.repeatPassword) return false;
@@ -87,10 +88,11 @@ export class SignUpForm extends React.Component {
                         switch (response.status) {
                             case 201:
                                 return;
+                            case 400:
                             case 409:
                                 responseData = await response.json();
                                 this.setState({
-                                    lastSignUp: { success: false, error: responseData.error }
+                                    lastSignUp: { success: false, error: responseData.error, errorFields: responseData.errorFields }
                                 });
                                 throw new Error(responseData.error);
                             default:
@@ -111,27 +113,6 @@ export class SignUpForm extends React.Component {
                         );
                     });
             }}>
-
-
-            <label htmlFor="username">
-                Username:
-            </label>
-            <div className="input-with-validation">
-                <input
-                    autoFocus
-                    id="username"
-                    autoComplete="username"
-                    type="text"
-                    value={this.state.formData.username}
-                    onChange={event => this.updateForm("username", event.target.value)}
-                />
-                {
-                    // Check last sign up for conflicting username
-                    !this.state.lastSignUp.success && this.state.lastSignUp.error.split(" ")[0] === "Username" &&
-                    <div className="validation-message">{this.state.lastSignUp.error}</div>
-                }
-            </div>
-
 
             <label htmlFor="email-address">
                 Email Address:
@@ -194,6 +175,39 @@ export class SignUpForm extends React.Component {
                 }
             </div>
 
+            <label htmlFor="username">
+                Display Name:
+            </label>
+            <div className="input-with-validation">
+                <input
+                    autoFocus
+                    id="username"
+                    autoComplete="username"
+                    type="text"
+                    value={this.state.formData.username}
+                    onChange={event => this.updateForm("username", event.target.value)}
+                />
+                {
+                    // Check last sign up for conflicting username
+                    !this.state.lastSignUp.success && this.state.lastSignUp.error.split(" ")[0] === "Username" &&
+                    <div className="validation-message">{this.state.lastSignUp.error}</div>
+                }
+                {
+                    // Check for malformed username
+                    (
+                        // Client
+                        (this.state.formData.username &&
+                            (this.state.formData.username.length > 25 || this.state.formData.username.length < 4)
+                        )
+                        ||
+                        // Server
+                        (!this.state.lastSignUp.success &&
+                            this.state.lastSignUp.error.split(" ")[0] === "Malformed" &&
+                            this.state.lastSignUp.errorFields.includes("username"))
+                    )
+                    && <div className="validation-message">Username must be 4-25 characters long</div>
+                }
+            </div>
 
             <input
                 type="checkbox"

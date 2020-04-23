@@ -1,7 +1,7 @@
 import React from "react";
 import { GlobalHotKeys, getApplicationKeyMap } from "react-hotkeys";
 import { Helmet } from "react-helmet";
-import { version, dataProtectionEmail, sourceCodeLink, keyMap } from "../constants";
+import { version, dataProtectionEmail, sourceCodeLink, keyMap, contactEmail } from "../constants";
 
 import "../../css/keyboard-shortcuts.scss";
 
@@ -43,8 +43,7 @@ export function InfoBox(props) {
                     <p>Create, manage and practise with your own flashcards!</p>
                     <h3>Tips</h3>
                     <ul>
-                        <li>Drag a flashcard or category to move it somewhere else</li>
-                        <li>The breadcrumbs can also be clicked or dropped into, but they can&apos;t be dragged</li>
+                        <li>Cards and categories can be dropped into other categories or the location bar</li>
                         <li>Click the graph icon on a category to take a quiz</li>
                         <li>Create your own account to make private flashcards</li>
                         <li>When you&apos;re logged in, use the breadcrumbs to switch between personal and public workspaces</li>
@@ -55,23 +54,32 @@ export function InfoBox(props) {
                         {renderKeyboardShortcuts()}
                     </dl>
                     <p className="external-link">
-                        <i className="material-icons">open_in_new</i>
+                        <i className="material-icons">code</i>
                         <a className="link" href={sourceCodeLink}>
-                            View source
+                            View source code
                         </a> on GitHub
                     </p>
                     <p className="external-link">
                         <i className="material-icons">email</i>
-                        Send us a&nbsp;
+                        Send us an&nbsp;
+                        <a className="link" href={contactEmail}>
+                            email
+                        </a>
+                        &nbsp;(or contact us about&nbsp;
                         <a className="link" href={dataProtectionEmail}>
                             data protection
-                        </a> email
+                        </a>
+                         )
                     </p>
                     <p className="external-link">
+                        <i className="material-icons">security</i>
                         {trackingConsent === null ? "Tracking consent has not been provided for analytics." :
-                            <a className="link" href="" onClick={() => {
-                                localStorage.removeItem("TrackingConsentTimestamp");
-                            }}>Revoke tracking consent for analytics</a>
+                            <>
+                                <a className="link" href="" onClick={() => {
+                                    localStorage.removeItem("TrackingConsentTimestamp");
+                                }}>Review or revoke</a>
+                                &nbsp;tracking consent for analytics
+                            </>
                         }
                     </p>
                 </div>
