@@ -74,3 +74,5 @@ export const ratingColours = {
     2: "#ee2",
     3: "#2e2"
 };
+
+export const containsMathsRegex = /[+\-/*=^`]/;

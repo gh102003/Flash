@@ -54,7 +54,7 @@ export const FlashcardNormal = props => {
     // Font size can be manipulated by ems in CSS media queries as well as here
     const textSize = Math.min(1, 1 - 0.004 * props.text.length);
 
-    const katexErrorColour = props.styles.color === "#FFFFFF" ? "#FF6666" : "#aa0000" ;
+    const katexErrorColour = props.styles.color === "#FFFFFF" ? "#FF6666" : "#aa0000";
 
     return drop(drag(
         <div className={className} style={props.styles} onClick={event => {

@@ -24,6 +24,7 @@ import "../css/add-card.scss";
 import "../css/modal-box.scss";
 import "../css/tag.scss";
 import "../css/dark-theme.scss";
+import "../css/hints.scss";
 
 import "../res/ios-splashscreens"; // All in folder, using index.js
 import "../res/icons";
