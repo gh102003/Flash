@@ -1,6 +1,6 @@
 import React from "react";
-
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
+import { Katex } from "../Katex.jsx";
 
 export const Topic = props => {
 
@@ -10,7 +10,7 @@ export const Topic = props => {
 
     return <div className="topic">
         <h3>{props.topic.name}</h3>
-        <p>{props.topic.description}</p>
+        <p><Katex>{props.topic.description}</Katex></p>
 
         <h4>Links</h4>
         <ul>

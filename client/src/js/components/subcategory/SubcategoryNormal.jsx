@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useDrag, useDrop } from "react-dnd";
 
+import { Katex } from "../Katex.jsx";
 import { UserContext } from "../../contexts/UserContext.js";
 import { draggableTypes } from "../../constants.js";
 

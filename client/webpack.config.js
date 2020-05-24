@@ -103,5 +103,9 @@ module.exports = {
             "history/createBrowserHistory": path.resolve(__dirname, "../node_modules/history/es/createBrowserHistory"),
             "history/PathUtils": path.resolve(__dirname, "../node_modules/history/es/PathUtils")
         }
+    },
+    externals: {
+        "katex": "katex",
+        "katex-auto-render": "renderMathInElement",
     }
 };

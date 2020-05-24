@@ -3,6 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 
 import * as constants from "../../constants.js";
 import { Tag } from "../tagManager/Tag.jsx";
+import { Katex } from "../Katex.jsx";
 
 export const FlashcardNormal = props => {
 
@@ -53,6 +54,8 @@ export const FlashcardNormal = props => {
     // Font size can be manipulated by ems in CSS media queries as well as here
     const textSize = Math.min(1, 1 - 0.004 * props.text.length);
 
+    const katexErrorColour = props.styles.color === "#FFFFFF" ? "#FF6666" : "#aa0000" ;
+
     return drop(drag(
         <div className={className} style={props.styles} onClick={event => {
             event.stopPropagation();
@@ -72,7 +75,9 @@ export const FlashcardNormal = props => {
                 <i className="material-icons" >zoom_out_map</i>
             </div>
 
-            <span style={{ fontSize: textSize + "em" }}>{props.text}</span>
+            <span style={{ fontSize: textSize + "em" }}>
+                <Katex errorColour={katexErrorColour}>{props.text}</Katex>
+            </span>
 
             <div
                 className="tags"

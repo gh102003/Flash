@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink, Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
-import { useTransition, animated, config } from "react-spring";
+import { useTransition, animated } from "react-spring";
 
+import { Katex } from "../Katex.jsx";
 import { Topic } from "./Topic.jsx";
 import { UserContext } from "../../contexts/UserContext";
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
@@ -77,7 +78,7 @@ export const Section = props => {
                         }}
                     />
 
-                    <p>{topic.description}</p>
+                    <p><Katex>{topic.description}</Katex></p>
                 </NavLink>
             ))}
         </div>

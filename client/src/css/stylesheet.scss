@@ -13,6 +13,11 @@
     --flash-gold-shimmer-gradient: linear-gradient(45deg, #ffbe0a 0% 40%, #ffea70);
 }
 
+.katex {
+    font-size: 1.1em;
+    line-height: 1.1em; 
+}
+
 .theme {
     min-height: 100vh;
     transition: background-color 400ms;
