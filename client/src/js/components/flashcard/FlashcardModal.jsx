@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 
+import { Katex } from "../Katex.jsx";
+
 export const FlashcardModal = props => {
 
     const keyboardEventListener = event => {
@@ -61,7 +63,9 @@ export const FlashcardModal = props => {
                         <i className="material-icons">chevron_right</i>
                     </div>
                 </div>
-                <span style={{ fontSize: textSize + "em" }}>{props.text}</span>
+                <span style={{ fontSize: textSize + "em" }}>
+                    <Katex>{props.text}</Katex>
+                </span>
             </div>
         </div>
     );

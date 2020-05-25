@@ -2,6 +2,8 @@ import React from "react";
 
 import * as util from "../../util";
 
+import { Katex } from "../Katex.jsx";
+
 export const QuizFlashcard = props => {
 
     // Font size can be manipulated by ems in CSS media queries as well as here
@@ -15,7 +17,7 @@ export const QuizFlashcard = props => {
     return (
         <div className="quiz-flashcard" style={styles}>
             <span style={{ fontSize: textSize + "em" }}>
-                {props.text}
+                <Katex>{props.text}</Katex>
             </span>
         </div>
     );

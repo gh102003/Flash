@@ -1,16 +1,18 @@
 import React from "react";
+import { Transition } from "react-spring/renderprops";
 import { GlobalHotKeys } from "react-hotkeys";
 
 import * as constants from "../constants";
 import { authenticatedFetch, getUserFromAuthToken } from "../util";
+import { MathsFormattingHint } from "./MathsFormattingHint.jsx";
 
 export class AddCardForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { front: "", back: "", isReversible: false };
+        this.state = { front: "", back: "", isReversible: false, showMathsFormattingHint: false };
     }
     handleChange(event) {
-        let key = event.target.name;
+        const key = event.target.name;
         let value;
         if (event.target.type === "checkbox") {
             value = event.target.checked;
@@ -18,7 +20,12 @@ export class AddCardForm extends React.Component {
         else {
             value = event.target.value;
         }
-        this.setState({ [key]: value });
+
+        if (key === "front" || key === "back") {
+            this.setState({ [key]: value, showMathsFormattingHint: value.match(constants.containsMathsRegex) });
+        } else {
+            this.setState({ [key]: value });
+        }
     }
     handleSubmit(event) {
         authenticatedFetch("flashcards", {
@@ -45,6 +52,8 @@ export class AddCardForm extends React.Component {
         if (!this.state.front) enableSubmit = false;
         if (!this.state.back) enableSubmit = false;
 
+        const hintInsetDirection = window.innerWidth <= 600 ? "top" : "left";
+
         return (
             <div className="modal-background" onClick={this.props.handleCancel}>
                 <GlobalHotKeys keyMap={constants.keyMap} handlers={{
@@ -70,6 +79,15 @@ export class AddCardForm extends React.Component {
                             </div>
                         </form>
                     </div>
+                    <Transition
+                        items={this.state.showMathsFormattingHint}
+                        from={{ [hintInsetDirection]: "75%", opacity: 0, transform: "scale(1.1)", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1" }}
+                        enter={{ [hintInsetDirection]: "100%", opacity: 1, transform: "scale(1)", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2" }}
+                        leave={{ [hintInsetDirection]: "75%", opacity: 0, transform: "scale(1.1)", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1" }}
+                        config={{ tension: 250, friction: 26 }}
+                    >
+                        {isVisible => isVisible && (props => <MathsFormattingHint style={props} />)}
+                    </Transition>
                 </div>
             </div>
         );
