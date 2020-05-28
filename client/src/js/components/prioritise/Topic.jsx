@@ -9,7 +9,7 @@ export const Topic = props => {
     }
 
     return <div className="topic">
-        <h3>{props.topic.name}</h3>
+        <h3><Katex>{props.topic.name}</Katex></h3>
         <p><Katex>{props.topic.description}</Katex></p>
 
         <h4>Links</h4>

@@ -23,9 +23,9 @@ export const Section = props => {
     // React Spring manages passing location(s) to the Route
     const currentLocation = useLocation();
     const transitions = useTransition(currentLocation, location => location.pathname, {
-        from: { opacity: 0, transform: "translateY(-50%) scale(0.8)" },
+        from: { opacity: 0, transform: "translateY(-50%) scale(0.9)" },
         enter: { opacity: 1, transform: "translateY(0%) scale(1)" },
-        leave: { opacity: 0, transform: "translateY(50%) scale(0.8)" },
+        leave: { opacity: 0, transform: "translateY(20%) scale(0.9)" },
     });
 
     if (!props.course || !props.sectionId) {
@@ -47,7 +47,7 @@ export const Section = props => {
                     className="section-topic"
                     activeClassName="section-topic-active"
                 >
-                    <h3>{topic.name}</h3>
+                    <h3><Katex>{topic.name}</Katex></h3>
                     <div
                         className={userContext.currentUser ? "rating" : "rating rating-disabled"}
                         style={{ backgroundColor: getColourForRating(topic.rating) }}

@@ -1,5 +1,5 @@
 .theme-dark {
-    background-color: #3a3a3a;
+    background-color: #222;
     color: rgba(255, 255, 255, 0.8);
     -webkit-font-smoothing: antialiased !important;
 
@@ -23,17 +23,17 @@
     .modal,
     .import-flashcards-dialog,
     .edit-dialog {
-        background-color: #444;
+        background-color: #2f2f2f;
         color: rgba(255, 255, 255, 0.8);
     }
 
     .modal.manage-subscription {
         .subscription {
-            background-color: #555;
-            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2), -4px -4px 6px rgba(255, 255, 255, 0.15);
+            background-color: #3f3f3f;
+            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2), -4px -4px 6px rgba(255, 255, 255, 0.1);
 
             &.subscription-gold::after {
-                box-shadow: 4px 4px 6px rgba(170, 122, 0, 0.3), -4px -4px 6px rgba(255, 240, 206, 0.2);
+                box-shadow: 4px 4px 6px rgba(170, 122, 0, 0.3), -4px -4px 6px rgba(255, 240, 206, 0.15);
             }
 
             .price-details {
@@ -46,8 +46,12 @@
     input,
     button,
     textarea {
-        background-color: #555;
+        background-color: #3f3f3f;
         color: rgba(255, 255, 255, 0.8);
+    }
+
+    textarea {
+        border-color: #555;
     }
 
     input[type="text"],
@@ -69,33 +73,32 @@
         background-color: crimson;
 
         &:disabled {
-            background-color: hsl(348, 20%, 35%);
+            background-color: hsl(348, 25%, 35%);
         }
-    }
-
-    textarea {
-        border-color: #666;
     }
 
     .twitter-picker {
-        background-color: #444 !important;
+        background-color: #333 !important;
 
+        // Background of hash icon
         > div:last-child > div:first-of-type {
-            background-color: #666 !important;
+            background-color: #555 !important;
         }
 
+        // Textbox
         input {
             box-shadow: none !important;
             color: rgba(255, 255, 255, 0.7) !important;
         }
 
+        // Triangle
         > div:nth-child(2) {
-            border-bottom-color: #444 !important;
+            border-bottom-color: #333 !important;
         }
     }
 
     .add-category-form .twitter-picker {
-        background-color: #4f4f4f !important;
+        background-color: #3f3f3f !important;
     }
 
     a.link {
@@ -113,16 +116,16 @@
     }
 
     .network-indicator.loading::after {
-        border-color: #777;
+        border-color: #555;
         border-top-color: crimson;
     }
 
     .breadcrumb-category {
-        background-color: #555;
+        background-color: #3f3f3f;
         color: rgba(255, 255, 255, 0.8);
 
         &:hover {
-            background-color: #666;
+            background-color: #4f4f4f;
         }
     }
 
@@ -135,7 +138,7 @@
     }
 
     .quiz-stats {
-        background-color: #555;
+        background-color: #3f3f3f;
     }
 
     .quiz-start-btn {
@@ -167,19 +170,19 @@
 
     /* Payment history */
     .payment-history-list {
-        background-color: #555;
+        background-color: #3f3f3f;
 
         th {
-            background-color: #666;
-            border-top-color: #6f6f6f;
+            background-color: #4f4f4f;
+            border-top-color: #5f5f5f;
         }
         td {
-            border-top-color: #6f6f6f;
+            border-top-color: #5f5f5f;
         }
     }
 
     .terms {
-        background-color: #555;
+        background-color: #444;
         color: rgba(255, 255, 255, 0.9);
     }
 
@@ -205,32 +208,32 @@
     }
 
     .mode-selector .news-cta {
-        background-color: rgba(60, 60, 60, 0.85);
+        background-color: rgba(50, 50, 50, 0.85);
     }
 
     .choose-mode .mode {
-        background-color: rgba(60, 60, 60, 0.85);
+        background-color: rgba(50, 50, 50, 0.85);
 
         svg {
             .background {
-                fill: #555;
+                fill: #444;
             }
 
             .panel {
-                fill: #646464;
+                fill: #525252;
             }
         } 
     }
 
     .courses .coming-soon {
-        background-color: #494949;
+        background-color: #333;
     }
 
     .course-card {
-        background-color: #494949;
+        background-color: #333;
 
         .course-info p {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         img {
@@ -251,14 +254,14 @@
         }
 
         .course-section {
-            background-color: #525252;
+            background-color: #333;
 
             &:hover {
-                background-color: #5d5d5d;
+                background-color: #3f3f3f;
             }
 
             &:active {
-                background-color: #656565;
+                background-color: #444;
             }
 
             h4,
@@ -270,18 +273,18 @@
 
     .section {
         .section-title h2 a:hover {
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         a.section-topic {
-            background-color: #525252;
+            background-color: #333;
 
             &:hover {
-                background-color: #5d5d5d;
+                background-color: #3f3f3f;
             }
 
             &:active {
-                background-color: #656565;
+                background-color: #444;
             }
 
             &.section-topic-active {
@@ -293,7 +296,7 @@
             }
         }
         .topic-wrapper .topic {
-            background-color: #525252;
+            background-color: #444;
         }
     }
 }

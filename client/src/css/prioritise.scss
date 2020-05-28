@@ -17,6 +17,7 @@ $pale-background: #d1dadf;
 
     @media only screen and (max-width: 1250px) {
         grid-template-columns: repeat(4, 1fr);
+        gap: 1.5em;
     }
     @media only screen and (max-width: 900px) {
         grid-template-columns: repeat(3, 1fr);
@@ -156,6 +157,10 @@ $pale-background: #d1dadf;
         margin: 0 0 0.3em 0;
         grid-column: 1/3;
         color: #444;
+
+        li.topic-lines-hidden {
+            font-style: italic;
+        }
     }
 }
 
@@ -208,7 +213,7 @@ $pale-background: #d1dadf;
         margin-bottom: 0.5em;
         background-color: $pale-background;
         border-radius: 0.3em;
-        transition: all 100ms;
+        transition: all 50ms ease;
         font-size: 0.8em;
         cursor: default;
         
@@ -263,7 +268,7 @@ $pale-background: #d1dadf;
     .topic-switcher {
         overflow: visible;
         position: relative;
-        transform: translateZ(0); // create 'containing block' for descendents to reset tblr
+        transform: translateZ(0); // create 'containing block' for descendents to reset tblr properties
     }
 
     .topic-wrapper {

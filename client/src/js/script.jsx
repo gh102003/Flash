@@ -100,11 +100,11 @@ class Page extends React.Component {
                 if (darkModeMediaQuery.matches) {
                     this.setState({ theme: "dark" });
                     // Background underneath content (html element) is also styled for consistency
-                    document.documentElement.style.backgroundColor = "#3a3a3a";
+                    document.documentElement.style.backgroundColor = "#222";
                 }
                 darkModeMediaQuery.addListener(event => {
                     this.setState({ theme: event.matches ? "dark" : "light" });
-                    document.documentElement.style.backgroundColor = event.matches ? "#3a3a3a" : "#fff";
+                    document.documentElement.style.backgroundColor = event.matches ? "#222" : "#fff";
                 });
             } else {
                 this.setState({ theme: "light" });
@@ -223,7 +223,7 @@ class Page extends React.Component {
                                 <div className="header-buttons">
                                     {hasFlashGold &&
                                         <ToggleDarkTheme theme={this.state.theme} setTheme={theme => {
-                                            document.documentElement.style.backgroundColor = theme === "dark" ? "#3a3a3a" : "#fff";
+                                            document.documentElement.style.backgroundColor = theme === "dark" ? "#222" : "#fff";
                                             this.setState({ theme });
                                         }} />
                                     }
@@ -327,7 +327,7 @@ class Page extends React.Component {
                                             document.documentElement.style.backgroundColor = "#fff";
                                             this.setState({ theme: "light" });
                                         } else {
-                                            document.documentElement.style.backgroundColor = "#3a3a3a";
+                                            document.documentElement.style.backgroundColor = "#222";
                                             this.setState({ theme: "dark" });
                                         }
                                     }
