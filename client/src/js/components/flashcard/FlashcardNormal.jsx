@@ -68,12 +68,12 @@ export const FlashcardNormal = props => {
             }}>
                 <i className="material-icons">edit</i>
             </div>}
-            <div className="flashcard-button" onClick={event => {
+            {!props.disableModal && <div className="flashcard-button" onClick={event => {
                 event.stopPropagation();
                 props.handleChangeView("modal");
             }}>
                 <i className="material-icons" >zoom_out_map</i>
-            </div>
+            </div>}
 
             <span style={{ fontSize: textSize + "em" }}>
                 <Katex errorColour={katexErrorColour}>{props.text}</Katex>

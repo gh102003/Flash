@@ -8,7 +8,7 @@ import * as envConstants from "../envConstants";
 import { draggableTypes } from "../constants";
 import { Flashcard } from "./flashcard/Flashcard.jsx";
 import { Subcategory } from "./subcategory/Subcategory.jsx";
-import { AddCardForm } from "./AddCardForm.jsx";
+import { AddFlashcardForm } from "./AddFlashcardForm.jsx";
 import { AddCategoryForm } from "./AddCategoryForm.jsx";
 import { AddButton } from "./AddButton.jsx";
 import { NetworkIndicator } from "./NetworkIndicator.jsx";
@@ -326,7 +326,7 @@ export class Category extends React.Component {
     renderAddElement() {
         if (this.state.currentForm === "addCard") {
             return (
-                <AddCardForm
+                <AddFlashcardForm
                     afterSubmit={() => {
                         this.setState({ currentForm: null });
                         this.updateCardsFromServer();
@@ -334,7 +334,7 @@ export class Category extends React.Component {
                     handleCancel={() => this.setState({ currentForm: null })}
                     // Fallback if not loaded yet
                     category={this.state.category || { id: this.state.category }}>
-                </AddCardForm>
+                </AddFlashcardForm>
             );
         } else if (this.state.currentForm === "addCategory") {
             return (

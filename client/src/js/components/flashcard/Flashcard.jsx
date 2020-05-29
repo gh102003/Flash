@@ -87,6 +87,7 @@ export class Flashcard extends React.Component {
                         text={text}
                         tags={this.props.tags}
                         styles={styles}
+                        disableModal={true}
                     />
                 </>
             );
@@ -115,6 +116,7 @@ export class Flashcard extends React.Component {
                             this.props.handleEdit("tags", tag, "pull");
                             this.props.handleSaveEdit({ propName: "tags", type: "pull", value: tag.id });
                         }}
+                        disableModal={this.props.disableModal}
                     />
                     <FlashcardNormal
                         editable={editable}
@@ -137,6 +139,7 @@ export class Flashcard extends React.Component {
                             this.props.handleEdit("tags", tag, "pull");
                             this.props.handleSaveEdit({ propName: "tags", type: "pull", value: tag.id });
                         }}
+                        disableModal={this.props.disableModal}
                     />
                 </div>
             );

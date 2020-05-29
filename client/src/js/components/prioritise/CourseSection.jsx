@@ -5,7 +5,7 @@ import { getColourForRating } from "../../util";
 
 export const CourseSection = props => {
 
-    const maxTopicLines = 3;
+    const maxTopicLines = 5;
     
     let topicLines = Math.min(props.section.topics.length, maxTopicLines);
     // Consider 'and xx more' at the bottom by taking a line away so maxTopicLines is always the max number of bullet points

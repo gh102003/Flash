@@ -5,8 +5,9 @@ import { GlobalHotKeys } from "react-hotkeys";
 import * as constants from "../constants";
 import { authenticatedFetch, getUserFromAuthToken } from "../util";
 import { MathsFormattingHint } from "./MathsFormattingHint.jsx";
+import { Flashcard } from "./flashcard/Flashcard.jsx";
 
-export class AddCardForm extends React.Component {
+export class AddFlashcardForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = { front: "", back: "", isReversible: false, showMathsFormattingHint: false };
@@ -71,7 +72,19 @@ export class AddCardForm extends React.Component {
                             <label htmlFor="input-back">Back:</label>
                             <input id="input-back" name="back" type="text" size="30" value={this.state.back} onChange={(e) => this.handleChange(e)} />
                             <input id="input-isReversible" type="checkbox" name="isReversible" checked={this.state.isReversible} onChange={(e) => this.handleChange(e)} />
-                            <label htmlFor="input-isReversible">Reversible</label>
+                            <label htmlFor="input-isReversible">Randomise flip</label>
+                            <div className="flashcard-preview">
+                                <h3>Preview</h3>
+                                <Flashcard
+                                    colour={this.props.category.colour}
+                                    isReversible={this.state.isReversible}
+                                    front={this.state.front}
+                                    back={this.state.back}
+                                    tags={[]}
+                                    view="normal"
+                                    disableModal={true}
+                                />
+                            </div>
                             <div className="usernames-visible-to">{usernamesVisibleTo} will be able to see and edit this</div>
                             <div className="controls">
                                 <input type="submit" value="Add flashcard" disabled={!enableSubmit} />

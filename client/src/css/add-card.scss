@@ -36,7 +36,6 @@
     }
 }
 
-
 .add-wrapper {
     animation: add-wrapper-in 150ms ease-out both;
 
@@ -193,6 +192,8 @@
     height: initial;
 }
 
+// Add flashcard form
+
 .add-form {
     display: grid;
     grid-template-columns: auto auto 1fr;
@@ -221,9 +222,21 @@
         font-style: italic;
         opacity: 0.8;
     }
+
+    .flashcard-preview {
+        grid-column: 1 / -1;
+
+        h3 {
+            margin: 0 0 0.8em 0;
+        }
+
+        .flashcard-whole {
+            margin: 0 2em;
+        }
+    }
 }
 
-/* Add category form */
+// Add category form
 
 .add-category-form {
     grid-template-columns: auto 1fr;
@@ -242,7 +255,7 @@
         place-self: center;
         display: inline-block;
     }
-    
+
     .colour-picker > div:hover {
         box-shadow: 0 0.08vw 11px -1px rgba(0, 0, 0, 0.4) !important;
     }
