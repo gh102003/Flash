@@ -95,7 +95,8 @@ export class Quiz extends React.Component {
 
         if (categoryId) {
             if (this.state.isRecursive) {
-                const response = await util.authenticatedFetch(`categories/${categoryId}`, { method: "GET" });
+                // FIXME: potential CSRF vulnerabilities
+                const response = await util.authenticatedFetch(`categories/${categoryId}?populateChildren=true`, { method: "GET" });
                 const responseJson = await response.json();
                 let { colour, id, name } = responseJson.category;
                 let flashcards = this.processFlashcardTree(responseJson.category);

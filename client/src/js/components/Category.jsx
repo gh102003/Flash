@@ -95,14 +95,14 @@ export class Category extends React.Component {
      * @param categoryData (optional) data for the category to be navigated to
      * TODO: remove
      */
-    navigate(url, categoryData) {
-        if (categoryData) {
-            let { id, name, colour, parent, flashcards, children: subcategories, locked } = categoryData;
-            util.shuffle(flashcards);
-            this.setState({ category: { id, name, colour, parent, flashcards, subcategories, locked } });
-        }
-        this.props.history.push(url);
-    }
+    // navigate(url, categoryData) {
+    //     if (categoryData) {
+    //         let { id, name, colour, parent, flashcards, children: subcategories, locked } = categoryData;
+    //         util.shuffle(flashcards);
+    //         this.setState({ category: { id, name, colour, parent, flashcards, subcategories, locked } });
+    //     }
+    //     this.props.history.push(url);
+    // }
 
     /**
      * Called when mounting or changing category and when cards are changed.
@@ -318,7 +318,7 @@ export class Category extends React.Component {
                 handleEdit={(key, newValue, operationType = null) => this.handleCardEdit("subcategory", clientIndex, key, newValue, operationType)}
                 handleSaveEdit={editData => this.handleCardSaveEdit("subcategory", clientIndex, editData)}
                 handleDelete={() => this.handleCardDelete("subcategory", clientIndex)}
-                handleNavigate={url => this.navigate(url)}
+                handleNavigate={url => this.props.history.push(url)}
             />
         ));
     }
@@ -370,7 +370,7 @@ export class Category extends React.Component {
                             currentCategory={this.state.category}
                             afterFlashcardImport={() => this.updateCardsFromServer()}
                             handleCardMove={(itemType, cardId, newCategoryId) => this.handleCardMove(itemType, cardId, newCategoryId)}
-                            handleNavigate={(url, categoryData) => this.navigate(url, categoryData)}
+                            handleNavigate={url => this.props.history.push(url)}
                         />
                     </>
                 }

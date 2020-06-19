@@ -39,6 +39,8 @@ const deepPopulateParent = async (category, innerFunction, depth = 0) => {
  * @param {mongoose.Document} category 
  * @param {*} authenticatedUserId 
  * @param {(category: mongoose.Document, childCategory: mongoose.Document) => mongoose.Document} innerFunction a function to run for every authenticated child, return a value to intercept and change the child
+ * 
+ * @returns {Promise<Document>}
  */
 const deepPopulateChildren = async (category, authenticatedUserId, innerFunction) => {
     if (category.children) {
@@ -148,6 +150,8 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
 
     let inheritedLocked = false; // If the category is locked implicitly by one of its ancestors
 
+    const populateChildren = req.query.populateChildren === "true"; // If the populateChildren parameter is false, only the direct children will be population
+
     // Find in database
     Category
         .findById(req.params.categoryId, { getters: true })
@@ -164,11 +168,14 @@ router.get("/:categoryId", verifyAuthToken, (req, res, next) => {
                 inheritedLocked = true;
             }
         }))
-        .then(category => deepPopulateChildren(category, req.user.id, (parentCategory, childCategory) => {
-            if (parentCategory.locked || inheritedLocked && childCategory.locked === false) {
-                return childCategory = { ...childCategory.toJSON(), locked: "inherited" };
-            }
-        }))
+        .then(category => {
+            if (!populateChildren) return category;
+            return deepPopulateChildren(category, req.user.id, (parentCategory, childCategory) => {
+                if (parentCategory.locked || inheritedLocked && childCategory.locked === false) {
+                    return childCategory = { ...childCategory.toJSON(), locked: "inherited" };
+                }
+            });
+        })
         .then(category => {
             if (category.locked) {
                 res.status(200).json({ category });

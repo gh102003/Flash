@@ -73,7 +73,7 @@ export const ModeSelector = () => {
             </div>
             <div className="news-cta">
                 <Link className="link" to="/coronavirus">
-                    Find out what Flash is doing to battle the Coronavirus
+                    We&apos;re extending our promotion to help the COVID-19 recovery
                 </Link>
             </div>
         </div>
