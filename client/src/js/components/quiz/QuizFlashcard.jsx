@@ -21,4 +21,4 @@ export const QuizFlashcard = props => {
             </span>
         </div>
     );
-}
+};

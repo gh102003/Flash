@@ -5,7 +5,8 @@ const bodyParser = require("body-parser"); // Body parsing
 const mongoose = require("mongoose"); // MongoDB
 const compression = require("compression");
 
-const prioritiseRoutes = require("./api/routes/prioritise/prioritise");
+const quizRoutes = require("./api/routes/quiz/");
+const prioritiseRoutes = require("./api/routes/prioritise/");
 const categoryRoutes = require("./api/routes/categories");
 const flashcardRoutes = require("./api/routes/flashcards");
 const tagRoutes = require("./api/routes/tags");
@@ -53,6 +54,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json()); // JSON
 
 // Setup routers (middleware)
+app.use("/quiz", quizRoutes);
 app.use("/prioritise", prioritiseRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/flashcards", flashcardRoutes);

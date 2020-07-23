@@ -3,6 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import { useDrop } from "react-dnd";
 import { GlobalHotKeys } from "react-hotkeys";
 
+import { ShareCategoryModal } from "../ShareCategoryModal.jsx";
+
 import * as util from "../../util";
 import * as constants from "../../constants";
 import { draggableTypes } from "../../constants";
@@ -12,7 +14,9 @@ import { UserContext } from "../../contexts/UserContext";
 // Unpack linkedlist style object recursively
 export const BreadcrumbCategory = props => {
 
+    const [isSharing, setIsSharing] = useState(false);
     const [switchWorkspaceId, setSwitchWorkspaceId] = useState("/");
+
     const currentUser = useContext(UserContext).currentUser;
     const moderatorLoggedIn = !!(currentUser) && currentUser.roles && currentUser.roles.includes("moderator");
     const editable = props.category.locked === false || moderatorLoggedIn;
@@ -30,7 +34,7 @@ export const BreadcrumbCategory = props => {
 
     if (!props || !props.category.colour) throw new Error("BreadcrumbCategory must be supplied with a valid category");
 
-    let style = { zIndex: props.depth };
+    let style = { zIndex: isSharing ? 1000 : props.depth };
     let activeStyle = {
         backgroundColor: util.colourFromInteger(props.category.colour),
         color: util.contrastingColourFromInteger(props.category.colour)
@@ -121,23 +125,25 @@ export const BreadcrumbCategory = props => {
             {drop(
                 <a className={className} style={style} onClick={() => {
                     if (props.depth === 0) {
-                        if (navigator.share) {
-                            navigator.share({
-                                title: `Flash: ${props.category.name}`,
-                                text: `View '${props.category.name}' on Flash`,
-                                url: `${clientOrigin}/category/${props.category.id}`
+                        setIsSharing(true);
+                        // if (navigator.share) {
+                        //     navigator.share({
+                        //         title: `Flash: ${props.category.name}`,
+                        //         text: `View '${props.category.name}' on Flash`,
+                        //         url: `${clientOrigin}/category/${props.category.id}`
 
-                            }).then(() => console.log("Shared successfully"));
-                        } else {
-                            console.log("Web Share API is not available");
-                        }
+                        //     }).then(() => console.log("Shared successfully"));
+                        // } else {
+                        //     console.log("Web Share API is not available");
+                        // }
                     } else {
                         props.handleNavigate(`/category/${props.category.id}`);
                     }
                 }}>
+                    {isSharing && <ShareCategoryModal category={props.category} handleClose={() => setIsSharing(false)} />}
                     {props.category.locked === true && <i className="material-icons icon-locked">lock</i>}
                     {props.category.name}
-                    {props.depth === 0 && navigator.share &&
+                    {props.depth === 0 /*&& navigator.share*/ &&
                         <i className="material-icons icon-share">share</i>
                     }
                     {props.depth === 1 && // Hotkey for going to parent category

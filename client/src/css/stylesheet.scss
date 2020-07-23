@@ -415,3 +415,25 @@ header + * {
         font-size: 1.4em;
     }
 }
+
+.share-buttons {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.share-buttons > * {
+    margin: 0.8em 0;
+}
+
+.snapchat-share-button {
+    background-color: #FFFC00;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    
+    img {
+        height: 1.5em;
+        margin-right: 0.7em;
+    }
+}

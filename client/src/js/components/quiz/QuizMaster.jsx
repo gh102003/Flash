@@ -3,7 +3,11 @@ import AutosizeInput from "react-input-autosize";
 
 import { QuizTimer } from "./QuizTimer.jsx";
 import { QuizFlashcard } from "./QuizFlashcard.jsx";
-import * as util from "../../util";
+import { QuizSummary } from "./QuizSummary.jsx";
+
+const pointsForCorrectGuess = 2;
+const pointsForWrongGuess = -1;
+const pointsForSkip = -2;
 
 export class QuizMaster extends React.Component {
     constructor(props) {
@@ -26,40 +30,48 @@ export class QuizMaster extends React.Component {
             questionSide,
             answerSide,
             enteredAnswer: "",
+            questions: [], // Array of objects like {flashcardIndex, correct: (t/f/n), timestamp}
+            quizTime: 30000, // How many milliseconds the timer should start at
             timerState: "ready" // Either 'ready', 'running' or 'finished'
         };
     }
 
     render() {
         let flashcardComponent;
+        const currentFlashcard = this.props.flashcards[this.state.currentIndex];
 
-        if (this.props.flashcards.length <= 0) {
-            // flashcardComponent = (
-            //     <QuizFlashcard text="(No flashcards available)" colour={14423100} /> // Crimson colour
-            // );
-            flashcardComponent = (
-                <div className="quiz-empty">
-                    No flashcards available
-                </div>
-            );
-        } else if (this.state.timerState === "ready") {
-            flashcardComponent = (
-                <button
-                    className="quiz-start-btn"
-                    onClick={() => this.setState({ timerState: "running" })}
-                >
-                    Click to start
-                </button>
-            );
-        } else {
-            var currentFlashcard = this.props.flashcards[this.state.currentIndex];
+        if (this.state.timerState === "ready") {
+            if (this.props.flashcards.length <= 0) {
+                flashcardComponent = (
+                    <div className="quiz-empty">
+                        No flashcards available
+                    </div>
+                );
+            } else {
+                flashcardComponent = (
+                    <button
+                        className="quiz-start-btn"
+                        onClick={() => this.setState({ timerState: "running" })}
+                    >
+                        Click to start
+                    </button>
+                );
+            }
+        } else if (this.state.timerState === "running") {
             flashcardComponent = (
                 <QuizFlashcard
                     text={currentFlashcard[this.state.questionSide]}
                     colour={currentFlashcard.colour} />
             );
+        } else if (this.state.timerState === "finished") {
+            flashcardComponent =
+                <QuizSummary
+                    score={this.state.score}
+                    time={this.state.quizTime}
+                    questions={this.state.questions}
+                    flashcards={this.props.flashcards}
+                />;
         }
-
 
         return (
             <div className="quiz-master">
@@ -73,13 +85,13 @@ export class QuizMaster extends React.Component {
                     <div className="quiz-stat">
                         Time left
                         <QuizTimer
-                            length={60000}
+                            length={this.state.quizTime}
                             onFinish={() => this.setState({ timerState: "finished" })}
                             running={this.state.timerState === "running"}
                         />
                     </div>
                 </div>
-                {flashcardComponent}
+                {flashcardComponent || null}
                 {
                     (this.state.timerState === "running" && this.state.answerSide) &&
                     <div className="quiz-answer-entry">
@@ -88,9 +100,10 @@ export class QuizMaster extends React.Component {
                             value={this.state.enteredAnswer}
                             onChange={e => {
                                 this.setState({ enteredAnswer: e.target.value });
-
-                                if (e.target.value.toUpperCase() === currentFlashcard[this.state.answerSide].toUpperCase()) {
-                                    this.nextFlashcard(1);
+                            }}
+                            onKeyDown={e => {
+                                if (this.state.enteredAnswer && e.keyCode === 13) { // Enter
+                                    this.checkGuess();
                                 }
                             }}
                             placeholder="Enter your answer"
@@ -101,18 +114,48 @@ export class QuizMaster extends React.Component {
                             autoCapitalize="off"
                             autoFocus
                         />
-                        {this.state.timerState === "running" &&
-                            <button onClick={() => this.nextFlashcard(0)}>
-                                Skip
-                            </button>
-                        }
+                        <button className="btn-guess" disabled={!this.state.enteredAnswer} onClick={() => this.checkGuess()}>
+                            Guess
+                        </button>
+                        <button className="btn-skip" onClick={() => {
+                            this.setState(prevState => ({
+                                questions: [...prevState.questions, {
+                                    flashcardIndex: this.state.currentIndex,
+                                    correct: null,
+                                    timestamp: Date.now()
+                                }],
+                                score: prevState.score + pointsForSkip
+                            }));
+                            this.nextFlashcard();
+                        }}>
+                            Skip
+                        </button>
                     </div>
                 }
             </div>
         );
     }
 
-    nextFlashcard(pointsFromLast) {
+    checkGuess() {
+        let correct;
+        if (this.state.enteredAnswer.toUpperCase() === this.props.flashcards[this.state.currentIndex][this.state.answerSide].toUpperCase()) {
+            correct = true;
+            this.nextFlashcard();
+        } else {
+            correct = false;
+        }
+        this.setState(prevState => ({
+            questions: [...prevState.questions, {
+                flashcardIndex: this.state.currentIndex,
+                questionSide: this.state.questionSide,
+                correct,
+                timestamp: Date.now()
+            }],
+            score: prevState.score + (correct ? pointsForCorrectGuess : pointsForWrongGuess)
+        }));
+    }
+
+    nextFlashcard() {
         this.setState(oldState => {
             let currentIndex;
             do {
@@ -122,7 +165,7 @@ export class QuizMaster extends React.Component {
                 && currentIndex === oldState.currentIndex
             );
 
-            var questionSide, answerSide;
+            let questionSide, answerSide;
             if (this.props.flashcards.length > 0) {
                 if (this.props.flashcards[currentIndex].is_reversible && Math.random() > 0.5) {
                     [questionSide, answerSide] = ["back", "front"];
@@ -132,7 +175,6 @@ export class QuizMaster extends React.Component {
             }
 
             return {
-                score: oldState.score + pointsFromLast,
                 currentIndex,
                 questionSide,
                 answerSide,

@@ -61,9 +61,23 @@
         integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
         crossorigin="anonymous"></script>
 
+    <!-- Snapchat SDK -->
+    <script>
+        // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js,
+                sjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://sdk.snapkit.com/js/v1/create.js";
+            sjs.parentNode.insertBefore(js, sjs);
+        })(document, "script", "snapkit-creative-kit-sdk");
+    </script>
 
     <title>Flash</title>
     <meta property="og:site_name" content="Flash" />
+    <meta property="og:title" content="Create, manage and practise with your own flashcards!" />
 
     <style>
         /* Before external stylesheets are loaded */
