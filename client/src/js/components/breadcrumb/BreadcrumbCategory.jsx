@@ -49,6 +49,9 @@ export const BreadcrumbCategory = props => {
     if (collectedDropProps.isDraggingOver) {
         className += " dnd-hover";
     }
+    if (isSharing) {
+        className += " sharing";
+    }
 
     const parentBreadcrumb = props.category.parent &&
         (<BreadcrumbCategory
@@ -122,6 +125,8 @@ export const BreadcrumbCategory = props => {
                 )
             }
 
+            {isSharing && <ShareCategoryModal category={props.category} handleClose={() => setIsSharing(false)} />}
+
             {drop(
                 <a className={className} style={style} onClick={() => {
                     if (props.depth === 0) {
@@ -140,7 +145,6 @@ export const BreadcrumbCategory = props => {
                         props.handleNavigate(`/category/${props.category.id}`);
                     }
                 }}>
-                    {isSharing && <ShareCategoryModal category={props.category} handleClose={() => setIsSharing(false)} />}
                     {props.category.locked === true && <i className="material-icons icon-locked">lock</i>}
                     {props.category.name}
                     {props.depth === 0 /*&& navigator.share*/ &&

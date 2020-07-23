@@ -28,6 +28,7 @@
     /* Handle long text */
     white-space: nowrap;
     overflow-x: hidden;
+    position: relative;
 
     &:hover,
     &.dnd-hover {
@@ -47,6 +48,11 @@
     .material-icons.icon-share:hover {
         background-color: rgba(255, 255, 255, 0.2);
         border-radius: 10em;
+    }
+
+    transition: opacity 100ms;
+    &.sharing {
+        opacity: 0;
     }
 }
 

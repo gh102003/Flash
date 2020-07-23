@@ -7,8 +7,8 @@ export const ShareCategoryModal = props => {
         window.snap.creativekit.initalizeShareButtons(document.getElementsByClassName("snapchat-share-button"));
     }, []);
 
-    // const url = `${envConstants.clientOrigin}/category/${props.category.id}`;
-    const url = `https://flashapp.uk.to/category/${props.category.id}`;
+    const url = `${envConstants.clientOrigin}/category/${props.category.id}`;
+    // const url = `https://flashapp.uk.to/category/${props.category.id}`;
 
     return (
         <div className="modal-background" onClick={props.handleClose}>
