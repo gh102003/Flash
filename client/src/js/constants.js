@@ -1,4 +1,4 @@
-export const version = "2.4.2";
+export const version = "2.4.3";
 
 export const googleAnalyticsTrackingId = "UA-164247818-1";
 

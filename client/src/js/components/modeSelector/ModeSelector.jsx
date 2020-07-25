@@ -72,8 +72,8 @@ export const ModeSelector = () => {
                 </Mode>
             </div>
             <div className="news-cta">
-                <Link className="link" to="/coronavirus">
-                    We&apos;re extending our promotion to help the COVID-19 recovery
+                <Link className="link" to="/privacy">
+                    Find out how we protect your privacy
                 </Link>
             </div>
         </div>

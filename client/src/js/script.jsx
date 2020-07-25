@@ -49,6 +49,7 @@ import { FlashGoldTerms } from "./components/subscription/FlashGoldTerms.jsx";
 import { VerifyEmailAddress } from "./components/account/VerifyEmailAddress.jsx";
 import { ModeSelector } from "./components/modeSelector/ModeSelector.jsx";
 import { CoronavirusInfo } from "./components/CoronavirusInfo.jsx";
+import { Privacy } from "./components/Privacy.jsx";
 
 configureHotkeys({
     ignoreKeymapAndHandlerChangesByDefault: false
@@ -272,9 +273,8 @@ class Page extends React.Component {
                                     }} />
                                 )} />
                                 <Route path="/prioritise" component={Prioritise} />
-                                <Route path="/coronavirus">
-                                    <CoronavirusInfo />
-                                </Route>
+                                <Route path="/coronavirus" component={CoronavirusInfo}/>
+                                <Route path="/privacy" component={Privacy}/>
                                 <Route path="/category" render={() => {
                                     // If there's a root category loaded then go to it, otherwise do nothing until the next render
                                     if (this.state.rootCategoryId) {

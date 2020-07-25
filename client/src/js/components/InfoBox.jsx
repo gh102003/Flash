@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { GlobalHotKeys, getApplicationKeyMap } from "react-hotkeys";
 import { Helmet } from "react-helmet";
 import { version, dataProtectionEmail, sourceCodeLink, keyMap, contactEmail } from "../constants";
@@ -73,14 +74,17 @@ export function InfoBox(props) {
                     </p>
                     <p className="external-link">
                         <i className="material-icons">security</i>
-                        {trackingConsent === null ? "Tracking consent has not been provided for analytics." :
-                            <>
-                                <a className="link" href="" onClick={() => {
-                                    localStorage.removeItem("TrackingConsentTimestamp");
-                                }}>Review or revoke</a>
+                        <>
+                            {trackingConsent === null ? "Tracking consent has not been provided for analytics." :
+                                <>
+                                    <a className="link" href="" onClick={() => {
+                                        localStorage.removeItem("TrackingConsentTimestamp");
+                                    }}>Review or revoke</a>
                                 &nbsp;tracking consent for analytics
                             </>
-                        }
+                            }
+                            &nbsp;(<Link to="/privacy">Privacy Policy</Link>)
+                        </>
                     </p>
                 </div>
             </div>
