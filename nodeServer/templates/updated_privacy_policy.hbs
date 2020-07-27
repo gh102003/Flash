@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Maven+Pro:400,700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: "Maven Pro", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 1.5em;
+            color: black;
+        }
+
+        h1 {
+            background-color: crimson;
+            color: white;
+            padding: 0.3em 0.5em;
+            margin: 0;
+            font-size: 2em;
+        }
+
+        p {
+            text-align: center;
+            margin: 2em 0.4em;
+            font-size: 0.7em;
+            color: black;
+        }
+
+        footer {
+            margin: 3em 0;
+        }
+
+        footer p {
+            margin: 0.7em 0.4em;
+            color: #5f5f5f;
+            font-size: 0.6em;
+        }
+
+        div.main,
+        footer {
+            color: black;
+            margin: 0 auto;
+            max-width: 50em;
+        }
+
+        .cta {
+            font-size: 1.5em;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        p a.button {
+            color: white;
+            background-color: crimson;
+            border-radius: 0.5em;
+            padding: 0.5em 0.7em;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin: 3em 0.4em;
+        }
+
+        .button:hover {
+            background-color: rgb(160, 15, 44);
+        }
+
+        @media (min-width: 900px) {
+            .cta {
+                font-size: 2.5em;
+                margin: 1.5em 0.4em;
+            }
+
+            p {
+                font-size: 1.1em;
+            }
+
+            p a.button {
+                font-size: 1.5em;
+            }
+
+            footer p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+
+<body style="">
+    <header>
+        <h1>Flash</h1>
+    </header>
+    <div class="main">
+        <p>Hi {{username}},</p>
+        <p class="cta">
+            We've updated our privacy policy
+        </p>
+        <p>
+            <a class="button" href="https://flashapp.uk.to/privacy">
+                Read it
+            </a>
+        </p>
+        <p>Didn't work? Use this link: <a href="https://flashapp.uk.to/privacy">https://flashapp.uk.to/privacy</a></p>
+        <p>
+            At Flash, we are committed to taking your privacy seriously. That's why we're
+            tranparent about what we do with you data and who has access to it.
+        </p>
+    </div>
+    <footer>
+        <p>
+            This email was sent because you created an account at <a
+                href="https://flashapp.uk.to">https://flashapp.uk.to</a>.
+        </p>
+        <p>
+            You cannot unsubcribe from this email because Flash has a legal obligation to
+            keep you informed about changes to how we process your personal data.
+        </p>
+        <p>
+            Please reply if this was unintended or you would like to delete your account.
+        </p>
+    </footer>
+</body>
+
+</html>

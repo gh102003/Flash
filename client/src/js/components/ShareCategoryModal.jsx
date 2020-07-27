@@ -47,5 +47,5 @@ export const ShareCategoryModal = props => {
                 </div>
             </div>
         </div >
-    )
+    );
 };
