@@ -20,12 +20,12 @@ export const Privacy = () => (
                 <div className="terms-header">
                     <div className="terms-title">
                         <h3>Flash Privacy Policy</h3>
-                        <p>Version 2.0 (July 2020)</p>
+                        <p>Version 2.1 (5th September 2020)</p>
                     </div>
                     <i className="material-icons terms-print" onClick={() => print()}>print</i>
                 </div>
 
-                <h4>Data Collected by Flash</h4>
+                <h4>Data Collected and Controlled by Flash</h4>
                 <p>
                     Flash collects and stores information about your device to enable it to function correctly,
                     prevent spam and monitor its performance, which is within our legitimate interests. We
@@ -46,16 +46,8 @@ export const Privacy = () => (
                     we will send your email address to our payment service provider (Stripe, Inc.) to manage
                     your details as a customer. These service providers may transfer your data outside of the
                     European Economic Area, but will use standard contractual clauses to ensure its protection.
-                    By subscribing to Flash Gold, you are also bound by the
-                    our <Link to="/account/subscription/terms" className="link">Flash Gold Terms and Conditions</Link>.
-                </p>
-                <p>
-                    Finally, if you agree to tracking for analytical purposes, we will transfer some data to
-                    Google. Please
-                    see <a href="https://www.google.com/policies/privacy/partners" className="link">how Google uses data</a> for
-                    more information about this. You can review or revoke this consent at any time by pressing
-                    the <i className="material-icons">info</i> button in the top-right corner and pressing
-                    &quot;Review or revoke tracking consent for analytics&quot;
+                    By subscribing to Flash Gold, you are also bound by
+                    the <Link to="/account/subscription/terms" className="link">Flash Gold Terms and Conditions</Link>.
                 </p>
                 <p>
                     If you use Flash Prioritise, we will store information about how you rate each topic. This
@@ -63,6 +55,28 @@ export const Privacy = () => (
                     process this information as part of anonymised statistical analysis, which is part of our
                     legitimate interest to understand the educational performance of students. Our findings may
                     be published, although no users will be indentifiable.
+                </p>
+                <p>
+                    If you send an email to Flash, your information will be processed by our email service providers
+                    (Google and ImprovMX). This is part of an implicit contract you enter when you send the email.
+                    In some cases, Flash also has a legal obligation to be contactable. Any information transmitted by
+                    email will be deleted once your enquiry is resolved.
+                </p>
+                <h4>Data Controlled Jointly with Third Parties</h4>
+                <p>
+                    To allow Flash&apos;s Snapchat sharing functionality to work correctly, Snapchat may process
+                    some of your data as described in
+                    their <a className="link" href="https://www.snap.com/en-US/terms">Terms of Service</a>.
+                </p>
+                <p>
+                    Finally, if you agree to tracking for analytical and advertising purposes when you first 
+                    open Flash, Google will collect some data from you and your device. Please
+                    see <a href="https://policies.google.com/technologies/partner-sites" className="link">how Google uses data</a> for
+                    more information about this. You can review or revoke this consent at any time by pressing
+                    the <i className="material-icons">info</i> button in the top-right corner and pressing
+                    &quot;Review or revoke tracking consent for analytics&quot;. If you do not consent to this
+                    tracking, Flash will instruct Google only to collect anonymised data from you, and you will
+                    not be personally identifiable from this information.
                 </p>
 
                 <h4>Your Rights</h4>

@@ -83,7 +83,7 @@ export function InfoBox(props) {
                                 &nbsp;tracking consent for analytics
                             </>
                             }
-                            &nbsp;(<Link to="/privacy">Privacy Policy</Link>)
+                            &nbsp;(<Link to="/privacy" className="link">Privacy Policy</Link>)
                         </>
                     </p>
                 </div>
