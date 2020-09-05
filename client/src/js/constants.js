@@ -1,10 +1,10 @@
-export const version = "2.4.3";
+export const version = "3.0.0";
 
 export const googleAnalyticsTrackingId = "UA-164247818-1";
 
 export const sourceCodeLink = "https://github.com/gh102003/Flash";
-export const contactEmail = "mailto:info@flashapp.uk.to";
-export const dataProtectionEmail = "mailto:data-protection@flashapp.uk.to";
+export const contactEmail = "mailto:info@flash-app.co.uk";
+export const dataProtectionEmail = "mailto:data-protection@flash-app.co.uk";
 
 export const emailAddressRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 

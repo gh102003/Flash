@@ -37,7 +37,7 @@ const sendVerificationEmail = user => new Promise((resolve, reject) => {
 
     // Send verification email
     email.sendMail({
-        from: "Flash Accounts <account@flashapp.uk.to>",
+        from: "Flash Accounts <account@flash-app.co.uk>",
         to: user.emailAddress,
         subject: "Verify your email address",
         html: verifyEmailAddressTemplate({ verifyUrl: process.env.CLIENT_ADDRESS + "/account/verify-email/" + emailVerificationToken })

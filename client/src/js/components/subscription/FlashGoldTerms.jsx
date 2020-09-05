@@ -121,10 +121,10 @@ export const FlashGoldTerms = props => {
                             For questions about these terms, Flash can be contacted by email at the following addresses:
                         </p>
                         <p>
-                            Billing and subscriptions: <a className="link" href="mailto:billing@flashapp.uk.to">billing@flashapp.uk.to</a>
+                            Billing and subscriptions: <a className="link" href="mailto:billing@flash-app.co.uk">billing@flash-app.co.uk</a>
                         </p>
                         <p>
-                            Other matters: <a className="link" href="mailto:support@flashapp.uk.to">support@flashapp.uk.to</a>
+                            Other matters: <a className="link" href="mailto:support@flash-app.co.uk">support@flash-app.co.uk</a>
                         </p>
                     </div>
 

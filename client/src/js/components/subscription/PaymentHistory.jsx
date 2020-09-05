@@ -76,7 +76,7 @@ export const PaymentHistory = props => {
                 </div>
                 <div className="modal-body">
                     <p>
-                        Showing the last 10 of your invoices. For more details, please contact us at <a className="link" href="mailto:billing@flashapp.uk.to">billing@flashapp.uk.to</a>.
+                        Showing the last 10 of your invoices. For more details, please contact us at <a className="link" href="mailto:billing@flash-app.co.uk">billing@flash-app.co.uk</a>.
                     </p>
                     <table className="payment-history-list">
                         <thead>

@@ -2,6 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import * as constants from "../constants";
 import "../../css/terms.scss";
 import "../../css/privacy.scss";
 
@@ -77,7 +78,7 @@ export const Privacy = () => (
 
                 <h4>Contact</h4>
                 <p>
-                    For questions about these terms, Flash can be contacted by email at <a className="link" href="mailto:data-protection@flashapp.uk.to">data-protection@flashapp.uk.to</a>.
+                    For questions about these terms, Flash can be contacted by email at <a className="link" href={constants.dataProtectionEmail}>data-protection@flash-app.co.uk</a>.
                 </p>
             </div>
         </div>

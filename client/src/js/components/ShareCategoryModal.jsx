@@ -8,7 +8,6 @@ export const ShareCategoryModal = props => {
     }, []);
 
     const url = `${envConstants.clientOrigin}/category/${props.category.id}`;
-    // const url = `https://flashapp.uk.to/category/${props.category.id}`;
 
     return (
         <div className="modal-background" onClick={props.handleClose}>

@@ -29,7 +29,7 @@ export const SubscriptionCancelled = props => {
                     </div>
                     <div className="modal-body">
                         <p>
-                            We&apos;re sorry to see you go! If you have any feedback, please email <a className="link" href="mailto:feedback@flashapp.uk.to">feedback@flashapp.uk.to</a>
+                            We&apos;re sorry to see you go! If you have any feedback, please email <a className="link" href="mailto:feedback@flash-app.co.uk">feedback@flash-app.co.uk</a>
 
                         </p>
                         <p>
@@ -53,7 +53,7 @@ export const SubscriptionCancelled = props => {
                         </p>
                         <p>
                             Please try closing this window and refreshing the page. If the problem persists and
-                            you still are subscribed, please contact support at <a href="mailto:support@flashapp.uk.to">support@flashapp.uk.to</a>
+                            you still are subscribed, please contact support at <a href="mailto:support@flash-app.co.uk">support@flash-app.co.uk</a>
                         </p>
                     </div>
                 </div>

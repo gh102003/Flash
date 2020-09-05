@@ -6,7 +6,7 @@ const transport = nodemailer.createTransport({
     port: 587,
     auth: credentials.gmail.auth,
     dkim: {
-        domainName: "flashapp.uk.to",
+        domainName: "flash-app.co.uk",
         keySelector: credentials.dkim.selector,
         privateKey: credentials.dkim.privateKey
     }

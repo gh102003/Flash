@@ -179,7 +179,7 @@ export const ManageSubscription = props => {
                                         <button onClick={async () => {
                                             const response = await util.authenticatedFetch("billing/cancel-subscription", { method: "GET" });
                                             if (response.status !== 200) {
-                                                alert("There was an error cancelling your subscription. Please contact us at billing@flashapp.uk.to for assistance.");
+                                                alert("There was an error cancelling your subscription. Please contact us at billing@flash-app.co.uk for assistance.");
                                             } else {
                                                 history.push("/account/subscription/cancelled", location.state);
                                             }

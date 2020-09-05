@@ -50,7 +50,7 @@ export const SubscriptionStarted = props => {
                         </p>
                         <p>
                             Please try closing this window and refreshing the page. If the problem persists and
-                            you still have no subscription, please contact support at <a className="link" href="mailto:support@flashapp.uk.to">support@flashapp.uk.to</a>
+                            you still have no subscription, please contact support at <a className="link" href="mailto:support@flash-app.co.uk">support@flash-app.co.uk</a>
                         </p>
                     </div>
                 </div>

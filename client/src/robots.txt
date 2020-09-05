@@ -1,4 +1,4 @@
 User-agent: *
 Allow: *
 
-Sitemap: https://flashapp.uk.to/sitemap.xml
+Sitemap: https://flash-app.co.uk/sitemap.xml
