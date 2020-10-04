@@ -88,7 +88,7 @@ class Page extends React.Component {
         const history = createBrowserHistory();
         history.listen(location => {
             console.log("pageview");
-            
+
             ReactGA.set({ page: location.pathname }); // Update the user's current page
             ReactGA.pageview(location.pathname); // Record a pageview for the given page
         });
@@ -151,15 +151,28 @@ class Page extends React.Component {
     }
 
     initAnalytics() {
-        console.log("init analytics");
-        
-        ReactGA.initialize(constants.googleAnalyticsTrackingId, {
-            debug: true,
-            gaOptions: {
-                cookieDomain: envConstants.clientOrigin,
-                siteSpeedSampleRate: 20
-            }
-        });
+        if (process.env.NODE_ENV === "production") {
+            console.log("init analytics");
+    
+            ReactGA.initialize(constants.googleAnalyticsTrackingId, {
+                gaOptions: {
+                    siteSpeedSampleRate: 20,
+                    anonymizeIp: true
+                }
+            });
+        } else {
+            console.log("init analytics");
+    
+            window.ga_debug = { trace: true };
+    
+            ReactGA.initialize(constants.googleAnalyticsTrackingId, {
+                debug: true,
+                gaOptions: {
+                    siteSpeedSampleRate: 20,
+                    anonymizeIp: true
+                }
+            });
+        }
     }
 
     render() {
@@ -273,8 +286,8 @@ class Page extends React.Component {
                                     }} />
                                 )} />
                                 <Route path="/prioritise" component={Prioritise} />
-                                <Route path="/coronavirus" component={CoronavirusInfo}/>
-                                <Route path="/privacy" component={Privacy}/>
+                                <Route path="/coronavirus" component={CoronavirusInfo} />
+                                <Route path="/privacy" component={Privacy} />
                                 <Route path="/category" render={() => {
                                     // If there's a root category loaded then go to it, otherwise do nothing until the next render
                                     if (this.state.rootCategoryId) {
