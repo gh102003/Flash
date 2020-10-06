@@ -26,4 +26,6 @@ app.get("*", async (req, res, next) => {
   }
 });
 
-app.listen(process.env.CRAWLER_SSR_PORT, () => console.log('Server started. Press Ctrl+C to quit'));
+app.listen(process.env.CRAWLER_SSR_PORT, () =>
+  console.log(`Server started on port ${process.env.CRAWLER_SSR_PORT}. Press Ctrl+C to quit`)
+);
