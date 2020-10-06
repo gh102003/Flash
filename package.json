@@ -22,6 +22,7 @@
   "homepage": "https://gh102003.github.io/programming/flash.html",
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.6.2",
+    "axios": "^0.20.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
@@ -33,6 +34,7 @@
     "luxon": "^1.21.3",
     "mongoose": "^5.7.7",
     "nodemailer": "^6.4.3",
+    "puppeteer": "^5.3.1",
     "react": "^16.12.0",
     "react-color": "^2.17.3",
     "react-dnd": "^10.0.2",

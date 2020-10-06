@@ -50,6 +50,7 @@ import { VerifyEmailAddress } from "./components/account/VerifyEmailAddress.jsx"
 import { ModeSelector } from "./components/modeSelector/ModeSelector.jsx";
 import { CoronavirusInfo } from "./components/CoronavirusInfo.jsx";
 import { Privacy } from "./components/Privacy.jsx";
+import { BottomBannerAd } from "./components/ads/BottomBannerAd.jsx";
 
 configureHotkeys({
     ignoreKeymapAndHandlerChangesByDefault: false
@@ -153,7 +154,7 @@ class Page extends React.Component {
     initAnalytics() {
         if (process.env.NODE_ENV === "production") {
             console.log("init analytics");
-    
+
             ReactGA.initialize(constants.googleAnalyticsTrackingId, {
                 gaOptions: {
                     siteSpeedSampleRate: 20,
@@ -162,9 +163,9 @@ class Page extends React.Component {
             });
         } else {
             console.log("init analytics");
-    
+
             window.ga_debug = { trace: true };
-    
+
             ReactGA.initialize(constants.googleAnalyticsTrackingId, {
                 debug: true,
                 gaOptions: {
@@ -218,33 +219,34 @@ class Page extends React.Component {
                     <meta property="og:site_name" content="Flash" />
                     <meta property="og:description" content="Create, manage and practise with your own flashcards!" />
                 </Helmet>
-                <BrowserRouter>
-                    <Route render={({ match, location, history }) => (
-                        <div className={"theme theme-" + this.state.theme}>
-                            <header>
-                                <span>
-                                    <Link to="/">
-                                        <h1>Flash</h1>
-                                    </Link>
-                                    <h2 className="mode-heading">
-                                        <Switch location={location.state ? location.state.background : location}>
-                                            <Route path="/quiz" render={() => "Quiz"} />
-                                            <Route path="/category" render={() => <Link to={"/category"}>Learn</Link>} />
-                                            <Route path="/prioritise" render={() => <Link to={"/prioritise"}>Prioritise</Link>} />
-                                        </Switch>
-                                    </h2>
-                                </span>
-                                <div className="header-buttons">
-                                    {hasFlashGold &&
-                                        <ToggleDarkTheme theme={this.state.theme} setTheme={theme => {
-                                            document.documentElement.style.backgroundColor = theme === "dark" ? "#222" : "#fff";
-                                            this.setState({ theme });
-                                        }} />
-                                    }
-                                    {/* <Link className="home-button" to="/">
+                <div className={hasFlashGold ? "banner-ad-wrapper ads-hidden" : "banner-ad-wrapper"}>
+                    <BrowserRouter>
+                        <Route render={({ match, location, history }) => (
+                            <div className={"theme theme-" + this.state.theme}>
+                                <header>
+                                    <span>
+                                        <Link to="/">
+                                            <h1>Flash</h1>
+                                        </Link>
+                                        <h2 className="mode-heading">
+                                            <Switch location={location.state ? location.state.background : location}>
+                                                <Route path="/quiz" render={() => "Quiz"} />
+                                                <Route path="/category" render={() => <Link to={"/category"}>Learn</Link>} />
+                                                <Route path="/prioritise" render={() => <Link to={"/prioritise"}>Prioritise</Link>} />
+                                            </Switch>
+                                        </h2>
+                                    </span>
+                                    <div className="header-buttons">
+                                        {hasFlashGold &&
+                                            <ToggleDarkTheme theme={this.state.theme} setTheme={theme => {
+                                                document.documentElement.style.backgroundColor = theme === "dark" ? "#222" : "#fff";
+                                                this.setState({ theme });
+                                            }} />
+                                        }
+                                        {/* <Link className="home-button" to="/">
                                         <i className="material-icons">home</i>
                                     </Link> */}
-                                    {/* <Link className="tag-manager-button" to={{
+                                        {/* <Link className="tag-manager-button" to={{
                                         pathname: "/tag-manager",
                                         // Save current location for the background while modal is open
                                         // Flow is the current flow, like "start_subscription"
@@ -252,154 +254,156 @@ class Page extends React.Component {
                                     }}>
                                         <i className="material-icons">local_offer</i>
                                     </Link> */}
-                                    <Link className={"account-button" + (hasFlashGold ? " account-button-gold" : "")} to={{
-                                        pathname: "/account",
-                                        state: { ...location.state, background: location }
-                                    }}>
-                                        {
-                                            this.state.currentUser && this.state.currentUser.profilePicture ?
-                                                <img src={"/res/profile-pictures/128/" + this.state.currentUser.profilePicture + ".png"} alt="account" />
-                                                : <i className="material-icons">person</i>
-                                        }
-                                    </Link>
-                                    <Link className="info-button" to={{
-                                        pathname: "/info",
-                                        state: { ...location.state, background: location }
-                                    }}>
-                                        <i className="material-icons">info</i>
-                                    </Link>
-                                </div>
-                            </header>
-                            {/* Intercept location and use the background location if it exists */}
-                            <Switch location={location.state ? location.state.background : location}>
-                                <Route path="/quiz/category/:categoryId" exact component={Quiz} />
-                                <Route path="/quiz/tag/:tagId" exact component={Quiz} />
-                                <Route path="/category/:id" exact render={(routeProps) => (
-                                    <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
-                                        if (invalidToken) {
-                                            localStorage.removeItem("AuthToken");
-                                            this.setState({ currentUser: null });
-                                        }
-                                        // Get a new root category based on the authenticated user, then go to it
-                                        this.getRootCategoryIdFromServer()
-                                            .then(() => routeProps.history.push("/"));
-                                    }} />
-                                )} />
-                                <Route path="/prioritise" component={Prioritise} />
-                                <Route path="/coronavirus" component={CoronavirusInfo} />
-                                <Route path="/privacy" component={Privacy} />
-                                <Route path="/category" render={() => {
-                                    // If there's a root category loaded then go to it, otherwise do nothing until the next render
-                                    if (this.state.rootCategoryId) {
-                                        if (location.pathname === "/category") {
-                                            return <Redirect from="/category" to={`/category/${this.state.rootCategoryId}`} exact />;
-                                        } else {
-                                            // Redirect the background if a modal is open
-                                            return <Redirect to={{
-                                                pathname: location.pathname,
-                                                state: {
-                                                    ...location.state,
-                                                    background: {
-                                                        pathname: `/category/${this.state.rootCategoryId}`
+                                        <Link className={"account-button" + (hasFlashGold ? " account-button-gold" : "")} to={{
+                                            pathname: "/account",
+                                            state: { ...location.state, background: location }
+                                        }}>
+                                            {
+                                                this.state.currentUser && this.state.currentUser.profilePicture ?
+                                                    <img src={"/res/profile-pictures/128/" + this.state.currentUser.profilePicture + ".png"} alt="account" />
+                                                    : <i className="material-icons">person</i>
+                                            }
+                                        </Link>
+                                        <Link className="info-button" to={{
+                                            pathname: "/info",
+                                            state: { ...location.state, background: location }
+                                        }}>
+                                            <i className="material-icons">info</i>
+                                        </Link>
+                                    </div>
+                                </header>
+                                {/* Intercept location and use the background location if it exists */}
+                                <Switch location={location.state ? location.state.background : location}>
+                                    <Route path="/quiz/category/:categoryId" exact component={Quiz} />
+                                    <Route path="/quiz/tag/:tagId" exact component={Quiz} />
+                                    <Route path="/category/:id" exact render={(routeProps) => (
+                                        <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
+                                            if (invalidToken) {
+                                                localStorage.removeItem("AuthToken");
+                                                this.setState({ currentUser: null });
+                                            }
+                                            // Get a new root category based on the authenticated user, then go to it
+                                            this.getRootCategoryIdFromServer()
+                                                .then(() => routeProps.history.push("/"));
+                                        }} />
+                                    )} />
+                                    <Route path="/prioritise" component={Prioritise} />
+                                    <Route path="/coronavirus" component={CoronavirusInfo} />
+                                    <Route path="/privacy" component={Privacy} />
+                                    <Route path="/category" render={() => {
+                                        // If there's a root category loaded then go to it, otherwise do nothing until the next render
+                                        if (this.state.rootCategoryId) {
+                                            if (location.pathname === "/category") {
+                                                return <Redirect from="/category" to={`/category/${this.state.rootCategoryId}`} exact />;
+                                            } else {
+                                                // Redirect the background if a modal is open
+                                                return <Redirect to={{
+                                                    pathname: location.pathname,
+                                                    state: {
+                                                        ...location.state,
+                                                        background: {
+                                                            pathname: `/category/${this.state.rootCategoryId}`
+                                                        }
                                                     }
-                                                }
-                                            }} />;
+                                                }} />;
+                                            }
+                                        } else {
+                                            return <div className="categories-loading"><NetworkIndicator /></div>;
                                         }
-                                    } else {
-                                        return <div className="categories-loading"><NetworkIndicator /></div>;
+                                    }} />
+                                    <Route component={ModeSelector} />
+                                </Switch>
+
+                                <GlobalHotKeys keyMap={constants.keyMap} handlers={{
+                                    OPEN_INFO_MODAL_BOX: () => {
+                                        if (location.state && location.state.background) {
+                                            history.push("/info", { ...location.state, background: location.state.background });
+                                        } else {
+                                            history.push("/info", { ...location.state, background: location });
+                                        }
+                                    },
+                                    OPEN_ACCOUNT_MODAL_BOX: () => {
+                                        if (location.state && location.state.background) {
+                                            history.push("/account", { ...location.state, background: location.state.background });
+                                        } else {
+                                            history.push("/account", { ...location.state, background: location });
+                                        }
+                                    },
+                                    OPEN_TAG_MANAGER_MODAL_BOX: () => {
+                                        if (location.state && location.state.background) {
+                                            history.push("/tag-manager", { ...location.state, background: location.state.background });
+                                        } else {
+                                            history.push("/tag-manager", { ...location.state, background: location });
+                                        }
+                                    },
+                                    TOGGLE_THEME: () => {
+                                        if (hasFlashGold) {
+                                            if (this.state.theme === "dark") {
+                                                document.documentElement.style.backgroundColor = "#fff";
+                                                this.setState({ theme: "light" });
+                                            } else {
+                                                document.documentElement.style.backgroundColor = "#222";
+                                                this.setState({ theme: "dark" });
+                                            }
+                                        }
                                     }
                                 }} />
-                                <Route component={ModeSelector} />
-                            </Switch>
 
-                            <GlobalHotKeys keyMap={constants.keyMap} handlers={{
-                                OPEN_INFO_MODAL_BOX: () => {
-                                    if (location.state && location.state.background) {
-                                        history.push("/info", { ...location.state, background: location.state.background });
-                                    } else {
-                                        history.push("/info", { ...location.state, background: location });
-                                    }
-                                },
-                                OPEN_ACCOUNT_MODAL_BOX: () => {
-                                    if (location.state && location.state.background) {
-                                        history.push("/account", { ...location.state, background: location.state.background });
-                                    } else {
-                                        history.push("/account", { ...location.state, background: location });
-                                    }
-                                },
-                                OPEN_TAG_MANAGER_MODAL_BOX: () => {
-                                    if (location.state && location.state.background) {
-                                        history.push("/tag-manager", { ...location.state, background: location.state.background });
-                                    } else {
-                                        history.push("/tag-manager", { ...location.state, background: location });
-                                    }
-                                },
-                                TOGGLE_THEME: () => {
-                                    if (hasFlashGold) {
-                                        if (this.state.theme === "dark") {
-                                            document.documentElement.style.backgroundColor = "#fff";
-                                            this.setState({ theme: "light" });
-                                        } else {
-                                            document.documentElement.style.backgroundColor = "#222";
-                                            this.setState({ theme: "dark" });
+                                {this.state.modalOpen === "trackingConsent" ? // Hide modals from routes if tracking consent modal is open
+                                    <TrackingConsent handleClose={didAgree => {
+                                        if (didAgree) {
+                                            this.initAnalytics();
                                         }
-                                    }
+                                        this.setState({ modalOpen: null });
+                                    }} /> :
+                                    <Switch>
+                                        <Route path="/tag-manager" exact>
+                                            {/* Restore background's url */}
+                                            <TagManager handleClose={() => this.returnToBackgroundLocation(history, location)} />
+                                        </Route>
+                                        <Route path="/account" exact>
+                                            <Account
+                                                handleClose={() => this.returnToBackgroundLocation(history, location)}
+                                                afterAccountChange={() => {
+                                                    // Get a new root category based on the authenticated user, then go to it in the background
+                                                    this.getRootCategoryIdFromServer()
+                                                        .then(() => history.push("/account", { ...location.state, background: { pathname: "/" } }));
+                                                }}
+                                            />
+                                        </Route>
+
+                                        <Route path="/account/verify-email/:emailVerificationToken" render={routeProps => (
+                                            <VerifyEmailAddress emailVerificationToken={routeProps.match.params.emailVerificationToken} handleClose={() => history.push("/account", location.state)} />
+                                        )} />
+                                        <Route path="/account/subscription" exact>
+                                            <ManageSubscription handleClose={() => history.push("/account", location.state)} />
+                                        </Route>
+                                        <Route path="/account/subscription/started" exact>
+                                            <SubscriptionStarted handleClose={() => history.push("/account/subscription", location.state)} />
+                                        </Route>
+                                        <Route path="/account/subscription/updated-payment" exact>
+                                            <SubscriptionUpdatedPayment handleClose={() => history.push("/account/subscription", location.state)} />
+                                        </Route>
+                                        <Route path="/account/subscription/cancelled" exact>
+                                            <SubscriptionCancelled handleClose={() => history.push("/account/subscription", location.state)} />
+                                        </Route>
+                                        <Route path="/account/subscription/payment-history" exact>
+                                            <PaymentHistory handleClose={() => history.push("/account/subscription", location.state)} />
+                                        </Route>
+                                        <Route path="/account/subscription/terms" exact>
+                                            <FlashGoldTerms handleClose={() => history.push("/account/subscription", location.state)} />
+                                        </Route>
+                                        <Route path="/info" exact>
+                                            <InfoBox handleClose={() => this.returnToBackgroundLocation(history, location)} />
+                                        </Route>
+                                    </Switch>
                                 }
-                            }} />
-
-                            {this.state.modalOpen === "trackingConsent" ? // Hide modals from routes if tracking consent modal is open
-                                <TrackingConsent handleClose={didAgree => {
-                                    if (didAgree) {
-                                        this.initAnalytics();
-                                    }
-                                    this.setState({ modalOpen: null });
-                                }} /> :
-                                <Switch>
-                                    <Route path="/tag-manager" exact>
-                                        {/* Restore background's url */}
-                                        <TagManager handleClose={() => this.returnToBackgroundLocation(history, location)} />
-                                    </Route>
-                                    <Route path="/account" exact>
-                                        <Account
-                                            handleClose={() => this.returnToBackgroundLocation(history, location)}
-                                            afterAccountChange={() => {
-                                                // Get a new root category based on the authenticated user, then go to it in the background
-                                                this.getRootCategoryIdFromServer()
-                                                    .then(() => history.push("/account", { ...location.state, background: { pathname: "/" } }));
-                                            }}
-                                        />
-                                    </Route>
-
-                                    <Route path="/account/verify-email/:emailVerificationToken" render={routeProps => (
-                                        <VerifyEmailAddress emailVerificationToken={routeProps.match.params.emailVerificationToken} handleClose={() => history.push("/account", location.state)} />
-                                    )} />
-                                    <Route path="/account/subscription" exact>
-                                        <ManageSubscription handleClose={() => history.push("/account", location.state)} />
-                                    </Route>
-                                    <Route path="/account/subscription/started" exact>
-                                        <SubscriptionStarted handleClose={() => history.push("/account/subscription", location.state)} />
-                                    </Route>
-                                    <Route path="/account/subscription/updated-payment" exact>
-                                        <SubscriptionUpdatedPayment handleClose={() => history.push("/account/subscription", location.state)} />
-                                    </Route>
-                                    <Route path="/account/subscription/cancelled" exact>
-                                        <SubscriptionCancelled handleClose={() => history.push("/account/subscription", location.state)} />
-                                    </Route>
-                                    <Route path="/account/subscription/payment-history" exact>
-                                        <PaymentHistory handleClose={() => history.push("/account/subscription", location.state)} />
-                                    </Route>
-                                    <Route path="/account/subscription/terms" exact>
-                                        <FlashGoldTerms handleClose={() => history.push("/account/subscription", location.state)} />
-                                    </Route>
-                                    <Route path="/info" exact>
-                                        <InfoBox handleClose={() => this.returnToBackgroundLocation(history, location)} />
-                                    </Route>
-                                </Switch>
-                            }
-                        </div>
-                    )}>
-                    </Route>
-                </BrowserRouter>
+                            </div>
+                        )}>
+                        </Route>
+                    </BrowserRouter>
+                    <BottomBannerAd />
+                </div>
             </UserContext.Provider>
         );
     }

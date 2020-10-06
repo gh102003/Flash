@@ -1,3 +1,5 @@
+@import "./ads.scss";
+
 :root {
     font-size: 1.3em;
     font-family: "Maven Pro", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -19,8 +21,9 @@
 }
 
 .theme {
-    min-height: 100vh;
+    min-height: calc(100vh - var(--ad-bottom-banner-height));
     transition: background-color 400ms;
+    margin-bottom: var(--ad-bottom-banner-height);
 }
 
 a.link {

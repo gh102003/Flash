@@ -14,7 +14,7 @@ export const TrackingConsent = props => {
                         Flash uses cookies and other storage mechanisms for some of its key
                         functionality and fraud prevention, as well as for analytics. We also
                         store some other information about you, as detailed in
-                        our <Link className="link" href="/privacy">Privacy Policy</Link>.
+                        our <Link className="link" to="/privacy">Privacy Policy</Link>.
                     </p>
 
                     <p>

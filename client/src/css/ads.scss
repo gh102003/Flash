@@ -1,0 +1,20 @@
+.banner-ad-wrapper {
+  --ad-bottom-banner-height: 100px;
+
+ /* &.ads-hidden {*/
+    --ad-bottom-banner-height: 0px;
+ /* }*/
+}
+
+/*.ads-hidden*/ .ad-bottom-banner {
+  display: none;
+}
+
+.ad-bottom-banner {
+  position: fixed;
+  bottom: 0;
+  background-color: rgba(#aaaaff, $alpha: 0.8);
+  width: 100%;
+  max-height: var(--ad-bottom-banner-height);
+  height: var(--ad-bottom-banner-height);
+}

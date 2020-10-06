@@ -44,7 +44,7 @@
     height: 5vw;
     position: fixed;
     left: 2vw;
-    bottom: 2vw;
+    bottom: calc(2vw + var(--ad-bottom-banner-height));
 }
 
 .add-subcategory-button-wrapper {
@@ -106,7 +106,7 @@
         width: 6vw;
         height: 6vw;
         left: 2.4vw;
-        bottom: 2.4vw;
+        bottom: calc(2.4vw + var(--ad-bottom-banner-height));
     }
     .add-subcategory-button {
         border-radius: 1.3vw;
@@ -128,7 +128,7 @@
         width: 8vw;
         height: 8vw;
         left: 3vw;
-        bottom: 3vw;
+        bottom: calc(3vw + var(--ad-bottom-banner-height));
     }
     .add-subcategory-button {
         border-radius: 1.6vw;
@@ -151,7 +151,7 @@
         width: 13vw;
         height: 13vw;
         left: 4.2vw;
-        bottom: 4.2vw;
+        bottom: calc(4.2vw + var(--ad-bottom-banner-height));
     }
     .add-subcategory-button {
         border-radius: 1.8vw;
@@ -173,7 +173,7 @@
         width: 17vw;
         height: 17vw;
         left: 5vw;
-        bottom: 5vw;
+        bottom: calc(5vw + var(--ad-bottom-banner-height));
     }
     .add-subcategory-button {
         border-radius: 2.8vw;

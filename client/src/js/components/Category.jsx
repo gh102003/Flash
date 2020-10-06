@@ -14,6 +14,7 @@ import { AddButton } from "./AddButton.jsx";
 import { NetworkIndicator } from "./NetworkIndicator.jsx";
 import { Breadcrumb } from "./breadcrumb/Breadcrumb.jsx";
 import { UserContext } from "../contexts/UserContext";
+import { AdCard } from "./ads/BottomBannerAd.jsx";
 
 export class Category extends React.Component {
 
@@ -90,19 +91,6 @@ export class Category extends React.Component {
             }
         }
     }
-
-    /** Used to navigate imperatively to another category
-     * @param categoryData (optional) data for the category to be navigated to
-     * TODO: remove
-     */
-    // navigate(url, categoryData) {
-    //     if (categoryData) {
-    //         let { id, name, colour, parent, flashcards, children: subcategories, locked } = categoryData;
-    //         util.shuffle(flashcards);
-    //         this.setState({ category: { id, name, colour, parent, flashcards, subcategories, locked } });
-    //     }
-    //     this.props.history.push(url);
-    // }
 
     /**
      * Called when mounting or changing category and when cards are changed.
@@ -378,10 +366,7 @@ export class Category extends React.Component {
                     <div className="card-display">
                         {
                             this.state.loadedData ?
-                                <>
-                                    {this.renderSubcategories()}
-                                    {this.renderFlashcards()}
-                                </>
+                                [...this.renderSubcategories(), ...this.renderFlashcards()]
                                 : <NetworkIndicator />
                         }
                     </div>
