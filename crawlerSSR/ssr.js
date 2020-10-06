@@ -10,7 +10,14 @@ const ssr = async url => {
 
   const start = Date.now();
 
-  const browser = await puppeteer.launch();
+  let browser;
+
+  if (process.env.NODE_ENV === "development") {
+    browser = await puppeteer.launch();
+  } else {
+    browser = await puppeteer.launch({ executablePath: "chromium-browser" });
+  }
+
   const page = await browser.newPage();
   try {
     console.log(`${url} start`);
