@@ -34,9 +34,9 @@ export function InfoBox(props) {
                 <title>Info</title>
                 <meta property="og:title" content="Info" />
             </Helmet>
-            <div className="modal info-box" onClick={(event) => event.stopPropagation()}>
+            <div className="modal info-box" role="dialog" aria-labelledby="info-box-title" onClick={(event) => event.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>Flash {version}{version.split(".")[0] < 1 && "-alpha"}</h2>
+                    <h2 id="info-box-title">Flash {version}{version.split(".")[0] < 1 && "-alpha"}</h2>
                     by George Howarth
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>

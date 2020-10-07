@@ -76,13 +76,13 @@ export const Account = props => {
         const formattedLoginTime = (userContext.currentUser && userContext.currentUser.loginTimestamp) ? DateTime.fromSeconds(userContext.currentUser.loginTimestamp).toRelative() : "";
         const userHasRoles = userContext.currentUser && userContext.currentUser.roles && userContext.currentUser.roles.length > 0;
         modalBox = (
-            <div className="modal account" onClick={event => event.stopPropagation()}>
+            <div className="modal account" role="dialog" aria-labelledby="account-modal-title" onClick={event => event.stopPropagation()}>
                 <Helmet>
                     <title>Account</title>
                     <meta property="og:title" content="Account" />
                 </Helmet>
                 <div className="modal-header">
-                    <h2>Account</h2>
+                    <h2 id="account-modal-title">Account</h2>
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>
                 <div className="modal-body">

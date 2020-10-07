@@ -5,9 +5,9 @@ export const TrackingConsent = props => {
 
     return (
         <div className="modal-background">
-            <div className="modal tracking-consent">
+            <div className="modal tracking-consent" role="dialog" aria-labelledby="tracking-consent-modal-title">
                 <div className="modal-header">
-                    <h2>Tracking and Privacy</h2>
+                    <h2 id="tracking-consent-modal-title">Tracking and Privacy</h2>
                 </div>
                 <div className="modal-body">
                     <p>
@@ -19,7 +19,7 @@ export const TrackingConsent = props => {
 
                     <p>
                         To enhance the efficiency and accuracy of Flash, tracking
-                        identifiers may be stored on your device and used by third parties (Google and Stripe), 
+                        identifiers may be stored on your device and used by third parties (Google and Stripe),
                         but you have a right to decide whether this will happen. You can revoke your
                         consent at any time through the info icon in the top right corner of Flash.
                     </p>

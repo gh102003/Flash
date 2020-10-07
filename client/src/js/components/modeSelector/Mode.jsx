@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export const Mode = ({ path, children }) => {
 
@@ -26,11 +26,9 @@ export const Mode = ({ path, children }) => {
             modeRef.current.style.transition = "background-color 400ms, color 400ms";
         }}>
         {/* Receives mouse events so that it is a constant size */}
-        <div className="mode"
-            ref={modeRef}
-            onClick={() => history.push(path)}
-        >
+        <Link className="mode"
+            ref={modeRef} to={path}>
             {children}
-        </div>
+        </Link>
     </div>;
 };

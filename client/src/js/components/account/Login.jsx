@@ -35,9 +35,9 @@ export const Login = props => {
 
     if (page === "login") {
         return (
-            <div className="modal login" onClick={event => event.stopPropagation()}>
+            <div className="modal login" role="dialog" aria-labelledby="login-modal-title" onClick={event => event.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>Login</h2>
+                    <h2 id="login-modal-title">Login</h2>
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>
                 <div className="modal-body">
@@ -50,9 +50,9 @@ export const Login = props => {
         );
     } else if (page === "signUp") {
         return (
-            <div className="modal sign-up" onClick={event => event.stopPropagation()}>
+            <div className="modal sign-up" role="dialog" aria-labelledby="sign-up-modal-title" onClick={event => event.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>Sign Up</h2>
+                    <h2 id="sign-up-modal-title">Sign Up</h2>
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>
                 <div className="modal-body">

@@ -25,12 +25,12 @@ const ssr = async url => {
     await page.goto(url, { waitUntil: 'networkidle0' });
 
     // Remove privacy message and account popup
-    await page.evaluate(sel => {
-      var elements = document.querySelectorAll(sel);
-      for (var i = 0; i < elements.length; i++) {
+    await page.evaluate(() => {
+      var elements = document.querySelectorAll("modal-background");
+      for (let i = 0; i < elements.length; i++) {
         elements[i].parentNode.removeChild(elements[i]);
       }
-    }, "modal-background");
+    });
 
   } catch (err) {
     console.error(err);

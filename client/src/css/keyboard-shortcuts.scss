@@ -27,16 +27,15 @@ dl.keyboard-shortcuts {
         display: inline-block;
         margin: 0;
     }
-}
 
-@media only screen and (max-width: 900px) {
-    dl.keyboard-shortcuts {
+    @media only screen and (max-width: 900px) {
         grid-template-columns: 1fr 1.5fr 1fr 1.5fr;
     }
-}
 
-@media only screen and (max-width: 600px) {
-    dl.keyboard-shortcuts {
+    @media only screen and (max-width: 600px) {
         grid-template-columns: 1fr 3fr;
+    }
+    @media only screen and (max-width: 420px) {
+        display: none;
     }
 }
