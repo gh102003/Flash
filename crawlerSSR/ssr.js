@@ -26,8 +26,8 @@ const ssr = async url => {
 
     await page.goto(url, { waitUntil: 'networkidle0', timeout: 60 * 1000 });
 
-    // Wait an extra 2s in case a modal needs to open
-    await page.waitFor(2 * 1000);
+    // Wait an extra 3s in case a modal needs to open
+    await page.waitForTimeout(3 * 1000);
 
     // Remove privacy message and account popup
     await page.evaluate(() => {
