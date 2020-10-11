@@ -5,7 +5,7 @@ export const LoginPrompt = props => {
     const history = useHistory();
     const location = useLocation();
 
-    return <div className="modal-background" onClick={props.handleClose}>
+    return <div className="modal-background modal-prompt-background" onClick={props.handleClose}>
         <div className="modal login-prompt" onClick={event => event.stopPropagation()}>
             <div className="modal-header">
                 <h2>

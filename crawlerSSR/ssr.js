@@ -28,7 +28,7 @@ const ssr = async url => {
 
     // Remove privacy message and account popup
     await page.evaluate(() => {
-      var elements = document.querySelectorAll("modal-background");
+      var elements = document.querySelectorAll("modal-prompt-background");
       for (let i = 0; i < elements.length; i++) {
         elements[i].parentNode.removeChild(elements[i]);
       }

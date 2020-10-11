@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const TrackingConsent = props => {
 
     return (
-        <div className="modal-background">
+        <div className="modal-background modal-prompt-background">
             <div className="modal tracking-consent" role="dialog" aria-labelledby="tracking-consent-modal-title">
                 <div className="modal-header">
                     <h2 id="tracking-consent-modal-title">Tracking and Privacy</h2>
