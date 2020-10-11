@@ -70,8 +70,10 @@ class Page extends React.Component {
             this.initAnalytics();
         }
 
+        const isBot = navigator.userAgent.match(/bot|googlebot|crawler|spider|robot|crawling|Mediapartners-Google/);
+
         this.state = {
-            modalOpen: trackingConsent === null ? "trackingConsent" : null,
+            modalOpen: (trackingConsent === null && !isBot) ? "trackingConsent" : null,
             currentUser: util.getUserFromAuthToken(localStorage.getItem("AuthToken")),
             theme: "light"
         };

@@ -18,11 +18,13 @@ const ssr = async url => {
     browser = await puppeteer.launch({ executablePath: "chromium-browser" });
   }
 
+  let renderSucceeded = false;
+
   const page = await browser.newPage();
   try {
     console.log(`${url} start`);
 
-    await page.goto(url, { waitUntil: 'networkidle0' });
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 60 * 1000 });
 
     // Remove privacy message and account popup
     await page.evaluate(() => {
@@ -32,8 +34,11 @@ const ssr = async url => {
       }
     });
 
+    renderSucceeded = true;
+
   } catch (err) {
     console.error(err);
+    renderSucceeded = false;
     throw new Error('page.goto/waitForSelector timed out.');
   }
 
@@ -42,9 +47,11 @@ const ssr = async url => {
 
   const ttRenderMs = Date.now() - start;
   console.info(`Headless rendered page in: ${ttRenderMs}ms`);
-  console.log(`${url} stop`);
+  console.log(`${url} finish`);
 
-  RENDER_CACHE.set(url, html); // cache rendered page.
+  if (renderSucceeded) {
+    RENDER_CACHE.set(url, html); // cache rendered page.
+  }
 
   return { html, ttRenderMs };
 };
