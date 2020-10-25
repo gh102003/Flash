@@ -40,7 +40,7 @@ const ssr = async url => {
     renderSucceeded = true;
 
   } catch (err) {
-    console.error(err);
+    console.error("[" + new Date().toString() + "]", err);
     renderSucceeded = false;
     throw new Error('page.goto/waitForSelector timed out.');
   }
