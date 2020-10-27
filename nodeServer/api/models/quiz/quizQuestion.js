@@ -23,7 +23,7 @@ const quizQuestionSchema = mongoose.Schema({
     },
     questionSide: {
         type: String,
-        enum: ["front, back"]
+        enum: ["front", "back"]
     }
 });
 

@@ -7,6 +7,8 @@ const ssr = require("./ssr.js");
 
 app.get("*", async (req, res, next) => {
 
+  console.log("received req");
+
   // Seperate handling for js file as puppeteer causes issues
   if (req.path === "/index_bundle.js") {
     try {

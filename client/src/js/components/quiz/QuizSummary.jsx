@@ -54,9 +54,9 @@ export const QuizSummary = props => {
                         .sort((a, b) => b[1] - a[1])
                         .map(([flashcardIndex, timesIncorrect]) =>
                             <li key={flashcardIndex}>
-                                {props.flashcards[flashcardIndex].front}
-                                {props.flashcards[flashcardIndex].back}
-                                (wrong {timesIncorrect} times)
+                                <p>{props.flashcards[flashcardIndex].front}</p>
+                                <p>{props.flashcards[flashcardIndex].back}</p>
+                                <p>(wrong {timesIncorrect} times)</p>
                             </li>
                         )
                 }

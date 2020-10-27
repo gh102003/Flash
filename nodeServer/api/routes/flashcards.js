@@ -126,6 +126,39 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
     }
 });
 
+const checkFlashcardAccessPermissions = async (flashcard, user, checkWritePerms = true) => {
+    let parentCategory = await Category.findById(flashcard.category);
+
+    // Check if containing category is authorised (not owned by a different user)
+    if (parentCategory) {
+        if (parentCategory.user && parentCategory.user != user.id) {
+            return false;
+            // return res.status(400).json({ message: "containing category unauthorised" });
+        }
+    } else {
+        return false;
+        // return res.status(400).json({ message: "containing category invalid" });
+    }
+
+    if (!checkWritePerms) {
+        return true;
+    }
+
+    // Check if containing category or one of its ancestors is locked
+    const moderatorUser = await User.find({ _id: user.id, roles: "moderator" });
+    if (parentCategory && moderatorUser.length < 1) {
+        let ancestorLocked = false;
+        parentCategory = await deepPopulateParent(parentCategory, ancestor => {
+            if (ancestor.locked) { ancestorLocked = true; }
+        });
+        if (ancestorLocked || parentCategory.locked) {
+            return false;
+            // return res.status(403).json({ message: "This flashcard cannot be edited since its category or one of its ancestors is locked" });
+        }
+    }
+    return true;
+};
+
 /*
  * PATCH requests
  * 
@@ -147,27 +180,9 @@ router.patch("/:flashcardId", verifyAuthToken, async (req, res, next) => {
         return res.status(404).json({ message: `No valid flashcard found with id '${req.params.flashcardId}'` });
     }
 
-    let parentCategory = await Category.findById(flashcard.category);
-
-    // Check if containing category is authorised
-    if (parentCategory) {
-        if (parentCategory.user && parentCategory.user != req.user.id) {
-            return res.status(400).json({ message: "containing category unauthorised" });
-        }
-    } else {
-        return res.status(400).json({ message: "containing category invalid" });
-    }
-
-    // Check if containing category or one of its ancestors is locked
-    const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
-    if (parentCategory && moderatorUser.length < 1) {
-        let ancestorLocked = false;
-        parentCategory = await deepPopulateParent(parentCategory, ancestor => {
-            if (ancestor.locked) ancestorLocked = true;
-        });
-        if (ancestorLocked || parentCategory.locked) {
-            return res.status(403).json({ message: "This flashcard cannot be edited since its category or one of its ancestors is locked" });
-        }
+    const hasPerms = await checkFlashcardAccessPermissions(flashcard, req.user);
+    if (!hasPerms) {
+        return res.status(403).json({ message: "This flashcard cannot be edited since it doesn't belong to you, or its category or one of its ancestors is locked" });
     }
 
     let updateOps = {};
@@ -230,27 +245,9 @@ router.delete("/:flashcardId", verifyAuthToken, async (req, res, next) => {
         return res.status(404).json({ message: `No valid flashcard found with id '${req.params.flashcardId}'` });
     }
 
-    let parentCategory = await Category.findById(flashcard.category);
-
-    // Check if containing category is authorised
-    if (parentCategory) {
-        if (parentCategory.user && parentCategory.user != req.user.id) {
-            return res.status(400).json({ message: "containing category unauthorised" });
-        }
-    } else {
-        return res.status(400).json({ message: "containing category invalid" });
-    }
-
-    // Check if containing category or one of its ancestors is locked
-    const moderatorUser = await User.find({ _id: req.user.id, roles: "moderator" });
-    if (parentCategory && moderatorUser.length < 1) {
-        let ancestorLocked = false;
-        parentCategory = await deepPopulateParent(parentCategory, ancestor => {
-            if (ancestor.locked) ancestorLocked = true;
-        });
-        if (ancestorLocked || parentCategory.locked) {
-            return res.status(403).json({ message: "This flashcard cannot be deleted since its category or one of its ancestors is locked" });
-        }
+    const hasPerms = await checkFlashcardAccessPermissions(flashcard, req.user);
+    if (!hasPerms) {
+        return res.status(403).json({ message: "This flashcard cannot be deleted since it doesn't belong to you, or its category or one of its ancestors is locked" });
     }
 
     await Flashcard.deleteOne({ _id: req.params.flashcardId });
@@ -258,4 +255,6 @@ router.delete("/:flashcardId", verifyAuthToken, async (req, res, next) => {
     return res.status(200).json({ deletedFlashcard: flashcard });
 });
 
-module.exports = router;
+module.exports = {
+    router, checkFlashcardAccessPermissions
+};
