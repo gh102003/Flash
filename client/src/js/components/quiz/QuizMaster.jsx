@@ -4,6 +4,7 @@ import AutosizeInput from "react-input-autosize";
 import { QuizTimer } from "./QuizTimer.jsx";
 import { QuizFlashcard } from "./QuizFlashcard.jsx";
 import { QuizSummary } from "./QuizSummary.jsx";
+import * as util from "../../util";
 
 const pointsForCorrectGuess = 2;
 const pointsForWrongGuess = -1;
@@ -30,9 +31,10 @@ export class QuizMaster extends React.Component {
             questionSide,
             answerSide,
             enteredAnswer: "",
-            questions: [], // Array of objects like {flashcardIndex, correct: (t/f/n), timestamp}
+            questions: [], // Array of objects like { flashcardIndex, correct: (t/f/n), timestamp }
             quizTime: 30000, // How many milliseconds the timer should start at
-            timerState: "ready" // Either 'ready', 'running' or 'finished'
+            timerState: "ready", // Either 'ready', 'running' or 'finished',
+            quizId: null // set when quiz is created on the server, just after it has been started
         };
     }
 
@@ -51,7 +53,27 @@ export class QuizMaster extends React.Component {
                 flashcardComponent = (
                     <button
                         className="quiz-start-btn"
-                        onClick={() => this.setState({ timerState: "running" })}
+                        onClick={async () => {
+                            this.setState({ timerState: "running" });
+
+                            // Create quiz on the server
+                            const response = await util.authenticatedFetch("quiz/quizzes", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    quiz: {
+                                        source: {
+                                            type: "Category",
+                                            document: this.props.category.id
+                                        }
+                                    }
+                                })
+                            });
+
+                            // TODO: delay timer start if the quiz id comes back late
+                            const data = await response.json();
+                            this.setState({ quizId: data.createdQuiz.id });
+                        }}
                     >
                         Click to start
                     </button>
@@ -93,7 +115,7 @@ export class QuizMaster extends React.Component {
                 </div>
                 {flashcardComponent || null}
                 {
-                    (this.state.timerState === "running" && this.state.answerSide) &&
+                    (this.state.timerState === "running" && this.state.answerSide && this.state.quizId) &&
                     <div className="quiz-answer-entry">
                         <AutosizeInput
                             type="text"
@@ -153,6 +175,25 @@ export class QuizMaster extends React.Component {
             }],
             score: prevState.score + (correct ? pointsForCorrectGuess : pointsForWrongGuess)
         }));
+        this.saveQuizQuestion(correct);
+    }
+
+    saveQuizQuestion(correct) {
+        util.authenticatedFetch("quiz/quizQuestions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                quizQuestion: {
+                    quiz: this.state.quizId,
+                    timestamp: Date.now(),
+                    correct,
+                    flashcard: this.props.flashcards[this.state.currentIndex].id,
+                    questionSide: this.state.questionSide
+                }
+            })
+        });
     }
 
     nextFlashcard() {

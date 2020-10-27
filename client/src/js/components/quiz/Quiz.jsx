@@ -56,7 +56,7 @@ export class Quiz extends React.Component {
                     </div>}
                 </div>
                 {this.state.isLoaded ?
-                    <QuizMaster flashcards={this.state.flashcards} />
+                    <QuizMaster flashcards={this.state.flashcards} category={this.state.category} />
                     : <div className="quiz-master-loading">
                         <NetworkIndicator />
                     </div>

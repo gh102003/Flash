@@ -56,9 +56,6 @@ router.post("/", verifyAuthToken, async (req, res, next) => {
 
     // Check the flashcard is in the quiz's category
     if (quiz.source.type === "Category") {
-        console.log(flashcard.category.toString());
-        console.log(quiz.source.document.toString());
-        console.log(flashcard.category.toString() != quiz.source.document.toString());
         if (flashcard.category.toString() != quiz.source.document.toString()) {
             return res.status(400).json({ message: "Quiz question's flashcard must be part of the quiz question's quiz's category" });
         }
