@@ -154,6 +154,7 @@ class Page extends React.Component {
     }
 
     initAnalytics() {
+        // eslint-disable-next-line no-undef
         if (process.env.NODE_ENV === "production") {
             console.log("init analytics");
 
@@ -276,8 +277,8 @@ class Page extends React.Component {
                                 </header>
                                 {/* Intercept location and use the background location if it exists */}
                                 <Switch location={location.state ? location.state.background : location}>
-                                    <Route path="/quiz/category/:categoryId" exact component={Quiz} />
-                                    <Route path="/quiz/tag/:tagId" exact component={Quiz} />
+                                    <Route path="/quiz/category/:categoryId" component={Quiz} />
+                                    {/* <Route path="/quiz/tag/:tagId" exact component={Quiz} /> */}
                                     <Route path="/category/:id" exact render={(routeProps) => (
                                         <Category {...routeProps} handleInvalidAuthToken={invalidToken => {
                                             if (invalidToken) {

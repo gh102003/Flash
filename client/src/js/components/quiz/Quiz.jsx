@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Switch, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
@@ -6,15 +7,27 @@ import { QuizMaster } from "./QuizMaster.jsx";
 
 import * as util from "../../util";
 import "../../../css/quiz.scss";
+import "../../../css/quiz-analysis.scss";
+import { QuizAnalysis } from "./QuizAnalysis.jsx";
+import { UserContext } from "../../contexts/UserContext";
+import { LoginPrompt } from "../LoginPrompt.jsx";
 
 export class Quiz extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { category: null, isRecursive: false, isLoaded: false };
+        this.state = {
+            category: null,
+            isRecursive: false,
+            isLoaded: false,
+            showLoginPrompt: false
+        };
     }
 
     componentDidMount() {
+        if (!this.context.currentUser) {
+            this.setState({ showLoginPrompt: true });
+        }
         this.loadFlashcards(this.props.match.params.categoryId);
     }
 
@@ -37,32 +50,50 @@ export class Quiz extends React.Component {
         }
         title = title + ": " + (this.state.category == null ? "" : this.state.category.name);
 
-        return (
-            <div className="quiz">
-                <Helmet>
-                    <title>{title}</title>
-                    <meta property="og:title" content={title} />
-                </Helmet>
-                <div className="quiz-setup">
-                    <h2 className="quiz-title">{title}</h2>
-                    {this.props.match.params.categoryId && <div className="setting">
-                        <input
-                            id="isRecursive"
-                            type="checkbox"
-                            value={this.state.isRecursive}
-                            onChange={event => this.setState({ isRecursive: event.target.checked })}
-                        />
-                        <label htmlFor="isRecursive">Include cards from subcategories</label>
-                    </div>}
-                </div>
-                {this.state.isLoaded ?
-                    <QuizMaster flashcards={this.state.flashcards} category={this.state.category} />
-                    : <div className="quiz-master-loading">
-                        <NetworkIndicator />
+        return <>
+            <Switch>
+                <Route path={this.props.match.path + "/analysis"}>
+                    <QuizAnalysis />
+                </Route>
+                <Route>
+                    <div className="quiz">
+                        <Helmet>
+                            <title>{title}</title>
+                            <meta property="og:title" content={title} />
+                        </Helmet>
+                        <div className="quiz-setup">
+                            <h2 className="quiz-title">{title}</h2>
+                            {this.props.match.params.categoryId && <div className="setting">
+                                <input
+                                    id="isRecursive"
+                                    type="checkbox"
+                                    value={this.state.isRecursive}
+                                    onChange={event => this.setState({ isRecursive: event.target.checked })}
+                                />
+                                <label htmlFor="isRecursive">Include cards from subcategories</label>
+
+                            </div>}
+                            {/* <Link to={`${this.props.match.url}/analysis`} className="button quiz-analysis-button">
+                                Analysis
+                            </Link> */}
+                        </div>
+                        {this.state.isLoaded ?
+                            // fix for tag quizzes by checking whether this.props.match.params.categoryId exists
+                            <QuizMaster flashcards={this.state.flashcards} category={this.state.category} />
+                            : <div className="quiz-master-loading">
+                                <NetworkIndicator />
+                            </div>
+                        }
                     </div>
-                }
-            </div>
-        );
+                </Route>
+            </Switch>
+            {this.state.showLoginPrompt &&
+                <LoginPrompt handleClose={() => this.setState({ showLoginPrompt: false })}>
+                    To track your progress, you need to be logged in to a Flash account. Without an account,
+                    your results won&apos;t be saved.
+                </LoginPrompt>
+            }
+        </>;
     }
 
     /**
@@ -119,3 +150,5 @@ export class Quiz extends React.Component {
 
     }
 }
+
+Quiz.contextType = UserContext;

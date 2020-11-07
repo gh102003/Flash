@@ -17,7 +17,7 @@
 
 .katex {
     font-size: 1.1em;
-    line-height: 1.1em; 
+    line-height: 1.1em;
 }
 
 .theme {
@@ -63,7 +63,8 @@ button {
     font-family: "Maven Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-button {
+button,
+a.button {
     background-color: #eee;
 }
 
@@ -108,7 +109,13 @@ input[type="password"] {
 }
 
 button,
+a.button,
 input[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+
     border-radius: 0.7em;
     padding: 0.6em 1em;
     box-shadow: 0 0.1vw 5px -1px rgba(0, 0, 0, 0.3);
@@ -122,22 +129,25 @@ input[type="submit"] {
 }
 
 input[type="submit"],
-button.primary {
+button.primary,
+a.button.primary {
     background-color: crimson;
     color: white;
     transition: background-color 200ms, box-shadow 80ms;
     box-shadow: 0 0.1vw 4px 0 rgba(220, 20, 60, 0.5);
-    
+
     &:hover {
         box-shadow: 0 0.12vw 6px 0 rgba(220, 20, 60, 0.7);
     }
 }
 
-button:hover {
+button:hover,
+a.button:hover {
     box-shadow: 0 0.12vw 6px -1px rgba(0, 0, 0, 0.5);
 }
 
 button:active,
+a.button:active,
 input[type="submit"]:active {
     box-shadow: none;
     top: 0.11vw;
@@ -430,11 +440,11 @@ header + * {
 }
 
 .snapchat-share-button {
-    background-color: #FFFC00;
+    background-color: #fffc00;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    
+
     img {
         height: 1.5em;
         margin-right: 0.7em;

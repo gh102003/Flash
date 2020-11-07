@@ -14,16 +14,19 @@ export const LoginPrompt = props => {
                 <i className="material-icons button-close" onClick={props.handleClose}>close</i>
             </div>
             <div className="modal-body">
-                <p>
+                {/* <p>
                     To mark topics with priorities, you need to be logged in to a Flash account. Without an account,
                     you&apos;ll only be able to look at the topics.
+                </p> */}
+                <p>
+                    {props.children}
                 </p>
                 <p>
                     If you don&apos;t already have an account, you can sign up for free.
                 </p>
                 <div className="controls">
                     <button onClick={() => {
-                        history.push("/account");
+                        history.push("/account", { background: location });
                         props.handleClose();
                     }} className="primary">Log in or sign up</button>
                     <button onClick={props.handleClose}>Skip</button>

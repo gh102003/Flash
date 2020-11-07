@@ -21,6 +21,26 @@ router.get("/", verifyAuthToken, async (req, res, next) => {
     }
 });
 
+router.get("/category/:categoryId", verifyAuthToken, async (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ message: "You must be logged in to access your quizzes" });
+    }
+
+    try {
+        const quizzes = await Quiz.find({
+            user: req.user.id,
+            "source.type": "Category",
+            "source.document": req.params.categoryId
+        }).populate("questions");
+
+        // TODO: calculate score etc. on server and don't populate questions
+
+        return res.status(200).json({ quizzes });
+    } catch (error) {
+        return res.status(500).json({ message: "Could not get quizzes" });
+    }
+});
+
 router.post("/", verifyAuthToken, async (req, res, next) => {
     if (!req.user) {
         return res.status(401).json({ message: "You must be logged in to access your quizzes" });

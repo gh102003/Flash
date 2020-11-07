@@ -7,7 +7,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { Course } from "./Course.jsx";
 import { Section } from "./Section.jsx";
 import { NetworkIndicator } from "../NetworkIndicator.jsx";
-import { LoginPrompt } from "./LoginPrompt.jsx";
+import { LoginPrompt } from "../LoginPrompt.jsx";
 
 export const Prioritise = props => {
 
@@ -25,7 +25,12 @@ export const Prioritise = props => {
     }, []);
 
     return <div className="prioritise">
-        {showLoginPrompt && <LoginPrompt handleClose={() => setShowLoginPrompt(false)}/>}
+        {showLoginPrompt &&
+            <LoginPrompt handleClose={() => setShowLoginPrompt(false)}>
+                To mark topics with priorities, you need to be logged in to a Flash account. Without an account,
+                you&apos;ll only be able to look at the topics.
+            </LoginPrompt>
+        }
         <Switch>
             <Route path={path + "/course/:courseId"} exact render={({ match }) => (
                 <Course courseId={match.params.courseId} />
