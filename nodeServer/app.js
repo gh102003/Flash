@@ -19,9 +19,19 @@ const app = express();
 
 // Connect to Mongo Atlas database
 const mongoUrl = `mongodb+srv://${credentials.mongoAtlas.username}:${credentials.mongoAtlas.password}@flashcluster-nquld.mongodb.net/flash-database${process.env.NODE_ENV === "development" ? "-dev" : ""}?retryWrites=true&w=majority`;
-mongoose.connect(mongoUrl, { useNewUrlParser: true });
-// Retry connection if it fails (like it does with PM2 on startup)
-mongoose.connection.on("error", () => mongoose.connect(mongoUrl, { useNewUrlParser: true }));
+try {
+    mongoose.connect(mongoUrl, { useNewUrlParser: true });
+} catch (error) {
+    // Retry connection after 1 second if it fails (like it does with PM2 on startup)
+    setTimeout(() => {
+        try {
+            mongoose.connect(mongoUrl, { useNewUrlParser: true });
+        } catch (error) {
+            process.exit(1);
+        }
+    }, 2000);
+}
+// mongoose.connection.on("error", () => mongoose.connect(mongoUrl, { useNewUrlParser: true }));
 
 // GZIP compression middleware
 app.use(compression());
