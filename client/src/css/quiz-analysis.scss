@@ -27,4 +27,12 @@
     @media only screen and (max-width: 600px) {
         margin: 0 3vw;
     }
+
+    .recharts-brush-traveller rect {
+        fill: crimson;
+    }
+
+    .recharts-brush-slide {
+        fill: crimson;
+    }
 }
