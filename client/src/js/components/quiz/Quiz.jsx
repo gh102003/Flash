@@ -73,9 +73,9 @@ export class Quiz extends React.Component {
                                 <label htmlFor="isRecursive">Include cards from subcategories</label>
 
                             </div>}
-                            {/* <Link to={`${this.props.match.url}/analysis`} className="button quiz-analysis-button">
+                            <Link to={`${this.props.match.url}/analysis`} className="button quiz-analysis-button">
                                 Analysis
-                            </Link> */}
+                            </Link>
                         </div>
                         {this.state.isLoaded ?
                             // fix for tag quizzes by checking whether this.props.match.params.categoryId exists
