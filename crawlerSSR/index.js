@@ -30,5 +30,5 @@ app.get("*", async (req, res, next) => {
 
 const port = process.env.CRAWLER_SSR_PORT || 3002;
 app.listen(port, () =>
-  console.log(`Server started on port ${port}. Press Ctrl+C to quit`)
+  console.log(`Server started in ${process.env.NODE_ENV} mode on port ${port}. Press Ctrl+C to quit`)
 );

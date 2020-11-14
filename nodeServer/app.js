@@ -37,7 +37,7 @@ try {
 app.use(compression());
 
 // Logging middleware
-app.use(morgan("dev"));
+app.use(morgan(process.env.NODE_ENV === "development" ? "dev" : "combined"));
 
 // Fix CORS
 app.use((req, res, next) => {
