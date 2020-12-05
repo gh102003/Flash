@@ -106,7 +106,7 @@ class Page extends React.Component {
                     // Background underneath content (html element) is also styled for consistency
                     document.documentElement.style.backgroundColor = "#222";
                 }
-                darkModeMediaQuery.addListener(event => {
+                darkModeMediaQuery.addEventListener(event => {
                     this.setState({ theme: event.matches ? "dark" : "light" });
                     document.documentElement.style.backgroundColor = event.matches ? "#222" : "#fff";
                 });
@@ -222,7 +222,7 @@ class Page extends React.Component {
                     <meta property="og:site_name" content="Flash" />
                     <meta property="og:description" content="Create, manage and practise with your own flashcards!" />
                 </Helmet>
-                <div className={hasFlashGold ? "banner-ad-wrapper ads-hidden" : "banner-ad-wrapper"}>
+                <div className={hasFlashGold ? "banneradwrapper adshidden" : "banneradwrapper"}>
                     <BrowserRouter>
                         <Route render={({ match, location, history }) => (
                             <div className={"theme theme-" + this.state.theme}>

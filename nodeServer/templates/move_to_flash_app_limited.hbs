@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We've updated our privacy policy</title>
+    <title>Important Changes to Flash</title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Maven+Pro:400,700&display=swap');
 
@@ -15,12 +15,14 @@
             color: black;
         }
 
-        h1 {
+        .title {
             background-color: crimson;
             color: white;
             padding: 0.3em 0.5em;
             margin: 0;
-            font-size: 2em;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-align: left;
         }
 
         p {
@@ -51,6 +53,7 @@
             font-size: 1.5em;
             font-weight: 700;
             line-height: 1.1;
+            text-align: center;
         }
 
         p a.button {
@@ -90,22 +93,33 @@
 
 <body style="">
     <header>
-        <h1>Flash</h1>
+        <p class="title">Flash</p>
     </header>
     <div class="main">
         <p>Hi {{username}},</p>
-        <p class="cta">
-            We've updated our privacy policy
-        </p>
-        <p>
+        <h1 class="cta">
+            We're making some important changes
+        </h1>
+        {{!-- <p>
             <a class="button" href="https://flash-app.co.uk/privacy">
                 Read it
             </a>
         </p>
-        <p>Didn't work? Use this link: <a href="https://flash-app.co.uk/privacy">https://flash-app.co.uk/privacy</a></p>
+        <p>Didn't work? Use this link: <a href="https://flash-app.co.uk/privacy">https://flash-app.co.uk/privacy</a></p> --}}
         <p>
-            At Flash, we are committed to taking your privacy seriously. That's why we're
-            tranparent about what we do with you data and who has access to it.
+            From Sunday 6th December 2020, Flash will be provided by Flash App Limited.
+            This means that data we process about you will be given to Flash App Limited,
+            and Flash App Limited will control and process it. You can find more information
+            about this in our updated (version 2.2) <a href="https://flash-app.co.uk/privacy">privacy policy</a>.
+        </p>
+        <p>
+            If you're subscribed to Flash Gold, from this date your agreement will be with Flash
+            App Limited. We've tweaked the <a href="https://flash-app.co.uk/account/subscription/terms">Flash Gold
+                Terms</a> with version 1.1 to reflect this.
+        </p>
+        <p>
+            If you'd like more information about these changes, please contact us at <a
+                href="mailto:info@flash-app.co.uk">info@flash-app.co.uk</a>.
         </p>
     </div>
     <footer>
@@ -118,7 +132,11 @@
             keep you informed about changes to how we process your personal data.
         </p>
         <p>
-            Please reply if this was unintended or you would like to delete your account.
+            Please reply if you would like to delete your account or personal data.
+        </p>
+        <p>
+            Flash App Limited is a private limited company registered in England and Wales
+            with company number 12974271. Contact us at <a href="mailto:info@flash-app.co.uk">info@flash-app.co.uk</a>
         </p>
     </footer>
 </body>

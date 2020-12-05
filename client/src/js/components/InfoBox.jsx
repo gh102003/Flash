@@ -37,7 +37,8 @@ export function InfoBox(props) {
             <div className="modal info-box" role="dialog" aria-labelledby="info-box-title" onClick={(event) => event.stopPropagation()}>
                 <div className="modal-header">
                     <h2 id="info-box-title">Flash {version}{version.split(".")[0] < 1 && "-alpha"}</h2>
-                    by George Howarth
+                    {/* by George Howarth */}
+                    &copy; Flash App Limited
                     <i className="material-icons button-close" onClick={props.handleClose}>close</i>
                 </div>
                 <div className="modal-body">

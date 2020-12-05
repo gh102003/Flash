@@ -37,7 +37,7 @@ export const FlashGoldTerms = props => {
                         <div className="terms-header">
                             <div className="terms-title">
                                 <h3>Flash Gold Terms and Conditions</h3>
-                                <p>Version 1.0 (February 2020)</p>
+                                <p>Version 1.1 (6th December 2020)</p>
                             </div>
                             {/* Uses CSS media print queries, TODO: move to using a separate downloadable PDF */}
                             <i className="material-icons terms-print" onClick={() => print()}>print</i>
@@ -53,6 +53,10 @@ export const FlashGoldTerms = props => {
                             subscribers, depending on the length of time for which they have been subscribed
                             and their geographical location. Flash retains the right to delay or refuse such
                             products in the case of supply issues or other contingencies.
+                        </p>
+                        <p>
+                            Flash Gold is a service provided by Flash App Limited, a private limited company
+                            registered in England and Wales with company number 12974271.
                         </p>
                         <h4>Payment</h4>
                         <p>

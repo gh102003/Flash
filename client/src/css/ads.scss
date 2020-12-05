@@ -1,12 +1,12 @@
-.banner-ad-wrapper {
+.banneradwrapper {
   --ad-bottom-banner-height: 100px;
 
- /* &.ads-hidden {*/
+ /* &.adshidden {*/
     --ad-bottom-banner-height: 0px;
  /* }*/
 }
 
-/*.ads-hidden*/ .ad-bottom-banner {
+/*.adshidden*/ .ad-bottom-banner {
   display: none;
 }
 
