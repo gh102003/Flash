@@ -106,7 +106,7 @@ class Page extends React.Component {
                     // Background underneath content (html element) is also styled for consistency
                     document.documentElement.style.backgroundColor = "#222";
                 }
-                darkModeMediaQuery.addEventListener(event => {
+                darkModeMediaQuery.addEventListener("change", event => {
                     this.setState({ theme: event.matches ? "dark" : "light" });
                     document.documentElement.style.backgroundColor = event.matches ? "#222" : "#fff";
                 });
