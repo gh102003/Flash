@@ -68,8 +68,9 @@ module.exports = {
             // and not allow any straggling "old" SWs to hang around
             clientsClaim: true,
             skipWaiting: true,
+            sourcemap: true,
 
-            navigateFallbackBlacklist: [/^.*:(444|3001)/],
+            navigateFallbackDenylist: [/^.*:(444|3001)/],
             navigateFallback: "/index.html",
 
             // Exclude webpack related dev tools

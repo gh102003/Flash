@@ -47,7 +47,7 @@
         cursor: pointer;
 
         &:hover {
-            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.7);
+            text-shadow: 0 2px calc(2px + 0.4em) rgba(0, 0, 0, 0.8);
         }
         &:active {
             text-shadow: none;

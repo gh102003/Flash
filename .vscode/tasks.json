@@ -13,12 +13,21 @@
             "problemMatcher": []
         },
         {
-            "label": "start_webpack_dev_server",
+            "label": "start_webpack_dev_server_hot",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}/client"
             },
             "command": "webpack-dev-server --hot --config webpack.config.js",
+            "problemMatcher": []
+        },
+        {
+            "label": "start_webpack_dev_server",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/client"
+            },
+            "command": "webpack-dev-server --config webpack.config.js",
             "problemMatcher": []
         },
         {

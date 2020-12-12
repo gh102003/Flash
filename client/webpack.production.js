@@ -55,10 +55,11 @@ module.exports = {
             // and not allow any straggling "old" SWs to hang around
             clientsClaim: true,
             skipWaiting: true,
-            
-            navigateFallbackBlacklist: [/^\/api\//],
+            sourcemap: false,
+
+            navigateFallbackDenylist: [/^\/api\//],
             navigateFallback: "/index.html",
-            
+
             // Runtime caching - remember last 10 backend GET requests for 10 minutes
             runtimeCaching: [{
                 urlPattern: /^\/api\//,
