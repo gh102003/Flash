@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
 import "../../../css/mode-selector.scss";
 import { Mode } from "./Mode.jsx";

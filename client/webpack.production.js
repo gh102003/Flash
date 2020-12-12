@@ -57,6 +57,8 @@ module.exports = {
             skipWaiting: true,
             sourcemap: false,
 
+            exclude: [/res\/profile-pictures\/(256|512)\//],
+
             navigateFallbackDenylist: [/^\/api\//],
             navigateFallback: "/index.html",
 

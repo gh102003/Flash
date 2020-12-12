@@ -73,8 +73,8 @@ module.exports = {
             navigateFallbackDenylist: [/^.*:(444|3001)/],
             navigateFallback: "/index.html",
 
-            // Exclude webpack related dev tools
-            exclude: [/hot-update\.json$/],
+            // Exclude webpack related dev tools and large profile pictures
+            exclude: [/hot-update\.json$/, /res\/profile-pictures\/(256|512)\//],
 
             // Runtime caching - remember last 10 backend GET requests for 10 minutes
             runtimeCaching: [{

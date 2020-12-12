@@ -1,33 +1,79 @@
 {
-    "name": "Flash",
-    "short_name": "Flash",
-    "icons": [
-      {
-        "src": "res/icons/apple-touch-icon.png",
-        "type": "image/png",
-        "sizes": "180x180"
-      },
-      {
-        "src": "res/icons/favicon.png",
-        "type": "image/png",
-        "sizes": "16x16"
-      },
-      {
-        "src": "res/icons/icon-192.png",
-        "type": "image/png",
-        "sizes": "192x192",
-        "purpose": "maskable"
-      },
-      {
-        "src": "res/icons/icon-512.png",
-        "type": "image/png",
-        "sizes": "512x512",
-        "purpose": "maskable"
-      }
-    ],
-    "start_url": "/",
-    "background_color": "#DC143C",
-    "display": "standalone",
-    "scope": "/",
-    "theme_color": "#DC143C"
-  }
+  "name": "Flash",
+  "short_name": "Flash",
+  "description": "Create, manage and practise with your own flashcards!",
+  "icons": [
+    {
+      "src": "res/icons/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "res/icons/favicon.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "res/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "res/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/res/screenshot1.png",
+      "sizes": "828x1792",
+      "type": "image/png"
+    },
+    {
+      "src": "/res/screenshot2.png",
+      "sizes": "1125x2436",
+      "type": "image/png"
+    },
+    {
+      "src": "/res/screenshot3.png",
+      "sizes": "828x1792",
+      "type": "image/png"
+    },
+    {
+      "src": "/res/screenshot4.png",
+      "sizes": "1125x2436",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "lang": "English",
+  "start_url": "/?utm_source=pwa",
+  "shortcuts": [
+    {
+      "name": "Open Prioritise",
+      "short_name": "Prioritise",
+      "description": "Sort your priorities by ticking off what you know and what's left to learn",
+      "url": "/prioritise?utm_source=pwa_shortcut"
+    },
+    {
+      "name": "Open Learn",
+      "short_name": "Learn",
+      "description": "Use spaced repetition to get the facts into your head with the classic Flash experience",
+      "url": "/category?utm_source=pwa_shortcut"
+    },
+    {
+      "name": "Mange Account",
+      "short_name": "Account",
+      "description": "View your Flash account or create a new one",
+      "url": "/account?utm_source=pwa_shortcut"
+    }
+  ],
+  "background_color": "#DC143C",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "theme_color": "#DC143C"
+}
