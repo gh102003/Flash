@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "uk.co.flash_app.twa",
+                   "sha256_cert_fingerprints": ["46:F8:FD:64:94:85:85:6D:53:AD:85:87:09:DC:FE:4B:88:97:47:58:2F:5C:2C:62:34:31:00:07:AF:DB:14:B0"] }
+    }]

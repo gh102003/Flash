@@ -61,7 +61,8 @@ module.exports = {
             { from: "./manifest.json", to: "." },
             { from: "./robots.txt", to: "." },
             { from: "./sitemap.xml", to: "." },
-            { from: "./res", to: "./res" }
+            { from: "./res", to: "./res" },
+            { from: "./.well-known", to: "./.well-known" }
         ]),
         new WorkboxPlugin.GenerateSW({
             // these options encourage the ServiceWorkers to get in there fast
