@@ -4,16 +4,32 @@ const express = require("express");
 const app = express();
 const ssr = require("./ssr.js");
 
+const exemptUrls = ["/index_bundle.js"];
+const exemptDirectories = [/^\/res\//, /^\/.well-known\//];
+
+const isExempt = url => {
+  if (exemptUrls.includes(url)) {
+    return true;
+  }
+
+  for (const regex of exemptDirectories) {
+    if (regex.test(url)) {
+      return true;
+    }
+  }
+  return false;
+};
 
 app.get("*", async (req, res, next) => {
 
   console.log("received req");
 
   // Seperate handling for js file as puppeteer causes issues
-  if (req.path === "/index_bundle.js") {
+  if (isExempt(req.path)) {
+    console.log(req.path + " is exempt from SSR");
     try {
-      console.log("starting index bundle GET");
-      const url = `${process.env.CLIENT_ADDRESS}/index_bundle.js`;
+      //console.log("starting index bundle GET");
+      const url = `${process.env.CLIENT_ADDRESS}${req.path}`;
       data = await (await axios.get(url)).data;
       return res.status(200).send(data);
     } catch (error) {
