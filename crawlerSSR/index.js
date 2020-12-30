@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const ssr = require("./ssr.js");
 
-const exemptUrls = ["/index_bundle.js"];
+const exemptUrls = ["/index_bundle.js", "/robots.txt", "/sitemap.xml"];
 const exemptDirectories = [/^\/res\//, /^\/.well-known\//];
 
 const isExempt = url => {

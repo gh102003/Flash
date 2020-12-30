@@ -5,7 +5,10 @@ const RENDER_CACHE = new Map();
 
 const ssr = async url => {
   if (RENDER_CACHE.has(url)) {
-    return { html: RENDER_CACHE.get(url), ttRenderMs: 0 };
+    const { html, timestamp } = RENDER_CACHE.get(url);
+    if (Date.now() - timestamp < 48 * 60 * 60 * 1000) { // cache is only valid for 48 hours
+      return { html, ttRenderMs: 0 };
+    }
   }
 
   const start = Date.now();
@@ -24,14 +27,25 @@ const ssr = async url => {
   try {
     console.log(`${url} start`);
 
+    //if the page makes a request to Stripe then abort that request
+    await page.setRequestInterception(true);
+    page.on('request', request => {
+      if (/js\.stripe\.com/.test(request.url()) || /adsbygoogle\.js/.test(request.url())) {
+        request.abort();
+      }
+      else {
+        request.continue();
+      }
+    });
+
     await page.goto(url, { waitUntil: 'networkidle0', timeout: 60 * 1000 });
 
-    // Wait an extra 3s in case a modal needs to open
-    await page.waitForTimeout(3 * 1000);
+    // Wait an extra 4s in case a modal needs to open
+    await page.waitForTimeout(4000);
 
     // Remove privacy message and account popup
     await page.evaluate(() => {
-      var elements = document.querySelectorAll("modal-prompt-background");
+      const elements = document.querySelectorAll("modal-prompt-background");
       for (let i = 0; i < elements.length; i++) {
         elements[i].parentNode.removeChild(elements[i]);
       }
@@ -53,7 +67,7 @@ const ssr = async url => {
   console.log(`${url} finish`);
 
   if (renderSucceeded) {
-    RENDER_CACHE.set(url, html); // cache rendered page.
+    RENDER_CACHE.set(url, { html, timestamp: Date.now() }); // cache rendered page.
   }
 
   return { html, ttRenderMs };
