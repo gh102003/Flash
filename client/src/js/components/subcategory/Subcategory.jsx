@@ -36,7 +36,6 @@ export const Subcategory = props => {
                 locked={props.locked}
                 handleChangeView={newView => setView(newView)}
                 handleCardMove={props.handleCardMove}
-                handleNavigate={props.handleNavigate}
                 handleLock={lockState => {
                     props.handleEdit("locked", lockState);
                     props.handleSaveEdit({ propName: "locked", value: lockState });

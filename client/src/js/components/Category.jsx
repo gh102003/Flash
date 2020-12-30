@@ -306,7 +306,6 @@ export class Category extends React.Component {
                 handleEdit={(key, newValue, operationType = null) => this.handleCardEdit("subcategory", clientIndex, key, newValue, operationType)}
                 handleSaveEdit={editData => this.handleCardSaveEdit("subcategory", clientIndex, editData)}
                 handleDelete={() => this.handleCardDelete("subcategory", clientIndex)}
-                handleNavigate={url => this.props.history.push(url)}
             />
         ));
     }

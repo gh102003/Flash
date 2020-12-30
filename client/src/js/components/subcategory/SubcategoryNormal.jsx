@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDrag, useDrop } from "react-dnd";
 
 import { Katex } from "../Katex.jsx";
@@ -7,6 +7,8 @@ import { UserContext } from "../../contexts/UserContext.js";
 import { draggableTypes } from "../../constants.js";
 
 export const SubcategoryNormal = props => {
+
+    const history = useHistory();
 
     const currentUser = useContext(UserContext).currentUser;
     const moderatorLoggedIn = !!(currentUser) && currentUser.roles && currentUser.roles.includes("moderator");
@@ -77,7 +79,7 @@ export const SubcategoryNormal = props => {
             className={className}
             style={props.styles}
             draggable="false"
-            onClick={() => props.handleNavigate(props.id)}
+            onClick={() => history.push(props.id)}
         >
             {editable && <div className="flashcard-button" onClick={event => {
                 event.stopPropagation();
@@ -89,9 +91,9 @@ export const SubcategoryNormal = props => {
             <Link className="flashcard-button" to={`/quiz/category/${props.id}`} onClick={event => event.stopPropagation()}>
                 <i className="material-icons">assessment</i>
             </Link>
-            <span style={{ fontSize: textSize + "em" }}>
+            <Link to={props.id} className="subcategory-name" style={{ fontSize: textSize + "em" }} onClick={event => event.stopPropagation()}>
                 {props.name}
-            </span>
+            </Link>
             {   // Don't show lock for categories in private workspaces unless they are already locked
                 (props.user === null || props.locked) && <span className={lockClassName}>
                     <i
