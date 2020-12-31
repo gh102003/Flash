@@ -192,7 +192,7 @@ body {
 
 @keyframes modal-in {
     from {
-        transform: scale(0.3);
+        transform: scale(0.5);
         opacity: 0;
     }
     to {
@@ -204,7 +204,7 @@ body {
 .modal-background {
     contain: content;
 
-    animation: modal-background-in 300ms ease-out forwards;
+    animation: modal-background-in 300ms forwards;
     background-color: rgba(0, 0, 0, 0.75);
 
     z-index: 1000;
@@ -220,7 +220,7 @@ body {
 }
 
 .modal-background > * {
-    animation: modal-in 250ms 100ms ease-out both;
+    animation: modal-in 300ms 0ms both;
     box-shadow: 0 0.2vmin 12px 0 rgba(0, 0, 0, 0.5);
 }
 

@@ -1,32 +1,29 @@
-.add-card-button {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: crimson;
-    text-align: center;
-    line-height: 5vw;
-    font-size: 3em;
-    color: white;
-    font-weight: bold;
-    border-radius: 2.5vw;
-    cursor: pointer;
-    box-shadow: 0 0.8px 1.5px rgba(0, 0, 0, 0.034), 0 2px 3.6px rgba(0, 0, 0, 0.048), 0 3.8px 6.8px rgba(0, 0, 0, 0.06),
-        0 6.7px 12.1px rgba(0, 0, 0, 0.072), 0 12.5px 22.6px rgba(0, 0, 0, 0.086), 0 30px 54px rgba(0, 0, 0, 0.12);
-    transition: box-shadow 100ms;
-    z-index: 1;
-    position: relative;
+.add-wrapper {
+    position: fixed;
+    z-index: 900;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    bottom: var(--ad-bottom-banner-height);
+    user-select: none;
+    font-size: calc(1.8em + 1.5vw);
 
-    &:hover {
-        box-shadow: 0 0.8px 1.5px rgba(0, 0, 0, 0.056), 0 2px 3.6px rgba(0, 0, 0, 0.081),
-            0 3.8px 6.8px rgba(0, 0, 0, 0.1), 0 6.7px 12.1px rgba(0, 0, 0, 0.119), 0 12.5px 22.6px rgba(0, 0, 0, 0.144),
-            0 30px 54px rgba(0, 0, 0, 0.2);
-    }
-    &:active {
-        position: relative;
-        box-shadow: none;
-        top: 0.2vw;
+    &.add-wrapper-activated .add-card-button {
+        transform: rotate(45deg);
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+
+        &:hover {
+            box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        &:active {
+            box-shadow: none;
+            transform: translateY(2px) rotate(45deg);
+        }
     }
 }
 
-@keyframes add-wrapper-in {
+@keyframes add-card-button-in {
     from {
         transform: translateY(7vw) scale(0.5);
     }
@@ -36,152 +33,84 @@
     }
 }
 
-.add-wrapper {
-    animation: add-wrapper-in 150ms ease-out both;
+.add-card-button {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: crimson;
+    text-align: center;
 
-    user-select: none;
-    width: 5vw;
-    height: 5vw;
-    position: fixed;
-    left: 2vw;
-    bottom: calc(2vw + var(--ad-bottom-banner-height));
-}
+    width: 1.4em;
+    line-height: 1.4em;
+    margin: 0.5em;
 
-.add-subcategory-button-wrapper {
-    /* Used to center child */
-    display: flex;
-    align-items: center;
-    z-index: 0;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    height: 100%;
-}
-
-.add-subcategory-button {
-    background-color: rgb(160, 15, 44);
     color: white;
-    white-space: nowrap;
-    border-radius: 1vw;
+    font-weight: bold;
+    border-radius: 99999px;
     cursor: pointer;
-    box-shadow: 0 0.8px 1.5px rgba(0, 0, 0, 0.034), 0 2px 3.6px rgba(0, 0, 0, 0.048), 0 3.8px 6.8px rgba(0, 0, 0, 0.06),
-        0 6.7px 12.1px rgba(0, 0, 0, 0.072), 0 12.5px 22.6px rgba(0, 0, 0, 0.086), 0 30px 54px rgba(0, 0, 0, 0.12);
-    padding: 0.6vw 0vw;
-    width: 0;
-    overflow: hidden;
-    transition: width 500ms, padding 500ms;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 100ms, transform 100ms;
+    z-index: 1;
+    position: relative;
+    animation: add-card-button-in 300ms;
 
     &:hover {
-        box-shadow: 0 0.8px 1.5px rgba(0, 0, 0, 0.056), 0 2px 3.6px rgba(0, 0, 0, 0.081),
-            0 3.8px 6.8px rgba(0, 0, 0, 0.1), 0 6.7px 12.1px rgba(0, 0, 0, 0.119), 0 12.5px 22.6px rgba(0, 0, 0, 0.144),
-            0 30px 54px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
     }
     &:active {
-        position: relative;
-        top: 0.14vw;
+        transform: translateY(2px);
         box-shadow: none;
     }
 
+    @media only screen and (max-width: 600px) {
+        margin: 0.4em;
+    }
+}
+
+.add-buttons-background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(#000000, 0.8), rgba(#000000, 0.3));
+    height: 100vh;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.add-buttons {
+    position: absolute;
+    left: 2.3em;
+    bottom: 0;
+    color: white;
+    margin-bottom: 0.5em;
+    @media only screen and (max-width: 600px) {
+        margin-bottom: 0.4em;
+    }
+}
+
+.add-flashcard-button,
+.add-subcategory-button {
+    font-size: 0.4em;
+    margin-top: 0.5em;
+    background-color: #a00f2c;
+    border-radius: 0.4em;
+    padding: 0.4em 0.6em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: box-shadow 100ms, transform 100ms;
+
+    &:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.28);
+    }
+
+    &:active {
+        box-shadow: none;
+        transform: translateY(2px);
+    }
+
     .material-icons {
-        margin-right: 0.4em;
+        margin-right: 0.6em;
         vertical-align: middle;
         padding-bottom: 0.2em;
-    }
-}
-
-.add-card-button:hover ~ .add-subcategory-button-wrapper .add-subcategory-button,
-.add-subcategory-button:hover {
-    width: 100%;
-    /* Extra left padding to appear further from .add-button */
-    padding: 0.6vw 1vw 0.5vw 3.2vw;
-}
-
-@media only screen and (max-width: 1250px) {
-    .add-card-button {
-        line-height: 6vw;
-        border-radius: 3vw;
-        font-size: 2.5em;
-    }
-    .add-wrapper {
-        width: 6vw;
-        height: 6vw;
-        left: 2.4vw;
-        bottom: calc(2.4vw + var(--ad-bottom-banner-height));
-    }
-    .add-subcategory-button {
-        border-radius: 1.3vw;
-        padding: 0.7vw 0vw;
-        font-size: 0.95em;
-    }
-    .add-card-button:hover ~ .add-subcategory-button-wrapper .add-subcategory-button,
-    .add-subcategory-button:hover {
-        padding: 0.7vw 1.3vw 0.7vw 3.8vw;
-    }
-}
-
-@media only screen and (max-width: 900px) {
-    .add-card-button {
-        line-height: 8vw;
-        border-radius: 4vw;
-    }
-    .add-wrapper {
-        width: 8vw;
-        height: 8vw;
-        left: 3vw;
-        bottom: calc(3vw + var(--ad-bottom-banner-height));
-    }
-    .add-subcategory-button {
-        border-radius: 1.6vw;
-        padding: 1vw 0vw;
-        font-size: 0.9em;
-    }
-    .add-card-button:hover ~ .add-subcategory-button-wrapper .add-subcategory-button,
-    .add-subcategory-button:hover {
-        padding: 1vw 1.6vw 1vw 5vw;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .add-card-button {
-        line-height: 13vw;
-        border-radius: 7vw;
-        font-size: 2.2em;
-    }
-    .add-wrapper {
-        width: 13vw;
-        height: 13vw;
-        left: 4.2vw;
-        bottom: calc(4.2vw + var(--ad-bottom-banner-height));
-    }
-    .add-subcategory-button {
-        border-radius: 1.8vw;
-        padding: 1.2vw 0vw;
-    }
-    .add-card-button:hover ~ .add-subcategory-button-wrapper .add-subcategory-button,
-    .add-subcategory-button:hover {
-        padding: 1.2vw 2vw 1.2vw 8vw;
-    }
-}
-
-@media only screen and (max-width: 420px) {
-    .add-card-button {
-        line-height: 17vw;
-        border-radius: 10vw;
-        font-size: 2.5em;
-    }
-    .add-wrapper {
-        width: 17vw;
-        height: 17vw;
-        left: 5vw;
-        bottom: calc(5vw + var(--ad-bottom-banner-height));
-    }
-    .add-subcategory-button {
-        border-radius: 2.8vw;
-        padding: 1.5vw 0vw;
-    }
-    .add-card-button:hover ~ .add-subcategory-button-wrapper .add-subcategory-button,
-    .add-subcategory-button:hover {
-        padding: 1.7vw 2.7vw 1.7vw 11vw;
     }
 }
 
