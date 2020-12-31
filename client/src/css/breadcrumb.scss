@@ -3,6 +3,19 @@
     margin-bottom: 0.3vw;
     display: flex;
     flex-wrap: wrap;
+
+    animation: breadcrumb-in 300ms both;
+}
+
+@keyframes breadcrumb-in {
+    from {
+        transform: translateY(-2vw);
+        opacity: 0.3;
+    }
+    to {
+        transform: none;
+        opacity: 1;
+    }
 }
 
 .breadcrumb-category,

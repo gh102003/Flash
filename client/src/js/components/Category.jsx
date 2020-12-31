@@ -14,7 +14,7 @@ import { AddButton } from "./AddButton.jsx";
 import { NetworkIndicator } from "./NetworkIndicator.jsx";
 import { Breadcrumb } from "./breadcrumb/Breadcrumb.jsx";
 import { UserContext } from "../contexts/UserContext";
-import { AdCard } from "./ads/BottomBannerAd.jsx";
+import { LoginPrompt } from "./LoginPrompt.jsx";
 
 export class Category extends React.Component {
 
@@ -31,6 +31,10 @@ export class Category extends React.Component {
 
                 this.setState({ loadedData: true, category: { id, name, colour, parent, flashcards, subcategories, user, locked } });
             });
+
+        if (!this.context.currentUser) {
+            this.setState({ currentForm: "loginPrompt" });
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -310,7 +314,7 @@ export class Category extends React.Component {
         ));
     }
 
-    renderAddElement() {
+    renderCurrentForm() {
         if (this.state.currentForm === "addCard") {
             return (
                 <AddFlashcardForm
@@ -333,6 +337,13 @@ export class Category extends React.Component {
                     handleCancel={() => this.setState({ currentForm: null })}
                     parent={this.state.category || { id: this.state.category }}>
                 </AddCategoryForm>
+            );
+        } else if (this.state.currentForm === "loginPrompt") {
+            return (
+                <LoginPrompt handleClose={() => this.setState({ currentForm: null })}>
+                    To mark topics with priorities, you need to be logged in to a Flash account. Without an account,
+                    you&apos;ll only be able to look at the topics.
+                </LoginPrompt>
             );
         }
         return;
@@ -369,7 +380,7 @@ export class Category extends React.Component {
                                 : <NetworkIndicator />
                         }
                     </div>
-                    {this.renderAddElement()}
+                    {this.renderCurrentForm()}
                     <UserContext.Consumer>
                         {({ currentUser }) => {
                             let renderAddButton = false;
@@ -395,3 +406,5 @@ export class Category extends React.Component {
         );
     }
 }
+
+Category.contextType = UserContext;
