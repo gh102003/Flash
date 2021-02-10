@@ -5,7 +5,7 @@ export const AddButton = props => {
     const [activated, setActivated] = useState(false);
 
     const deactivate = useCallback(() => {
-        console.log("deactivate");
+        // flip direction of animations
         setSprings(i => ({ opacity: 0, transform: "translateY(2em) scale(0.9)", delay: (addButtons.length - 1 - i) * 50 }));
         setActivated(false);
     });
@@ -59,7 +59,13 @@ export const AddButton = props => {
                 }} />
             <div className="add-buttons">
                 {springs.map((props, index) =>
-                    <animated.div key={addButtons[index].key} style={props}>
+                    <animated.div
+                        key={addButtons[index].key}
+                        style={{
+                            ...props,
+                            visibility: props.opacity.interpolate(o => o === 0 ? "hidden" : "visible")
+                        }}
+                    >
                         {addButtons[index]}
                     </animated.div>
                 )}

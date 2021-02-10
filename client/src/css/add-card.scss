@@ -3,7 +3,7 @@
     z-index: 900;
     bottom: 0;
     left: 0;
-    right: 0;
+    // right: 0;
     bottom: var(--ad-bottom-banner-height);
     user-select: none;
     font-size: calc(1.8em + 1.5vw);
@@ -68,7 +68,8 @@
 .add-buttons-background {
     position: absolute;
     left: 0;
-    right: 0;
+    // right: 0;
+    width: 100vw;
     bottom: 0;
     background: linear-gradient(0deg, rgba(#000000, 0.8), rgba(#000000, 0.3));
     height: 100vh;
@@ -78,6 +79,7 @@
 
 .add-buttons {
     position: absolute;
+    width: 0;
     left: 2.3em;
     bottom: 0;
     color: white;
@@ -91,6 +93,7 @@
 .add-subcategory-button {
     font-size: 0.4em;
     margin-top: 0.5em;
+    width: max-content;
     background-color: #a00f2c;
     border-radius: 0.4em;
     padding: 0.4em 0.6em;

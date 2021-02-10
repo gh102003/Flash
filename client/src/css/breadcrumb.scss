@@ -3,6 +3,8 @@
     margin-bottom: 0.3vw;
     display: flex;
     flex-wrap: wrap;
+    z-index: 1;
+    position: relative;
 
     animation: breadcrumb-in 300ms both;
 }

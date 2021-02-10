@@ -5,7 +5,7 @@ import { TutorialPage } from "./TutorialPage.jsx";
 const pages = [
     <TutorialPage key="0">
         <h3>Tutorial</h3>
-        <p>Find out how to use Flash Learn!</p>
+        <p>Find out how to use Flash Learn! Press the right arrow to begin.</p>
     </TutorialPage>,
     <TutorialPage key="1">
         <h3>Flashcards</h3>
