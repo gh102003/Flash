@@ -15,6 +15,7 @@ import { NetworkIndicator } from "./NetworkIndicator.jsx";
 import { Breadcrumb } from "./breadcrumb/Breadcrumb.jsx";
 import { UserContext } from "../contexts/UserContext";
 import { LoginPrompt } from "./LoginPrompt.jsx";
+import { TutorialCard } from "./tutorialCard/TutorialCard.jsx";
 
 export class Category extends React.Component {
 
@@ -376,7 +377,7 @@ export class Category extends React.Component {
                     <div className="card-display">
                         {
                             this.state.loadedData ?
-                                [...this.renderSubcategories(), ...this.renderFlashcards()]
+                                [<TutorialCard key="tutorial-card"/>, ...this.renderSubcategories(), ...this.renderFlashcards()]
                                 : <NetworkIndicator />
                         }
                     </div>

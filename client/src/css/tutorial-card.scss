@@ -1,0 +1,88 @@
+.tutorial-card {
+    background-color: rgba(209, 218, 223, 0.8);
+    display: grid;
+    grid-template-columns: auto 4fr auto;
+    grid-template-rows: 1fr auto;
+    place-items: center;
+    overflow: hidden;
+    
+    height: 7.2vw;
+    padding: 0.6vw;
+
+    @media (max-width: 1250px) {
+        height: 9.2vw;
+    }
+    @media (max-width: 900px) {
+        height: 13vw;
+        padding: 1vw 1.2vw;
+    }
+    @media (max-width: 600px) {
+        height: 20vw;
+    }
+
+    .tutorial-nav-button {
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        grid-row: 1/3;
+
+        
+        i.material-icons {
+            font-size: 0.9em;
+            width: 0.7em;
+            text-align: center;
+        }
+
+        &:disabled {
+            top: 0;
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        &:first-child i.material-icons {
+            position: relative;
+            left: -0.2em;
+        }
+    }
+
+    .tutorial-page {
+        font-size: 0.48em;
+        grid-column: 2;
+        grid-row: 1;
+
+        @media (max-width: 900px) {
+            font-size: 0.6em;
+        }
+        h3 {
+            margin: 0;
+        }
+        p {
+            margin: 0;
+            line-height: 1.1;
+        }
+    }
+
+    .tutorial-page-indicators {
+        display: flex;
+        flex-flow: row nowrap;
+        margin: 0.15em 0 0.05em 0;
+    }
+
+    .tutorial-page-indicator {
+        width: 0.25em;
+        height: 0.25em;
+        margin: 0 0.1em;
+        border-radius: 9999em;
+        background-color: rgba(#000000, 0.18);
+
+        @media (max-width: 900px) {
+            width: 0.3em;
+            height: 0.3em;
+        }
+        
+        &.tutorial-page-indicator-selected {
+            background-color: rgba(#000000, 0.4);
+        }
+    }
+}
